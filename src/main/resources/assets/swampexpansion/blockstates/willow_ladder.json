@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "facing=north": { "model": "swampexpansion:block/willow_ladder" },
+        "facing=east":  { "model": "swampexpansion:block/willow_ladder", "y": 90 },
+        "facing=south": { "model": "swampexpansion:block/willow_ladder", "y": 180 },
+        "facing=west":  { "model": "swampexpansion:block/willow_ladder", "y": 270 }
+    }
+}

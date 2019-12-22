@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "swampexpansion:willow_log",
+    "swampexpansion:willow_wood",
+    "swampexpansion:stripped_willow_log",
+    "swampexpansion:stripped_willow_wood"
+  ]
+}

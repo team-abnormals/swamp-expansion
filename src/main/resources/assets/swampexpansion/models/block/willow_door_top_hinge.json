@@ -1,0 +1,7 @@
+{
+    "parent": "block/door_top_rh",
+    "textures": {
+        "bottom": "swampexpansion:block/willow_door_bottom",
+        "top": "swampexpansion:block/willow_door_top"
+    }
+}

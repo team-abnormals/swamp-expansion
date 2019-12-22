@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "swampexpansion:block/willow_log",
+        "side": "swampexpansion:block/willow_log"
+    }
+}

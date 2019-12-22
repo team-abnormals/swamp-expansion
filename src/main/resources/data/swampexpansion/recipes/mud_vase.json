@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "# #",
+        " # "
+    ],
+    "key": {
+        "#": {
+            "item": "swampexpansion:mud_brick"
+        }
+    },
+    "result": {
+        "item": "swampexpansion:mud_vase",
+        "count": 1
+    }
+}

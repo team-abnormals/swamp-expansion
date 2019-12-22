@@ -1,0 +1,9 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient": {
+        "item": "swampexpansion:mud_ball"
+    },
+    "result": "swampexpansion:mud_brick",
+    "experience": 0.4,
+    "cookingtime": 200
+}

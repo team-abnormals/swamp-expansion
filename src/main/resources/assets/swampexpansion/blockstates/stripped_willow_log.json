@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":  { "model": "swampexpansion:block/stripped_willow_log" },
+        "axis=z":   { "model": "swampexpansion:block/stripped_willow_log", "x": 90 },
+        "axis=x":   { "model": "swampexpansion:block/wstripped_illow_log", "x": 90, "y": 90 }
+    }
+}

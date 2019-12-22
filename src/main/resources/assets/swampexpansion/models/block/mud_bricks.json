@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "swampexpansion:block/mud_bricks"
+    }
+}

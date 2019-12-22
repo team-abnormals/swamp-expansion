@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "swampexpansion:mud_brick"
+        },
+        {
+            "item": "swampexpansion:mud_brick"
+        },
+        {
+            "item": "swampexpansion:mud_brick"
+        },
+        {
+            "item": "swampexpansion:mud_brick"
+        }
+    ],
+    "result": {
+        "item": "swampexpansion:mud_bricks",
+        "count": 1
+    }
+}

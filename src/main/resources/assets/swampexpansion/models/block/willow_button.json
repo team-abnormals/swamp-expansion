@@ -1,0 +1,6 @@
+{
+    "parent": "block/button",
+    "textures": {
+        "texture": "swampexpansion:block/willow_planks"
+    }
+}

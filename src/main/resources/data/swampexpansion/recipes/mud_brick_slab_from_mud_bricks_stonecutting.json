@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "swampexpansion:mud_bricks"
+  },
+  "result": "swampexpansion:mud_brick_slab",
+  "count": 2
+}
