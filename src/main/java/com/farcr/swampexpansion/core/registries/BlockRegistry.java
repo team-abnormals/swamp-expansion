@@ -18,12 +18,14 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BlockRegistry {
-	public static Block MUD_BRICKS;
-	public static Block MUD_BRICK_STAIRS;
-	public static Block MUD_BRICK_SLAB;
-	public static Block MUD_BRICK_WALL;
+	public static Block MUD = new MudBlock().setRegistryName("mud");
+	public static Block HARDENED_MUD = new Block(BlockProperties.MUD_BRICKS).setRegistryName("hardened_mud");
+	public static Block MUD_BRICKS = new Block(BlockProperties.MUD_BRICKS).setRegistryName("mud_planks");
+	public static Block MUD_BRICK_STAIRS = new StairsBlock(MUD_BRICKS.getDefaultState(), BlockProperties.MUD_BRICKS).setRegistryName("mud_stairs");
+	public static Block MUD_BRICK_SLAB = new SlabBlock(BlockProperties.MUD_BRICKS).setRegistryName("mud_slab");
+	public static Block MUD_BRICK_WALL = new WallBlock(BlockProperties.MUD_BRICKS).setRegistryName("mud_wall");
 	public static Block WILLOW_PLANKS = new Block(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_planks");
-	public static Block WILLOW_SLAB = new SlabBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("bamboo_slab");
+	public static Block WILLOW_SLAB = new SlabBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_slab");
 	public static Block WILLOW_STAIRS = new StairsBlock(WILLOW_PLANKS.getDefaultState(), BlockProperties.WILLOW_PLANKS).setRegistryName("willow_stairs");
 	public static Block WILLOW_FENCE = new FenceBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_fence");
 	public static Block WILLOW_FENCE_GATE = new FenceGateBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_fence_gate");
@@ -38,6 +40,7 @@ public class BlockRegistry {
 	public static Block WILLOW_BUTTON = new WillowButtonBlock().setRegistryName("willow_button");
 	public static Block WILLOW_LEAVES = new LeavesBlock(BlockProperties.LEAVES).setRegistryName("willow_leaves");
 	public static Block WILLOW_BOOKSHELF = new Block(BlockProperties.BOOKSHELF).setRegistryName("willow_bookshelf");
+	public static Block POTTED_WILLOW_SAPLING = new FlowerPotBlock(BlockRegistry.WILLOW_SAPLING, BlockProperties.FLOWER_POT).setRegistryName("potted_willow_sapling");
 
 	//quark
 	public static Block WILLOW_LADDER = new LadderBlock(BlockProperties.LADDER).setRegistryName("willow_ladder");
@@ -46,8 +49,10 @@ public class BlockRegistry {
 	public static Block WILLOW_LEAF_CARPET = new LeafCarpetBlock(BlockProperties.LEAVES).setRegistryName("willow_leaf_carpet");
 
 	@SubscribeEvent
-	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		event.getRegistry().registerAll(
+	public static void registerBlocks(RegistryEvent.Register<Block> registry) {
+		registry.getRegistry().registerAll(
+				MUD,
+				HARDENED_MUD,
 				MUD_BRICKS,
 				MUD_BRICK_STAIRS,
 				MUD_BRICK_SLAB,
@@ -66,10 +71,11 @@ public class BlockRegistry {
 				WILLOW_BUTTON,
 				WILLOW_PRESSURE_PLATE,
 				WILLOW_LEAVES,
-				WILLOW_SAPLING
+				WILLOW_SAPLING,
+				POTTED_WILLOW_SAPLING
 		);
 		if (ModList.get().isLoaded("quark")) {
-			event.getRegistry().registerAll(
+			registry.getRegistry().registerAll(
 					WILLOW_LADDER,
 					VERTICAL_WILLOW_PLANKS,
 					VERTICAL_WILLOW_SLAB,
@@ -85,6 +91,8 @@ public class BlockRegistry {
 		Item.Properties decorations = new Item.Properties().group(ItemGroup.DECORATIONS);
 		Item.Properties redstone = new Item.Properties().group(ItemGroup.REDSTONE);
 		event.getRegistry().registerAll(
+				new BlockItem(MUD, decorations).setRegistryName(MUD.getRegistryName()),
+				new BlockItem(HARDENED_MUD, buildingBlocks).setRegistryName(HARDENED_MUD.getRegistryName()),
 				new BlockItem(MUD_BRICKS, buildingBlocks).setRegistryName(MUD_BRICKS.getRegistryName()),
 				new BlockItem(MUD_BRICK_STAIRS, buildingBlocks).setRegistryName(MUD_BRICK_STAIRS.getRegistryName()),
 				new BlockItem(MUD_BRICK_SLAB, buildingBlocks).setRegistryName(MUD_BRICK_SLAB.getRegistryName()),
