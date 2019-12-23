@@ -2,10 +2,13 @@ package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.block.*;
 import com.farcr.swampexpansion.common.block.LadderBlock;
+import com.farcr.swampexpansion.common.block.fluid.MudFluid;
 import com.farcr.swampexpansion.common.item.FuelItem;
 import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
+import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -18,7 +21,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BlockRegistry {
-	public static Block MUD = new MudBlock().setRegistryName("mud");
 	public static Block HARDENED_MUD = new Block(BlockProperties.MUD_BRICKS).setRegistryName("hardened_mud");
 	public static Block MUD_BRICKS = new Block(BlockProperties.MUD_BRICKS).setRegistryName("mud_planks");
 	public static Block MUD_BRICK_STAIRS = new StairsBlock(MUD_BRICKS.getDefaultState(), BlockProperties.MUD_BRICKS).setRegistryName("mud_stairs");
@@ -48,37 +50,25 @@ public class BlockRegistry {
 	public static Block VERTICAL_WILLOW_SLAB = new VerticalSlabBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("vertical_willow_slab");
 	public static Block WILLOW_LEAF_CARPET = new LeafCarpetBlock(BlockProperties.LEAVES).setRegistryName("willow_leaf_carpet");
 
+	//fluids
+	public static FlowingFluid FLOWING_MUD = new MudFluid.Flowing();
+	public static FlowingFluid MUD = new MudFluid.Source();
+
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> registry) {
 		registry.getRegistry().registerAll(
-				MUD,
 				HARDENED_MUD,
-				MUD_BRICKS,
-				MUD_BRICK_STAIRS,
-				MUD_BRICK_SLAB,
-				MUD_BRICK_WALL,
-				WILLOW_PLANKS,
-				WILLOW_LOG,
-				STRIPPED_WILLOW_LOG,
-				WILLOW_WOOD,
-				STRIPPED_WILLOW_WOOD,
-				WILLOW_STAIRS,
-				WILLOW_SLAB,
-				WILLOW_FENCE,
-				WILLOW_FENCE_GATE,
-				WILLOW_DOOR,
-				WILLOW_TRAPDOOR,
-				WILLOW_BUTTON,
-				WILLOW_PRESSURE_PLATE,
+				MUD_BRICKS, MUD_BRICK_STAIRS, MUD_BRICK_SLAB, MUD_BRICK_WALL,
+				WILLOW_PLANKS, WILLOW_LOG, STRIPPED_WILLOW_LOG, WILLOW_WOOD, STRIPPED_WILLOW_WOOD,
+				WILLOW_STAIRS, WILLOW_SLAB, WILLOW_FENCE, WILLOW_FENCE_GATE,
+				WILLOW_DOOR, WILLOW_TRAPDOOR,
+				WILLOW_BUTTON, WILLOW_PRESSURE_PLATE,
 				WILLOW_LEAVES,
-				WILLOW_SAPLING,
-				POTTED_WILLOW_SAPLING
+				WILLOW_SAPLING, POTTED_WILLOW_SAPLING
 		);
 		if (ModList.get().isLoaded("quark")) {
 			registry.getRegistry().registerAll(
-					WILLOW_LADDER,
-					VERTICAL_WILLOW_PLANKS,
-					VERTICAL_WILLOW_SLAB,
+					WILLOW_LADDER, VERTICAL_WILLOW_PLANKS, VERTICAL_WILLOW_SLAB,
 					WILLOW_BOOKSHELF,
 					WILLOW_LEAF_CARPET
 			);
@@ -91,7 +81,6 @@ public class BlockRegistry {
 		Item.Properties decorations = new Item.Properties().group(ItemGroup.DECORATIONS);
 		Item.Properties redstone = new Item.Properties().group(ItemGroup.REDSTONE);
 		event.getRegistry().registerAll(
-				new BlockItem(MUD, decorations).setRegistryName(MUD.getRegistryName()),
 				new BlockItem(HARDENED_MUD, buildingBlocks).setRegistryName(HARDENED_MUD.getRegistryName()),
 				new BlockItem(MUD_BRICKS, buildingBlocks).setRegistryName(MUD_BRICKS.getRegistryName()),
 				new BlockItem(MUD_BRICK_STAIRS, buildingBlocks).setRegistryName(MUD_BRICK_STAIRS.getRegistryName()),
@@ -115,6 +104,13 @@ public class BlockRegistry {
 				new BlockItem(WILLOW_LEAF_CARPET, decorations).setRegistryName(WILLOW_LEAF_CARPET.getRegistryName())
 			);
 		}
+	}
+
+	@SubscribeEvent
+	public static void registerFluids(RegistryEvent.Register<Fluid> registry) {
+		registry.getRegistry().registerAll(
+				MUD, FLOWING_MUD
+		);
 	}
 
 	public static void registerBlockData() {

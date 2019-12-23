@@ -13,6 +13,7 @@ public class ItemRegistry {
 	public static Item MUD_BALL;
 	public static Item MUD_BRICK;
 	public static Item WILLOW_SIGN;
+	public static Item MUD_BUCKET;
 	public static Item WILLOW_BOAT = new WillowBoatItem(WillowBoatEntity.Type.WILLOW, new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1)).setRegistryName("willow_boat");
 
 	@SubscribeEvent
