@@ -7,8 +7,10 @@ import com.farcr.swampexpansion.common.item.FuelItem;
 import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -18,6 +20,8 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BlockRegistry {
@@ -45,6 +49,12 @@ public class BlockRegistry {
 	public static Block WILLOW_SIGN = new StandingSignBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_sign");
 	public static Block WILLOW_SIGN_WALL = new WallSignBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_sign_wall");
 	public static Block CATTAIL = new CattailBlock().setRegistryName("cattail");
+	public static Block MUD = new FlowingFluidBlock(new Supplier<FlowingFluid>() {
+		@Override
+		public FlowingFluid get() {
+			return FLOWING_MUD;
+		}
+	}, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()).setRegistryName("mud");
 
 	//quark
 	public static Block WILLOW_LADDER = new LadderBlock(BlockProperties.LADDER).setRegistryName("willow_ladder");
@@ -54,7 +64,7 @@ public class BlockRegistry {
 
 	//fluids
 	public static FlowingFluid FLOWING_MUD = new MudFluid.Flowing();
-	public static FlowingFluid MUD = new MudFluid.Source();
+	public static FlowingFluid STILL_MUD = new MudFluid.Source();
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> registry) {
@@ -65,7 +75,8 @@ public class BlockRegistry {
 				WILLOW_DOOR, WILLOW_TRAPDOOR,
 				WILLOW_BUTTON, WILLOW_PRESSURE_PLATE,
 				WILLOW_LEAVES,
-				WILLOW_SAPLING, POTTED_WILLOW_SAPLING
+				WILLOW_SAPLING, POTTED_WILLOW_SAPLING,
+				MUD
 		);
 		if (ModList.get().isLoaded("quark")) {
 			registry.getRegistry().registerAll(
@@ -109,9 +120,9 @@ public class BlockRegistry {
 	@SubscribeEvent
 	public static void registerFluids(RegistryEvent.Register<Fluid> registry) {
 		FLOWING_MUD.setRegistryName("flowing_mud");
-		MUD.setRegistryName("mud");
+		STILL_MUD.setRegistryName("still_mud");
 		registry.getRegistry().registerAll(
-				MUD, FLOWING_MUD
+				STILL_MUD, FLOWING_MUD
 		);
 	}
 

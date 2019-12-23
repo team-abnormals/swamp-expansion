@@ -6,7 +6,6 @@ import net.minecraft.block.*;
 import net.minecraft.fluid.*;
 import net.minecraft.item.Item;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
@@ -18,7 +17,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.FluidStack;
 
 import java.util.function.BiFunction;
 
@@ -32,7 +30,7 @@ public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
     }
 
     public Fluid getStillFluid() {
-        return BlockRegistry.MUD;
+        return BlockRegistry.STILL_MUD;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -58,11 +56,11 @@ public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
     }
 
     public BlockState getBlockState(IFluidState state) {
-        return (BlockState) Blocks.WATER.getDefaultState().with(FlowingFluidBlock.LEVEL, getLevelFromState(state));
+        return (BlockState) BlockRegistry.MUD.getDefaultState().with(FlowingFluidBlock.LEVEL, getLevelFromState(state));
     }
 
     public boolean isEquivalentTo(Fluid fluid) {
-        return fluid == Fluids.WATER || fluid == Fluids.FLOWING_WATER;
+        return fluid == BlockRegistry.STILL_MUD || fluid == BlockRegistry.FLOWING_MUD;
     }
 
     public int getLevelDecreasePerBlock(IWorldReader world) {
@@ -74,7 +72,7 @@ public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
     }
 
     public boolean func_215665_a(IFluidState state, IBlockReader world, BlockPos pos, Fluid fluid, Direction direction) {
-        return direction == Direction.DOWN && !fluid.isIn(FluidTags.WATER);
+        return direction == Direction.DOWN;
     }
 
     protected float getExplosionResistance() {
