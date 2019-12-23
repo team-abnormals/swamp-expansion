@@ -1,5 +1,6 @@
 package com.farcr.swampexpansion.common.block.fluid;
 
+import com.farcr.swampexpansion.core.registries.BlockRegistry;
 import com.farcr.swampexpansion.core.registries.ItemRegistry;
 import net.minecraft.block.*;
 import net.minecraft.fluid.*;
@@ -9,12 +10,17 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.FluidStack;
+
+import java.util.function.BiFunction;
 
 public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
     public MudFluid() {
@@ -22,11 +28,11 @@ public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
     }
 
     public Fluid getFlowingFluid() {
-        return Fluids.FLOWING_WATER;
+        return BlockRegistry.FLOWING_MUD;
     }
 
     public Fluid getStillFluid() {
-        return Fluids.WATER;
+        return BlockRegistry.MUD;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -75,7 +81,28 @@ public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
         return 100.0F;
     }
 
-    public static class Flowing extends WaterFluid {
+    @Override
+    protected FluidAttributes createAttributes() {
+        return MudAttributes.builder(new net.minecraft.util.ResourceLocation("block/mud_still"), new net.minecraft.util.ResourceLocation("block/mud_flow")).translationKey("block.swampexpansion.mud").density(2000).viscosity(4500).build(this);
+    }
+
+    public static class MudBuilder extends FluidAttributes.Builder {
+        public MudBuilder(ResourceLocation stillTexture, ResourceLocation flowingTexture, BiFunction<FluidAttributes.Builder,Fluid,FluidAttributes> factory) {
+            super(stillTexture, flowingTexture, factory);
+        }
+    }
+
+    public static class MudAttributes extends FluidAttributes {
+        public MudAttributes(Builder builder, Fluid fluid) {
+            super(builder, fluid);
+        }
+
+        public static Builder builder(ResourceLocation stillTexture, ResourceLocation flowingTexture) {
+            return new MudBuilder(stillTexture, flowingTexture, MudAttributes::new);
+        }
+    }
+
+    public static class Flowing extends MudFluid {
         public Flowing() {
         }
 
@@ -93,7 +120,7 @@ public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
         }
     }
 
-    public static class Source extends WaterFluid {
+    public static class Source extends MudFluid {
         public Source() {
         }
 
