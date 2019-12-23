@@ -21,7 +21,7 @@ public class WillowBoatItem extends Item {
     private static final Predicate<Entity> field_219989_a = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
     private final WillowBoatEntity.Type type;
 
-    public WillowBoatItem(WillowBoatEntity.Type typeIn, Item.Properties properties) {
+    public WillowBoatItem(WillowBoatEntity.Type typeIn, Properties properties) {
         super(properties);
         type = typeIn;
         DispenserBlock.registerDispenseBehavior(this, new DispenserBoatBehavior(typeIn));

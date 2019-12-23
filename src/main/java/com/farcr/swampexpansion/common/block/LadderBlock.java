@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 
 public class LadderBlock extends net.minecraft.block.LadderBlock {
 
-    public LadderBlock(Block.Properties properties) {
+    public LadderBlock(Properties properties) {
         super(properties);
     }
 }

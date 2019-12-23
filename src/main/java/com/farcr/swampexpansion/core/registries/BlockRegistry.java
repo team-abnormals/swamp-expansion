@@ -22,7 +22,7 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BlockRegistry {
 	public static Block HARDENED_MUD = new Block(BlockProperties.MUD_BRICKS).setRegistryName("hardened_mud");
-	public static Block MUD_BRICKS = new Block(BlockProperties.MUD_BRICKS).setRegistryName("mud_planks");
+	public static Block MUD_BRICKS = new Block(BlockProperties.MUD_BRICKS).setRegistryName("mud_bricks");
 	public static Block MUD_BRICK_STAIRS = new StairsBlock(MUD_BRICKS.getDefaultState(), BlockProperties.MUD_BRICKS).setRegistryName("mud_stairs");
 	public static Block MUD_BRICK_SLAB = new SlabBlock(BlockProperties.MUD_BRICKS).setRegistryName("mud_slab");
 	public static Block MUD_BRICK_WALL = new WallBlock(BlockProperties.MUD_BRICKS).setRegistryName("mud_wall");
@@ -38,7 +38,7 @@ public class BlockRegistry {
 	public static Block WILLOW_TRAPDOOR = new TrapDoorBlock(BlockProperties.WILLOW_DOORS).setRegistryName("willow_trapdoor");
 	public static Block WILLOW_WOOD = new RotatedPillarBlock(BlockProperties.LOG).setRegistryName("willow_wood");
 	public static Block STRIPPED_WILLOW_WOOD = new RotatedPillarBlock(BlockProperties.LOG).setRegistryName("stripped_willow_wood");
-	public static Block WILLOW_SAPLING = new WillowSaplingBlock(BlockProperties.SAPLING, null);
+	public static Block WILLOW_SAPLING = new WillowSaplingBlock(BlockProperties.SAPLING, null).setRegistryName("willow_sapling");
 	public static Block WILLOW_BUTTON = new WillowButtonBlock().setRegistryName("willow_button");
 	public static Block WILLOW_LEAVES = new LeavesBlock(BlockProperties.LEAVES).setRegistryName("willow_leaves");
 	public static Block WILLOW_BOOKSHELF = new Block(BlockProperties.BOOKSHELF).setRegistryName("willow_bookshelf");
@@ -110,6 +110,8 @@ public class BlockRegistry {
 
 	@SubscribeEvent
 	public static void registerFluids(RegistryEvent.Register<Fluid> registry) {
+		FLOWING_MUD.setRegistryName("flowing_mud");
+		MUD.setRegistryName("mud");
 		registry.getRegistry().registerAll(
 				MUD, FLOWING_MUD
 		);

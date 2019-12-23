@@ -568,7 +568,7 @@ public class WillowBoatEntity extends BoatEntity {
 		if (!isPassenger()) {
 			if (onGroundIn) {
 				if (fallDistance > 3.0F) {
-					if (status != WillowBoatEntity.Status.ON_LAND) {
+					if (status != Status.ON_LAND) {
 						fallDistance = 0.0F;
 						return;
 					}

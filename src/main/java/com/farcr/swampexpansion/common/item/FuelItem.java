@@ -9,7 +9,7 @@ import net.minecraft.item.WallOrFloorItem;
 public class FuelItem extends BlockItem {
     private static int burnTime;
 
-    public FuelItem(Block block, Item.Properties properties, int burnTimeIn) {
+    public FuelItem(Block block, Properties properties, int burnTimeIn) {
         super(block, properties);
         burnTime = burnTimeIn;
     }
@@ -21,7 +21,7 @@ public class FuelItem extends BlockItem {
 
     public static class WallOrFloorFuelItem extends WallOrFloorItem {
 
-        public WallOrFloorFuelItem(Block floorBlock, Block wallBlockIn, Item.Properties propertiesIn, int burnTimeIn) {
+        public WallOrFloorFuelItem(Block floorBlock, Block wallBlockIn, Properties propertiesIn, int burnTimeIn) {
             super(floorBlock, wallBlockIn, propertiesIn);
             burnTime = burnTimeIn;
         }

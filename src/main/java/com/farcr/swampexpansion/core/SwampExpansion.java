@@ -10,14 +10,14 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod("swampexpansion")
 public class SwampExpansion {
-	public static ServerProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+    public static ServerProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
-	public SwampExpansion() {
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
-	}
+    public SwampExpansion() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
+    }
 
-	private void setupCommon(final FMLCommonSetupEvent event) {
-		proxy.init();
-		BlockRegistry.registerBlockData();
-	}
+    private void setupCommon(final FMLCommonSetupEvent event) {
+        proxy.init();
+        BlockRegistry.registerBlockData();
+    }
 }

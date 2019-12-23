@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 public class LeafCarpetBlock extends Block {
     private static final VoxelShape CARPET = makeCuboidShape(0, 0, 0, 16, 1, 16);
 
-	public LeafCarpetBlock(Block.Properties properties) {
+	public LeafCarpetBlock(Properties properties) {
 	    super(properties);
 	}
 
