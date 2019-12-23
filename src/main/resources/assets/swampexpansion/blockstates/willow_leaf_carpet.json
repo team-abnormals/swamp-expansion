@@ -1,0 +1,12 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "all": "swampexpansion:block/willow_leaves"
+        },
+        "model": "quark:block/leaf_carpet"
+    },
+    "variants": {
+        "": [{}]
+    }
+}

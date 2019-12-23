@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LL"
+  ],
+  "key": {
+    "L": {
+      "item": "swampexpansion:willow_leaves"
+    }
+  },
+  "result": {
+    "item": "swampexpansion:willow_leaf_carpet",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "quark:flag",
+      "flag": "leaf_carpet"
+    }
+  ]
+}

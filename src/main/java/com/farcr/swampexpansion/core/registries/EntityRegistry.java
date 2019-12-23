@@ -1,6 +1,6 @@
-package com.farcr.registries;
+package com.farcr.swampexpansion.core.registries;
 
-import com.farcr.entity.EntityBoatBase;
+import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
 
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class EntityRegistry {
-    public static EntityType<EntityBoatBase> WILLOW_BOAT = createBasicEntity(EntityBoatBase::new, EntityBoatBase::new, EntityClassification.MISC, "willow_boat", 1.375F, 0.5625F);
+    public static EntityType<WillowBoatEntity> WILLOW_BOAT = createBasicEntity(WillowBoatEntity::new, WillowBoatEntity::new, EntityClassification.MISC, "willow_boat", 1.375F, 0.5625F);
 
     private static <T extends Entity> EntityType<T> createBasicEntity(EntityType.IFactory<T> factory, BiFunction<FMLPlayMessages.SpawnEntity, World, T> clientFactory, EntityClassification entityClassification, String name, float width, float height) {
         ResourceLocation location = new ResourceLocation("swampexpansion", name);

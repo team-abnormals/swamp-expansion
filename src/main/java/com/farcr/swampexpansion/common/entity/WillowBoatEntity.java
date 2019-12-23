@@ -1,8 +1,8 @@
-package com.farcr.entity;
+package com.farcr.swampexpansion.common.entity;
 
-import com.farcr.registries.BlockRegistry;
-import com.farcr.registries.EntityRegistry;
-import com.farcr.registries.ItemRegistry;
+import com.farcr.swampexpansion.core.registries.BlockRegistry;
+import com.farcr.swampexpansion.core.registries.EntityRegistry;
+import com.farcr.swampexpansion.core.registries.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LilyPadBlock;
@@ -43,14 +43,14 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class EntityBoatBase extends BoatEntity {
-	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.createKey(EntityBoatBase.class, DataSerializers.VARINT);
-	private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.createKey(EntityBoatBase.class, DataSerializers.VARINT);
-	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.createKey(EntityBoatBase.class, DataSerializers.FLOAT);
-	private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.createKey(EntityBoatBase.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> field_199704_e = EntityDataManager.createKey(EntityBoatBase.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> field_199705_f = EntityDataManager.createKey(EntityBoatBase.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> ROCKING_TICKS = EntityDataManager.createKey(EntityBoatBase.class, DataSerializers.VARINT);
+public class WillowBoatEntity extends BoatEntity {
+	private static final DataParameter<Integer> TIME_SINCE_HIT = EntityDataManager.createKey(WillowBoatEntity.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> FORWARD_DIRECTION = EntityDataManager.createKey(WillowBoatEntity.class, DataSerializers.VARINT);
+	private static final DataParameter<Float> DAMAGE_TAKEN = EntityDataManager.createKey(WillowBoatEntity.class, DataSerializers.FLOAT);
+	private static final DataParameter<Integer> BOAT_TYPE = EntityDataManager.createKey(WillowBoatEntity.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> field_199704_e = EntityDataManager.createKey(WillowBoatEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> field_199705_f = EntityDataManager.createKey(WillowBoatEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Integer> ROCKING_TICKS = EntityDataManager.createKey(WillowBoatEntity.class, DataSerializers.VARINT);
 	private final float[] paddlePositions = new float[2];
 	private float momentum;
 	private float outOfControlTicks;
@@ -70,12 +70,12 @@ public class EntityBoatBase extends BoatEntity {
 	private float rockingAngle;
 	private float prevRockingAngle;
 
-	public EntityBoatBase(EntityType<? extends BoatEntity> type, World world) {
+	public WillowBoatEntity(EntityType<? extends BoatEntity> type, World world) {
 		super(type, world);
 		preventEntitySpawning = true;
 	}
 
-	public EntityBoatBase(World worldIn, double x, double y, double z) {
+	public WillowBoatEntity(World worldIn, double x, double y, double z) {
 		this(EntityRegistry.WILLOW_BOAT, worldIn);
 		setPosition(x, y, z);
 		setMotion(Vec3d.ZERO);
@@ -84,7 +84,7 @@ public class EntityBoatBase extends BoatEntity {
 		prevPosZ = z;
 	}
 
-	public EntityBoatBase(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
+	public WillowBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
 		this(EntityRegistry.WILLOW_BOAT, world);
 	}
 
@@ -145,7 +145,7 @@ public class EntityBoatBase extends BoatEntity {
 		switch (getBoatModel()) {
 			default:
 			case WILLOW:
-				return ItemRegistry.wisteria_boat;
+				return ItemRegistry.WILLOW_BOAT;
 		}
 	}
 
@@ -568,7 +568,7 @@ public class EntityBoatBase extends BoatEntity {
 		if (!isPassenger()) {
 			if (onGroundIn) {
 				if (fallDistance > 3.0F) {
-					if (status != EntityBoatBase.Status.ON_LAND) {
+					if (status != WillowBoatEntity.Status.ON_LAND) {
 						fallDistance = 0.0F;
 						return;
 					}
@@ -664,7 +664,7 @@ public class EntityBoatBase extends BoatEntity {
 	}
 
 	public enum Type {
-		WILLOW(BlockRegistry.willow_planks, "willow");
+		WILLOW(BlockRegistry.WILLOW_PLANKS, "willow");
 
 		private final String name;
 		private final Block block;

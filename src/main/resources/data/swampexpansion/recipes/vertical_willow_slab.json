@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S",
+    "S",
+    "S"
+  ],
+  "key": {
+    "S": {
+      "item": "swampexpansion:willow_slab"
+    }
+  },
+  "result": {
+    "item": "swampexpansion:vertical_willow_slab",
+    "count": 3
+  },
+  "conditions": [
+    {
+      "type": "quark:flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}

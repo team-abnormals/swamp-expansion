@@ -1,15 +1,8 @@
 {
-    #Items
-	"item.swampexpansion.mud_ball": "Mud Ball",
-	"item.swampexpansion.mud_brick": "Mud Brick",
-	"item.swampexpansion.cattail_seeds": "Cattail Seeds",
-	"item.swampexpansion.willow_boat":"Willow Boat",
-	#Blocks
 	"block.swampexpansion.mud_bricks":"Mud Bricks",
 	"block.swampexpansion.mud_brick_slab":"Mud Brick Slab",
 	"block.swampexpansion.mud_brick_stairs":"Mud Brick Stairs",
 	"block.swampexpansion.mud_brick_wall":"Mud Brick Wall",
-	
 	"block.swampexpansion.willow_planks":"Willow Planks",
 	"block.swampexpansion.willow_slab":"Willow Slab",
 	"block.swampexpansion.willow_stairs":"Willow Stairs",
@@ -21,20 +14,19 @@
 	"block.swampexpansion.willow_button":"Willow Button",
 	"block.swampexpansion.willow_bookshelf":"Willow Bookshelf",
 	"block.swampexpansion.willow_ladder":"Willow Ladder",
-	
-	
 	"block.swampexpansion.willow_log":"Willow Log",
 	"block.swampexpansion.willow_wood":"Willow Wood",
 	"block.swampexpansion.stripped_willow_log":"Stripped Willow Log",
 	"block.swampexpansion.stripped_willow_wood":"Stripped Willow Wood",
 	"block.swampexpansion.willow_sapling":"Willow Sapling",
 	"block.swampexpansion.willow_leaves":"Willow Leaves",
-	
-	
-	
-	
-	"block.swampexpansion.cattail":"Cattail"
-	
-	
-	
+	"block.swampexpansion.cattail":"Cattail",
+	"block.swampexpansion.vertical_willow_planks":"Vertical Willow Planks",
+	"block.swampexpansion.vertical_willow_slab":"Vertical Willow Slab",
+	"block.swampexpansion.willow_leaf_carpet":"Willow Leaf Carpet",
+
+	"item.swampexpansion.mud_ball": "Mud Ball",
+	"item.swampexpansion.mud_brick": "Mud Brick",
+	"item.swampexpansion.cattail_seeds": "Cattail Seeds",
+	"item.swampexpansion.willow_boat":"Willow Boat"
 }

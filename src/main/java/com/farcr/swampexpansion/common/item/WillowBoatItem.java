@@ -1,7 +1,6 @@
-package com.farcr.item;
+package com.farcr.swampexpansion.common.item;
 
-import com.farcr.entity.EntityBoatBase;
-import com.farcr.entity.EntityBoatBase;
+import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
@@ -18,11 +17,11 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ItemBoatBase extends Item {
+public class WillowBoatItem extends Item {
     private static final Predicate<Entity> field_219989_a = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
-    private final EntityBoatBase.Type type;
+    private final WillowBoatEntity.Type type;
 
-    public ItemBoatBase(EntityBoatBase.Type typeIn, Item.Properties properties) {
+    public WillowBoatItem(WillowBoatEntity.Type typeIn, Item.Properties properties) {
         super(properties);
         type = typeIn;
         DispenserBlock.registerDispenseBehavior(this, new DispenserBoatBehavior(typeIn));
@@ -47,7 +46,7 @@ public class ItemBoatBase extends Item {
                 }
             }
             if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
-                EntityBoatBase boatentity = new EntityBoatBase(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
+                WillowBoatEntity boatentity = new WillowBoatEntity(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
                 boatentity.setBoatModel(type);
                 boatentity.rotationYaw = playerIn.rotationYaw;
                 if (!worldIn.isCollisionBoxesEmpty(boatentity, boatentity.getBoundingBox().grow(-0.1D))) {
@@ -70,9 +69,9 @@ public class ItemBoatBase extends Item {
 
     static class DispenserBoatBehavior extends DefaultDispenseItemBehavior {
         private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-        private final EntityBoatBase.Type type;
+        private final WillowBoatEntity.Type type;
 
-        public DispenserBoatBehavior(EntityBoatBase.Type typeIn) {
+        public DispenserBoatBehavior(WillowBoatEntity.Type typeIn) {
             type = typeIn;
         }
 
@@ -93,7 +92,7 @@ public class ItemBoatBase extends Item {
                 }
                 adjustY = 0d;
             }
-            EntityBoatBase boat = new EntityBoatBase(world, x, y + adjustY, z);
+            WillowBoatEntity boat = new WillowBoatEntity(world, x, y + adjustY, z);
             boat.setBoatModel(type);
             boat.rotationYaw = direction.getHorizontalAngle();
             world.addEntity(boat);

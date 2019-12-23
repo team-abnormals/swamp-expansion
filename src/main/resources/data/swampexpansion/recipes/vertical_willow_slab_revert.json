@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "swampexpansion:vertical_willow_slab"
+    }
+  ],
+  "result": {
+    "item": "swampexpansion:willow_slab",
+    "count": 1
+  },
+  "conditions": [
+    {
+      "type": "quark:flag",
+      "flag": "vertical_slabs"
+    }
+  ]
+}
