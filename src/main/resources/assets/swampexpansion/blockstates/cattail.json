@@ -1,0 +1,53 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "block/cross"
+  },
+  "variants": {
+    "age=0,type=top": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_top_age_0"
+      }
+    },
+    "age=1,type=top": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_top_age_1"
+      }
+    },
+    "age=1,type=bottom": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_bottom_age_1"
+      }
+    },
+    "age=2,type=top": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_top_age_2"
+      }
+    },
+    "age=2,type=middle": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_middle_age_2"
+      }
+    },
+    "age=2,type=bottom": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_bottom_age_2"
+      }
+    },
+    "age=3,type=top": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_top_age_3"
+      }
+    },
+    "age=3,type=middle": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_middle_age_3"
+      }
+    },
+    "age=3,type=bottom": {
+      "textures": {
+        "cross": "swampexpansion:block/cattail_bottom_age_3"
+      }
+    }
+  }
+}

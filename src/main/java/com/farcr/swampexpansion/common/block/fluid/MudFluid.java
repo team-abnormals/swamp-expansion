@@ -81,7 +81,7 @@ public abstract class MudFluid extends FlowingFluid implements IWaterLoggable {
 
     @Override
     protected FluidAttributes createAttributes() {
-        return MudAttributes.builder(new net.minecraft.util.ResourceLocation("block/mud_still"), new net.minecraft.util.ResourceLocation("block/mud_flow")).translationKey("block.swampexpansion.mud").density(2000).viscosity(4500).build(this);
+        return MudAttributes.builder(new ResourceLocation("swampexpansion", "block/mud_still"), new ResourceLocation("swampexpansion", "block/mud_flow")).translationKey("block.swampexpansion.mud").density(2000).viscosity(4500).build(this);
     }
 
     public static class MudBuilder extends FluidAttributes.Builder {
