@@ -22,11 +22,12 @@ public class SwampExpansion {
     private void setupCommon(final FMLCommonSetupEvent event) {
         proxy.init();
         BlockRegistry.registerBlockData();
+        FeatureEditer.overRideFeatures();
     }
 
     @SubscribeEvent
     void preInit(final FMLCommonSetupEvent event)
     {
-        FeatureEditer.overRideFeatures();
+
     }
 }
