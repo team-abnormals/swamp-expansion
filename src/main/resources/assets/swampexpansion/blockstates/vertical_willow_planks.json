@@ -4,7 +4,7 @@
     "textures": {
       "all": "swampexpansion:block/willow_planks"
     },
-    "model": "quark:block/willow_planks"
+    "model": "quark:block/vertical_planks"
   },
   "variants": {
     "": [{}]
