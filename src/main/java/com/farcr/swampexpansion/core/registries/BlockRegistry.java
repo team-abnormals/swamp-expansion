@@ -139,9 +139,9 @@ public class BlockRegistry {
 
 	public static void registerBlockData() {
 		//compostable blocks
-		registerCompostable(WILLOW_LEAVES,0.35F);
-		registerCompostable(WILLOW_SAPLING,0.55F);
-		registerCompostable(WILLOW_LEAF_CARPET,0.35F);
+		registerCompostable(WILLOW_LEAVES,0.3F);
+		registerCompostable(WILLOW_SAPLING,0.3F);
+		registerCompostable(WILLOW_LEAF_CARPET,0.3F);
 
 		//strippable blocks
 		registerStrippable(WILLOW_LOG, STRIPPED_WILLOW_LOG);
