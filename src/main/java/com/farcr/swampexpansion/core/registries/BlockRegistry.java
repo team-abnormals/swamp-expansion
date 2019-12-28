@@ -61,7 +61,7 @@ public class BlockRegistry {
 
 	//quark
 	public static Block WILLOW_LADDER = new LadderBlock(BlockProperties.LADDER).setRegistryName("willow_ladder");
-	public static Block VERTICAL_WILLOW_PLANKS = new Block(BlockProperties.WILLOW_PLANKS).setRegistryName("horizontal_willow_planks");
+	public static Block VERTICAL_WILLOW_PLANKS = new Block(BlockProperties.WILLOW_PLANKS).setRegistryName("vertical_willow_planks");
 	public static Block VERTICAL_WILLOW_SLAB = new VerticalSlabBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("vertical_willow_slab");
 	public static Block WILLOW_LEAF_CARPET = new LeafCarpetBlock(BlockProperties.LEAVES).setRegistryName("willow_leaf_carpet");
 
@@ -140,7 +140,7 @@ public class BlockRegistry {
 	public static void registerBlockData() {
 		//compostable blocks
 		registerCompostable(WILLOW_LEAVES,0.35F);
-		registerCompostable(WILLOW_SAPLING,0.35F);
+		registerCompostable(WILLOW_SAPLING,0.55F);
 		registerCompostable(WILLOW_LEAF_CARPET,0.35F);
 
 		//strippable blocks
