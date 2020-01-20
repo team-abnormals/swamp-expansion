@@ -46,7 +46,6 @@ public class BlockRegistry {
 	public static Block WILLOW_SAPLING = new WillowSaplingBlock(BlockProperties.SAPLING, new SwampTree()).setRegistryName("willow_sapling");
 	public static Block WILLOW_BUTTON = new WillowButtonBlock().setRegistryName("willow_button");
 	public static Block WILLOW_LEAVES = new LeavesBlock(BlockProperties.LEAVES).setRegistryName("willow_leaves");
-	public static Block WILLOW_BOOKSHELF = new Block(BlockProperties.BOOKSHELF).setRegistryName("willow_bookshelf");
 	public static Block POTTED_WILLOW_SAPLING = new FlowerPotBlock(BlockRegistry.WILLOW_SAPLING, BlockProperties.FLOWER_POT).setRegistryName("potted_willow_sapling");
 	public static Block WILLOW_SIGN = new StandingSignBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_sign");
 	public static Block WILLOW_SIGN_WALL = new WallSignBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_sign_wall");
@@ -63,6 +62,8 @@ public class BlockRegistry {
 	public static Block WILLOW_LADDER = new LadderBlock(BlockProperties.LADDER).setRegistryName("willow_ladder");
 	public static Block VERTICAL_WILLOW_PLANKS = new Block(BlockProperties.WILLOW_PLANKS).setRegistryName("vertical_willow_planks");
 	public static Block VERTICAL_WILLOW_SLAB = new VerticalSlabBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("vertical_willow_slab");
+	public static Block VERTICAL_MUD_BRICKS_SLAB = new VerticalSlabBlock(BlockProperties.MUD_BRICKS).setRegistryName("vertical_mud_brick_slab");
+	public static Block WILLOW_BOOKSHELF = new Block(BlockProperties.BOOKSHELF).setRegistryName("willow_bookshelf");
 	public static Block WILLOW_LEAF_CARPET = new LeafCarpetBlock(BlockProperties.LEAVES).setRegistryName("willow_leaf_carpet");
 
 	//fluids
@@ -85,7 +86,7 @@ public class BlockRegistry {
 		if (ModList.get().isLoaded("quark")) {
 			registry.getRegistry().registerAll(
 					WILLOW_LADDER, VERTICAL_WILLOW_PLANKS, VERTICAL_WILLOW_SLAB,
-					WILLOW_BOOKSHELF,
+					WILLOW_BOOKSHELF,VERTICAL_MUD_BRICKS_SLAB,
 					WILLOW_LEAF_CARPET
 			);
 		}
@@ -122,7 +123,9 @@ public class BlockRegistry {
 		event.getRegistry().registerAll(
 				new FuelItem(WILLOW_LADDER, decorations, 300).setRegistryName(WILLOW_LADDER.getRegistryName()),
 				new BlockItem(VERTICAL_WILLOW_PLANKS, buildingBlocks).setRegistryName(VERTICAL_WILLOW_PLANKS.getRegistryName()),
+			        new BlockItem(VERTICAL_MUD_BRICK_PLANKS, buildingBlocks).setRegistryName(VERTICAL_MUD_BRICK_PLANKS.getRegistryName()),
 				new FuelItem(VERTICAL_WILLOW_SLAB, buildingBlocks, 150).setRegistryName(VERTICAL_WILLOW_SLAB.getRegistryName()),
+			        new FuelItem(WILLOW_BOOKSHELF, decorations, 150).setRegistryName(WILLOW_BOOKSHELF.getRegistryName()),
 				new BlockItem(WILLOW_LEAF_CARPET, decorations).setRegistryName(WILLOW_LEAF_CARPET.getRegistryName())
 			);
 		}
@@ -161,6 +164,7 @@ public class BlockRegistry {
 		registerFlammable(VERTICAL_WILLOW_PLANKS, 5, 20);
 		registerFlammable(WILLOW_LEAF_CARPET, 30, 60);
 		registerFlammable(VERTICAL_WILLOW_SLAB, 5, 20);
+		registerFlammable(WILLOW_BOOKSHELF, 5, 20);
 	}
 
 	public static void registerFlammable(Block block, int encouragement, int flammability) {
