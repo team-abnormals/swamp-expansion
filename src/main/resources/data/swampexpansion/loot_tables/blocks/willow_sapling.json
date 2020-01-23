@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:willow_sapling"
+          "name": "swampexpansion:willow_sapling"
         }
       ],
       "conditions": [

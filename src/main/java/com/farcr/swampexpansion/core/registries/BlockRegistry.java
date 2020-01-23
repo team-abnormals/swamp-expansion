@@ -4,10 +4,12 @@ import com.farcr.swampexpansion.common.block.*;
 import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
 import com.farcr.swampexpansion.common.item.FuelItem;
+import com.farcr.swampexpansion.common.world.gen.feature.trees.SwampTree;
 import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.google.common.collect.Maps;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.trees.OakTree;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
@@ -41,14 +43,14 @@ public class BlockRegistry {
 	public static Block WILLOW_TRAPDOOR = new TrapDoorBlock(BlockProperties.WILLOW_DOORS).setRegistryName("willow_trapdoor");
 	public static Block WILLOW_WOOD = new RotatedPillarBlock(BlockProperties.LOG).setRegistryName("willow_wood");
 	public static Block STRIPPED_WILLOW_WOOD = new RotatedPillarBlock(BlockProperties.LOG).setRegistryName("stripped_willow_wood");
-	public static Block WILLOW_SAPLING = new WillowSaplingBlock(BlockProperties.SAPLING, null).setRegistryName("willow_sapling");
+	public static Block WILLOW_SAPLING = new WillowSaplingBlock(BlockProperties.SAPLING, new SwampTree()).setRegistryName("willow_sapling");
 	public static Block WILLOW_BUTTON = new WillowButtonBlock().setRegistryName("willow_button");
 	public static Block WILLOW_LEAVES = new LeavesBlock(BlockProperties.LEAVES).setRegistryName("willow_leaves");
-	public static Block WILLOW_BOOKSHELF = new Block(BlockProperties.BOOKSHELF).setRegistryName("willow_bookshelf");
 	public static Block POTTED_WILLOW_SAPLING = new FlowerPotBlock(BlockRegistry.WILLOW_SAPLING, BlockProperties.FLOWER_POT).setRegistryName("potted_willow_sapling");
 	public static Block WILLOW_SIGN = new StandingSignBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_sign");
 	public static Block WILLOW_SIGN_WALL = new WallSignBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_sign_wall");
 	public static Block CATTAIL = new CattailBlock().setRegistryName("cattail");
+
 	public static Block MUD = new FlowingFluidBlock(new Supplier<FlowingFluid>() {
 		@Override
 		public FlowingFluid get() {
@@ -58,8 +60,10 @@ public class BlockRegistry {
 
 	//quark
 	public static Block WILLOW_LADDER = new LadderBlock(BlockProperties.LADDER).setRegistryName("willow_ladder");
-	public static Block VERTICAL_WILLOW_PLANKS = new Block(BlockProperties.WILLOW_PLANKS).setRegistryName("horizontal_willow_planks");
+	public static Block VERTICAL_WILLOW_PLANKS = new Block(BlockProperties.WILLOW_PLANKS).setRegistryName("vertical_willow_planks");
 	public static Block VERTICAL_WILLOW_SLAB = new VerticalSlabBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("vertical_willow_slab");
+	public static Block VERTICAL_MUD_BRICK_SLAB = new VerticalSlabBlock(BlockProperties.MUD_BRICKS).setRegistryName("vertical_mud_brick_slab");
+	public static Block WILLOW_BOOKSHELF = new Block(BlockProperties.BOOKSHELF).setRegistryName("willow_bookshelf");
 	public static Block WILLOW_LEAF_CARPET = new LeafCarpetBlock(BlockProperties.LEAVES).setRegistryName("willow_leaf_carpet");
 
 	//fluids
@@ -76,12 +80,13 @@ public class BlockRegistry {
 				WILLOW_BUTTON, WILLOW_PRESSURE_PLATE,
 				WILLOW_LEAVES,
 				WILLOW_SAPLING, POTTED_WILLOW_SAPLING,
-				MUD
+				MUD,
+				CATTAIL
 		);
 		if (ModList.get().isLoaded("quark")) {
 			registry.getRegistry().registerAll(
 					WILLOW_LADDER, VERTICAL_WILLOW_PLANKS, VERTICAL_WILLOW_SLAB,
-					WILLOW_BOOKSHELF,
+					WILLOW_BOOKSHELF,VERTICAL_MUD_BRICK_SLAB,
 					WILLOW_LEAF_CARPET
 			);
 		}
@@ -105,13 +110,22 @@ public class BlockRegistry {
 				new BlockItem(WILLOW_DOOR, redstone).setRegistryName(WILLOW_DOOR.getRegistryName()),
 				new BlockItem(WILLOW_TRAPDOOR, redstone).setRegistryName(WILLOW_TRAPDOOR.getRegistryName()),
 				new BlockItem(WILLOW_BUTTON, redstone).setRegistryName(WILLOW_BUTTON.getRegistryName()),
-				new BlockItem(WILLOW_PRESSURE_PLATE, redstone).setRegistryName(WILLOW_PRESSURE_PLATE.getRegistryName())
+				new BlockItem(WILLOW_PRESSURE_PLATE, redstone).setRegistryName(WILLOW_PRESSURE_PLATE.getRegistryName()),
+				new BlockItem(WILLOW_LOG, buildingBlocks).setRegistryName(WILLOW_LOG.getRegistryName()),
+				new BlockItem(STRIPPED_WILLOW_LOG, buildingBlocks).setRegistryName(STRIPPED_WILLOW_LOG.getRegistryName()),
+				new BlockItem(WILLOW_WOOD, buildingBlocks).setRegistryName(WILLOW_WOOD.getRegistryName()),
+				new BlockItem(STRIPPED_WILLOW_WOOD, buildingBlocks).setRegistryName(STRIPPED_WILLOW_WOOD.getRegistryName()),
+				new BlockItem(WILLOW_SAPLING, decorations).setRegistryName(WILLOW_SAPLING.getRegistryName()),
+				new BlockItem(WILLOW_LEAVES, decorations).setRegistryName(WILLOW_LEAVES.getRegistryName()),
+				new BlockItem(CATTAIL, decorations).setRegistryName(CATTAIL.getRegistryName())
 		);
 		if (ModList.get().isLoaded("quark")) {
 		event.getRegistry().registerAll(
 				new FuelItem(WILLOW_LADDER, decorations, 300).setRegistryName(WILLOW_LADDER.getRegistryName()),
 				new BlockItem(VERTICAL_WILLOW_PLANKS, buildingBlocks).setRegistryName(VERTICAL_WILLOW_PLANKS.getRegistryName()),
+			        new BlockItem(VERTICAL_MUD_BRICK_SLAB, buildingBlocks).setRegistryName(VERTICAL_MUD_BRICK_SLAB.getRegistryName()),
 				new FuelItem(VERTICAL_WILLOW_SLAB, buildingBlocks, 150).setRegistryName(VERTICAL_WILLOW_SLAB.getRegistryName()),
+			        new FuelItem(WILLOW_BOOKSHELF, decorations, 150).setRegistryName(WILLOW_BOOKSHELF.getRegistryName()),
 				new BlockItem(WILLOW_LEAF_CARPET, decorations).setRegistryName(WILLOW_LEAF_CARPET.getRegistryName())
 			);
 		}
@@ -128,9 +142,9 @@ public class BlockRegistry {
 
 	public static void registerBlockData() {
 		//compostable blocks
-		registerCompostable(WILLOW_LEAVES,0.35F);
-		registerCompostable(WILLOW_SAPLING,0.35F);
-		registerCompostable(WILLOW_LEAF_CARPET,0.35F);
+		registerCompostable(WILLOW_LEAVES,0.3F);
+		registerCompostable(WILLOW_SAPLING,0.3F);
+		registerCompostable(WILLOW_LEAF_CARPET,0.3F);
 
 		//strippable blocks
 		registerStrippable(WILLOW_LOG, STRIPPED_WILLOW_LOG);
@@ -150,6 +164,7 @@ public class BlockRegistry {
 		registerFlammable(VERTICAL_WILLOW_PLANKS, 5, 20);
 		registerFlammable(WILLOW_LEAF_CARPET, 30, 60);
 		registerFlammable(VERTICAL_WILLOW_SLAB, 5, 20);
+		registerFlammable(WILLOW_BOOKSHELF, 5, 20);
 	}
 
 	public static void registerFlammable(Block block, int encouragement, int flammability) {

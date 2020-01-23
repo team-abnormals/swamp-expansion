@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "swampexpansion:cattail_seeds"
+        },
+        {
+            "item": "swampexpansion:cattail_seeds"
+        },
+        {
+            "item": "swampexpansion:cattail_seeds"
+        }
+    ],
+    "result": {
+        "minecraft": "minecraft:string",
+        "count": 2
+    }
+}
