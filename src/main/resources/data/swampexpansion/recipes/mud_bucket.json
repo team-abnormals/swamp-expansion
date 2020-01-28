@@ -1,0 +1,36 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "swampexpansion:mud_ball"
+        },
+        {
+            "item": "swampexpansion:mud_ball"
+        },
+        {
+            "item": "swampexpansion:mud_ball"
+        },
+        {
+            "item": "swampexpansion:mud_ball"
+        },
+        {
+            "item": "minecraft:water_bucket"
+        },
+        {
+            "item": "swampexpansion:mud_ball"
+        },
+        {
+            "item": "swampexpansion:mud_ball"
+        },
+        {
+            "item": "swampexpansion:mud_ball"
+        },
+        {
+            "item": "swampexpansion:mud_ball"
+        }
+    ],
+    "result": {
+        "item": "swampexpansion:mud_bucket",
+        "count": 1
+    }
+}
