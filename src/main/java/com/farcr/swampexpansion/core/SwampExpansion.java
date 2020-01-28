@@ -4,6 +4,8 @@ import com.farcr.swampexpansion.common.worldgen.FeatureEditer;
 import com.farcr.swampexpansion.core.proxy.ClientProxy;
 import com.farcr.swampexpansion.core.proxy.ServerProxy;
 import com.farcr.swampexpansion.core.registries.BlockRegistry;
+import net.minecraft.fluid.Fluid;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -17,6 +19,7 @@ public class SwampExpansion {
 
     public SwampExpansion() {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
+        registerFluidStuff();
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
@@ -29,5 +32,12 @@ public class SwampExpansion {
     void preInit(final FMLCommonSetupEvent event)
     {
 
+    }
+
+    public static void registerFluidStuff()
+    {
+        BlockRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BlockRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BlockRegistry.FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 }

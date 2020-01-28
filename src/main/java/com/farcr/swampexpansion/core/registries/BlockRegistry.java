@@ -3,6 +3,7 @@ package com.farcr.swampexpansion.core.registries;
 import com.farcr.swampexpansion.common.block.*;
 import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
+import com.farcr.swampexpansion.common.block.fluid.MudFluidBlock;
 import com.farcr.swampexpansion.common.item.FuelItem;
 import com.farcr.swampexpansion.common.world.gen.feature.trees.SwampTree;
 import com.farcr.swampexpansion.core.util.BlockProperties;
@@ -13,20 +14,29 @@ import net.minecraft.block.trees.OakTree;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.fluid.IFluidState;
+import net.minecraft.item.*;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BlockRegistry {
+	public static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, "swampexpansion");
+	public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, "swampexpansion");
+	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, "swampexpansion");
+
 	public static Block MUD_BRICKS = new Block(BlockProperties.MUD_BRICKS).setRegistryName("mud_bricks");
 	public static Block MUD_BRICK_STAIRS = new StairsBlock(MUD_BRICKS.getDefaultState(), BlockProperties.MUD_BRICKS).setRegistryName("mud_brick_stairs");
 	public static Block MUD_BRICK_SLAB = new SlabBlock(BlockProperties.MUD_BRICKS).setRegistryName("mud_brick_slab");
@@ -51,12 +61,7 @@ public class BlockRegistry {
 	public static Block WILLOW_SIGN_WALL = new WallSignBlock(BlockProperties.WILLOW_PLANKS).setRegistryName("willow_sign_wall");
 	public static Block CATTAIL = new CattailBlock().setRegistryName("cattail");
 
-	public static Block MUD = new FlowingFluidBlock(new Supplier<FlowingFluid>() {
-		@Override
-		public FlowingFluid get() {
-			return FLOWING_MUD;
-		}
-	}, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()).setRegistryName("mud");
+
 
 	//quark
 	public static Block WILLOW_LADDER = new LadderBlock(BlockProperties.LADDER).setRegistryName("willow_ladder");
@@ -67,8 +72,35 @@ public class BlockRegistry {
 	public static Block WILLOW_LEAF_CARPET = new LeafCarpetBlock(BlockProperties.LEAVES).setRegistryName("willow_leaf_carpet");
 
 	//fluids
-	public static FlowingFluid FLOWING_MUD = new MudFluid.Flowing();
-	public static FlowingFluid STILL_MUD = new MudFluid.Source();
+
+	public static RegistryObject<FlowingFluid> MUD = FLUIDS.register("mud", () -> new MudFluid.Source(BlockRegistry.MUDPROPERTEY));
+	public static RegistryObject<FlowingFluid> MUD_FLOWING = FLUIDS.register("mud_flowing", () -> new MudFluid.Flowing(BlockRegistry.MUDPROPERTEY));
+	public static RegistryObject<FlowingFluidBlock> MUD_BLOCK = BLOCKS.register("mud_block", () ->
+
+			new MudFluidBlock(MUD, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()) {}
+	);
+	// bucketitem for the mud
+	public static RegistryObject<Item> MUD_BUCKET = ITEMS.register("mud_bucket", () ->
+			new BucketItem(MUD, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1)/*.group( ??? )*/)
+	);
+
+	public static final ForgeFlowingFluid.Properties MUDPROPERTEY = new ForgeFlowingFluid.Properties(MUD, MUD_FLOWING,
+			FluidAttributes.builder(new ResourceLocation("swampexpansion:block/mud_still"), new ResourceLocation("swampexpansion:block/mud_flow"))
+					.viscosity(100000)
+					.density(500)
+					.overlay(new ResourceLocation("swampexpansion:block/mud_overlay")))
+			.block(MUD_BLOCK)
+			.bucket(MUD_BUCKET)
+			.canMultiply()
+			.levelDecreasePerBlock(2)
+			.slopeFindDistance(4)
+			.renderLayer(BlockRenderLayer.TRANSLUCENT);
+
+
+
+
+//	public static FlowingFluid FLOWING_MUD = new MudFluid.Flowing();
+//	public static FlowingFluid STILL_MUD = new MudFluid.Source();
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> registry) {
@@ -80,7 +112,6 @@ public class BlockRegistry {
 				WILLOW_BUTTON, WILLOW_PRESSURE_PLATE,
 				WILLOW_LEAVES,
 				WILLOW_SAPLING, POTTED_WILLOW_SAPLING,
-				MUD,
 				CATTAIL
 		);
 		if (ModList.get().isLoaded("quark")) {
@@ -131,14 +162,7 @@ public class BlockRegistry {
 		}
 	}
 
-	@SubscribeEvent
-	public static void registerFluids(RegistryEvent.Register<Fluid> registry) {
-		FLOWING_MUD.setRegistryName("flowing_mud");
-		STILL_MUD.setRegistryName("still_mud");
-		registry.getRegistry().registerAll(
-				STILL_MUD, FLOWING_MUD
-		);
-	}
+
 
 	public static void registerBlockData() {
 		//compostable blocks
