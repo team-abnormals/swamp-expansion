@@ -57,7 +57,8 @@ public class CattailBlock extends Block implements IWaterLoggable {
         return world.getBlockState(down).func_224755_d(world, down, Direction.UP) && (world.getBlockState(down).isIn(BlockTags.DIRT_LIKE) || world.getBlockState(down).getBlock() == Blocks.CLAY);
     }
 
-    public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
+    @SuppressWarnings("deprecation")
+	public BlockState updatePostPlacement(BlockState state, Direction direction, BlockState state2, IWorld world, BlockPos pos, BlockPos pos2) {
         if ((Boolean)state.get(WATERLOGGED)) {
             world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
         }

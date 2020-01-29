@@ -1,8 +1,8 @@
 package com.farcr.swampexpansion.common.entity;
 
-import com.farcr.swampexpansion.core.registries.BlockRegistry;
-import com.farcr.swampexpansion.core.registries.EntityRegistry;
-import com.farcr.swampexpansion.core.registries.ItemRegistry;
+import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registries.SwampExEntities;
+import com.farcr.swampexpansion.core.registries.SwampExItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LilyPadBlock;
@@ -76,7 +76,7 @@ public class WillowBoatEntity extends BoatEntity {
 	}
 
 	public WillowBoatEntity(World worldIn, double x, double y, double z) {
-		this(EntityRegistry.WILLOW_BOAT, worldIn);
+		this(SwampExEntities.WILLOW_BOAT, worldIn);
 		setPosition(x, y, z);
 		setMotion(Vec3d.ZERO);
 		prevPosX = x;
@@ -85,7 +85,7 @@ public class WillowBoatEntity extends BoatEntity {
 	}
 
 	public WillowBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
-		this(EntityRegistry.WILLOW_BOAT, world);
+		this(SwampExEntities.WILLOW_BOAT, world);
 	}
 
 	@Override
@@ -99,6 +99,7 @@ public class WillowBoatEntity extends BoatEntity {
 		dataManager.register(ROCKING_TICKS, 0);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (isInvulnerableTo(source)) {
@@ -145,7 +146,7 @@ public class WillowBoatEntity extends BoatEntity {
 		switch (getBoatModel()) {
 			default:
 			case WILLOW:
-				return ItemRegistry.WILLOW_BOAT;
+				return SwampExItems.WILLOW_BOAT.get();
 		}
 	}
 
@@ -505,6 +506,7 @@ public class WillowBoatEntity extends BoatEntity {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void updatePassenger(Entity passenger) {
 		if (isPassenger(passenger)) {
@@ -562,6 +564,7 @@ public class WillowBoatEntity extends BoatEntity {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void updateFallState(double y, boolean onGroundIn, BlockState state, BlockPos pos) {
 		lastYd = getMotion().y;
@@ -664,7 +667,7 @@ public class WillowBoatEntity extends BoatEntity {
 	}
 
 	public enum Type {
-		WILLOW(BlockRegistry.WILLOW_PLANKS, "willow");
+		WILLOW(SwampExBlocks.WILLOW_PLANKS.get(), "willow");
 
 		private final String name;
 		private final Block block;

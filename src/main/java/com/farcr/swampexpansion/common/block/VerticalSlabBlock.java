@@ -86,7 +86,8 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable {
         (useContext.getFace() == slabtype.direction && getDirectionForPlacement(useContext) == slabtype.direction);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public IFluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
@@ -101,7 +102,8 @@ public class VerticalSlabBlock extends Block implements IWaterLoggable {
         return state.get(TYPE) != VerticalSlabType.DOUBLE && IWaterLoggable.super.canContainFluid(worldIn, pos, state, fluidIn);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         if(stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));

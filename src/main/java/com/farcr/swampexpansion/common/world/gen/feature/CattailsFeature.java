@@ -1,10 +1,9 @@
 package com.farcr.swampexpansion.common.world.gen.feature;
 
 import com.farcr.swampexpansion.common.block.CattailBlock;
-import com.farcr.swampexpansion.core.registries.BlockRegistry;
-import com.farcr.swampexpansion.core.registries.FeatureRegistry;
+import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registries.SwampExFeatures;
 import com.mojang.datafixers.Dynamic;
-import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -30,9 +29,9 @@ public class CattailsFeature extends Feature<NoFeatureConfig> {
         boolean place = false;
         for(int i = 0; i < 64; ++i) {
             BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8) - random.nextInt(8));
-            if (world.isAirBlock(placePos) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && BlockRegistry.CATTAIL.getDefaultState().isValidPosition(world, placePos)) {
+            if (world.isAirBlock(placePos) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && SwampExBlocks.CATTAIL.get().getDefaultState().isValidPosition(world, placePos)) {
                 if (world.hasWater(placePos)) {
-                    ((CattailBlock) BlockRegistry.CATTAIL).placeAt(world, placePos, 2);
+                    ((CattailBlock) SwampExBlocks.CATTAIL.get()).placeAt(world, placePos, 2);
                     place = true;
                 }
             }
@@ -44,9 +43,10 @@ public class CattailsFeature extends Feature<NoFeatureConfig> {
         ForgeRegistries.BIOMES.getValues().forEach(CattailsFeature::generate);
     }
 
-    public static void generate(Biome biome) {
+    @SuppressWarnings("unchecked")
+	public static void generate(Biome biome) {
         if (biome.getCategory() == Biome.Category.SWAMP) {
-            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(FeatureRegistry.CATTAILS, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(8)));
+            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.CATTAILS, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(8)));
         }
     }
 }
