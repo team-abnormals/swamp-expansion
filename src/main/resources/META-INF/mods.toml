@@ -1,12 +1,12 @@
 modLoader="javafml"
 loaderVersion="[28,]"
 logoFile="logo.png"
-authors="Farcr, Musicano, and Pugz"
+authors="Farcr, Musicano, Ilja, Bagel, and Pugz"
 credits="Dolores_McDoodle"
 
 [[mods]]
     modId="swampexpansion"
-    version="1.0.0"
+    version="1.3"
     displayName="Swamp Expansion"
     description='''
     Expanding the Swamps. New wood, new blocks, new friends.

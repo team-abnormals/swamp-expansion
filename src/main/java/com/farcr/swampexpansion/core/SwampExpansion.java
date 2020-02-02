@@ -11,6 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -25,13 +26,18 @@ public class SwampExpansion {
     public SwampExpansion() {
     	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
+    	DistExecutor.runWhenOn(Dist.CLIENT, () -> this::initSetupClient);
         
         SwampExBlocks.BLOCKS.register(modEventBus);
         SwampExItems.ITEMS.register(modEventBus);
         SwampExBlocks.FLUIDS.register(modEventBus);
         
         MinecraftForge.EVENT_BUS.register(this);
+    }
+    
+    public void initSetupClient()
+    {
+    	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
