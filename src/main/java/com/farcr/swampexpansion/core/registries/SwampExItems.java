@@ -20,7 +20,7 @@ public class SwampExItems {
 	public static RegistryObject<Item> MUD_BALL = RegistryUtils.createItem("mud_ball", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 	public static RegistryObject<Item> MUD_BRICK = RegistryUtils.createItem("mud_brick", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 	//public static RegistryObject<Item> WILLOW_SIGN = RegistryUtils.createItem("willow_sign", () -> new SignItem(new Item.Properties().group(ItemGroup.DECORATIONS), SwampExBlocks.WILLOW_SIGN, SwampExBlocks.WILLOW_SIGN_WALL));
-	public static RegistryObject<Item> MUD_BUCKET = RegistryUtils.createItem("mud_bucket", () -> new BucketItem(SwampExBlocks.MUD_STILL, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1)));
+	//public static RegistryObject<Item> MUD_BUCKET = RegistryUtils.createItem("mud_bucket", () -> new BucketItem(SwampExBlocks.MUD_STILL, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ItemGroup.MATERIALS)));
 	public static RegistryObject<Item> WILLOW_BOAT = RegistryUtils.createItem("willow_boat", () -> new WillowBoatItem(WillowBoatEntity.Type.WILLOW, new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1)));
 	public static RegistryObject<Item> CATTAIL_SEEDS = RegistryUtils.createItem("cattail_seeds", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 
