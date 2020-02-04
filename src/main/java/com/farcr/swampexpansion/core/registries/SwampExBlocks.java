@@ -1,5 +1,6 @@
 package com.farcr.swampexpansion.core.registries;
 
+import com.farcr.swampexpansion.common.block.BookshelfBlock;
 import com.farcr.swampexpansion.common.block.CattailBlock;
 import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
@@ -73,7 +74,7 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> VERTICAL_WILLOW_PLANKS 	= RegistryUtils.createBlockCompat("quark", "vertical_willow_planks", () -> new Block(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> VERTICAL_WILLOW_SLAB 	= RegistryUtils.createBlockCompat("quark", "vertical_willow_slab", () -> new VerticalSlabBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> VERTICAL_MUD_BRICK_SLAB = RegistryUtils.createBlockCompat("quark", "vertical_mud_brick_slab", () -> new VerticalSlabBlock(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> WILLOW_BOOKSHELF 		= RegistryUtils.createBlockCompat("quark", "willow_bookshelf", () -> new Block(BlockProperties.BOOKSHELF), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> WILLOW_BOOKSHELF 		= RegistryUtils.createBlockCompat("quark", "willow_bookshelf", () -> new BookshelfBlock(BlockProperties.BOOKSHELF), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_LEAF_CARPET 		= RegistryUtils.createBlockCompat("quark", "willow_leaf_carpet", () -> new LeafCarpetBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
 
 	//fluids
