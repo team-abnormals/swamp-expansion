@@ -46,7 +46,6 @@ public class SwampExBlocks {
 	public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, "swampexpansion");
 
 	public static RegistryObject<Block> MUD_BRICKS 				= RegistryUtils.createBlock("mud_bricks", () -> new Block(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> CHISELED_MUD_BRICKS 	= RegistryUtils.createBlock("chiseled_mud_bricks", () -> new Block(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> MUD_BRICK_STAIRS 		= RegistryUtils.createBlock("mud_brick_stairs", () -> new StairsBlock(MUD_BRICKS.get().getDefaultState(), BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> MUD_BRICK_SLAB 			= RegistryUtils.createBlock("mud_brick_slab", () -> new SlabBlock(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> MUD_BRICK_WALL 			= RegistryUtils.createBlock("mud_brick_wall", () -> new WallBlock(BlockProperties.MUD_BRICKS), ItemGroup.DECORATIONS);
