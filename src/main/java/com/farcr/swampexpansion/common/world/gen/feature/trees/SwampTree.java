@@ -7,9 +7,6 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class SwampTree extends Tree {
-    public SwampTree() {
-    }
-
     @Nullable
     protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
         return new SwampTreeFeature(NoFeatureConfig::deserialize);

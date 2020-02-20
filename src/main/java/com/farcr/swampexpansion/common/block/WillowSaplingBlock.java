@@ -5,7 +5,7 @@ import net.minecraft.block.trees.Tree;
 
 public class WillowSaplingBlock extends SaplingBlock {
 
-    public WillowSaplingBlock(Properties properties, Tree tree) {
+    public WillowSaplingBlock(Tree tree, Properties properties) {
         super(tree, properties);
     }
 }

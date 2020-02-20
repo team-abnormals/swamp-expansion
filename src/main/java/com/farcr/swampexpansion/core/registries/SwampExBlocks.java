@@ -61,13 +61,14 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> WILLOW_TRAPDOOR 		= RegistryUtils.createBlock("willow_trapdoor", () -> new TrapDoorBlock(BlockProperties.WILLOW_DOORS), ItemGroup.REDSTONE);
 	public static RegistryObject<Block> WILLOW_WOOD 			= RegistryUtils.createBlock("willow_wood", () -> new RotatedPillarBlock(BlockProperties.LOG), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> STRIPPED_WILLOW_WOOD 	= RegistryUtils.createBlock("stripped_willow_wood", () -> new RotatedPillarBlock(BlockProperties.LOG), ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> WILLOW_SAPLING 			= RegistryUtils.createBlock("willow_sapling", () -> new WillowSaplingBlock(BlockProperties.SAPLING, new SwampTree()), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> WILLOW_SAPLING 			= RegistryUtils.createBlock("willow_sapling", () -> new WillowSaplingBlock(new SwampTree(), BlockProperties.SAPLING), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_BUTTON 			= RegistryUtils.createBlock("willow_button", () -> new WillowButtonBlock(), ItemGroup.REDSTONE);
 	public static RegistryObject<Block> WILLOW_LEAVES 			= RegistryUtils.createBlock("willow_leaves", () -> new LeavesBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> POTTED_WILLOW_SAPLING 	= RegistryUtils.createBlockNoItem("potted_willow_sapling", () -> new FlowerPotBlock(SwampExBlocks.WILLOW_SAPLING.get(), BlockProperties.FLOWER_POT));
 	//public static RegistryObject<Block> WILLOW_SIGN 			= RegistryUtils.createBlock("willow_sign", () -> new StandingSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
+	//public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(), ItemGroup.DECORATIONS);
 
 	//quark
 	public static RegistryObject<Block> WILLOW_LADDER 			= RegistryUtils.createBlockCompat("quark", "willow_ladder", () -> new LadderBlock(BlockProperties.LADDER), ItemGroup.DECORATIONS);

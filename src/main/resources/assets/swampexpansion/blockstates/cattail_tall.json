@@ -1,16 +1,10 @@
 {
     "variants": {
-        "half=lower": { "model": "block/cattail_tall_bottom",
-                        "textures":{"cross":cattail_tall_bottom },
-        "half=upper":    { "model":"block/cattail_tall_top",
-                        "textures":{"cross":cattail_tall_top 
-},
-        "half=lower,"grown=true": 
-{ "model": "block/tall_cattail_bottom",
-                        "textures":{"cross":cattail_tall_grown_bottom}
-       "half=upper,"grown=true": 
-{ "model": "block/tall_cattail_top",
-                        "textures":{"cross":cattail_tall_grown_top}
+        "type=top,grown=false":  { "model": "swampexpansion:block/cattail_tall_top" },
+        "type=bottom,grown=false":  { "model": "swampexpansion:block/cattail_tall_bottom" },
+        "type=top,grown=true":  { "model": "swampexpansion:block/cattail_tall_grown_top" },
+        "type=bottom,grown=true":  { "model": "swampexpansion:block/cattail_tall_grown_bottom" }
+    }
 }
 
 
