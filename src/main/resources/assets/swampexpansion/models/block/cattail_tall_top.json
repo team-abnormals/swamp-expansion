@@ -1,6 +1,6 @@
 {
     "parent": "block/cross",
     "textures": {
-        "cross": "block/cattail_tall_top"
+        "cross": "swampexpansion:block/cattail_tall_top"
     }
 }

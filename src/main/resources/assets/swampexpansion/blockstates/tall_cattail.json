@@ -1,0 +1,15 @@
+{
+    "variants": {
+        "half=upper,age=0":  { "model": "swampexpansion:block/cattail_tall_top" },
+        "half=lower,age=0":  { "model": "swampexpansion:block/cattail_tall_bottom" },
+        "half=upper,age=1":  { "model": "swampexpansion:block/cattail_tall_grown_top" },
+        "half=lower,age=1":  { "model": "swampexpansion:block/cattail_tall_grown_bottom" }
+    }
+}
+
+
+
+
+
+
+

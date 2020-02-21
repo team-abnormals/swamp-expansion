@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.block.BookshelfBlock;
 import com.farcr.swampexpansion.common.block.CattailBlock;
+import com.farcr.swampexpansion.common.block.DoubleCattailBlock;
 import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
 import com.farcr.swampexpansion.common.block.VerticalSlabBlock;
@@ -68,7 +69,7 @@ public class SwampExBlocks {
 	//public static RegistryObject<Block> WILLOW_SIGN 			= RegistryUtils.createBlock("willow_sign", () -> new StandingSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
-	//public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 
 	//quark
 	public static RegistryObject<Block> WILLOW_LADDER 			= RegistryUtils.createBlockCompat("quark", "willow_ladder", () -> new LadderBlock(BlockProperties.LADDER), ItemGroup.DECORATIONS);

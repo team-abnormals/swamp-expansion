@@ -1,11 +1,17 @@
 package com.farcr.swampexpansion.common.block;
 
+import java.util.Random;
+
 import javax.annotation.Nullable;
+
+import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
+import net.minecraft.block.DoublePlantBlock;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
@@ -23,8 +29,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 
-public class CattailBlock extends BushBlock implements IWaterLoggable {
+public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable {
 	protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
@@ -59,6 +66,26 @@ public class CattailBlock extends BushBlock implements IWaterLoggable {
 		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
 		return this.getDefaultState().with(WATERLOGGED, flag);
 	}
+    
+    public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+        DoublePlantBlock doubleplantblock = (DoublePlantBlock)(SwampExBlocks.TALL_CATTAIL.get());
+        if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
+           doubleplantblock.placeAt(worldIn, pos, 2);
+        }
+     }
+    
+    @SuppressWarnings("deprecation")
+    @Override
+	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+        super.tick(state, worldIn, pos, random);
+        if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
+        	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
+            if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
+            	doubleplantblock.placeAt(worldIn, pos, 2);
+            }
+           net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+        }
+     }
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
@@ -82,5 +109,15 @@ public class CattailBlock extends BushBlock implements IWaterLoggable {
 			}
 			return super.updatePostPlacement(state, facing, facingState, worldIn, currentPos, facingPos);	
 		}	
+	}
+
+	@Override
+	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
+		return true;
+	}
+
+	@Override
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+		return true;
 	}
 }
