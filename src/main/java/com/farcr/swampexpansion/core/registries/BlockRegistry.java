@@ -16,6 +16,8 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.*;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -96,7 +98,9 @@ public class BlockRegistry {
 			.slopeFindDistance(4)
 			.renderLayer(BlockRenderLayer.TRANSLUCENT);
 
-
+    public static class Tags {
+        public static final Tag<Fluid> MUD_TAG = new FluidTags.Wrapper(new ResourceLocation("swampexpansion", "mud_tag"));
+    }
 
 
 //	public static FlowingFluid FLOWING_MUD = new MudFluid.Flowing();
