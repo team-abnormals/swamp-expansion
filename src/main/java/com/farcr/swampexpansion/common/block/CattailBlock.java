@@ -44,6 +44,12 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(WATERLOGGED);
     }
+    
+    @Override
+    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        Block block = state.getBlock();
+        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.FARMLAND || block.isIn(BlockTags.DIRT_LIKE);
+     }
 
     public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
         worldIn.setBlockState(pos, getDefaultState(), flags);
@@ -80,7 +86,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
         super.tick(state, worldIn, pos, random);
         if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
         	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
-            if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
+            if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
             	doubleplantblock.placeAt(worldIn, pos, 2);
             }
            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
@@ -90,7 +96,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         BlockPos down = pos.down();
-        return world.getBlockState(down).func_224755_d(world, down, Direction.UP) && (world.getBlockState(down).isIn(BlockTags.DIRT_LIKE) || world.getBlockState(down).getBlock() == Blocks.CLAY);
+        return ((world.getBlockState(down).isIn(BlockTags.DIRT_LIKE) || world.getBlockState(down).getBlock() == Blocks.CLAY || world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
     }
     
     @SuppressWarnings("deprecation")

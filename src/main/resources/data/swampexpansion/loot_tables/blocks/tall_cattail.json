@@ -9,13 +9,19 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "atmospheric:tall_cattail",
+              "block": "swampexpansion:tall_cattail",
               "properties": {
                 "half": "lower"
               }
-            }
+            },
+            {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "item": "minecraft:shears"
+                  }
+                }
           ],
-          "name": "atmospheric:cattail",
+          "name": "swampexpansion:cattail",
           "functions": [
                 {
                   "function": "minecraft:set_count",
