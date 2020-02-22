@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "swampexpansion:block/cattail"
+        "layer0": "swampexpansion:block/cattail_tall_top"
     }
 }
