@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.world.gen.feature.CattailsFeature;
 import com.farcr.swampexpansion.common.world.gen.feature.HangingVinesFeature;
+import com.farcr.swampexpansion.common.world.gen.feature.WillowTreeFeature;
 
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -14,12 +15,13 @@ import net.minecraftforge.fml.common.Mod;
 public class SwampExFeatures {
 	public static Feature CATTAILS = new CattailsFeature(NoFeatureConfig::deserialize).setRegistryName("cattails");
 	public static Feature HANGING_WILLOW_VINES = new HangingVinesFeature(NoFeatureConfig::deserialize).setRegistryName("hanging_willow_vines");
+	public static Feature WILLOW_TREE = new WillowTreeFeature(NoFeatureConfig::deserialize).setRegistryName("willow_tree");
 
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         //FlowerVillagePools.init();
         event.getRegistry().registerAll(
-                CATTAILS, HANGING_WILLOW_VINES
+                CATTAILS, HANGING_WILLOW_VINES, WILLOW_TREE
         );
     }
 

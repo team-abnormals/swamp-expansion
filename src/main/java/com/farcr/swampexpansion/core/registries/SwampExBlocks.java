@@ -12,7 +12,7 @@ import com.farcr.swampexpansion.common.block.WillowButtonBlock;
 import com.farcr.swampexpansion.common.block.WillowSaplingBlock;
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
 import com.farcr.swampexpansion.common.block.fluid.MudFluidBlock;
-import com.farcr.swampexpansion.common.world.gen.feature.trees.SwampTree;
+import com.farcr.swampexpansion.common.world.gen.feature.trees.WillowTree;
 import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
 
@@ -70,7 +70,7 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> WILLOW_TRAPDOOR 		= RegistryUtils.createBlock("willow_trapdoor", () -> new TrapDoorBlock(BlockProperties.WILLOW_DOORS), ItemGroup.REDSTONE);
 	public static RegistryObject<Block> WILLOW_WOOD 			= RegistryUtils.createBlock("willow_wood", () -> new RotatedPillarBlock(BlockProperties.LOG), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> STRIPPED_WILLOW_WOOD 	= RegistryUtils.createBlock("stripped_willow_wood", () -> new RotatedPillarBlock(BlockProperties.LOG), ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> WILLOW_SAPLING 			= RegistryUtils.createBlock("willow_sapling", () -> new WillowSaplingBlock(new SwampTree(), BlockProperties.SAPLING), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> WILLOW_SAPLING 			= RegistryUtils.createBlock("willow_sapling", () -> new WillowSaplingBlock(new WillowTree(), BlockProperties.SAPLING), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_BUTTON 			= RegistryUtils.createBlock("willow_button", () -> new WillowButtonBlock(), ItemGroup.REDSTONE);
 	public static RegistryObject<Block> WILLOW_LEAVES 			= RegistryUtils.createBlock("willow_leaves", () -> new LeavesBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> HANGING_WILLOW_LEAVES 	= RegistryUtils.createBlock("hanging_willow_leaves", () -> new HangingWillowLeavesBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);

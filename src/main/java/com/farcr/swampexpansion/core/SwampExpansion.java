@@ -42,7 +42,7 @@ public class SwampExpansion {
 
     private void setupCommon(final FMLCommonSetupEvent event) {
         SwampExData.registerBlockData();
-        FeatureEditor.overRideFeatures();
+        FeatureEditor.overrideFeatures();
         SwampExFeatures.generateFeatures();
     }
     
