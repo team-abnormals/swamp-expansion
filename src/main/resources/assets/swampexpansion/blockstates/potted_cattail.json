@@ -1,5 +1,12 @@
 {
-    "variants": {
-        "": { "model": "block/potted_cattail" }
-    }
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "plant": "swampexpansion:block/cattail_sprouts"
+    },
+    "model": "block/flower_pot_cross"
+  },
+  "variants": {
+    "": [{}]
+  }
 }
