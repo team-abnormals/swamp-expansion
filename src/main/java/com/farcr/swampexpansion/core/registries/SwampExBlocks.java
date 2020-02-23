@@ -75,11 +75,20 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> POTTED_CATTAIL		    = RegistryUtils.createBlockNoItem("potted_cattail",	() -> new FlowerPotBlock(SwampExBlocks.CATTAIL.get(), BlockProperties.FLOWER_POT));
 	public static RegistryObject<Block> CATTAIL_THATCH          = RegistryUtils.createBlock("cattail_thatch", () -> new Block(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
-		public BlockRenderLayer getRenderLayer() {return BlockRenderLayer.CUTOUT;};}, ItemGroup.BUILDING_BLOCKS);
+		public BlockRenderLayer getRenderLayer() {
+			return BlockRenderLayer.CUTOUT;
+		};
+	}, ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL_THATCH_SLAB     = RegistryUtils.createBlock("cattail_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
-		public BlockRenderLayer getRenderLayer() {return BlockRenderLayer.CUTOUT;};}, ItemGroup.BUILDING_BLOCKS);
+		public BlockRenderLayer getRenderLayer() {
+			return BlockRenderLayer.CUTOUT;
+		};
+	}, ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK)) {
-		public BlockRenderLayer getRenderLayer() {return BlockRenderLayer.CUTOUT;};}, ItemGroup.BUILDING_BLOCKS);
+		public BlockRenderLayer getRenderLayer() {
+			return BlockRenderLayer.CUTOUT;
+		};
+	}, ItemGroup.BUILDING_BLOCKS);
 	
 
 	//quark
@@ -90,7 +99,10 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> WILLOW_BOOKSHELF 		= RegistryUtils.createBlockCompat("quark", "willow_bookshelf", () -> new BookshelfBlock(BlockProperties.BOOKSHELF), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_LEAF_CARPET 		= RegistryUtils.createBlockCompat("quark", "willow_leaf_carpet", () -> new LeafCarpetBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB     = RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
-		public BlockRenderLayer getRenderLayer() {return BlockRenderLayer.CUTOUT;};}, ItemGroup.BUILDING_BLOCKS);
+		public BlockRenderLayer getRenderLayer() {
+			return BlockRenderLayer.CUTOUT;
+		};
+	}, ItemGroup.BUILDING_BLOCKS);
 
 	//fluids
 
