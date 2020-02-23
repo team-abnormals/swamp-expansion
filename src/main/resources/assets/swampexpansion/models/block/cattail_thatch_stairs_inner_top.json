@@ -2,9 +2,9 @@
 	"parent": "block/block",
 	"credit": "Made with Blockbench by SmellyModder (Luke Tonon)",
 	"textures": {
-		"extrudes": "swampexpansion:block/cattail_extrudes",
+		"extrudes": "swampexpansion:block/cattail_thatch_extrudes",
 		"thatch": "swampexpansion:block/cattail_thatch",
-		"particle": "swampexpansion:block/cattail_extrudes"
+		"particle": "swampexpansion:block/cattail_thatch"
 	},
 	"elements": [
 		{

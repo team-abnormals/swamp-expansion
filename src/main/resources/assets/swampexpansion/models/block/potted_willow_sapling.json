@@ -1,6 +1,6 @@
 {
     "parent": "block/flower_pot_cross",
     "textures": {
-        "plant": "block/willow_sapling"
+        "plant": "swampexpansion:block/willow_sapling"
     }
 }

@@ -1,7 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"extrudes": "swampexpansion:block/cattail_extrudes",
+		"extrudes": "swampexpansion:block/cattail_thatch_extrudes",
 		"particle": "swampexpansion:block/cattail_thatch",
 		"side": "swampexpansion:block/cattail_thatch",
 		"top": "swampexpansion:block/cattail_thatch",
