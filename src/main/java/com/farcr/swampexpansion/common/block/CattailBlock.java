@@ -19,6 +19,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
@@ -52,9 +53,24 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
      }
 
     public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
-        worldIn.setBlockState(pos, getDefaultState(), flags);
-        worldIn.setBlockState(pos.up(), getDefaultState(), flags);
-        worldIn.setBlockState(pos.up(2), getDefaultState(), flags);
+    	Random rand = new Random();
+    	int type = rand.nextInt(4);
+    	
+    	BlockState seeds = SwampExBlocks.CATTAIL_SEEDS.get().getDefaultState();
+    	BlockState cattail = SwampExBlocks.CATTAIL.get().getDefaultState();
+    	BlockState tall_up = SwampExBlocks.TALL_CATTAIL.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.UPPER);
+    	BlockState tall_down = SwampExBlocks.TALL_CATTAIL.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.LOWER);
+    	
+    	boolean waterlogged = worldIn.hasWater(pos);
+    	if (type == 0) {
+    		worldIn.setBlockState(pos, seeds.with(WATERLOGGED, waterlogged), flags);
+    	} else if (type == 1) {
+    		worldIn.setBlockState(pos, tall_down.with(WATERLOGGED, waterlogged), flags);
+			waterlogged = worldIn.hasWater(pos.up());
+			worldIn.setBlockState(pos.up(), tall_up.with(WATERLOGGED, waterlogged), flags);
+    	} else {
+    		worldIn.setBlockState(pos, cattail.with(WATERLOGGED, waterlogged), flags);
+    	}
     }
     
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {

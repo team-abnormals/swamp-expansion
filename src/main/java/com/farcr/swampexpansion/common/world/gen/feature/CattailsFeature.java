@@ -27,13 +27,11 @@ public class CattailsFeature extends Feature<NoFeatureConfig> {
     @Override
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random random, BlockPos pos, NoFeatureConfig config) {
         boolean place = false;
-        for(int i = 0; i < 64; ++i) {
-            BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(4) - random.nextInt(4), random.nextInt(8) - random.nextInt(8));
-            if (world.isAirBlock(placePos) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && SwampExBlocks.CATTAIL.get().getDefaultState().isValidPosition(world, placePos)) {
-                if (world.hasWater(placePos)) {
-                    ((CattailBlock) SwampExBlocks.CATTAIL.get()).placeAt(world, placePos, 2);
-                    place = true;
-                }
+        for(int i = 0; i < 32; ++i) {
+            BlockPos placePos = pos.add(random.nextInt(4) - random.nextInt(4), random.nextInt(2) - random.nextInt(2), random.nextInt(4) - random.nextInt(4));
+            if ((world.hasWater(placePos) || world.isAirBlock(placePos)) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && SwampExBlocks.CATTAIL.get().getDefaultState().isValidPosition(world, placePos)) {
+            	((CattailBlock) SwampExBlocks.CATTAIL.get()).placeAt(world, placePos, 2);
+            	place = true;
             }
         }
         return place;

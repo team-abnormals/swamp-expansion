@@ -5,6 +5,7 @@ import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
 import com.farcr.swampexpansion.common.worldgen.FeatureEditor;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExData;
+import com.farcr.swampexpansion.core.registries.SwampExFeatures;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -21,6 +22,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("swampexpansion")
 @Mod.EventBusSubscriber
 public class SwampExpansion {
+	
     public SwampExpansion() {
     	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
@@ -41,6 +43,7 @@ public class SwampExpansion {
     private void setupCommon(final FMLCommonSetupEvent event) {
         SwampExData.registerBlockData();
         FeatureEditor.overRideFeatures();
+        SwampExFeatures.generateFeatures();
     }
     
     @OnlyIn(Dist.CLIENT)
