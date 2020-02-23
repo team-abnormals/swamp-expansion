@@ -4,6 +4,7 @@ import com.farcr.swampexpansion.common.block.BookshelfBlock;
 import com.farcr.swampexpansion.common.block.CattailBlock;
 import com.farcr.swampexpansion.common.block.CattailSproutBlock;
 import com.farcr.swampexpansion.common.block.DoubleCattailBlock;
+import com.farcr.swampexpansion.common.block.HangingWillowLeavesBlock;
 import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
 import com.farcr.swampexpansion.common.block.VerticalSlabBlock;
@@ -56,6 +57,7 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> MUD_BRICK_STAIRS 		= RegistryUtils.createBlock("mud_brick_stairs", () -> new StairsBlock(MUD_BRICKS.get().getDefaultState(), BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> MUD_BRICK_SLAB 			= RegistryUtils.createBlock("mud_brick_slab", () -> new SlabBlock(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> MUD_BRICK_WALL 			= RegistryUtils.createBlock("mud_brick_wall", () -> new WallBlock(BlockProperties.MUD_BRICKS), ItemGroup.DECORATIONS);
+	
 	public static RegistryObject<Block> WILLOW_PLANKS 			= RegistryUtils.createBlock("willow_planks", () -> new Block(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> WILLOW_SLAB 			= RegistryUtils.createBlock("willow_slab", () -> new SlabBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> WILLOW_STAIRS 			= RegistryUtils.createBlock("willow_stairs", () -> new StairsBlock(WILLOW_PLANKS.get().getDefaultState(), BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
@@ -71,6 +73,8 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> WILLOW_SAPLING 			= RegistryUtils.createBlock("willow_sapling", () -> new WillowSaplingBlock(new SwampTree(), BlockProperties.SAPLING), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_BUTTON 			= RegistryUtils.createBlock("willow_button", () -> new WillowButtonBlock(), ItemGroup.REDSTONE);
 	public static RegistryObject<Block> WILLOW_LEAVES 			= RegistryUtils.createBlock("willow_leaves", () -> new LeavesBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> HANGING_WILLOW_LEAVES 	= RegistryUtils.createBlock("hanging_willow_leaves", () -> new HangingWillowLeavesBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
+
 	public static RegistryObject<Block> POTTED_WILLOW_SAPLING 	= RegistryUtils.createBlockNoItem("potted_willow_sapling", () -> new FlowerPotBlock(SwampExBlocks.WILLOW_SAPLING.get(), BlockProperties.FLOWER_POT));
 	//public static RegistryObject<Block> WILLOW_SIGN 			= RegistryUtils.createBlock("willow_sign", () -> new StandingSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);

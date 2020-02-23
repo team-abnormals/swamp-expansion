@@ -57,6 +57,9 @@ public class SwampExData {
         
         blockColors.register((x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), SwampExBlocks.WILLOW_LEAF_CARPET.get());
         itemColors.register((color, items) -> FoliageColors.get(0.5D, 1.0D), SwampExBlocks.WILLOW_LEAF_CARPET.get());
+        
+        blockColors.register((x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), SwampExBlocks.HANGING_WILLOW_LEAVES.get());
+        itemColors.register((color, items) -> FoliageColors.get(0.5D, 1.0D), SwampExBlocks.HANGING_WILLOW_LEAVES.get());
     }
 
 	public static void registerFlammable(Block block, int encouragement, int flammability) {
