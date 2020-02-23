@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TTT",
+    "TTT",
+    "TTT"
+  ],
+  "key": {
+    "T": {
+      "item": "swampexpansion:cattail_seeds"
+    }
+  },
+  "result": {
+    "item": "swampexpansion:cattail_seed_sack"
+  },
+}
