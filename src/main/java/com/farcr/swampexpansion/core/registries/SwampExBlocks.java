@@ -75,17 +75,17 @@ public class SwampExBlocks {
 		public BlockRenderLayer getRenderLayer() {
 			return BlockRenderLayer.CUTOUT;
 		};
-	}, ItemGroup.BUILDING);
+	}, ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL_THATCH_SLAB     = RegistryUtils.createBlock("cattail_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
 		public BlockRenderLayer getRenderLayer() {
 			return BlockRenderLayer.CUTOUT;
 		};
-	}, ItemGroup.BUILDING);
+	}, ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.getDefaultState(),Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
 		public BlockRenderLayer getRenderLayer() {
 			return BlockRenderLayer.CUTOUT;
 		};
-	}, ItemGroup.BUILDING);
+	}, ItemGroup.BUILDING_BLOCKS);
 	
 
 	//quark
@@ -99,7 +99,7 @@ public class SwampExBlocks {
 		public BlockRenderLayer getRenderLayer() {
 			return BlockRenderLayer.CUTOUT;
 		};
-	}, ItemGroup.BUILDING);
+	}, ItemGroup.BUILDING_BLOCKS);
 
 	//fluids
 
