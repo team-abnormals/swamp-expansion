@@ -16,10 +16,6 @@
         {
           "type": "forge:mod_loaded",
           "modid": "quark"
-        },
-        {
-        	"type": "quark:flag",
-        	"flag": "cocoa_beans_sack"
         }
       ]
     }
