@@ -48,6 +48,12 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
 		this.setDefaultState(
 				this.getDefaultState().with(AGE, 0).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, false));
 	}
+	
+    @Override
+    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        Block block = state.getBlock();
+        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.FARMLAND || block.isIn(BlockTags.DIRT_LIKE);
+     }
 
 	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
@@ -77,9 +83,7 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
 		if (state.get(HALF) != DoubleBlockHalf.UPPER) {
-			return worldIn.getBlockState(pos.down()).func_224755_d(worldIn, pos.down(), Direction.UP)
-					&& (worldIn.getBlockState(pos.down()).isIn(BlockTags.DIRT_LIKE)
-							|| worldIn.getBlockState(pos.down()).getBlock() == Blocks.CLAY);
+			return ((worldIn.getBlockState(pos.down()).isIn(BlockTags.DIRT_LIKE) || worldIn.getBlockState(pos.down()).getBlock() == Blocks.CLAY|| worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
 		} else {
 			BlockState blockstate = worldIn.getBlockState(pos.down());
 			if (state.getBlock() != this)
@@ -93,13 +97,10 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
 	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
 		super.tick(state, worldIn, pos, random);
 		int i = state.get(AGE);
-		if (state.get(HALF) == DoubleBlockHalf.UPPER && i < 1 && worldIn.getLightSubtracted(pos.up(), 0) >= 9
-				&& net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
+		if (state.get(HALF) == DoubleBlockHalf.UPPER && i < 1 && worldIn.getBlockState(pos.down().down()).getBlock() == Blocks.FARMLAND && worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
 			worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(i + 1)), 2);
-			if (worldIn.getBlockState(pos.down()).getBlock() == this
-					&& worldIn.getBlockState(pos.down()).get(AGE) == 0) {
-				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, Integer.valueOf(i + 1)),
-						2);
+			if (worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.down()).get(AGE) == 0) {
+				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, Integer.valueOf(i + 1)), 2);
 			}
 			net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
 		}
@@ -168,6 +169,12 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
 		int i = state.get(AGE);
 		if (i < 1) {
 			worldIn.setBlockState(pos, state.with(AGE, i + 1));
+			if (state.get(HALF) == DoubleBlockHalf.UPPER) {
+				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, i + 1));
+			} else {
+				worldIn.setBlockState(pos.up(), worldIn.getBlockState(pos.up()).with(AGE, i + 1));
+			}
+			
 		}
 	}
 
