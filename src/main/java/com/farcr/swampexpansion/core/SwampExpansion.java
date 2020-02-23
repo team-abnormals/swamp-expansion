@@ -21,8 +21,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("swampexpansion")
 @Mod.EventBusSubscriber
 public class SwampExpansion {
-    //public static ServerProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-
     public SwampExpansion() {
     	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
