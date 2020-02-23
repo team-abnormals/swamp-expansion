@@ -3,8 +3,8 @@
 	"parent": "block/block",
 	"textures": {
 		"3": "swampexpansion:block/cattail_thatch_extrudes",
-		"particle": "swampexpansion:block/cattail_thatch_thatch",
-		"side": "swampexpansion:block/cattail_thatch_thatch"
+		"particle": "swampexpansion:block/cattail_thatch",
+		"side": "swampexpansion:block/cattail_thatch"
 	},
 	"elements": [
 		{

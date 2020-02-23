@@ -2,9 +2,9 @@
 	"parent": "block/block",
 	"credit": "Made with Blockbench by SmellyModder (Luke Tonon)",
 	"textures": {
-		"1": "upgrade_aquatic:block/beachgrass_thatch",
-		"4": "upgrade_aquatic:block/beachgrass_thatch_extrudes",
-		"particle": "upgrade_aquatic:block/beachgrass_thatch"
+		"1": "swampexpansion:block/cattail_thatch",
+		"4": "swampexpansion:block/cattail_extrudes",
+		"particle": "swampexpansion:block/cattail_thatch"
 	},
 	"elements": [
 		{

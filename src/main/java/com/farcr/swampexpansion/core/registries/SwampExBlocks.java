@@ -15,6 +15,9 @@ import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.Block.Properties;
+import net.minecraft.block.Blocks;
+import net.minecraftforge.common.ToolType;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
@@ -81,7 +84,7 @@ public class SwampExBlocks {
 			return BlockRenderLayer.CUTOUT;
 		};
 	}, ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.getDefaultState(),Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
+	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK)) {
 		public BlockRenderLayer getRenderLayer() {
 			return BlockRenderLayer.CUTOUT;
 		};

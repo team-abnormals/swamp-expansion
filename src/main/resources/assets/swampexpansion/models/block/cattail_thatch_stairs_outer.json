@@ -1,11 +1,11 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"3": "upgrade_aquatic:block/beachgrass_thatch_extrudes",
-		"particle": "upgrade_aquatic:block/beachgrass_thatch",
-		"side": "upgrade_aquatic:block/beachgrass_thatch",
-		"top": "upgrade_aquatic:block/beachgrass_thatch",
-		"bottom": "upgrade_aquatic:block/beachgrass_thatch"
+		"3": "swampexpansion:block/cattail_extrudes",
+		"particle": "swampexpansion:block/cattail_thatch",
+		"side": "swampexpansion:block/cattail_thatch",
+		"top": "swampexpansion:block/cattail_thatch",
+		"bottom": "swampexpansion:block/cattail_thatch"
 	},
 	"elements": [
 		{
