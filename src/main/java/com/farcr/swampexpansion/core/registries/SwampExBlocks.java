@@ -95,7 +95,7 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> VERTICAL_MUD_BRICK_SLAB = RegistryUtils.createBlockCompat("quark", "vertical_mud_brick_slab", () -> new VerticalSlabBlock(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> WILLOW_BOOKSHELF 		= RegistryUtils.createBlockCompat("quark", "willow_bookshelf", () -> new BookshelfBlock(BlockProperties.BOOKSHELF), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_LEAF_CARPET 		= RegistryUtils.createBlockCompat("quark", "willow_leaf_carpet", () -> new LeafCarpetBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
-	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB     = RegistryUtils.createBlock("cattail_thatch_vertical_slab", () -> new VerticalSlabBlock((BlockProperties.HAY_BLOCK) .harvestTool(ToolType.AXE)) {
+	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB     = RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(BlockProperties.HAY_BLOCK.harvestTool(ToolType.AXE)) {
 		public BlockRenderLayer getRenderLayer() {
 			return BlockRenderLayer.CUTOUT;
 		};
