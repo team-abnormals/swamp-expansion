@@ -1,0 +1,8 @@
+{
+    "parent": "swampexpansion:block/vertical_slab",
+    "textures": {
+        "side": "swampexpansion:block/mud_bricks",
+        "top": "swampexpansion:block/mud_bricks",
+        "bottom": "swampexpansion:block/mud_bricks"
+    }
+}

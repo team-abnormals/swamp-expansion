@@ -13,5 +13,16 @@
   "result": {
     "item": "swampexpansion:cattail_thatch_vertical_slab",
     "count": 3
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        }
+      ]
+    }
+  ]
 }

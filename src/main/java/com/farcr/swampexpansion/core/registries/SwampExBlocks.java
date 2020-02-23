@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.block.BookshelfBlock;
 import com.farcr.swampexpansion.common.block.CattailBlock;
+import com.farcr.swampexpansion.common.block.CattailSproutBlock;
 import com.farcr.swampexpansion.common.block.DoubleCattailBlock;
 import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
@@ -27,10 +28,12 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -71,25 +74,20 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> POTTED_WILLOW_SAPLING 	= RegistryUtils.createBlockNoItem("potted_willow_sapling", () -> new FlowerPotBlock(SwampExBlocks.WILLOW_SAPLING.get(), BlockProperties.FLOWER_POT));
 	//public static RegistryObject<Block> WILLOW_SIGN 			= RegistryUtils.createBlock("willow_sign", () -> new StandingSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
+	
+	public static RegistryObject<Block> CATTAIL_SEEDS 			= RegistryUtils.createBlock("cattail_seeds", () -> new CattailSproutBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
+
 	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> POTTED_CATTAIL		    = RegistryUtils.createBlockNoItem("potted_cattail",	() -> new FlowerPotBlock(SwampExBlocks.CATTAIL.get(), BlockProperties.FLOWER_POT));
-	public static RegistryObject<Block> CATTAIL_THATCH          = RegistryUtils.createBlock("cattail_thatch", () -> new Block(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
-		public BlockRenderLayer getRenderLayer() {
-			return BlockRenderLayer.CUTOUT;
-		};
-	}, ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> CATTAIL_THATCH_SLAB     = RegistryUtils.createBlock("cattail_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
-		public BlockRenderLayer getRenderLayer() {
-			return BlockRenderLayer.CUTOUT;
-		};
-	}, ItemGroup.BUILDING_BLOCKS);
-	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK)) {
-		public BlockRenderLayer getRenderLayer() {
-			return BlockRenderLayer.CUTOUT;
-		};
-	}, ItemGroup.BUILDING_BLOCKS);
 	
+	public static RegistryObject<Block> CATTAIL_THATCH          = RegistryUtils.createBlock("cattail_thatch", () -> new Block(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
+		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
+	public static RegistryObject<Block> CATTAIL_THATCH_SLAB     = RegistryUtils.createBlock("cattail_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
+		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
+	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK)) {
+		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
 
 	//quark
 	public static RegistryObject<Block> WILLOW_LADDER 			= RegistryUtils.createBlockCompat("quark", "willow_ladder", () -> new LadderBlock(BlockProperties.LADDER), ItemGroup.DECORATIONS);
@@ -98,11 +96,8 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> VERTICAL_MUD_BRICK_SLAB = RegistryUtils.createBlockCompat("quark", "vertical_mud_brick_slab", () -> new VerticalSlabBlock(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> WILLOW_BOOKSHELF 		= RegistryUtils.createBlockCompat("quark", "willow_bookshelf", () -> new BookshelfBlock(BlockProperties.BOOKSHELF), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_LEAF_CARPET 		= RegistryUtils.createBlockCompat("quark", "willow_leaf_carpet", () -> new LeafCarpetBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
-	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB     = RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
-		public BlockRenderLayer getRenderLayer() {
-			return BlockRenderLayer.CUTOUT;
-		};
-	}, ItemGroup.BUILDING_BLOCKS);
+	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
+		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
 
 	//fluids
 

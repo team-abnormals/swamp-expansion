@@ -16,8 +16,13 @@
   },
   "conditions": [
     {
-      "type": "quark:flag",
-      "flag": "vertical_planks"
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        }
+      ]
     }
   ]
 }

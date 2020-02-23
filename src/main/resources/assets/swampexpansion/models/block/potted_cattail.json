@@ -1,6 +1,6 @@
 {
     "parent": "block/flower_pot_cross",
     "textures": {
-        "plant": "block/cattail_sprouts"
+        "plant": "swampexpansion:block/cattail_sprouts"
     }
 }

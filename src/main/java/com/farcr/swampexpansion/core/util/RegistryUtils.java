@@ -29,12 +29,10 @@ public class RegistryUtils {
     }
 	
 	public static <B extends Block> RegistryObject<B> createBlockCompat(String mod, String name, Supplier<? extends B> supplier, ItemGroup itemGroup) {
-		if(ModList.get().isLoaded(mod)) {
-			RegistryObject<B> block = SwampExBlocks.BLOCKS.register(name, supplier);
-			SwampExItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(itemGroup)));
-			return block;
-		}
-		return null;
+		ItemGroup determinedGroup = ModList.get().isLoaded(mod) || mod == "indev" ? itemGroup : null;
+		RegistryObject<B> block = SwampExBlocks.BLOCKS.register(name, supplier);
+		SwampExItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(determinedGroup)));
+		return block;		
     }
 
     public static <B extends Block> RegistryObject<B> createBlockNoItem(String name, Supplier<? extends B> supplier) {
