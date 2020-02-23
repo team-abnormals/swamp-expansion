@@ -28,10 +28,12 @@ import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
@@ -74,6 +76,8 @@ public class SwampExBlocks {
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	
 	public static RegistryObject<Block> CATTAIL_SEEDS 			= RegistryUtils.createBlock("cattail_seeds", () -> new CattailSproutBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
+
 	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> POTTED_CATTAIL		    = RegistryUtils.createBlockNoItem("potted_cattail",	() -> new FlowerPotBlock(SwampExBlocks.CATTAIL.get(), BlockProperties.FLOWER_POT));
