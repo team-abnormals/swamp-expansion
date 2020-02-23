@@ -1,6 +1,3 @@
 {
-  "parent": "quark:block/vertical_planks",
-  "textures": {
-    "all": "swampexpansion:block/willow_planks"
-  }
+    "parent": "swampexpansion:block/vertical_willow_planks"
 }

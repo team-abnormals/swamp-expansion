@@ -1,7 +1,3 @@
 {
-  "parent": "quark:block/leaf_carpet",
-  "textures": {
-    "all": "swampexpansion:block/willow_leaves"
-  },
-  "uvlock": true
+    "parent": "swampexpansion:block/willow_leaf_carpet"
 }

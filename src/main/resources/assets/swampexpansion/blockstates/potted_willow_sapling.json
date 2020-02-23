@@ -1,12 +1,5 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "textures": {
-      "plant": "swampexpansion:block/willow_sapling"
-    },
-    "model": "block/flower_pot_cross"
-  },
-  "variants": {
-    "": [{}]
-  }
+    "variants": {
+        "": { "model": "swampexpansion:block/potted_willow_sapling" }
+    }
 }

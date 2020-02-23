@@ -55,10 +55,8 @@ public class SwampExData {
         ItemColors itemColors = Minecraft.getInstance().getItemColors();
         itemColors.register((color, items) -> FoliageColors.get(0.5D, 1.0D), SwampExBlocks.WILLOW_LEAVES.get());
         
-        if (ModList.get().isLoaded("quark")) {
-            blockColors.register((x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), SwampExBlocks.WILLOW_LEAF_CARPET.get());
-        	itemColors.register((color, items) -> FoliageColors.get(0.5D, 1.0D), SwampExBlocks.WILLOW_LEAF_CARPET.get());
-        }
+        blockColors.register((x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), SwampExBlocks.WILLOW_LEAF_CARPET.get());
+        itemColors.register((color, items) -> FoliageColors.get(0.5D, 1.0D), SwampExBlocks.WILLOW_LEAF_CARPET.get());
     }
 
 	public static void registerFlammable(Block block, int encouragement, int flammability) {
