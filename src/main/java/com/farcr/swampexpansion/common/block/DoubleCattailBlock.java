@@ -4,8 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.farcr.swampexpansion.core.registries.SwampExItems;
-
+import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -131,8 +130,9 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
 		if (!flag && player.getHeldItem(handIn).getItem() == Items.BONE_MEAL) {
 			return false;
 		} else if (i > 0) {
-			int j = 1;
-			spawnAsEntity(worldIn, pos, new ItemStack(SwampExItems.CATTAIL_SEEDS.get(), j));
+			Random rand = new Random();
+			int j = 1 + rand.nextInt(3);
+			spawnAsEntity(worldIn, pos, new ItemStack(SwampExBlocks.CATTAIL_SEEDS.get(), j));
 			worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH,
 					SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
 			worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(0)), 2);

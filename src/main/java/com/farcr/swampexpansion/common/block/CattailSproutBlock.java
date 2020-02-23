@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
-import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.Fluids;
@@ -31,11 +30,11 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable {
-	protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
+public class CattailSproutBlock extends BushBlock implements IWaterLoggable, IGrowable {
+	protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public CattailBlock(Properties properties) {
+    public CattailSproutBlock(Properties properties) {
         super(properties);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, true));
     }
@@ -65,6 +64,11 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     public Block.OffsetType getOffsetType() {
         return Block.OffsetType.XZ;
      }
+    
+    @Override
+	public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+		return false;
+	}
 
     @Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -74,10 +78,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
 	}
     
     public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
-        DoublePlantBlock doubleplantblock = (DoublePlantBlock)(SwampExBlocks.TALL_CATTAIL.get());
-        if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
-           doubleplantblock.placeAt(worldIn, pos, 2);
-        }
+        worldIn.setBlockState(pos, SwampExBlocks.CATTAIL.get().getDefaultState().with(WATERLOGGED, state.get(WATERLOGGED)));
      }
     
     @SuppressWarnings("deprecation")
@@ -92,11 +93,6 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         }
      }
-    
-    @Override
-	public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
-		return false;
-	}
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {

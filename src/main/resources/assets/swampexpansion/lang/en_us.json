@@ -28,7 +28,7 @@
 	"block.swampexpansion.vertical_willow_slab":"Vertical Willow Slab",
 	"block.swampexpansion.willow_leaf_carpet":"Willow Leaf Carpet",
 	
-	"block.swampexpansion.cattail_sprouts":"Cattail Sprouts",
+	"block.swampexpansion.cattail_seeds":"Cattail Seeds",
 	"block.swampexpansion.cattail":"Cattail",
 	"block.swampexpansion.tall_cattail":"Tall Cattail",
 	"block.swampexpansion.potted_cattail":"Potted Cattail",
@@ -41,6 +41,5 @@
 	"item.swampexpansion.mud_ball": "Mud Ball",
 	"item.swampexpansion.mud_brick": "Mud Brick",
 	"item.swampexpansion.mud_bucket": "Mud Bucket",
-	"item.swampexpansion.cattail_seeds": "Cattail Seeds",
 	"item.swampexpansion.willow_boat":"Willow Boat"
 }
