@@ -15,5 +15,20 @@
   },
   "result": {
     "item": "swampexpansion:willow_bookshelf"
-  }
+  },
+  "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "quark"
+        },
+        {
+        	"type": "quark:flag",
+        	"flag": "variant_bookshelves"
+        }
+      ]
+    }
+  ]
 }
