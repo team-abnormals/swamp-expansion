@@ -70,6 +70,7 @@ public class SwampExBlocks {
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> POTTED_CATTIL		    = RegistryUtils.createBlockNoItem("potted_cattail",		() -> new FlowerPotBlock(CATTAIL.get(), Block.Properties.from(Blocks.POTTED_POPPY)));
 
 	//quark
 	public static RegistryObject<Block> WILLOW_LADDER 			= RegistryUtils.createBlockCompat("quark", "willow_ladder", () -> new LadderBlock(BlockProperties.LADDER), ItemGroup.DECORATIONS);
