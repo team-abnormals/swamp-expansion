@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "swampexpansion:cattail_thatch"
+    }
+  },
+  "result": {
+    "item": "swampexpansion:cattail_thatch_slab",
+    "count": 6
+  }
+}
