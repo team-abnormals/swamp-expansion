@@ -30,7 +30,6 @@ public class SwampExpansion {
         
         SwampExBlocks.BLOCKS.register(modEventBus);
         SwampExItems.ITEMS.register(modEventBus);
-        SwampExBlocks.FLUIDS.register(modEventBus);
         
         MinecraftForge.EVENT_BUS.register(this);
     }

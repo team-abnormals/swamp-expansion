@@ -10,8 +10,6 @@ import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
 import com.farcr.swampexpansion.common.block.VerticalSlabBlock;
 import com.farcr.swampexpansion.common.block.WillowButtonBlock;
 import com.farcr.swampexpansion.common.block.WillowSaplingBlock;
-import com.farcr.swampexpansion.common.block.fluid.MudFluid;
-import com.farcr.swampexpansion.common.block.fluid.MudFluidBlock;
 import com.farcr.swampexpansion.common.world.gen.feature.trees.WillowTree;
 import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
@@ -19,7 +17,6 @@ import com.farcr.swampexpansion.core.util.RegistryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.Blocks;
-import net.minecraftforge.common.ToolType;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
@@ -35,13 +32,9 @@ import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fluids.FluidAttributes;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -50,7 +43,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @SuppressWarnings("deprecation")
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SwampExBlocks {
-	public static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, "swampexpansion");
+    
 	public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, "swampexpansion");
 
 	public static RegistryObject<Block> MUD_BRICKS 				= RegistryUtils.createBlock("mud_bricks", () -> new Block(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
@@ -103,25 +96,7 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
 		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
+	
+	public static RegistryObject<Block> MUD = RegistryUtils.createBlockNoItem("mud", () -> new FlowingFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
 
-	//fluids
-
-	public static RegistryObject<FlowingFluid> MUD_STILL 	= FLUIDS.register("mud", () -> new MudFluid.Source(SwampExBlocks.MUD_PROPERTIES));
-	public static RegistryObject<FlowingFluid> MUD_FLOWING 	= FLUIDS.register("mud_flowing", () -> new MudFluid.Flowing(SwampExBlocks.MUD_PROPERTIES));
-	public static RegistryObject<FlowingFluidBlock> MUD 	= BLOCKS.register("mud", () ->
-
-			new MudFluidBlock(MUD_STILL, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()) {}
-	);
-
-	public static final ForgeFlowingFluid.Properties MUD_PROPERTIES =  new ForgeFlowingFluid.Properties(MUD_STILL, MUD_FLOWING,
-			FluidAttributes.builder(new ResourceLocation("swampexpansion:block/mud_still"), new ResourceLocation("swampexpansion:block/mud_flow"))
-					.viscosity(100000)
-					.density(500)
-					.overlay(new ResourceLocation("swampexpansion:block/mud_overlay")))
-			.block(MUD)
-			.bucket(SwampExItems.MUD_BUCKET)
-			.canMultiply()
-			.levelDecreasePerBlock(2)
-			.slopeFindDistance(4)
-			.renderLayer(BlockRenderLayer.TRANSLUCENT);
 }
