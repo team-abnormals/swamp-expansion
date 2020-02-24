@@ -5,7 +5,6 @@ import java.util.Random;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExFluids;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FlowingFluidBlock;

@@ -10,6 +10,7 @@ import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
 import com.farcr.swampexpansion.common.block.VerticalSlabBlock;
 import com.farcr.swampexpansion.common.block.WillowButtonBlock;
 import com.farcr.swampexpansion.common.block.WillowSaplingBlock;
+import com.farcr.swampexpansion.common.block.fluid.MudFluidBlock;
 import com.farcr.swampexpansion.common.world.gen.feature.trees.WillowTree;
 import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
@@ -21,7 +22,6 @@ import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.block.RotatedPillarBlock;
@@ -97,6 +97,6 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
 		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
 	
-	public static RegistryObject<Block> MUD = RegistryUtils.createBlockNoItem("mud", () -> new FlowingFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
+	public static RegistryObject<Block> MUD = RegistryUtils.createBlockNoItem("mud", () -> new MudFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
 
 }
