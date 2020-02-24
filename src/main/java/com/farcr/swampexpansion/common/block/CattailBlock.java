@@ -65,12 +65,12 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     	if (type == 0) {
     		worldIn.setBlockState(pos, seeds.with(WATERLOGGED, waterlogged), flags);
     	} else if (type == 1) {
+    		worldIn.setBlockState(pos, cattail.with(WATERLOGGED, waterlogged), flags);
+    	} else {
     		worldIn.setBlockState(pos, tall_down.with(WATERLOGGED, waterlogged), flags);
 			waterlogged = worldIn.hasWater(pos.up());
 			worldIn.setBlockState(pos.up(), tall_up.with(WATERLOGGED, waterlogged), flags);
-    	} else {
-    		worldIn.setBlockState(pos, cattail.with(WATERLOGGED, waterlogged), flags);
-    	}
+    	} 
     }
     
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
