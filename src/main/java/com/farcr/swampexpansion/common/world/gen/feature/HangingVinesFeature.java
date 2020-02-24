@@ -4,7 +4,6 @@ import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExFeatures;
 import com.mojang.datafixers.Dynamic;
 
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
@@ -30,7 +29,7 @@ public class HangingVinesFeature extends Feature<NoFeatureConfig> {
         boolean place = false;
         for(int i = 0; i < 256; ++i) {
             BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(2) - random.nextInt(2), random.nextInt(8) - random.nextInt(8));
-            if (world.isAirBlock(placePos) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && world.getBlockState(placePos.up()).getBlock().isIn(BlockTags.LEAVES) && SwampExBlocks.HANGING_WILLOW_LEAVES.get().getDefaultState().isValidPosition(world, placePos)) {
+            if (world.isAirBlock(placePos) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && world.getBlockState(placePos.up()).getBlock() == SwampExBlocks.WILLOW_LEAVES.get() && SwampExBlocks.HANGING_WILLOW_LEAVES.get().getDefaultState().isValidPosition(world, placePos)) {
             	world.setBlockState(placePos, SwampExBlocks.HANGING_WILLOW_LEAVES.get().getDefaultState(), 2);
             	place = true;
             }
