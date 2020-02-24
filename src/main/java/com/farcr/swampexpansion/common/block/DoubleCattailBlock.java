@@ -51,7 +51,7 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.FARMLAND || block.isIn(BlockTags.DIRT_LIKE);
+        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.SAND || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.FARMLAND || block.isIn(BlockTags.DIRT_LIKE);
      }
 
 	@Override
@@ -82,7 +82,7 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
 		if (state.get(HALF) != DoubleBlockHalf.UPPER) {
-			return ((worldIn.getBlockState(pos.down()).isIn(BlockTags.DIRT_LIKE) || worldIn.getBlockState(pos.down()).getBlock() == Blocks.CLAY|| worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
+			return ((worldIn.getBlockState(pos.down()).isIn(BlockTags.DIRT_LIKE) || worldIn.getBlockState(pos.down()).getBlock() == Blocks.SAND || worldIn.getBlockState(pos.down()).getBlock() == Blocks.CLAY|| worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
 		} else {
 			BlockState blockstate = worldIn.getBlockState(pos.down());
 			if (state.getBlock() != this)

@@ -49,7 +49,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.FARMLAND || block.isIn(BlockTags.DIRT_LIKE);
+        return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.SAND || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.FARMLAND || block.isIn(BlockTags.DIRT_LIKE);
      }
 
     public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
@@ -117,7 +117,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
         BlockPos down = pos.down();
-        return ((world.getBlockState(down).isIn(BlockTags.DIRT_LIKE) || world.getBlockState(down).getBlock() == Blocks.CLAY || world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
+        return ((world.getBlockState(down).isIn(BlockTags.DIRT_LIKE) || world.getBlockState(down).getBlock() == Blocks.SAND || world.getBlockState(down).getBlock() == Blocks.CLAY || world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
     }
     
     @SuppressWarnings("deprecation")
