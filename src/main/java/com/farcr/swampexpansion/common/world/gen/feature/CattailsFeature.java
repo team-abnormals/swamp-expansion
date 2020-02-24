@@ -29,7 +29,7 @@ public class CattailsFeature extends Feature<NoFeatureConfig> {
         boolean place = false;
         for(int i = 0; i < 192; ++i) {
             BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(4), random.nextInt(2) - random.nextInt(2), random.nextInt(8) - random.nextInt(4));
-            if ((world.hasWater(placePos) || world.isAirBlock(placePos)) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && SwampExBlocks.CATTAIL.get().getDefaultState().isValidPosition(world, placePos)) {
+            if ((world.hasWater(placePos) || world.isAirBlock(placePos)) && world.isAirBlock(placePos.up()) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && SwampExBlocks.CATTAIL.get().getDefaultState().isValidPosition(world, placePos)) {
             	((CattailBlock) SwampExBlocks.CATTAIL.get()).placeAt(world, placePos, 2);
             	place = true;
             }

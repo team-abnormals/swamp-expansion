@@ -27,7 +27,7 @@ public class HangingVinesFeature extends Feature<NoFeatureConfig> {
     @Override
     public boolean place(IWorld world, ChunkGenerator<? extends GenerationSettings> generator, Random random, BlockPos pos, NoFeatureConfig config) {
         boolean place = false;
-        for(int i = 0; i < 256; ++i) {
+        for(int i = 0; i < 128; ++i) {
             BlockPos placePos = pos.add(random.nextInt(8) - random.nextInt(8), random.nextInt(2) - random.nextInt(2), random.nextInt(8) - random.nextInt(8));
             if (world.isAirBlock(placePos) && placePos.getY() < world.getWorld().getDimension().getHeight() - 2 && world.getBlockState(placePos.up()).getBlock() == SwampExBlocks.WILLOW_LEAVES.get() && SwampExBlocks.HANGING_WILLOW_LEAVES.get().getDefaultState().isValidPosition(world, placePos)) {
             	world.setBlockState(placePos, SwampExBlocks.HANGING_WILLOW_LEAVES.get().getDefaultState(), 2);
@@ -44,7 +44,7 @@ public class HangingVinesFeature extends Feature<NoFeatureConfig> {
     @SuppressWarnings("unchecked")
 	public static void generate(Biome biome) {
         if (biome.getCategory() == Biome.Category.SWAMP) {
-            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.HANGING_WILLOW_VINES, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(64)));
+            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.HANGING_WILLOW_VINES, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(128)));
         }
     }
 }
