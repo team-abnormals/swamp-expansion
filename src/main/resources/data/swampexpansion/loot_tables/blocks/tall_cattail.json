@@ -11,7 +11,7 @@
               "condition": "minecraft:block_state_property",
               "block": "swampexpansion:tall_cattail",
               "properties": {
-                "half": "lower"
+                "half": "upper"
               }
             },
             {
@@ -23,11 +23,51 @@
           ],
           "name": "swampexpansion:cattail",
           "functions": [
-                {
-                  "function": "minecraft:set_count",
-                  "count": 2
+              {
+                "function": "minecraft:set_count",
+                "count": 2
+              }
+           ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "swampexpansion:tall_cattail",
+              "properties": {
+                "half": "upper"
+              }
+            },
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "swampexpansion:tall_cattail",
+              "properties": {
+                "age": "1"
+              }
+            }
+          ],
+          "name": "swampexpansion:cattail_seeds",
+          "functions": [
+              {
+                "function": "minecraft:set_count",
+                "count": { 
+                	"min": 1.0, 
+                	"max": 3.0, 
+                	"type": "minecraft:uniform" 
                 }
-              ]
+              }
+           ]
         }
       ],
       "conditions": [

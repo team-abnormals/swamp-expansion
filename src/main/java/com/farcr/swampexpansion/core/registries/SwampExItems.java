@@ -1,6 +1,7 @@
 package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
+import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.common.item.WillowBoatItem;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
 
@@ -17,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SwampExItems {
 	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, "swampexpansion");
 	
-	public static RegistryObject<Item> MUD_BALL = RegistryUtils.createItem("mud_ball", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
+	public static RegistryObject<Item> MUD_BALL = RegistryUtils.createItem("mud_ball", () -> new MudBallItem(new Item.Properties().group(ItemGroup.MATERIALS)));
 	public static RegistryObject<Item> MUD_BRICK = RegistryUtils.createItem("mud_brick", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
 	//public static RegistryObject<Item> WILLOW_SIGN = RegistryUtils.createItem("willow_sign", () -> new SignItem(new Item.Properties().group(ItemGroup.DECORATIONS), SwampExBlocks.WILLOW_SIGN, SwampExBlocks.WILLOW_SIGN_WALL));
 	public static RegistryObject<Item> MUD_BUCKET = RegistryUtils.createItem("mud_bucket", () -> new BucketItem(SwampExBlocks.MUD_STILL, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ItemGroup.MATERIALS)));

@@ -80,7 +80,6 @@ public class SwampExBlocks {
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	
 	public static RegistryObject<Block> CATTAIL_SEEDS 			= RegistryUtils.createBlock("cattail_seeds", () -> new CattailSproutBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
-	public static RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
 	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.MATERIALS);
 	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
@@ -94,12 +93,14 @@ public class SwampExBlocks {
 		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
 
 	//quark
+	
 	public static RegistryObject<Block> WILLOW_LADDER 			= RegistryUtils.createBlockCompat("quark", "willow_ladder", () -> new LadderBlock(BlockProperties.LADDER), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> VERTICAL_WILLOW_PLANKS 	= RegistryUtils.createBlockCompat("quark", "vertical_willow_planks", () -> new Block(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> VERTICAL_WILLOW_SLAB 	= RegistryUtils.createBlockCompat("quark", "vertical_willow_slab", () -> new VerticalSlabBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> VERTICAL_MUD_BRICK_SLAB = RegistryUtils.createBlockCompat("quark", "vertical_mud_brick_slab", () -> new VerticalSlabBlock(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> WILLOW_BOOKSHELF 		= RegistryUtils.createBlockCompat("quark", "willow_bookshelf", () -> new BookshelfBlock(BlockProperties.BOOKSHELF), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> WILLOW_LEAF_CARPET 		= RegistryUtils.createBlockCompat("quark", "willow_leaf_carpet", () -> new LeafCarpetBlock(BlockProperties.LEAVES), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
 		public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
 

@@ -75,7 +75,7 @@ public class WillowTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                         if (isAirOrLeaves(worldIn, blockpos) || func_214576_j(worldIn, blockpos)) {
                            this.setLogState(changedBlocks, worldIn, blockpos, SwampExBlocks.WILLOW_LEAVES.get().getDefaultState(), p_208519_5_);
                         }
-                        if (isAir(worldIn, blockpos.down()) ) {
+                        if (isAir(worldIn, blockpos.down()) && !(blockpos.getX() == position.getX() && blockpos.getZ() == position.getZ())) {
                         	if (rand.nextInt(3) == 0) {
                         		this.setLogState(changedBlocks, worldIn, blockpos.down(), SwampExBlocks.HANGING_WILLOW_LEAVES.get().getDefaultState(), p_208519_5_);
                         	}
