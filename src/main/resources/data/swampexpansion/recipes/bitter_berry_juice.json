@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "swampexpansion:bitter_berries"
+        },
+        {
+            "item": "swampexpansion:bitter_berries"
+        },
+        {
+            "item": "swampexpansion:potion"
+        },
+        {
+            "item": "swampexpansion:sugar"
+        }
+    ],
+    "result": {
+        "item": "swampexpansion:bitter_berry_juice",
+        "count": 1
+    }
+}
