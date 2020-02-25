@@ -8,10 +8,10 @@
             "item": "swampexpansion:bitter_berries"
         },
         {
-            "item": "swampexpansion:potion"
+            "item": "minecraft:potion"
         },
         {
-            "item": "swampexpansion:sugar"
+            "item": "minecraft:sugar"
         }
     ],
     "result": {

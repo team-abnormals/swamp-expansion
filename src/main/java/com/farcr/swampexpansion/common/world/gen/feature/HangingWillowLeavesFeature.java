@@ -1,5 +1,8 @@
 package com.farcr.swampexpansion.common.world.gen.feature;
 
+import java.util.Random;
+import java.util.function.Function;
+
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExFeatures;
 import com.mojang.datafixers.Dynamic;
@@ -11,16 +14,16 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.MultipleRandomFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.FrequencyConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Random;
-import java.util.function.Function;
-
-public class HangingVinesFeature extends Feature<NoFeatureConfig> {
-    public HangingVinesFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> config) {
+public class HangingWillowLeavesFeature extends Feature<NoFeatureConfig> {
+    public HangingWillowLeavesFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> config) {
         super(config);
     }
 
@@ -38,13 +41,14 @@ public class HangingVinesFeature extends Feature<NoFeatureConfig> {
     }
 
     public static void addFeature() {
-        ForgeRegistries.BIOMES.getValues().forEach(HangingVinesFeature::generate);
+        ForgeRegistries.BIOMES.getValues().forEach(HangingWillowLeavesFeature::generate);
     }
 
     @SuppressWarnings("unchecked")
 	public static void generate(Biome biome) {
         if (biome.getCategory() == Biome.Category.SWAMP) {
-            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.HANGING_WILLOW_VINES, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(128)));
+            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.HANGING_WILLOW_LEAVES, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(128)));
+            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(Feature.RANDOM_SELECTOR, new MultipleRandomFeatureConfig(new Feature[]{Feature.FANCY_TREE}, new IFeatureConfig[] {IFeatureConfig.NO_FEATURE_CONFIG}, new float[] {0.5F}, Feature.NORMAL_TREE, IFeatureConfig.NO_FEATURE_CONFIG), Placement.COUNT_EXTRA_HEIGHTMAP, new AtSurfaceWithExtraConfig(0, 0.5F, 1)));
         }
     }
 }

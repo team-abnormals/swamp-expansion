@@ -39,4 +39,10 @@ public class RegistryUtils {
         RegistryObject<B> block = SwampExBlocks.BLOCKS.register(name, supplier);
         return block;
     }
+    
+    public static <I extends Item> RegistryObject<I> createCompatItem(String mod, String name, Supplier<? extends I> compat_supplier, Supplier<? extends I> supplier) {
+    	Supplier<? extends I> determinedSupplier = ModList.get().isLoaded(mod) ? compat_supplier : supplier;
+    	RegistryObject<I> item = SwampExItems.ITEMS.register(name, determinedSupplier);
+		return item;
+	}
 }

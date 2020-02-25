@@ -30,11 +30,11 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class CattailSproutBlock extends BushBlock implements IWaterLoggable, IGrowable {
+public class CattailSproutsBlock extends BushBlock implements IWaterLoggable, IGrowable {
 	protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 10.0D, 11.0D);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public CattailSproutBlock(Properties properties) {
+    public CattailSproutsBlock(Properties properties) {
         super(properties);
         this.setDefaultState(this.getDefaultState().with(WATERLOGGED, true));
     }
@@ -49,12 +49,6 @@ public class CattailSproutBlock extends BushBlock implements IWaterLoggable, IGr
         Block block = state.getBlock();
         return block == Blocks.GRASS_BLOCK || block == Blocks.DIRT || block == Blocks.COARSE_DIRT || block == Blocks.SAND || block == Blocks.PODZOL || block == Blocks.CLAY || block == Blocks.FARMLAND || block.isIn(BlockTags.DIRT_LIKE);
      }
-
-    public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
-        worldIn.setBlockState(pos, getDefaultState(), flags);
-        worldIn.setBlockState(pos.up(), getDefaultState(), flags);
-        worldIn.setBlockState(pos.up(2), getDefaultState(), flags);
-    }
     
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vec3d vec3d = state.getOffset(worldIn, pos);

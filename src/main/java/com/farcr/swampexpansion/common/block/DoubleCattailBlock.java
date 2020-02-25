@@ -132,7 +132,7 @@ public class DoubleCattailBlock extends DoublePlantBlock implements IGrowable, I
 		} else if (i > 0) {
 			Random rand = new Random();
 			int j = 1 + rand.nextInt(3);
-			spawnAsEntity(worldIn, pos, new ItemStack(SwampExBlocks.CATTAIL_SEEDS.get(), j));
+			spawnAsEntity(worldIn, pos, new ItemStack(SwampExBlocks.CATTAIL_SPROUTS.get(), j));
 			worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH,
 					SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
 			worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(0)), 2);

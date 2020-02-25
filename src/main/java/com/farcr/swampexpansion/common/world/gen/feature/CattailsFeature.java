@@ -46,7 +46,7 @@ public class CattailsFeature extends Feature<NoFeatureConfig> {
 
     @SuppressWarnings("unchecked")
 	public static void generate(Biome biome) {
-        if (biome.getCategory() == Biome.Category.SWAMP) {
+        if (biome.getTempCategory() != Biome.TempCategory.COLD && biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER) {
             biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.CATTAILS, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(12)));
         }
     }
