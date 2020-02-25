@@ -27,7 +27,7 @@ public class SwampExItems {
 	public static RegistryObject<Item> MUD_BUCKET = RegistryUtils.createItem("mud_bucket", () -> new BucketItem(SwampExFluids.MUD, new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ItemGroup.MATERIALS)));
 	public static RegistryObject<Item> WILLOW_BOAT = RegistryUtils.createItem("willow_boat", () -> new WillowBoatItem(WillowBoatEntity.Type.WILLOW, new Item.Properties().group(ItemGroup.TRANSPORTATION).maxStackSize(1)));
 	
-	public static RegistryObject<Item> CATTAIL_SEEDS = RegistryUtils.createItem("cattail_seeds", () -> new BlockNamedItem(SwampExBlocks.CATTAIL_SPROUTS.get(), new Item.Properties().group(ItemGroup.FOOD)));
+	public static RegistryObject<Item> CATTAIL_SEEDS = RegistryUtils.createItem("cattail_seeds", () -> new BlockNamedItem(SwampExBlocks.CATTAIL_SPROUTS.get(), new Item.Properties().group(ItemGroup.MATERIALS)));
 	
 	public static RegistryObject<Item> BITTER_BERRIES = RegistryUtils.createItem("bitter_berries", () -> new BlockNamedItem(SwampExBlocks.BITTER_BERRY_BUSH.get(), new Item.Properties().food(SwampExFoods.BITTER_BERRIES).group(ItemGroup.FOOD)));
 	public static RegistryObject<Item> BITTER_BERRY_JUICE = RegistryUtils.createItem("bitter_berry_juice", () -> new BitterBerryJuiceItem(new Item.Properties().food(SwampExFoods.BITTER_BERRY_JUICE).group(ItemGroup.FOOD)));

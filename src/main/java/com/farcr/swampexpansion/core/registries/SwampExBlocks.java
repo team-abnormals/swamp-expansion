@@ -76,7 +76,7 @@ public class SwampExBlocks {
 	
 	public static RegistryObject<Block> CATTAIL_SPROUTS 			= RegistryUtils.createBlockNoItem("cattail_sprouts", () -> new CattailSproutsBlock(BlockProperties.CATTAIL));
 
-	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.MATERIALS);
+	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> POTTED_CATTAIL		    = RegistryUtils.createBlockNoItem("potted_cattail",	() -> new FlowerPotBlock(SwampExBlocks.CATTAIL.get(), BlockProperties.FLOWER_POT));
 	
