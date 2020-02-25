@@ -3,6 +3,8 @@
         "age=0": { "model": "swampexpansion:block/bitter_berry_bush_stage0" },
         "age=1": { "model": "swampexpansion:block/bitter_berry_bush_stage1" },
         "age=2": { "model": "swampexpansion:block/bitter_berry_bush_stage2" },
-        "age=3": { "model": "swampexpansion:block/bitter_berry_bush_stage3" }
+        "age=3": { "model": "swampexpansion:block/bitter_berry_bush_stage3" },
+		"age=4": { "model": "swampexpansion:block/bitter_berry_bush_stage4_core" }
+		
     }
 }
