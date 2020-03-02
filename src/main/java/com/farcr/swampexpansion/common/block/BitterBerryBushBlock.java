@@ -40,7 +40,7 @@ public class BitterBerryBushBlock extends BushBlock implements IGrowable {
    }
 
    public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-      return new ItemStack(SwampExItems.BITTER_BERRIES.get());
+      return new ItemStack(null);
    }
 
    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
@@ -82,7 +82,7 @@ public class BitterBerryBushBlock extends BushBlock implements IGrowable {
          return false;
       } else if (i > 1) {
          int j = 1 + worldIn.rand.nextInt(2);
-         spawnAsEntity(worldIn, pos, new ItemStack(SwampExItems.BITTER_BERRIES.get(), j + (flag ? 1 : 0)));
+         spawnAsEntity(worldIn, pos, new ItemStack(null, j + (flag ? 1 : 0)));
          worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH, SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
          worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(1)), 2);
          return true;

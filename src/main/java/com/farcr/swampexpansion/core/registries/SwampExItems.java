@@ -1,7 +1,6 @@
 package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
-import com.farcr.swampexpansion.common.item.BitterBerryJuiceItem;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.common.item.WillowBoatItem;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
@@ -29,9 +28,9 @@ public class SwampExItems {
 	
 	public static RegistryObject<Item> CATTAIL_SEEDS = RegistryUtils.createItem("cattail_seeds", () -> new BlockNamedItem(SwampExBlocks.CATTAIL_SPROUTS.get(), new Item.Properties().group(ItemGroup.MATERIALS)));
 	
-	public static RegistryObject<Item> BITTER_BERRIES = RegistryUtils.createItem("bitter_berries", () -> new BlockNamedItem(SwampExBlocks.BITTER_BERRY_BUSH.get(), new Item.Properties().food(SwampExFoods.BITTER_BERRIES)));
-	public static RegistryObject<Item> BITTER_BERRY_JUICE = RegistryUtils.createItem("bitter_berry_juice", () -> new BitterBerryJuiceItem(new Item.Properties().food(SwampExFoods.BITTER_BERRY_JUICE)));
-	public static RegistryObject<Item> BITTER_BERRY_PIPS = RegistryUtils.createItem("bitter_berry_pips", () -> new BlockNamedItem(SwampExBlocks.BITTER_BERRY_BUSH_PIPS.get(), new Item.Properties()));
+	//public static RegistryObject<Item> BITTER_BERRIES = RegistryUtils.createItem("bitter_berries", () -> new BlockNamedItem(SwampExBlocks.BITTER_BERRY_BUSH.get(), new Item.Properties().food(SwampExFoods.BITTER_BERRIES)));
+	//public static RegistryObject<Item> BITTER_BERRY_JUICE = RegistryUtils.createItem("bitter_berry_juice", () -> new BitterBerryJuiceItem(new Item.Properties().food(SwampExFoods.BITTER_BERRY_JUICE)));
+	//public static RegistryObject<Item> BITTER_BERRY_PIPS = RegistryUtils.createItem("bitter_berry_pips", () -> new BlockNamedItem(SwampExBlocks.BITTER_BERRY_BUSH_PIPS.get(), new Item.Properties()));
 			
 	/*"berry_good", () -> new BlockNamedItem(null, new Item.Properties().food(SwampExFoods.BITTER_BERRIES).group(ItemGroup.FOOD)), 
 	 *"berry_good", () -> new BlockNamedItem(SwampExBlocks.BITTER_BERRY_BUSH_PIPS.get(), new Item.Properties()), */
