@@ -2,9 +2,6 @@ package com.farcr.swampexpansion.common.block;
 
 import java.util.Random;
 
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExItems;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BushBlock;
@@ -34,14 +31,14 @@ public class BitterBerryPipsBlock extends BushBlock implements IGrowable {
 
 	@Override
 	public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
-		return new ItemStack(SwampExItems.BITTER_BERRY_PIPS.get());
+		return new ItemStack(null);
 	}
 
 	@Override
 	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
 		super.tick(state, worldIn, pos, random);
 		if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
-			worldIn.setBlockState(pos, SwampExBlocks.BITTER_BERRY_BUSH.get().getDefaultState(), 2);
+			worldIn.setBlockState(pos, null, 2);
 			net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
 		}
 
@@ -65,7 +62,7 @@ public class BitterBerryPipsBlock extends BushBlock implements IGrowable {
 
 	@Override
 	public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
-		worldIn.setBlockState(pos, SwampExBlocks.BITTER_BERRY_BUSH.get().getDefaultState(), 2);
+		worldIn.setBlockState(pos, null, 2);
 	}
 
 }
