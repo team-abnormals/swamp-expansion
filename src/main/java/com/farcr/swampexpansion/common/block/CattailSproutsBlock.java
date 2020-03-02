@@ -80,9 +80,8 @@ public class CattailSproutsBlock extends BushBlock implements IWaterLoggable, IG
 	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.tick(state, worldIn, pos, random);
         if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
-        	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
-            if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
-            	doubleplantblock.placeAt(worldIn, pos, 2);
+            if (SwampExBlocks.CATTAIL.get().getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
+            	worldIn.setBlockState(pos, SwampExBlocks.CATTAIL.get().getDefaultState().with(WATERLOGGED, state.get(WATERLOGGED)), 2);
             }
            net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
         }
