@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.4.7'
+version = '1.4.8'
 group = 'com.farcr.swampexpansion'
 archivesBaseName = 'swampexpansion'
 

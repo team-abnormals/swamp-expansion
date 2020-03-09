@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.BushBlock;
-import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.Fluids;
@@ -85,13 +84,14 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     @Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
+		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 10;
 		return this.getDefaultState().with(WATERLOGGED, flag);
 	}
     
     public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
-        DoublePlantBlock doubleplantblock = (DoublePlantBlock)(SwampExBlocks.TALL_CATTAIL.get());
-        if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
+    	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
+    	IFluidState ifluidstateUp = worldIn.getFluidState(pos.up());
+        if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && (worldIn.isAirBlock(pos.up()) || (Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8)))) {
            doubleplantblock.placeAt(worldIn, pos, 2);
         }
      }
@@ -100,7 +100,8 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     @Override
 	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.tick(state, worldIn, pos, random);
-        if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
+        int chance = worldIn.getBlockState(pos.down()).isFertile(worldIn, pos.down()) ? 10 : 12;
+        if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
         	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
             if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
             	doubleplantblock.placeAt(worldIn, pos, 2);
@@ -116,8 +117,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        BlockPos down = pos.down();
-        return ((world.getBlockState(down).isIn(BlockTags.DIRT_LIKE) || world.getBlockState(down).getBlock() == Blocks.SAND || world.getBlockState(down).getBlock() == Blocks.CLAY || world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
+    	return this.isValidGround(world.getBlockState(pos.down()), world, pos);
     }
     
     @SuppressWarnings("deprecation")

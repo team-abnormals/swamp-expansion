@@ -79,7 +79,8 @@ public class CattailSproutsBlock extends BushBlock implements IWaterLoggable, IG
     @Override
 	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
         super.tick(state, worldIn, pos, random);
-        if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
+        int chance = worldIn.getBlockState(pos.down()).isFertile(worldIn, pos.down()) ? 10 : 12;
+        if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
             if (SwampExBlocks.CATTAIL.get().getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
             	worldIn.setBlockState(pos, SwampExBlocks.CATTAIL.get().getDefaultState().with(WATERLOGGED, state.get(WATERLOGGED)), 2);
             }
@@ -89,8 +90,7 @@ public class CattailSproutsBlock extends BushBlock implements IWaterLoggable, IG
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-        BlockPos down = pos.down();
-        return ((world.getBlockState(down).isIn(BlockTags.DIRT_LIKE) || world.getBlockState(down).getBlock() == Blocks.SAND || world.getBlockState(down).getBlock() == Blocks.CLAY || world.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND));
+    	return this.isValidGround(world.getBlockState(pos.down()), world, pos);
     }
     
     @SuppressWarnings("deprecation")
