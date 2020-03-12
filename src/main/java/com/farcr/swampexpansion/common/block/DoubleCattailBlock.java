@@ -169,10 +169,10 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 			worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
 			if(doubleblockhalf == DoubleBlockHalf.UPPER && !stateIn.get(FAKE_WATERLOGGED)) {
 				stateIn = stateIn.with(FAKE_WATERLOGGED, true);
-				worldIn.setBlockState(currentPos.down(), worldIn.getBlockState(currentPos.down()).with(FAKE_WATERLOGGED, true), 2);
+				worldIn.setBlockState(currentPos, worldIn.getBlockState(currentPos).with(FAKE_WATERLOGGED, true), 2);
 			} else if(doubleblockhalf == DoubleBlockHalf.LOWER && !stateIn.get(FAKE_WATERLOGGED)) {
 				stateIn = stateIn.with(FAKE_WATERLOGGED, true);
-				worldIn.setBlockState(currentPos.up(), worldIn.getBlockState(currentPos.up()).with(FAKE_WATERLOGGED, true), 2);
+				worldIn.setBlockState(currentPos, worldIn.getBlockState(currentPos).with(FAKE_WATERLOGGED, true), 2);
 			}
 		}
 		if (facing.getAxis() != Direction.Axis.Y || doubleblockhalf == DoubleBlockHalf.LOWER != (facing == Direction.UP) || facingState.getBlock() == this && facingState.get(HALF) != doubleblockhalf) {

@@ -32,6 +32,7 @@ import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
+import net.minecraft.entity.item.PaintingType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraftforge.common.ToolType;
@@ -45,6 +46,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SwampExBlocks {
     
 	public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, "swampexpansion");
+	public static final DeferredRegister<PaintingType> PAINTINGS = new DeferredRegister<>(ForgeRegistries.PAINTING_TYPES, "swampexpansion");
 
 	public static RegistryObject<Block> MUD_BRICKS 				= RegistryUtils.createBlock("mud_bricks", () -> new Block(BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> MUD_BRICK_STAIRS 		= RegistryUtils.createBlock("mud_brick_stairs", () -> new StairsBlock(MUD_BRICKS.get().getDefaultState(), BlockProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
@@ -100,6 +102,7 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)) {
 	public BlockRenderLayer getRenderLayer() { return BlockRenderLayer.CUTOUT; }; }, ItemGroup.BUILDING_BLOCKS);
 	
+	public static RegistryObject<PaintingType> SLABFISH = PAINTINGS.register("slabfish", () -> new PaintingType(64, 64));
+	
 	public static RegistryObject<Block> MUD = RegistryUtils.createBlockNoItem("mud", () -> new MudFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
-
 }
