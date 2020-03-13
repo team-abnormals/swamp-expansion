@@ -44,10 +44,9 @@ public class CattailsFeature extends Feature<NoFeatureConfig> {
         ForgeRegistries.BIOMES.getValues().forEach(CattailsFeature::generate);
     }
 
-    @SuppressWarnings("unchecked")
 	public static void generate(Biome biome) {
         if (biome.getTempCategory() != Biome.TempCategory.COLD && biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER) {
-            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.CATTAILS, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(12)));
+            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, SwampExFeatures.CATTAILS.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(12))));
         }
     }
 }

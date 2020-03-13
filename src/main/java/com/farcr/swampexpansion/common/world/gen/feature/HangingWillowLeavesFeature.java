@@ -41,10 +41,9 @@ public class HangingWillowLeavesFeature extends Feature<NoFeatureConfig> {
         ForgeRegistries.BIOMES.getValues().forEach(HangingWillowLeavesFeature::generate);
     }
 
-    @SuppressWarnings("unchecked")
 	public static void generate(Biome biome) {
         if (biome.getCategory() == Biome.Category.SWAMP) {
-            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Biome.createDecoratedFeature(SwampExFeatures.HANGING_WILLOW_LEAVES, new NoFeatureConfig(), Placement.COUNT_HEIGHTMAP_32, new FrequencyConfig(128)));
+            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, SwampExFeatures.HANGING_WILLOW_LEAVES.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(128))));
         }
     }
 }

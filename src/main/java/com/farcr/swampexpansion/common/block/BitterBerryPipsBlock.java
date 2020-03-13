@@ -16,6 +16,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 @SuppressWarnings("deprecation")
 public class BitterBerryPipsBlock extends BushBlock implements IGrowable {
@@ -35,7 +36,7 @@ public class BitterBerryPipsBlock extends BushBlock implements IGrowable {
 	}
 
 	@Override
-	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 		super.tick(state, worldIn, pos, random);
 		if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(5) == 0)) {
 			worldIn.setBlockState(pos, null, 2);
@@ -61,7 +62,7 @@ public class BitterBerryPipsBlock extends BushBlock implements IGrowable {
 	}
 
 	@Override
-	public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 		worldIn.setBlockState(pos, null, 2);
 	}
 

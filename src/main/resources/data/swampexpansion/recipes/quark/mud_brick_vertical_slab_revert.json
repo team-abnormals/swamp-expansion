@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "swampexpansion:vertical_mud_brick_slab"
+      "item": "swampexpansion:mud_brick_vertical_slab"
     }
   ],
   "result": {

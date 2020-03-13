@@ -17,7 +17,6 @@ import net.minecraft.state.IProperty;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -44,12 +43,6 @@ public abstract class MudFluid extends FlowingFluid {
     @Override
     public Fluid getStillFluid() {
         return SwampExFluids.MUD;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.SOLID;
     }
 
     public Item getFilledBucket() {
@@ -109,6 +102,11 @@ public abstract class MudFluid extends FlowingFluid {
     protected float getExplosionResistance() {
         return 100.0F;
     }
+    
+	protected boolean canDisplace(IFluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_,
+			Fluid p_215665_4_, Direction p_215665_5_) {
+		return true;
+	}
 
     @Override
     protected FluidAttributes createAttributes() {
@@ -148,5 +146,6 @@ public abstract class MudFluid extends FlowingFluid {
         public boolean isSource(IFluidState state) {
             return false;
         }
+		
     }
 }

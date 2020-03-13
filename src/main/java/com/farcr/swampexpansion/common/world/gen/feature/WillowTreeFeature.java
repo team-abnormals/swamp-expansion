@@ -9,16 +9,20 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.world.IWorldWriter;
+import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.IWorldGenerationReader;
-import net.minecraft.world.gen.feature.AbstractTreeFeature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.TreeFeature;
+import net.minecraft.world.gen.feature.TreeFeatureConfig;
+import net.minecraftforge.common.IPlantable;
 
-public class WillowTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
-   public WillowTreeFeature(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i51425_1_) {
-      super(p_i51425_1_, false);
-   }
+public class WillowTreeFeature extends TreeFeature {
+	public WillowTreeFeature(Function<Dynamic<?>, ? extends TreeFeatureConfig> p_i51443_1_, boolean p_i51443_2_) {
+		super(p_i51443_1_);
+	}
 
    public boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader worldIn, Random rand, BlockPos position, MutableBoundingBox p_208519_5_) {
       int i = rand.nextInt(4) + 5;
@@ -34,7 +38,7 @@ public class WillowTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                k = 3;
             }
 
-            BlockPos.MutableBlockPos blockpos$mutableblockpos = new BlockPos.MutableBlockPos();
+            BlockPos.Mutable blockpos$mutableblockpos = new BlockPos.Mutable();
 
             for(int l = position.getX() - k; l <= position.getX() + k && flag; ++l) {
                for(int i1 = position.getZ() - k; i1 <= position.getZ() + k && flag; ++i1) {
@@ -58,7 +62,7 @@ public class WillowTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
 
          if (!flag) {
             return false;
-         } else if (isSoil(worldIn, position.down(), getSapling()) && position.getY() < worldIn.getMaxHeight() - i - 1) {
+         } else if (isSoil(worldIn, position.down(), (IPlantable)SwampExBlocks.WILLOW_SAPLING.get().getDefaultState()) && position.getY() < worldIn.getMaxHeight() - i - 1) {
             this.setDirtAt(worldIn, position.down(), position);
 
             for(int l1 = position.getY() - 3 + i; l1 <= position.getY() + i; ++l1) {
@@ -72,7 +76,7 @@ public class WillowTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                      int k1 = j1 - position.getZ();
                      if (Math.abs(l3) != i3 || Math.abs(k1) != i3 || rand.nextInt(2) != 0 && k2 != 0) {
                         BlockPos blockpos = new BlockPos(k3, l1, j1);
-                        if (isAirOrLeaves(worldIn, blockpos) || func_214576_j(worldIn, blockpos)) {
+                        if (isAirOrLeaves(worldIn, blockpos) || isTallPlants(worldIn, blockpos)) {
                            this.setLogState(changedBlocks, worldIn, blockpos, SwampExBlocks.WILLOW_LEAVES.get().getDefaultState(), p_208519_5_);
                         }
                         if (isAir(worldIn, blockpos.down()) && !(blockpos.getX() == position.getX() && blockpos.getZ() == position.getZ())) {
@@ -95,7 +99,7 @@ public class WillowTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
             for(int j2 = position.getY() - 3 + i; j2 <= position.getY() + i; ++j2) {
                int l2 = j2 - (position.getY() + i);
                int j3 = 2 - l2 / 2;
-               BlockPos.MutableBlockPos blockpos$mutableblockpos1 = new BlockPos.MutableBlockPos();
+               BlockPos.Mutable blockpos$mutableblockpos1 = new BlockPos.Mutable();
 
                for(int i4 = position.getX() - j3; i4 <= position.getX() + j3; ++i4) {
                   for(int j4 = position.getZ() - j3; j4 <= position.getZ() + j3; ++j4) {
@@ -145,4 +149,33 @@ public class WillowTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
       }
 
    }
+   
+	protected final void setLogState(Set<BlockPos> changedBlocks, IWorldWriter worldIn, BlockPos pos, BlockState p_208520_4_, MutableBoundingBox p_208520_5_) {
+	      this.func_208521_b(worldIn, pos, p_208520_4_);
+	      p_208520_5_.expandTo(new MutableBoundingBox(pos, pos));
+	      if (BlockTags.LOGS.contains(p_208520_4_.getBlock())) {
+	         changedBlocks.add(pos.toImmutable());
+	      }
+	   }
+	
+	private void func_208521_b(IWorldWriter p_208521_1_, BlockPos p_208521_2_, BlockState p_208521_3_) {
+		p_208521_1_.setBlockState(p_208521_2_, p_208521_3_, 18);
+	   }
+	
+	public static boolean isLeaves(IWorldGenerationBaseReader worldIn, BlockPos pos) {
+	      if (worldIn instanceof net.minecraft.world.IWorldReader) // FORGE: Redirect to state method when possible
+	         return worldIn.hasBlockState(pos, state -> state.canBeReplacedByLeaves((net.minecraft.world.IWorldReader)worldIn, pos));
+	      return worldIn.hasBlockState(pos, (p_227223_0_) -> {
+	         return  p_227223_0_.isIn(BlockTags.LEAVES);
+	      });
+	   }
+	
+	@SuppressWarnings("deprecation")
+	public static boolean isAirOrLeavesOrSapling(IWorldGenerationBaseReader worldIn, BlockPos pos) {
+	      if (worldIn instanceof net.minecraft.world.IWorldReader) // FORGE: Redirect to state method when possible
+	         return worldIn.hasBlockState(pos, state -> state.canBeReplacedByLeaves((net.minecraft.world.IWorldReader)worldIn, pos));
+	      return worldIn.hasBlockState(pos, (p_227223_0_) -> {
+	         return p_227223_0_.isAir() || p_227223_0_.isIn(BlockTags.LEAVES) || p_227223_0_ == SwampExBlocks.WILLOW_SAPLING.get().getDefaultState();
+	      });
+	   }
 }

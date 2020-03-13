@@ -5,6 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registries.SwampExTags;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,9 +25,8 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -41,6 +41,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -70,15 +71,7 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 	
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return 
-        		block == Blocks.GRASS_BLOCK || 
-        		block == Blocks.DIRT || 
-        		block == Blocks.COARSE_DIRT || 
-        		block == Blocks.SAND || 
-        		block == Blocks.PODZOL || 
-        		block == Blocks.CLAY || 
-        		block == Blocks.FARMLAND || 
-        		block.isIn(BlockTags.DIRT_LIKE);
+        return block.isIn(SwampExTags.CATTAIL_PLANTABLE_ON);
      }
 
     @Override
@@ -109,12 +102,12 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 	}
 	@Override
 	@SuppressWarnings("deprecation")
-	public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
 			BlockRayTraceResult hit) {
 		int i = state.get(AGE);
 		boolean flag = i == 1;
 		if (!flag && player.getHeldItem(handIn).getItem() == Items.BONE_MEAL) {
-			return false;
+			return ActionResultType.PASS;
 		} else if (i > 0) {
 			Random rand = new Random();
 			int j = 1 + rand.nextInt(3);
@@ -127,13 +120,13 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 			} else {
 				worldIn.setBlockState(pos.up(), worldIn.getBlockState(pos.up()).with(AGE, Integer.valueOf(0)), 2);
 			}
-			return true;
+			return ActionResultType.SUCCESS;
 		} else {
 			return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
 		}
 	}
 	@Override
-	public void grow(World worldIn, Random rand, BlockPos pos, BlockState state) {
+	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 		int i = state.get(AGE);
 		if (i < 1) {
 			worldIn.setBlockState(pos, state.with(AGE, i + 1));
@@ -149,7 +142,7 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
+	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
 		super.tick(state, worldIn, pos, random);
 		int i = state.get(AGE);
 		int chance = worldIn.getBlockState(pos.down().down()).isFertile(worldIn, pos.down().down()) ? 10 : 12;
@@ -205,10 +198,7 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
 		return state.get(AGE) < 1;
 	}
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT;
-	}
+
 	@Override
 	public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
 		return true;

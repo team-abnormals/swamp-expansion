@@ -6,7 +6,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -59,7 +58,7 @@ public class HangingWillowLeavesBlock extends Block implements net.minecraftforg
             if (rand.nextInt(15) == 1) {
                 BlockPos blockpos = pos.down();
                 BlockState blockstate = worldIn.getBlockState(blockpos);
-                if (!blockstate.isSolid() || !blockstate.func_224755_d(worldIn, blockpos, Direction.UP)) {
+                if (!blockstate.isSolid() || !blockstate.isSolidSide(worldIn, blockpos, Direction.UP)) {
                     double d0 = (double)((float)pos.getX() + rand.nextFloat());
                     double d1 = (double)pos.getY() - 0.05D;
                     double d2 = (double)((float)pos.getZ() + rand.nextFloat());
@@ -72,14 +71,6 @@ public class HangingWillowLeavesBlock extends Block implements net.minecraftforg
     @Override
     public boolean isLadder(BlockState state, IWorldReader world, BlockPos pos, LivingEntity entity) {
         return true;
-    }
-
-    public boolean isSolid(BlockState state) {
-        return false;
-    }
-
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
     public boolean causesSuffocation(BlockState state, IBlockReader worldIn, BlockPos pos) {

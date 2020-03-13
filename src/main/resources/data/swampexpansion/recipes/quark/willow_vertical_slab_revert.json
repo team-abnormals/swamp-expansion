@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "swampexpansion:vertical_willow_slab"
+      "item": "swampexpansion:willow_vertical_slab"
     }
   ],
   "result": {

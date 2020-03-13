@@ -1,85 +1,85 @@
 package com.farcr.swampexpansion.client.model;
 
+import java.util.Arrays;
+
 import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.entity.Entity;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
+
+import net.minecraft.client.renderer.entity.model.SegmentedModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class WillowBoatModel extends EntityModel<WillowBoatEntity> {
-    private final RendererModel[] field_78103_a = new RendererModel[5];
-    private final RendererModel[] paddles = new RendererModel[2];
-    private final RendererModel noWater;
+public class WillowBoatModel extends SegmentedModel<WillowBoatEntity> {
+   private final ModelRenderer[] paddles = new ModelRenderer[2];
+   private final ModelRenderer noWater;
+   private final ImmutableList<ModelRenderer> field_228243_f_;
 
-    public WillowBoatModel() {
-        field_78103_a[0] = (new RendererModel(this, 0, 0)).setTextureSize(128, 64);
-        field_78103_a[1] = (new RendererModel(this, 0, 19)).setTextureSize(128, 64);
-        field_78103_a[2] = (new RendererModel(this, 0, 27)).setTextureSize(128, 64);
-        field_78103_a[3] = (new RendererModel(this, 0, 35)).setTextureSize(128, 64);
-        field_78103_a[4] = (new RendererModel(this, 0, 43)).setTextureSize(128, 64);
-        field_78103_a[0].addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
-        field_78103_a[0].setRotationPoint(0.0F, 3.0F, 1.0F);
-        field_78103_a[1].addBox(-13.0F, -7.0F, -1.0F, 18, 6, 2, 0.0F);
-        field_78103_a[1].setRotationPoint(-15.0F, 4.0F, 4.0F);
-        field_78103_a[2].addBox(-8.0F, -7.0F, -1.0F, 16, 6, 2, 0.0F);
-        field_78103_a[2].setRotationPoint(15.0F, 4.0F, 0.0F);
-        field_78103_a[3].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
-        field_78103_a[3].setRotationPoint(0.0F, 4.0F, -9.0F);
-        field_78103_a[4].addBox(-14.0F, -7.0F, -1.0F, 28, 6, 2, 0.0F);
-        field_78103_a[4].setRotationPoint(0.0F, 4.0F, 9.0F);
-        field_78103_a[0].rotateAngleX = ((float)Math.PI / 2F);
-        field_78103_a[1].rotateAngleY = ((float)Math.PI * 1.5F);
-        field_78103_a[2].rotateAngleY = ((float)Math.PI / 2F);
-        field_78103_a[3].rotateAngleY = (float)Math.PI;
-        paddles[0] = this.makePaddle(true);
-        paddles[0].setRotationPoint(3.0F, -5.0F, 9.0F);
-        paddles[1] = this.makePaddle(false);
-        paddles[1].setRotationPoint(3.0F, -5.0F, -9.0F);
-        paddles[1].rotateAngleY = (float)Math.PI;
-        paddles[0].rotateAngleZ = 0.19634955F;
-        paddles[1].rotateAngleZ = 0.19634955F;
-        noWater = (new RendererModel(this, 0, 0)).setTextureSize(128, 64);
-        noWater.addBox(-14.0F, -9.0F, -3.0F, 28, 16, 3, 0.0F);
-        noWater.setRotationPoint(0.0F, -3.0F, 1.0F);
-        noWater.rotateAngleX = ((float)Math.PI / 2F);
-    }
+   public WillowBoatModel() {
+      ModelRenderer[] amodelrenderer = new ModelRenderer[]{(new ModelRenderer(this, 0, 0)).setTextureSize(128, 64), (new ModelRenderer(this, 0, 19)).setTextureSize(128, 64), (new ModelRenderer(this, 0, 27)).setTextureSize(128, 64), (new ModelRenderer(this, 0, 35)).setTextureSize(128, 64), (new ModelRenderer(this, 0, 43)).setTextureSize(128, 64)};
+      amodelrenderer[0].addBox(-14.0F, -9.0F, -3.0F, 28.0F, 16.0F, 3.0F, 0.0F);
+      amodelrenderer[0].setRotationPoint(0.0F, 3.0F, 1.0F);
+      amodelrenderer[1].addBox(-13.0F, -7.0F, -1.0F, 18.0F, 6.0F, 2.0F, 0.0F);
+      amodelrenderer[1].setRotationPoint(-15.0F, 4.0F, 4.0F);
+      amodelrenderer[2].addBox(-8.0F, -7.0F, -1.0F, 16.0F, 6.0F, 2.0F, 0.0F);
+      amodelrenderer[2].setRotationPoint(15.0F, 4.0F, 0.0F);
+      amodelrenderer[3].addBox(-14.0F, -7.0F, -1.0F, 28.0F, 6.0F, 2.0F, 0.0F);
+      amodelrenderer[3].setRotationPoint(0.0F, 4.0F, -9.0F);
+      amodelrenderer[4].addBox(-14.0F, -7.0F, -1.0F, 28.0F, 6.0F, 2.0F, 0.0F);
+      amodelrenderer[4].setRotationPoint(0.0F, 4.0F, 9.0F);
+      amodelrenderer[0].rotateAngleX = ((float)Math.PI / 2F);
+      amodelrenderer[1].rotateAngleY = ((float)Math.PI * 1.5F);
+      amodelrenderer[2].rotateAngleY = ((float)Math.PI / 2F);
+      amodelrenderer[3].rotateAngleY = (float)Math.PI;
+      this.paddles[0] = this.makePaddle(true);
+      this.paddles[0].setRotationPoint(3.0F, -5.0F, 9.0F);
+      this.paddles[1] = this.makePaddle(false);
+      this.paddles[1].setRotationPoint(3.0F, -5.0F, -9.0F);
+      this.paddles[1].rotateAngleY = (float)Math.PI;
+      this.paddles[0].rotateAngleZ = 0.19634955F;
+      this.paddles[1].rotateAngleZ = 0.19634955F;
+      this.noWater = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 64);
+      this.noWater.addBox(-14.0F, -9.0F, -3.0F, 28.0F, 16.0F, 3.0F, 0.0F);
+      this.noWater.setRotationPoint(0.0F, -3.0F, 1.0F);
+      this.noWater.rotateAngleX = ((float)Math.PI / 2F);
+      Builder<ModelRenderer> builder = ImmutableList.builder();
+      builder.addAll(Arrays.asList(amodelrenderer));
+      builder.addAll(Arrays.asList(this.paddles));
+      this.field_228243_f_ = builder.build();
+   }
 
-    public void render(WillowBoatEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        GlStateManager.rotatef(90.0F, 0.0F, 1.0F, 0.0F);
-        setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-        for(int i = 0; i < 5; ++i) {
-            field_78103_a[i].render(scale);
-        }
-        renderPaddle(entityIn, 0, scale, limbSwing);
-        renderPaddle(entityIn, 1, scale, limbSwing);
-    }
+   @Override
+   public void setRotationAngles(WillowBoatEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+      this.func_228244_a_(entityIn, 0, limbSwing);
+      this.func_228244_a_(entityIn, 1, limbSwing);
+   }
+   @Override
+   public ImmutableList<ModelRenderer> getParts() {
+      return this.field_228243_f_;
+   }
 
-    public void renderMultipass(Entity entityIn, float partialTicks, float p_187054_3_, float p_187054_4_, float p_187054_5_, float p_187054_6_, float scale) {
-        GlStateManager.rotatef(90.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.colorMask(false, false, false, false);
-        noWater.render(scale);
-        GlStateManager.colorMask(true, true, true, true);
-    }
+   public ModelRenderer func_228245_c_() {
+      return this.noWater;
+   }
 
-    protected RendererModel makePaddle(boolean p_187056_1_) {
-        RendererModel renderermodel = (new RendererModel(this, 62, p_187056_1_ ? 0 : 20)).setTextureSize(128, 64);
-        renderermodel.addBox(-1.0F, 0.0F, -5.0F, 2, 2, 18);
-        renderermodel.addBox(p_187056_1_ ? -1.001F : 0.001F, -3.0F, 8.0F, 1, 6, 7);
-        return renderermodel;
-    }
+   protected ModelRenderer makePaddle(boolean p_187056_1_) {
+      ModelRenderer modelrenderer = (new ModelRenderer(this, 62, p_187056_1_ ? 0 : 20)).setTextureSize(128, 64);
+      modelrenderer.addBox(-1.0F, 0.0F, -5.0F, 2.0F, 2.0F, 18.0F);
+      modelrenderer.addBox(p_187056_1_ ? -1.001F : 0.001F, -3.0F, 8.0F, 1.0F, 6.0F, 7.0F);
+      return modelrenderer;
+   }
 
-    protected void renderPaddle(WillowBoatEntity boat, int paddle, float scale, float limbSwing) {
-        float f = boat.getRowingTime(paddle, limbSwing);
-        RendererModel renderermodel = paddles[paddle];
-        renderermodel.rotateAngleX = (float) MathHelper.clampedLerp((double)(-(float)Math.PI / 3F), (double)-0.2617994F, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
-        renderermodel.rotateAngleY = (float) MathHelper.clampedLerp((double)(-(float)Math.PI / 4F), (double)((float)Math.PI / 4F), (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
-        if (paddle == 1) {
-            renderermodel.rotateAngleY = (float)Math.PI - renderermodel.rotateAngleY;
-        }
-        renderermodel.render(scale);
-    }
+   protected void func_228244_a_(WillowBoatEntity p_228244_1_, int p_228244_2_, float p_228244_3_) {
+      float f = p_228244_1_.getRowingTime(p_228244_2_, p_228244_3_);
+      ModelRenderer modelrenderer = this.paddles[p_228244_2_];
+      modelrenderer.rotateAngleX = (float)MathHelper.clampedLerp((double)(-(float)Math.PI / 3F), (double)-0.2617994F, (double)((MathHelper.sin(-f) + 1.0F) / 2.0F));
+      modelrenderer.rotateAngleY = (float)MathHelper.clampedLerp((double)(-(float)Math.PI / 4F), (double)((float)Math.PI / 4F), (double)((MathHelper.sin(-f + 1.0F) + 1.0F) / 2.0F));
+      if (p_228244_2_ == 1) {
+         modelrenderer.rotateAngleY = (float)Math.PI - modelrenderer.rotateAngleY;
+      }
+
+   }
 }

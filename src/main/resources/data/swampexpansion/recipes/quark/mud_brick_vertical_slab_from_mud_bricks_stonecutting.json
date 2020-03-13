@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "swampexpansion:mud_bricks"
   },
-  "result": "swampexpansion:vertical_mud_brick_slab",
+  "result": "swampexpansion:mud_brick_vertical_slab",
   "count": 2,
   "conditions": [
     {
