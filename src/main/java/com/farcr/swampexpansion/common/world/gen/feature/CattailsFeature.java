@@ -2,20 +2,13 @@ package com.farcr.swampexpansion.common.world.gen.feature;
 
 import com.farcr.swampexpansion.common.block.CattailBlock;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExFeatures;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationSettings;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.placement.FrequencyConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.registries.ForgeRegistries;
-
 import java.util.Random;
 import java.util.function.Function;
 
@@ -38,15 +31,5 @@ public class CattailsFeature extends Feature<NoFeatureConfig> {
             }
         }
         return place;
-    }
-
-    public static void addFeature() {
-        ForgeRegistries.BIOMES.getValues().forEach(CattailsFeature::generate);
-    }
-
-	public static void generate(Biome biome) {
-        if (biome.getTempCategory() != Biome.TempCategory.COLD && biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER) {
-            biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, SwampExFeatures.CATTAILS.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(12))));
-        }
-    }
+    }   
 }
