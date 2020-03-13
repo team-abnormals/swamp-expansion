@@ -27,33 +27,30 @@ public class SwampExpansion {
 	
     public SwampExpansion() {
     	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupCommon);
-    	DistExecutor.runWhenOn(Dist.CLIENT, () -> this::initSetupClient);
-        
+    	
         SwampExBlocks.BLOCKS.register(modEventBus);
         SwampExItems.ITEMS.register(modEventBus);
         SwampExEntities.ENTITY_TYPES.register(modEventBus);
         SwampExBlocks.PAINTINGS.register(modEventBus);
         
         MinecraftForge.EVENT_BUS.register(this);
-    }
-    
-    public void initSetupClient()
-    {
-    	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setupClient);
+        
+        modEventBus.addListener(this::setupCommon);
+    	DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+        	modEventBus.addListener(this::setupClient);
+        });
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
         SwampExData.registerBlockData();
-        SwampExFeatures.overrideFeatures();
         SwampExFeatures.generateFeatures();
-        SwampExData.setupRenderLayer();
     }
     
-    @OnlyIn(Dist.CLIENT)
     private void setupClient(final FMLClientSetupEvent event) {
+    	SwampExData.setRenderLayers();
     	SwampExEntities.registerRendering();
         SwampExData.registerBlockColors();
+        
     }
     
     @SubscribeEvent

@@ -45,7 +45,7 @@ public class SwampExData {
 		
 	}
 	
-	public static void setupRenderLayer()
+	public static void setRenderLayers()
 	{
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_DOOR.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_TRAPDOOR.get(),RenderType.getCutout());

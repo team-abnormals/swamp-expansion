@@ -11,7 +11,7 @@ public class SwampExTrades {
 	
 	@SubscribeEvent
 	public static void onWandererTradesEvent(WandererTradesEvent event) {
-		event.getGenericTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExBlocks.CATTAIL.get(), 1, 1, 6, 1));
+		event.getGenericTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.CATTAIL_SEEDS.get(), 1, 1, 6, 1));
 		event.getGenericTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExBlocks.WILLOW_SAPLING.get(), 5, 1, 8, 1));
 	}
 }

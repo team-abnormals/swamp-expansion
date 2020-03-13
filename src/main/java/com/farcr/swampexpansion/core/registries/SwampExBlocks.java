@@ -98,6 +98,7 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 	
 	public static RegistryObject<PaintingType> SLABFISH = PAINTINGS.register("slabfish", () -> new PaintingType(64, 64));
+	public static RegistryObject<PaintingType> SNAKE_BLOCK = PAINTINGS.register("snake_block", () -> new PaintingType(32, 32));
 	
 	public static RegistryObject<Block> MUD = RegistryUtils.createBlockNoItem("mud", () -> new MudFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
 }
