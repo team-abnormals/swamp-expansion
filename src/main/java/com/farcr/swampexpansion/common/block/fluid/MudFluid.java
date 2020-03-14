@@ -95,7 +95,7 @@ public abstract class MudFluid extends FlowingFluid {
         return 6;
     }
 
-    public boolean func_215665_a(IFluidState state, IBlockReader reader, BlockPos pos, Fluid fluid, Direction direction) {
+    public boolean canDisplace(IFluidState state, IBlockReader reader, BlockPos pos, Fluid fluid, Direction direction) {
         return direction == Direction.DOWN && !fluid.isIn(FluidTags.WATER);
     }
 
@@ -103,15 +103,10 @@ public abstract class MudFluid extends FlowingFluid {
         return 100.0F;
     }
     
-	protected boolean canDisplace(IFluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_,
-			Fluid p_215665_4_, Direction p_215665_5_) {
-		return true;
-	}
-
     @Override
     protected FluidAttributes createAttributes() {
         Builder builder = FluidAttributes.builder(new ResourceLocation("swampexpansion", "block/mud_still"), new ResourceLocation("swampexpansion", "block/mud_flow"));
-        builder.luminosity(15).density(500).viscosity(1000).translationKey("mud").overlay(new ResourceLocation("swampexpansion", "block/mud_overlay"));
+        builder.luminosity(15).density(500).viscosity(1000).translationKey("fluid.swampexpansion.mud").overlay(new ResourceLocation("swampexpansion", "block/mud_overlay"));
         return builder.build(this);
     }
 

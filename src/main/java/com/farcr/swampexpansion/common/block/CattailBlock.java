@@ -54,7 +54,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
 
     public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
     	Random rand = new Random();
-    	int type = rand.nextInt(4);
+    	int type = rand.nextInt(3);
     	
     	BlockState seeds = SwampExBlocks.CATTAIL_SPROUTS.get().getDefaultState();
     	BlockState cattail = SwampExBlocks.CATTAIL.get().getDefaultState();
