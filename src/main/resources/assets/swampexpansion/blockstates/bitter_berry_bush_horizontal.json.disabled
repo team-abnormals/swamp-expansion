@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "swampexpansion:block/bitter_berry_bush_stage4_horizontal_bottom" },
-        "type=top": { "model": "swampexpansion:block/bitter_berry_bush_stage4_horizontal_top" },
-        "grown=true,type=bottom": { "model": "swampexpansion:block/bitter_berry_bush_stage4_horizontal_bottom_grown" },
-		"grown=true,type=top": { "model": "swampexpansion:block/bitter_berry_bush_stage4_horizontal_top_grown" }
-    }
-}
