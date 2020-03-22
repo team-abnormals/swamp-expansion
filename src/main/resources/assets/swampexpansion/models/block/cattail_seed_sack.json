@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "top": "swampexpansion:block/cattail_seed_sack_top",
+        "bottom": "swampexpansion:block/cattail_seed_sack_bottom",
+        "side": "swampexpansion:block/cattail_seed_sack_side"
+    }
+}

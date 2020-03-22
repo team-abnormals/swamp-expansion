@@ -1,0 +1,7 @@
+{
+    "parent": "swampexpansion:block/leaf_carpet",
+    "textures": {
+        "all": "swampexpansion:block/willow_leaves"
+    }
+}
+

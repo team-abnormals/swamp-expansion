@@ -1,13 +1,27 @@
 modLoader="javafml"
-loaderVersion="[28,]"
+loaderVersion="[31,)"
 logoFile="logo.png"
-authors="Farcr, Musicano, and Pugz"
+authors="Farcr, Musicano, Ilja, Bagel, and Pugz"
 credits="Dolores_McDoodle"
 
 [[mods]]
     modId="swampexpansion"
-    version="1.0.0"
+    version="${file.jarVersion}"
     displayName="Swamp Expansion"
     description='''
     Expanding the Swamps. New wood, new blocks, new friends.
     '''
+
+[[dependencies.swampexpansion]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.swampexpansion]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="BOTH"

@@ -47,9 +47,9 @@ public class WillowBoatItem extends Item {
             }
             if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
                 WillowBoatEntity boatentity = new WillowBoatEntity(worldIn, raytraceresult.getHitVec().x, raytraceresult.getHitVec().y, raytraceresult.getHitVec().z);
-                boatentity.setBoatModel(type);
+                boatentity.setBoatType(type);
                 boatentity.rotationYaw = playerIn.rotationYaw;
-                if (!worldIn.isCollisionBoxesEmpty(boatentity, boatentity.getBoundingBox().grow(-0.1D))) {
+                if (!worldIn.hasNoCollisions(boatentity, boatentity.getBoundingBox().grow(-0.1D))) {
                     return new ActionResult<>(ActionResultType.FAIL, itemstack);
                 } else {
                     if (!worldIn.isRemote) {
@@ -93,7 +93,7 @@ public class WillowBoatItem extends Item {
                 adjustY = 0d;
             }
             WillowBoatEntity boat = new WillowBoatEntity(world, x, y + adjustY, z);
-            boat.setBoatModel(type);
+            boat.setBoatType(type);
             boat.rotationYaw = direction.getHorizontalAngle();
             world.addEntity(boat);
             stack.shrink(1);

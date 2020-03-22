@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "swampexpansion:willow_planks"
+    "swampexpansion:willow_planks",
+    "swampexpansion:vertical_willow_planks"
   ]
 }
