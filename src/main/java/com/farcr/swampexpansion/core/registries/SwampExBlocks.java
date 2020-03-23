@@ -91,10 +91,6 @@ public class SwampExBlocks {
 	
 	public static RegistryObject<Block> RICE_SACK		= RegistryUtils.createBlockCompat("quark", "rice_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
-	//public static RegistryObject<Block> BITTER_BERRY_BUSH		= RegistryUtils.createBlockNoItem("bitter_berry_bush", () -> new BitterBerryBushBlock(Block.Properties.from(Blocks.SWEET_BERRY_BUSH)));
-	//public static RegistryObject<Block> BITTER_BERRY_BUSH_PIPS= RegistryUtils.createBlockNoItem("bitter_berry_bush_pips", () -> new BitterBerryPipsBlock(Block.Properties.from(Blocks.SWEET_BERRY_BUSH)));
-	//public static RegistryObject<Block> BITTER_BERRY_SACK		= RegistryUtils.createBlockCompat("quark", "bitter_berry_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.BLUE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), null);
-	
 	
 	public static RegistryObject<PaintingType> SNAKE_BLOCK = PAINTINGS.register("snake_block", () -> new PaintingType(32, 32));
 	
