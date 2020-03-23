@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D",
+        "C "
+    ],
+    "key": {
+        "#": {
+            "item": "swampexpansion:rice_ball"
+        },
+        "D": {
+            "item": "minecraft:dried_kelp"
+        },
+        "C": {
+            "item": "upgradeaquatic:pike"
+        }
+    },
+    "result": {
+        "item": "swampexpansion:pike_kelp_roll",
+        "count": 2
+    },
+    "group": "rice_seafood",
+    "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "upgrade_aquatic"
+        }
+      ]
+    }
+  ]
+}
