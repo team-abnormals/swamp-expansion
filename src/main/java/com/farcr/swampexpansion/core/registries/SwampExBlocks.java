@@ -88,12 +88,14 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> CATTAIL_THATCH_SLAB     = RegistryUtils.createBlock("cattail_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
+	
+	public static RegistryObject<Block> RICE_SACK		= RegistryUtils.createBlockCompat("quark", "rice_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
 	//public static RegistryObject<Block> BITTER_BERRY_BUSH		= RegistryUtils.createBlockNoItem("bitter_berry_bush", () -> new BitterBerryBushBlock(Block.Properties.from(Blocks.SWEET_BERRY_BUSH)));
 	//public static RegistryObject<Block> BITTER_BERRY_BUSH_PIPS= RegistryUtils.createBlockNoItem("bitter_berry_bush_pips", () -> new BitterBerryPipsBlock(Block.Properties.from(Blocks.SWEET_BERRY_BUSH)));
 	//public static RegistryObject<Block> BITTER_BERRY_SACK		= RegistryUtils.createBlockCompat("quark", "bitter_berry_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.BLUE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), null);
 	
-	public static RegistryObject<PaintingType> SLABFISH = PAINTINGS.register("slabfish", () -> new PaintingType(64, 64));
+	
 	public static RegistryObject<PaintingType> SNAKE_BLOCK = PAINTINGS.register("snake_block", () -> new PaintingType(32, 32));
 	
 	public static RegistryObject<Block> MUD = RegistryUtils.createBlockNoItem("mud", () -> new MudFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
