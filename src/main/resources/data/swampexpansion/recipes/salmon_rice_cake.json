@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#D",
+        "C "
+    ],
+    "key": {
+        "#": {
+            "item": "swampexpansion:rice_ball"
+        },
+        "D": {
+            "item": "minecraft:dried_kelp"
+        },
+        "C": {
+            "item": "minecraft:salmon"
+        }
+    },
+    "result": {
+        "item": "swampexpansion:salmon_rice_cake",
+        "count": 2
+    },
+    "group": "rice_seafood"
+}
