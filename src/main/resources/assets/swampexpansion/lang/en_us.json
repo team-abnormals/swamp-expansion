@@ -37,18 +37,23 @@
 	"block.swampexpansion.cattail_thatch_stairs": "Cattail Thatch Stairs",
 	"block.swampexpansion.cattail_thatch_vertical_slab": "Cattail Thatch Vertical Slab",
 	"block.swampexpansion.cattail_seed_sack": "Cattail Seed Sack",
-	
-	"block.swampexpansion.bitter_berry_bush": "Bitter Berry Bush",
-	"block.swampexpansion.bitter_berry_bush_pips": "Bitter Berry Bush Pips",
-	"block.swampexpansion.bitter_berry_sack": "Bitter Berry Sack",
-	
 	"item.swampexpansion.cattail_seeds": "Cattail Seeds",
+	
+	"block.swampexpansion.rice_sack": "Rice Sack",
+	"item.swampexpansion.rice": "Rice",
+	"item.swampexpansion.rice_ball": "Rice Ball",
+	"item.swampexpansion.cod_kelp_roll": "Cod Kelp Roll",
+	"item.swampexpansion.salmon_rice_cake": "Salmon Rice Cake",
+	"item.swampexpansion.clownfish_kelp_roll": "Clownfish Kelp Roll",
+	"item.swampexpansion.pufferfish_rice_cake": "Pufferfish Rice Cake",
+	"item.swampexpansion.pike_kelp_roll": "Pike Kelp Roll",
+	"item.swampexpansion.lionfish_rice_cake": "Lionfish Rice Cake",
+	"item.swampexpansion.cavefish_kelp_roll": "Cavefish Kelp Roll",
+	"item.swampexpansion.crab_rice_cake": "Crab Rice Cake",
+	
 	"item.swampexpansion.mud_ball": "Mud Ball",
 	"item.swampexpansion.mud_brick": "Mud Brick",
 	"item.swampexpansion.mud_bucket": "Mud Bucket",
-	"item.swampexpansion.bitter_berries": "Bitter Berries",
-	"item.swampexpansion.bitter_berry_pips": "Bitter Berry Pips",
-	"item.swampexpansion.bitter_berry_juice": "Bitter Berry Juice",
 	"item.swampexpansion.willow_boat": "Willow Boat",
 	
 	"block.swampexpansion.mud": "Mud",
