@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "rice_seafood",
+  "ingredients": [
+    {
+      "item": "swampexpansion:rice_ball"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "minecraft:pufferfish"
+    }
+  ],
+    "result": {
+        "item": "swampexpansion:pufferfish_rice_cake",
+        "count": 2
+    }
+}

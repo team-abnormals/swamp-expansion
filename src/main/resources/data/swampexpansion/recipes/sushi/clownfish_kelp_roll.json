@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "rice_seafood",
+  "ingredients": [
+    {
+      "item": "swampexpansion:rice_ball"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "minecraft:tropical_fish"
+    }
+  ],
+    "result": {
+        "item": "swampexpansion:clownfish_kelp_roll",
+        "count": 2
+    }
+}

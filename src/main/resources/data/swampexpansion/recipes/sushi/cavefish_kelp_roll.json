@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "rice_seafood",
+  "ingredients": [
+    {
+      "item": "swampexpansion:rice_ball"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "maby:cavefish"
+    }
+  ],
+    "result": {
+        "item": "swampexpansion:cavefish_kelp_roll",
+        "count": 2
+    },
+    "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "maby"
+        }
+      ]
+    }
+  ]
+}

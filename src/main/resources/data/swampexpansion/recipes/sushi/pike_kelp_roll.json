@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "rice_seafood",
+  "ingredients": [
+    {
+      "item": "swampexpansion:rice_ball"
+    },
+    {
+      "item": "minecraft:dried_kelp"
+    },
+    {
+      "item": "upgrade_aquatic:pike"
+    }
+  ],
+    "result": {
+        "item": "swampexpansion:pike_kelp_roll",
+        "count": 2
+    },
+    "conditions": [
+    {
+      "type": "forge:and",
+      "values": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "upgrade_aquatic"
+        }
+      ]
+    }
+  ]
+}
