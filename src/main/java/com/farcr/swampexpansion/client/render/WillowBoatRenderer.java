@@ -21,7 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class WillowBoatRenderer extends EntityRenderer<WillowBoatEntity>
 {
 	private static final ResourceLocation[] BOAT_TEXTURES = new ResourceLocation[] {
-	    	new ResourceLocation("swampexpansion", "textures/entity/boat/willow_boat.png"),
+	    	new ResourceLocation("swampexpansion", "textures/entity/boat/willow.png"),
 	    };
 	   protected final WillowBoatModel modelBoat = new WillowBoatModel();
 

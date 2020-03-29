@@ -49,10 +49,11 @@ public class SwampExData {
 	{
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_DOOR.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_TRAPDOOR.get(),RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_LADDER.get(),RenderType.getCutout());
 		
-		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_LEAVES.get(),RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(SwampExBlocks.HANGING_WILLOW_LEAVES.get(),RenderType.getCutout());
-		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_LEAF_CARPET.get(),RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_LEAVES.get(),RenderType.getCutoutMipped());
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.HANGING_WILLOW_LEAVES.get(),RenderType.getCutoutMipped());
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_LEAF_CARPET.get(),RenderType.getCutoutMipped());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_SAPLING.get(),RenderType.getCutout());
 		
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.CATTAIL_SPROUTS.get(),RenderType.getCutout());
