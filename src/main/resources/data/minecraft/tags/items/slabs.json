@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "swampexpansion:willow_slab"
+    "swampexpansion:willow_slab",
+	"swampexpansion:cattail_thatch_slab",
+	"swampexpansion:mud_brick_slab",
   ]
 }
