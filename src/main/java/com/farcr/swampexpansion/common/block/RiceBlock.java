@@ -17,13 +17,13 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
@@ -32,40 +32,43 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable {
-	protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
+	protected static final VoxelShape SHAPE_SHORT = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D);
+	protected static final VoxelShape SHAPE_MEDIUM = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 8.0D, 14.0D);
+	protected static final VoxelShape SHAPE_TALL = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
 
-    public CattailBlock(Properties properties) {
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final IntegerProperty AGE = IntegerProperty.create("age", 0, 5);
+
+    public RiceBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, true));
+        this.setDefaultState(this.getDefaultState().with(WATERLOGGED, true).with(AGE, 0));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
+        builder.add(AGE, WATERLOGGED);
     }
     
     @Override
     protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block.isIn(SwampExTags.CATTAIL_PLANTABLE_ON);
+        if (worldIn.getFluidState(pos).getLevel() == 8 && block.isIn(SwampExTags.CATTAIL_PLANTABLE_ON)) return true;
+        else if (block.getBlock() == Blocks.FARMLAND) return true;
+        return false;
     }
 
     public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
     	Random rand = new Random();
     	int type = rand.nextInt(3);
     	
-    	BlockState seeds = SwampExBlocks.CATTAIL_SPROUTS.get().getDefaultState();
-    	BlockState cattail = SwampExBlocks.CATTAIL.get().getDefaultState();
-    	BlockState tall_up = SwampExBlocks.TALL_CATTAIL.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.UPPER);
-    	BlockState tall_down = SwampExBlocks.TALL_CATTAIL.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.LOWER);
+    	BlockState rice = SwampExBlocks.RICE.get().getDefaultState();
+    	BlockState tall_up = SwampExBlocks.TALL_RICE.get().getDefaultState().with(AGE, 6).with(DoubleCattailBlock.HALF, DoubleBlockHalf.UPPER);
+    	BlockState tall_down = SwampExBlocks.TALL_RICE.get().getDefaultState().with(AGE, 6).with(DoubleCattailBlock.HALF, DoubleBlockHalf.LOWER);
     	
     	boolean waterlogged = worldIn.hasWater(pos);
-    	if (type == 0) {
-    		worldIn.setBlockState(pos, seeds.with(WATERLOGGED, waterlogged), flags);
-    	} else if (type == 1) {
-    		worldIn.setBlockState(pos, cattail.with(WATERLOGGED, waterlogged), flags);
+    	if (type == 1) {
+    		worldIn.setBlockState(pos, rice.with(WATERLOGGED, waterlogged), flags);
     	} else {
     		worldIn.setBlockState(pos, tall_down.with(WATERLOGGED, waterlogged), flags);
 			waterlogged = worldIn.hasWater(pos.up());
@@ -74,13 +77,9 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     }
     
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Vec3d vec3d = state.getOffset(worldIn, pos);
-        return SHAPE.withOffset(vec3d.x, vec3d.y, vec3d.z);
+        return state.get(AGE) >= 4 ? SHAPE_TALL : state.get(AGE) >= 1 ? SHAPE_MEDIUM : SHAPE_SHORT;
      }
-    
-    public Block.OffsetType getOffsetType() {
-        return Block.OffsetType.XZ;
-     }
+   
 
     @Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
@@ -90,24 +89,35 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
 	}
     
     public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-    	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
-    	IFluidState ifluidstateUp = worldIn.getFluidState(pos.up());
-        if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && (worldIn.isAirBlock(pos.up()) || (Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8)))) {
-           doubleplantblock.placeAt(worldIn, pos, 2);
-        }
+    	if (state.get(AGE) < 5) {
+    		worldIn.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
+    	} else {
+    		DoubleRiceBlock doubleplantblock = (DoubleRiceBlock)(SwampExBlocks.TALL_RICE.get());
+        	IFluidState ifluidstateUp = worldIn.getFluidState(pos.up());
+            if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && (worldIn.isAirBlock(pos.up()) || (Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8)))) {
+               doubleplantblock.placeAt(worldIn, pos, 2);
+            }
+    	}
+    	
      }
     
     @SuppressWarnings("deprecation")
     @Override
 	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         super.tick(state, worldIn, pos, random);
+        int i = state.get(AGE);
         int chance = worldIn.getBlockState(pos.down()).isFertile(worldIn, pos.down()) ? 10 : 12;
-        if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
-        	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
-            if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
-            	doubleplantblock.placeAt(worldIn, pos, 2);
+        if ((worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND || worldIn.getFluidState(pos).getLevel() == 8) && worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
+        	if (i == 5) {
+        		DoubleRiceBlock doubleplantblock = (DoubleRiceBlock)(SwampExBlocks.TALL_RICE.get());
+                if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
+                	doubleplantblock.placeAt(worldIn, pos, 2);
+                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
+                }
+        	} else {
+        		worldIn.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
                 net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
-            }
+        	}
         }
      }
     
@@ -116,9 +126,10 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
 		return false;
 	}
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-    	return this.isValidGround(world.getBlockState(pos.down()), world, pos);
+    	return this.isValidGround(world.getBlockState(pos.down()), world, pos) && world.getBlockState(pos.up()).isAir();
     }
     
     @SuppressWarnings("deprecation")

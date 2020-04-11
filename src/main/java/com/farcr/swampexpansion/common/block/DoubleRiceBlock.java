@@ -4,7 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registries.SwampExItems;
 import com.farcr.swampexpansion.core.registries.SwampExTags;
 
 import net.minecraft.block.Block;
@@ -34,7 +34,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
@@ -45,23 +44,22 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggable {
+public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable {
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty FAKE_WATERLOGGED = BooleanProperty.create("fake_waterlogged");
-	public static final IntegerProperty AGE = BlockStateProperties.AGE_0_1;
+	public static final IntegerProperty AGE = IntegerProperty.create("age", 6, 7);
 	
 	protected static final VoxelShape SHAPE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-	protected static final VoxelShape SHAPE_TOP = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 14.0D, 13.0D);
+	protected static final VoxelShape SHAPE_TOP = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 5.0D, 14.0D);
 	
-	public DoubleCattailBlock(Properties properties) {
+	public DoubleRiceBlock(Properties properties) {
 		super(properties);
-		this.setDefaultState(this.stateContainer.getBaseState().with(HALF, DoubleBlockHalf.LOWER).with(FAKE_WATERLOGGED, false));
+		this.setDefaultState(this.stateContainer.getBaseState().with(HALF, DoubleBlockHalf.LOWER).with(AGE, 6).with(FAKE_WATERLOGGED, false));
 	}
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Vec3d vec3d = state.getOffset(worldIn, pos);
-        return state.get(HALF) == DoubleBlockHalf.UPPER ? SHAPE_TOP.withOffset(vec3d.x, vec3d.y, vec3d.z) : SHAPE.withOffset(vec3d.x, vec3d.y, vec3d.z);
+        return state.get(HALF) == DoubleBlockHalf.UPPER ? SHAPE_TOP : SHAPE;
      }
 	
 	@Override
@@ -69,10 +67,12 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 		builder.add(AGE, HALF, WATERLOGGED, FAKE_WATERLOGGED);
 	}
 	
-    protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
         Block block = state.getBlock();
-        return block.isIn(SwampExTags.CATTAIL_PLANTABLE_ON);
-     }
+        if (worldIn.getFluidState(pos).getLevel() == 8 && block.isIn(SwampExTags.CATTAIL_PLANTABLE_ON)) return true;
+        else if (block.getBlock() == Blocks.FARMLAND) return true;
+        return false;
+    }
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
@@ -105,20 +105,20 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
 			BlockRayTraceResult hit) {
 		int i = state.get(AGE);
-		boolean flag = i == 1;
+		boolean flag = i == 7;
 		if (!flag && player.getHeldItem(handIn).getItem() == Items.BONE_MEAL) {
 			return ActionResultType.PASS;
-		} else if (i > 0) {
+		} else if (i > 6) {
 			Random rand = new Random();
 			int j = 1 + rand.nextInt(3);
-			spawnAsEntity(worldIn, pos, new ItemStack(SwampExBlocks.CATTAIL_SPROUTS.get(), j));
-			worldIn.playSound((PlayerEntity) null, pos, SoundEvents.ITEM_SWEET_BERRIES_PICK_FROM_BUSH,
+			spawnAsEntity(worldIn, pos, new ItemStack(SwampExItems.RICE.get(), j));
+			worldIn.playSound((PlayerEntity) null, pos, SoundEvents.BLOCK_BAMBOO_PLACE,
 					SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
-			worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(0)), 2);
+			worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(6)), 2);
 			if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, Integer.valueOf(0)), 2);
+				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, Integer.valueOf(6)), 2);
 			} else {
-				worldIn.setBlockState(pos.up(), worldIn.getBlockState(pos.up()).with(AGE, Integer.valueOf(0)), 2);
+				worldIn.setBlockState(pos.up(), worldIn.getBlockState(pos.up()).with(AGE, Integer.valueOf(6)), 2);
 			}
 			return ActionResultType.SUCCESS;
 		} else {
@@ -128,7 +128,7 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 	@Override
 	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 		int i = state.get(AGE);
-		if (i < 1) {
+		if (i < 7) {
 			worldIn.setBlockState(pos, state.with(AGE, i + 1));
 			if (state.get(HALF) == DoubleBlockHalf.UPPER) {
 				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, i + 1));
@@ -146,12 +146,12 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 		super.tick(state, worldIn, pos, random);
 		int i = state.get(AGE);
 		int chance = worldIn.getBlockState(pos.down().down()).isFertile(worldIn, pos.down().down()) ? 10 : 12;
-		if (state.get(HALF) == DoubleBlockHalf.UPPER && i < 1 && worldIn.getBlockState(pos.down().down()).getBlock() == Blocks.FARMLAND && worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
+		if (state.get(HALF) == DoubleBlockHalf.UPPER && i < 7 && (worldIn.getBlockState(pos.down().down()).getBlock() == Blocks.FARMLAND || worldIn.getFluidState(pos.down()).getLevel() == 8) && worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
 			worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(i + 1)), 2);
-			if (worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.down()).get(AGE) == 0) {
+			if (worldIn.getBlockState(pos.down()).getBlock() == this && worldIn.getBlockState(pos.down()).get(AGE) == 6) {
 				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, Integer.valueOf(i + 1)), 2);
-				net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
 			}
+			net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
 		}
 	}
 
@@ -192,21 +192,18 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 	}
 	@Override
 	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) {
-		return state.get(AGE) < 1;
+		return state.get(AGE) < 7;
 	}
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
-		return state.get(AGE) < 1;
+		return state.get(AGE) < 7;
 	}
 
 	@Override
 	public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
 		return true;
 	}
-	@Override
-	public Block.OffsetType getOffsetType() {
-		return Block.OffsetType.XZ;
-	}
+
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public long getPositionRandom(BlockState state, BlockPos pos) {

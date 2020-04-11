@@ -5,9 +5,11 @@ import com.farcr.swampexpansion.common.block.CattailBlock;
 import com.farcr.swampexpansion.common.block.CattailSproutsBlock;
 import com.farcr.swampexpansion.common.block.CattailThatchBlock;
 import com.farcr.swampexpansion.common.block.DoubleCattailBlock;
+import com.farcr.swampexpansion.common.block.DoubleRiceBlock;
 import com.farcr.swampexpansion.common.block.HangingWillowLeavesBlock;
 import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
+import com.farcr.swampexpansion.common.block.RiceBlock;
 import com.farcr.swampexpansion.common.block.VerticalSlabBlock;
 import com.farcr.swampexpansion.common.block.WillowButtonBlock;
 import com.farcr.swampexpansion.common.block.WillowSaplingBlock;
@@ -79,9 +81,9 @@ public class SwampExBlocks {
 	//public static RegistryObject<Block> WILLOW_SIGN 			= RegistryUtils.createBlock("willow_sign", () -> new StandingSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	//public static RegistryObject<Block> WILLOW_WALL_SIGN 		= RegistryUtils.createBlock("willow_wall_sign", () -> new WallSignBlock(BlockProperties.WILLOW_PLANKS), ItemGroup.BUILDING_BLOCKS);
 	
-	public static RegistryObject<Block> CATTAIL_SPROUTS 		= RegistryUtils.createBlockNoItem("cattail_sprouts", () -> new CattailSproutsBlock(BlockProperties.CATTAIL));
-	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
-	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.CATTAIL), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> CATTAIL_SPROUTS 		= RegistryUtils.createBlockNoItem("cattail_sprouts", () -> new CattailSproutsBlock(BlockProperties.SWAMP_PLANT));
+	public static RegistryObject<Block> CATTAIL 				= RegistryUtils.createBlock("cattail", () -> new CattailBlock(BlockProperties.SWAMP_PLANT), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> TALL_CATTAIL 			= RegistryUtils.createBlock("tall_cattail", () -> new DoubleCattailBlock(BlockProperties.SWAMP_PLANT), ItemGroup.DECORATIONS);
 	public static RegistryObject<Block> POTTED_CATTAIL		    = RegistryUtils.createBlockNoItem("potted_cattail",	() -> new FlowerPotBlock(SwampExBlocks.CATTAIL.get(), BlockProperties.FLOWER_POT));
 	public static RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
@@ -90,11 +92,13 @@ public class SwampExBlocks {
 	public static RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK)), ItemGroup.BUILDING_BLOCKS);
 	public static RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 	
-	//public static RegistryObject<Block> RICE_SACK		= RegistryUtils.createBlockCompat("quark", "rice_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
+	public static RegistryObject<Block> RICE 		= RegistryUtils.createBlockNoItem("rice", () -> new RiceBlock(BlockProperties.SWAMP_PLANT));
+	public static RegistryObject<Block> TALL_RICE 	= RegistryUtils.createBlockNoItem("tall_rice", () -> new DoubleRiceBlock(BlockProperties.SWAMP_PLANT));
+	public static RegistryObject<Block> RICE_SACK	= RegistryUtils.createBlockCompat("quark", "rice_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
-	
 	public static RegistryObject<PaintingType> SNAKE_BLOCK = PAINTINGS.register("snake_block", () -> new PaintingType(32, 32));
 	public static RegistryObject<PaintingType> SOMETHING_IN_THE_WATER = PAINTINGS.register("something_in_the_water", () -> new PaintingType(48, 32));
-	
+	//public static RegistryObject<PaintingType> SLABFISH = PAINTINGS.register("slabfish", () -> new PaintingType(32, 32));
+
 	public static RegistryObject<Block> MUD = RegistryUtils.createBlockNoItem("mud", () -> new MudFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
 }
