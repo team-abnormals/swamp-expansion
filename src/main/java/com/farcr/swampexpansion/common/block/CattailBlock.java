@@ -85,7 +85,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     @Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 10;
+		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
 		return this.getDefaultState().with(WATERLOGGED, flag);
 	}
     

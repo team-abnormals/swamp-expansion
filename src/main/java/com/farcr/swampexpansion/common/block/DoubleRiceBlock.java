@@ -4,6 +4,7 @@ import java.util.Random;
 
 import javax.annotation.Nullable;
 
+import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
 import com.farcr.swampexpansion.core.registries.SwampExTags;
 
@@ -93,12 +94,12 @@ public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable 
 		return blockpos.getY() < context.getWorld().getDimension().getHeight() - 1 && context.getWorld().getBlockState(blockpos.up()).isReplaceable(context) ? super.getStateForPlacement(context).with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8)).with(FAKE_WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8)) : null;
 	}
 	
-	public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
+	public void placeAt(IWorld worldIn, BlockPos pos, int flags, int age) {
 		IFluidState ifluidstate = worldIn.getFluidState(pos);
 		IFluidState ifluidstateUp = worldIn.getFluidState(pos.up());
 		boolean applyFakeWaterLogging = Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8) || Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8) ? true : false;
-		worldIn.setBlockState(pos, this.getDefaultState().with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8)).with(FAKE_WATERLOGGED, applyFakeWaterLogging), flags);
-		worldIn.setBlockState(pos.up(), this.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8)).with(FAKE_WATERLOGGED, applyFakeWaterLogging), flags);
+		worldIn.setBlockState(pos, this.getDefaultState().with(AGE, age).with(HALF, DoubleBlockHalf.LOWER).with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8)).with(FAKE_WATERLOGGED, applyFakeWaterLogging), flags);
+		worldIn.setBlockState(pos.up(), this.getDefaultState().with(AGE, age).with(HALF, DoubleBlockHalf.UPPER).with(WATERLOGGED, Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8)).with(FAKE_WATERLOGGED, applyFakeWaterLogging), flags);
 	}
 	@Override
 	@SuppressWarnings("deprecation")
@@ -112,13 +113,14 @@ public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable 
 			Random rand = new Random();
 			int j = 1 + rand.nextInt(3);
 			spawnAsEntity(worldIn, pos, new ItemStack(SwampExItems.RICE.get(), j));
-			worldIn.playSound((PlayerEntity) null, pos, SoundEvents.BLOCK_BAMBOO_PLACE,
+			worldIn.playSound((PlayerEntity) null, pos, SoundEvents.BLOCK_CROP_BREAK,
 					SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
-			worldIn.setBlockState(pos, state.with(AGE, Integer.valueOf(6)), 2);
 			if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-				worldIn.setBlockState(pos.down(), worldIn.getBlockState(pos.down()).with(AGE, Integer.valueOf(6)), 2);
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+				worldIn.setBlockState(pos.down(), SwampExBlocks.RICE.get().getDefaultState().with(WATERLOGGED, worldIn.getBlockState(pos.down()).get(WATERLOGGED)).with(RiceBlock.AGE, Integer.valueOf(0)), 2);
 			} else {
-				worldIn.setBlockState(pos.up(), worldIn.getBlockState(pos.up()).with(AGE, Integer.valueOf(6)), 2);
+				worldIn.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), 2);
+				worldIn.setBlockState(pos, SwampExBlocks.RICE.get().getDefaultState().with(WATERLOGGED, state.get(WATERLOGGED)).with(RiceBlock.AGE, Integer.valueOf(0)), 2);
 			}
 			return ActionResultType.SUCCESS;
 		} else {

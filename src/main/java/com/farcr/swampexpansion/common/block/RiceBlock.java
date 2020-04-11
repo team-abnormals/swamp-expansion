@@ -24,6 +24,7 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
@@ -84,22 +85,26 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
     @Nullable
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 10;
+		boolean flag = ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8;
 		return this.getDefaultState().with(WATERLOGGED, flag);
 	}
     
     public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
-    	if (state.get(AGE) < 5) {
-    		worldIn.setBlockState(pos, state.with(AGE, state.get(AGE) + 1));
+    	int newAge = state.get(AGE) + MathHelper.nextInt(worldIn.rand, 2, 5);
+    	if (newAge > 7) newAge = 7 ;
+    	if (newAge <= 5) {
+    		worldIn.setBlockState(pos, state.with(AGE, newAge));
     	} else {
     		DoubleRiceBlock doubleplantblock = (DoubleRiceBlock)(SwampExBlocks.TALL_RICE.get());
         	IFluidState ifluidstateUp = worldIn.getFluidState(pos.up());
             if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && (worldIn.isAirBlock(pos.up()) || (Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8)))) {
-               doubleplantblock.placeAt(worldIn, pos, 2);
+               doubleplantblock.placeAt(worldIn, pos, 2, newAge);
             }
     	}
     	
      }
+    
+    
     
     @SuppressWarnings("deprecation")
     @Override
@@ -111,7 +116,7 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
         	if (i == 5) {
         		DoubleRiceBlock doubleplantblock = (DoubleRiceBlock)(SwampExBlocks.TALL_RICE.get());
                 if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up())) {
-                	doubleplantblock.placeAt(worldIn, pos, 2);
+                	doubleplantblock.placeAt(worldIn, pos, 2, 6);
                     net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
                 }
         	} else {
