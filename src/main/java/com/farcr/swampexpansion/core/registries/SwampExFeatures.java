@@ -36,10 +36,11 @@ public class SwampExFeatures {
             SwampExBiomeFeatures.addMushrooms(biome);
             SwampExBiomeFeatures.addWillowTrees(biome);
             SwampExBiomeFeatures.addSwampOaks(biome);
+            SwampExBiomeFeatures.addCattails(biome);
         }
-        if (biome.getTempCategory() != Biome.TempCategory.COLD && (biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER)) {
-        	SwampExBiomeFeatures.addCattails(biome);
-        }
+//        if (biome.getTempCategory() != Biome.TempCategory.COLD && (biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER)) {
+//        	SwampExBiomeFeatures.addCattails(biome);
+//        }
     }
 	
 	

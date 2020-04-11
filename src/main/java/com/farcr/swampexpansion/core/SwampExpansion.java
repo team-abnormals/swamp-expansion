@@ -24,7 +24,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod("swampexpansion")
 @Mod.EventBusSubscriber(modid = "swampexpansion")
 public class SwampExpansion {
-	
+	public static final String MODID = "swampexpansion";
+
     public SwampExpansion() {
     	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	
