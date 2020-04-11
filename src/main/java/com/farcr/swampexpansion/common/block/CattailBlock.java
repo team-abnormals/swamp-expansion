@@ -101,7 +101,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     @Override
 	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         super.tick(state, worldIn, pos, random);
-        int chance = worldIn.getBlockState(pos.down()).isFertile(worldIn, pos.down()) ? 10 : 12;
+        int chance = worldIn.getBlockState(pos.down()).isFertile(worldIn, pos.down()) ? 15 : 17;
         if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
         	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
             if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
