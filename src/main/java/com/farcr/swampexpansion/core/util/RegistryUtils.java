@@ -1,10 +1,12 @@
 package com.farcr.swampexpansion.core.util;
 
+import com.farcr.swampexpansion.common.item.SwampExSpawnEggItem;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
 import com.google.common.base.Supplier;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -44,5 +46,11 @@ public class RegistryUtils {
     	Supplier<? extends I> determinedSupplier = ModList.get().isLoaded(mod) ? compat_supplier : supplier;
     	RegistryObject<I> item = SwampExItems.ITEMS.register(name, determinedSupplier);
 		return item;
+	}
+    
+    public static RegistryObject<Item> createSpawnEggItem(String entityName, Supplier<EntityType<?>> supplier, int primaryColor, int secondaryColor) {
+		RegistryObject<Item> spawnEgg = SwampExItems.ITEMS.register(entityName + "_spawn_egg", () -> new SwampExSpawnEggItem(supplier, primaryColor, secondaryColor, new Item.Properties().group(ItemGroup.MISC)));
+		SwampExItems.SPAWN_EGGS.add(spawnEgg);
+		return spawnEgg;
 	}
 }

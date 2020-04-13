@@ -1,9 +1,12 @@
 package com.farcr.swampexpansion.core.registries;
 
+import java.util.List;
+
 import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.common.item.WillowBoatItem;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
+import com.google.common.collect.Lists;
 
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockNamedItem;
@@ -22,6 +25,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SwampExItems {
 	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, "swampexpansion");
+	public static final List<RegistryObject<Item>> SPAWN_EGGS = Lists.newArrayList();
 	
 	public static RegistryObject<Item> MUD_BALL = RegistryUtils.createItem("mud_ball", () -> new MudBallItem(new Item.Properties().group(ItemGroup.MATERIALS)));
 	public static RegistryObject<Item> MUD_BRICK = RegistryUtils.createItem("mud_brick", () -> new Item(new Item.Properties().group(ItemGroup.MATERIALS)));
@@ -44,4 +48,6 @@ public class SwampExItems {
 	public static RegistryObject<Item> LIONFISH_RICE_CAKE = RegistryUtils.createItem("lionfish_rice_cake", () -> new Item(new Item.Properties().food(SwampExFoods.LIONFISH_RICE_CAKE).group(ModList.get().isLoaded("upgrade_aquatic") ? ItemGroup.FOOD : null)));
 	
 	public static RegistryObject<Item> SQUID_INK_RISOTTO = RegistryUtils.createItem("squid_ink_risotto", () -> new SoupItem(new Item.Properties().food(SwampExFoods.SQUID_INK_RISOTTO).group(ItemGroup.FOOD)));
+	
+	public static final RegistryObject<Item> SLABFISH_SPAWN_EGG = RegistryUtils.createSpawnEggItem("slabfish", () -> SwampExEntities.SLABFISH.get(), 6263617, 13940616);
 }
