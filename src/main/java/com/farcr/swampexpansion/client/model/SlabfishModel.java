@@ -104,7 +104,6 @@ public class SlabfishModel<T extends SlabfishEntity, E> extends AgeableModel<T> 
         	this.body.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         	this.fin.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         	this.rightArm.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        	this.backpack.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         	this.rightLeg.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         	this.leftLeg.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         	this.leftArm.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);

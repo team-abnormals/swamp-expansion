@@ -63,7 +63,8 @@
 	"item.swampexpansion.mud_bucket": "Mud Bucket",
 	"item.swampexpansion.willow_boat": "Willow Boat",
 	
-	"item.swampexpansion.slabfish": "Slabfish",
+	"entity.swampexpansion.slabfish": "Slabfish",
+	"entity.swampexpansion.boat": "Boat",
 	
 	"block.swampexpansion.mud": "Mud",
 	"fluid.swampexpansion.mud": "Mud"

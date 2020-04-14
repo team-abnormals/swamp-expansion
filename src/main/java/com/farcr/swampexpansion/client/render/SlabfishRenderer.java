@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.farcr.swampexpansion.client.model.SlabfishModel;
+import com.farcr.swampexpansion.client.render.layer.BackpackRenderLayer;
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.google.common.collect.Maps;
@@ -23,6 +24,7 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 
 	public SlabfishRenderer(EntityRendererManager renderManager) {
 		super(renderManager, new SlabfishModel<>(), 0.5F);
+		this.addLayer(new BackpackRenderLayer<>(this));
 	}
 
 	@Override
