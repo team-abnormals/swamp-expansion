@@ -30,7 +30,7 @@
 	"block.swampexpansion.cattail_sprouts": "Brotes de totora",
 	"block.swampexpansion.cattail": "Totora",
 	"block.swampexpansion.tall_cattail": "Totora alta",
-	"block.swampexpansion.potted_cattail": "Totora en maceta",
+	"block.swampexpansion.potted_cattail": "Maceta con totora",
 	
 	"block.swampexpansion.cattail_thatch": "Paja de totora",
 	"block.swampexpansion.cattail_thatch_slab": "Baldosa de paja de totora",
@@ -43,6 +43,8 @@
 	"block.swampexpansion.rice": "Arroz",
 	"block.swampexpansion.tall_rice": "Arroz",
 	"item.swampexpansion.rice_ball": "Bola de arroz",
+	
+	"item.swampexpansion.slabfish_spawn_egg": "Generar pezlosa",
 	
 	"item.swampexpansion.cod_kelp_roll": "Rollo de algas de bacalao",
 	"item.swampexpansion.clownfish_kelp_roll": "Rollo de algas de pez payaso",
@@ -60,7 +62,10 @@
 	"item.swampexpansion.mud_brick": "Ladrillo de barro",
 	"item.swampexpansion.mud_bucket": "Balde de barro",
 	"item.swampexpansion.willow_boat": "Bote de sauce",
-	
+
+	"entity.swampexpansion.slabfish": "Pezlosa",
+	"entity.swampexpansion.boat": "Bote",
+
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"
 }
