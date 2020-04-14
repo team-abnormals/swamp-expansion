@@ -44,6 +44,8 @@
 	"block.swampexpansion.tall_rice": "Arroz",
 	"item.swampexpansion.rice_ball": "Bola de arroz",
 	
+	"item.swampexpansion.slabfish_spawn_egg": "Generar pezlosa",
+	
 	"item.swampexpansion.cod_kelp_roll": "Rollo de algas de bacalao",
 	"item.swampexpansion.clownfish_kelp_roll": "Rollo de algas de pez payaso",
 	"item.swampexpansion.crab_kelp_roll": "Rollo de algas de cangrejo",
@@ -60,6 +62,9 @@
 	"item.swampexpansion.mud_brick": "Ladrillo de barro",
 	"item.swampexpansion.mud_bucket": "Cubo de barro",
 	"item.swampexpansion.willow_boat": "Barca de sauce",
+	
+	"entity.swampexpansion.slabfish": "Pezlosa",
+	"entity.swampexpansion.boat": "Barca",
 	
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"
