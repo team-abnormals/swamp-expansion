@@ -19,6 +19,7 @@ import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
@@ -27,6 +28,11 @@ import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.monster.EvokerEntity;
+import net.minecraft.entity.monster.IllusionerEntity;
+import net.minecraft.entity.monster.PillagerEntity;
+import net.minecraft.entity.monster.VexEntity;
+import net.minecraft.entity.monster.VindicatorEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -64,6 +70,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class SlabfishEntity extends AnimalEntity implements IInventoryChangedListener {
@@ -91,6 +98,11 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	protected void registerGoals() {
 		this.goalSelector.addGoal(0, new SwimGoal(this));
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
+		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EvokerEntity.class, 12.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, VindicatorEntity.class, 8.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, VexEntity.class, 8.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, PillagerEntity.class, 15.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, IllusionerEntity.class, 12.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(2, new SlabfishBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
 		this.goalSelector.addGoal(4, new ItemGrabGoal(this, 1.1D));
@@ -158,6 +170,8 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 				return "marsh";
 			case 4:
 				return "mire";
+			case 5:
+				return "cave";
 		}
 		return "";
 	}
@@ -369,14 +383,15 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	public int getTypeForBiome(IWorld world) {
-		Biome biome = world.getBiome(new BlockPos(this));
-		if (biome.getCategory() == Biome.Category.OCEAN) {
+		BlockPos pos = new BlockPos(this);
+		Biome biome = world.getBiome(pos);
+		if (((ServerWorld)this.world).findRaid(pos) != null) {
+			return 6;
+		} else if (pos.getY() <= 20) {
+			return 5;
+		} else if (biome.getCategory() == Biome.Category.OCEAN) {
 			return 2;
-		} else if (biome.getCategory() == Biome.Category.FOREST) {
-			return 3;
-		} else if (biome.getCategory() == Biome.Category.TAIGA) {
-			return 4;
-		}
+		} 
 		return 1;
 	}
 	
@@ -405,7 +420,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
-		this.setSlabfishType(MathHelper.clamp(compound.getInt("SlabfishType"), 1, 2));
+		this.setSlabfishType(MathHelper.clamp(compound.getInt("SlabfishType"), 1, 6));
 		this.setBackpack(compound.getBoolean("HasBackpack"));
 		if(compound.contains("BackpackColor", 99)) {
 			this.setBackpackColor(DyeColor.byId(compound.getInt("BackpackColor")));

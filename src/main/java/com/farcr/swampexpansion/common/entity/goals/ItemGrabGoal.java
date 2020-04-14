@@ -6,6 +6,7 @@ import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.util.math.BlockPos;
 
 public class ItemGrabGoal extends Goal {
    private final SlabfishEntity slabfish;
@@ -22,7 +23,7 @@ public class ItemGrabGoal extends Goal {
 	   if (!this.slabfish.getBackpack()) {
 		   return false;
 	   } else {
-		   List<ItemEntity> list = this.slabfish.world.getEntitiesWithinAABB(ItemEntity.class, this.slabfish.getBoundingBox().grow(8.0D, 4.0D, 8.0D));
+		   List<ItemEntity> list = this.slabfish.world.getEntitiesWithinAABB(ItemEntity.class, this.slabfish.getBoundingBox().grow(12.0D, 4.0D, 12.0D));
 		   ItemEntity item = null;
 		   double d0 = Double.MAX_VALUE;
 
@@ -65,9 +66,10 @@ public class ItemGrabGoal extends Goal {
    }
 
    public void tick() {
+	   BlockPos pos = new BlockPos(this.itemEntity);
       if (--this.delayCounter <= 0) {
          this.delayCounter = 10;
-         this.slabfish.getNavigator().tryMoveToEntityLiving(this.itemEntity, this.moveSpeed);
+         this.slabfish.getNavigator().tryMoveToXYZ(pos.getX(), pos.getY(), pos.getZ(), this.moveSpeed);
       }
    }
 }

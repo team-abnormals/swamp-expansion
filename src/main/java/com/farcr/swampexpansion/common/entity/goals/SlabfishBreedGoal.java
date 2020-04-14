@@ -87,7 +87,7 @@ public class SlabfishBreedGoal extends Goal {
 	  Random rand = new Random();
       AgeableEntity ageableentity = this.animal.createChild(this.targetMate);
       SlabfishEntity slabby = (SlabfishEntity)ageableentity;
-      slabby.setSlabfishType(rand.nextBoolean() ? animal.getSlabfishType() : rand.nextBoolean() ? animal.getSlabfishType() : animal.getTypeForBiome(animal.world));
+      slabby.setSlabfishType(rand.nextBoolean() ? animal.getTypeForBiome(animal.world) : rand.nextBoolean() ? animal.getSlabfishType() : targetMate.getSlabfishType());
       final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(animal, targetMate, slabby);
       final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
       ageableentity = event.getChild();
