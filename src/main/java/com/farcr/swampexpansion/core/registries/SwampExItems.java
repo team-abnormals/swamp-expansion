@@ -38,7 +38,7 @@ public class SwampExItems {
 	public static RegistryObject<Item> RICE_BALL = RegistryUtils.createItem("rice_ball", () -> new Item(new Item.Properties().food(SwampExFoods.RICE_BALL).group(ItemGroup.FOOD)));
 	
 	public static RegistryObject<Item> COD_KELP_ROLL = RegistryUtils.createItem("cod_kelp_roll", () -> new Item(new Item.Properties().food(SwampExFoods.COD_KELP_ROLL).group(ItemGroup.FOOD)));
-	public static RegistryObject<Item> CLOWNFISH_KELP_ROLL = RegistryUtils.createItem("clownfish_kelp_roll", () -> new Item(new Item.Properties().food(SwampExFoods.CLOWNFISH_KELP_ROLL).group(ItemGroup.FOOD)));
+	public static RegistryObject<Item> TROPICAL_FISH_KELP_ROLL = RegistryUtils.createItem("tropical_fish_kelp_roll", () -> new Item(new Item.Properties().food(SwampExFoods.TROPICAL_FISH_KELP_ROLL).group(ItemGroup.FOOD)));
 	public static RegistryObject<Item> CRAB_KELP_ROLL = RegistryUtils.createItem("crab_kelp_roll", () -> new Item(new Item.Properties().food(SwampExFoods.CRAB_KELP_ROLL).group(ModList.get().isLoaded("quark") ? ItemGroup.FOOD : null)));
 	public static RegistryObject<Item> PIKE_KELP_ROLL = RegistryUtils.createItem("pike_kelp_roll", () -> new Item(new Item.Properties().food(SwampExFoods.PIKE_KELP_ROLL).group(ModList.get().isLoaded("upgrade_aquatic") ? ItemGroup.FOOD : null)));
 	public static RegistryObject<Item> CAVEFISH_KELP_ROLL = RegistryUtils.createItem("cavefish_kelp_roll", () -> new Item(new Item.Properties().food(SwampExFoods.CAVEFISH_KELP_ROLL).group(ModList.get().isLoaded("maby") ? ItemGroup.FOOD : null)));

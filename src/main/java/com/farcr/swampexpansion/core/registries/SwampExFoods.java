@@ -12,7 +12,7 @@ public class SwampExFoods {
 	public static Food RICE_BALL 			= new Food.Builder().hunger(4).saturation(0.5F).build(); //0.5
 
 	public static Food COD_KELP_ROLL 		= new Food.Builder().hunger(3).saturation(0.7F).fastToEat().build(); //0.70
-	public static Food CLOWNFISH_KELP_ROLL 	= new Food.Builder().hunger(4).saturation(1.3F).fastToEat().build(); //1.25
+	public static Food TROPICAL_FISH_KELP_ROLL 	= new Food.Builder().hunger(4).saturation(1.3F).fastToEat().build(); //1.25
 	public static Food CRAB_KELP_ROLL 		= new Food.Builder().hunger(6).saturation(0.7F).fastToEat().build(); //0.69
 	public static Food PIKE_KELP_ROLL 		= new Food.Builder().hunger(5).saturation(0.9F).fastToEat().build(); //0.86
 	public static Food CAVEFISH_KELP_ROLL 	= new Food.Builder().hunger(2).saturation(0.8F).fastToEat().build(); //0.75
