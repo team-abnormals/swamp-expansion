@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.common.entity.goals.ItemGrabGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabfishBreedGoal;
+import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.core.registries.SwampExEntities;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
 
@@ -46,6 +47,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
+import net.minecraft.item.EggItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -54,9 +56,11 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -74,10 +78,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class SlabfishEntity extends AnimalEntity implements IInventoryChangedListener {
-	private static final DataParameter<Integer> SLABFISH_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
+	private static final DataParameter<String> SLABFISH_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.STRING);
 	private static final DataParameter<Boolean> HAS_BACKPACK = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> BACKPACK_COLOR = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 
@@ -146,7 +151,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	@Override
 	protected void registerData() {
 		super.registerData();
-		this.dataManager.register(SLABFISH_TYPE, 1);
+		this.dataManager.register(SLABFISH_TYPE, "swamp");
 		this.getDataManager().register(HAS_BACKPACK, false);
 		this.getDataManager().register(BACKPACK_COLOR, DyeColor.BROWN.getId());
 	}
@@ -169,20 +174,29 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			return false;
 	   }
 	
-	public static String getNameById(int id) {
-		switch(id) {
-			case 1:
-				return "swamp";
-			case 2:
-				return "ocean";
-			case 3:
-				return "marsh";
-			case 4:
-				return "mire";
-			case 5:
-				return "cave";
+	public String getTypeForBiome(IWorld world) {
+		BlockPos pos = new BlockPos(this);
+		Biome biome = world.getBiome(pos);
+		if (((ServerWorld)this.world).findRaid(pos) != null) {
+			return "totem";
+		} else if (pos.getY() <= 20) {
+			return "cave";
+		} else if (biome.getCategory() == Biome.Category.OCEAN) {
+			return "ocean";
+		} else if (biome.getCategory() == Biome.Category.JUNGLE) {
+			return "jungle";
+		} else if (biome.getCategory() == Biome.Category.SAVANNA) {
+			return "savanna";
+		} else if (biome.getCategory() == Biome.Category.MESA) {
+			return "mesa";
+		} else if (biome.getCategory() == Biome.Category.ICY) {
+			return "snowy";
+		} else if (biome.getCategory() == Biome.Category.DESERT) {
+			return "desert";
+		} else if (biome.getCategory() == Biome.Category.TAIGA) {
+			return "taiga";
 		}
-		return "";
+		return "swamp";
 	}
 	
 	@Override
@@ -195,9 +209,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		ItemStack itemstack = player.getHeldItem(hand);
 		Item item = itemstack.getItem();
 		this.initSlabfishBackpack();
-		if (itemstack.getItem() instanceof SpawnEggItem) {
-	         return super.processInteract(player, hand);
-		} else if (itemstack.getItem() instanceof NameTagItem) {
+		if (item instanceof SpawnEggItem || item instanceof NameTagItem || item == Items.TROPICAL_FISH || item instanceof EggItem || item instanceof MudBallItem) {
 	         return super.processInteract(player, hand);
 		} else if(item instanceof DyeItem && this.getBackpack() == true) {
 			DyeColor dyecolor = ((DyeItem) item).getDyeColor();
@@ -234,7 +246,12 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			if (item == Items.PUFFERFISH) {
 				world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 1F, 1F, true);
 			}
-			this.heal((float)item.getFood().getHealing());
+			for(int i = 0; i < 7; ++i) {
+	            double d0 = this.rand.nextGaussian() * 0.02D;
+	            double d1 = this.rand.nextGaussian() * 0.02D;
+	            double d2 = this.rand.nextGaussian() * 0.02D;
+	            this.world.addParticle(ParticleTypes.HEART, this.getPosXRandom(1.0D), this.getPosYRandom() + 0.5D, this.getPosZRandom(1.0D), d0, d1, d2);
+	         }			this.heal((float)item.getFood().getHealing());
 			return true;
 		} else if (this.getBackpack() == true) {
 			this.openGUI(player);
@@ -399,23 +416,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		return !this.getNearbyItems(multiplier).isEmpty();
 	}
 	
-	public int getTypeForBiome(IWorld world) {
-		BlockPos pos = new BlockPos(this);
-		Biome biome = world.getBiome(pos);
-		if (((ServerWorld)this.world).findRaid(pos) != null) {
-			return 6;
-		} else if (pos.getY() <= 20) {
-			return 5;
-		} else if (biome.getCategory() == Biome.Category.OCEAN) {
-			return 2;
-		} 
-		return 1;
-	}
-	
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
-		compound.putInt("SlabfishType", this.getSlabfishType());
+		compound.putString("SlabfishType", this.getSlabfishType());
 		compound.putBoolean("HasBackpack", this.getBackpack());
 		compound.putByte("BackpackColor", (byte) this.getBackpackColor().getId());
 		if (this.getBackpack()) {
@@ -437,7 +441,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
-		this.setSlabfishType(MathHelper.clamp(compound.getInt("SlabfishType"), 1, 6));
+		this.setSlabfishType(compound.getString("SlabfishType"));
 		this.setBackpack(compound.getBoolean("HasBackpack"));
 		if(compound.contains("BackpackColor", 99)) {
 			this.setBackpackColor(DyeColor.byId(compound.getInt("BackpackColor")));
@@ -456,11 +460,11 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		}
 	}
 	
-	public int getSlabfishType() {
+	public String getSlabfishType() {
 		return this.dataManager.get(SLABFISH_TYPE);
 	}
 	
-	public void setSlabfishType(int typeId) {
+	public void setSlabfishType(String typeId) {
 		this.dataManager.set(SLABFISH_TYPE, typeId);
 	}
 	
@@ -517,7 +521,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	@Override
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
 		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-		int type = this.getTypeForBiome(worldIn);
+		String type = this.getTypeForBiome(worldIn);
 		if (spawnDataIn instanceof SlabfishEntity.SlabfishData) {
 			type = ((SlabfishEntity.SlabfishData)spawnDataIn).typeData;
 		}
@@ -527,28 +531,34 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	public static class SlabfishData implements ILivingEntityData {
-		public final int typeData;
+		public final String typeData;
 
-		public SlabfishData(int type) {
+		public SlabfishData(String type) {
 			this.typeData = type;
 		}
 	}
 	
-	   private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
+	@Override
+    public IPacket<?> createSpawnPacket()
+    {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+	
+	private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
 
-	   @Override
-	   public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable net.minecraft.util.Direction facing) {
-	      if (this.isAlive() && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && itemHandler != null)
-	         return itemHandler.cast();
-	      return super.getCapability(capability, facing);
-	   }
+	@Override
+	public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable net.minecraft.util.Direction facing) {
+		if (this.isAlive() && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && itemHandler != null)
+			return itemHandler.cast();
+		return super.getCapability(capability, facing);
+	}
 
-	   @Override
-	   public void remove(boolean keepData) {
-	      super.remove(keepData);
-	      if (!keepData && itemHandler != null) {
-	         itemHandler.invalidate();
-	         itemHandler = null;
-	      }
-	   }
+	@Override
+	public void remove(boolean keepData) {
+		super.remove(keepData);
+		if (!keepData && itemHandler != null) {
+			itemHandler.invalidate();
+			itemHandler = null;
+		}
+	}
 }
