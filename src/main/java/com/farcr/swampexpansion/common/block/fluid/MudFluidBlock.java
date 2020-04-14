@@ -1,9 +1,14 @@
 package com.farcr.swampexpansion.common.block.fluid;
 
+import java.util.function.Supplier;
+
+import com.farcr.swampexpansion.common.entity.SlabfishEntity;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
@@ -11,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import java.util.function.Supplier;
 
 public class MudFluidBlock extends FlowingFluidBlock {
 
@@ -36,7 +40,12 @@ public class MudFluidBlock extends FlowingFluidBlock {
     
     @Override
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
-           entityIn.setMotionMultiplier(state, new Vec3d(0.9D, (double)0.8F, 0.9D));
-     }
+    	if(!(entityIn instanceof SlabfishEntity || entityIn instanceof PigEntity)) entityIn.setMotionMultiplier(state, new Vec3d(0.9D, (double)0.8F, 0.9D));
+    	
+    	if (entityIn instanceof SlabfishEntity) {
+    		SlabfishEntity slabby = (SlabfishEntity)entityIn;
+    		if (!slabby.isMuddy()) slabby.setMuddy(true);
+    	}
+    }
 
 } 

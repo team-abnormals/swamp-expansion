@@ -17,17 +17,17 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class BackpackRenderLayer<E extends SlabfishEntity, M extends EntityModel<E>> extends LayerRenderer<E, M> {
+public class MudRenderLayer<E extends SlabfishEntity, M extends EntityModel<E>> extends LayerRenderer<E, M> {
 	
-	public BackpackRenderLayer(IEntityRenderer<E, M> entityRenderer) {
+	public MudRenderLayer(IEntityRenderer<E, M> entityRenderer) {
 		super(entityRenderer);
 	}
 	
 	@Override
 	public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, E slabfish, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {		
-		if(!slabfish.hasBackpack()) return;
+		if(!slabfish.isMuddy()) return;
 		
-		ResourceLocation texture = new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/backpacks/backpack_" + slabfish.getBackpackColor().getTranslationKey() + ".png");
+		ResourceLocation texture = new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/mud_overlay.png");
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		IVertexBuilder ivertexbuilder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(texture));
 		this.getEntityModel().setRotationAngles(slabfish, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);

@@ -20,7 +20,7 @@ public class ItemGrabGoal extends Goal {
 	}
 	
 	public boolean shouldExecute() {
-		if (!this.slabfish.getBackpack()) {
+		if (!this.slabfish.hasBackpack()) {
 			return false;
 		} else {
 			List<ItemEntity> list = this.slabfish.world.getEntitiesWithinAABB(ItemEntity.class, this.slabfish.getBoundingBox().grow(12.0D, 4.0D, 12.0D));
@@ -45,7 +45,7 @@ public class ItemGrabGoal extends Goal {
 	}
 	   
 	public boolean shouldContinueExecuting() {
-		if (!this.slabfish.getBackpack()) {
+		if (!this.slabfish.hasBackpack()) {
 			return false;
 		} else if (!this.itemEntity.isAlive()) {
    			return false;
