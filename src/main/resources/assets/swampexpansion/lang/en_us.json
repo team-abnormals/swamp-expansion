@@ -44,6 +44,8 @@
 	"block.swampexpansion.tall_rice": "Rice",
 	"item.swampexpansion.rice_ball": "Rice Ball",
 	
+	"item.swampexpansion.slabfish_spawn_egg": "Slabfish Spawn Egg",
+	
 	"item.swampexpansion.cod_kelp_roll": "Cod Kelp Roll",
 	"item.swampexpansion.clownfish_kelp_roll": "Clownfish Kelp Roll",
 	"item.swampexpansion.crab_kelp_roll": "Crab Kelp Roll",
@@ -60,6 +62,9 @@
 	"item.swampexpansion.mud_brick": "Mud Brick",
 	"item.swampexpansion.mud_bucket": "Mud Bucket",
 	"item.swampexpansion.willow_boat": "Willow Boat",
+	
+	"entity.swampexpansion.slabfish": "Slabfish",
+	"entity.swampexpansion.boat": "Boat",
 	
 	"block.swampexpansion.mud": "Mud",
 	"fluid.swampexpansion.mud": "Mud"
