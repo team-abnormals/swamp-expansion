@@ -6,70 +6,69 @@ import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.pathfinding.Path;
 
 public class ItemGrabGoal extends Goal {
-   private final SlabfishEntity slabfish;
-   private ItemEntity itemEntity;
-   private final double moveSpeed;
-   private int delayCounter;
-
-   public ItemGrabGoal(SlabfishEntity animal, double speed) {
-      this.slabfish = animal;
-      this.moveSpeed = speed;
-   }
-
-   public boolean shouldExecute() {
-	   if (!this.slabfish.getBackpack()) {
-		   return false;
-	   } else {
-		   List<ItemEntity> list = this.slabfish.world.getEntitiesWithinAABB(ItemEntity.class, this.slabfish.getBoundingBox().grow(12.0D, 4.0D, 12.0D));
-		   ItemEntity item = null;
-		   double d0 = Double.MAX_VALUE;
-
-		   for(ItemEntity item1 : list) {
-			   double d1 = this.slabfish.getDistanceSq(item1);
-			   if (d1 < d0) {
-				   d0 = d1;
-				   item = item1;
-			   }
-		   }
-		   
-		   if (item == null) {
-			   return false;
-		   } else {
-			   this.itemEntity = item;
-			   return true;
-		   }
-	   }
-   }
-
-   /**
-    * Returns whether an in-progress EntityAIBase should continue executing
-    */
-   	public boolean shouldContinueExecuting() {
-   		if (!this.slabfish.getBackpack()) {
-   			return false;
-   		} else if (!this.itemEntity.isAlive()) {
+	private final SlabfishEntity slabfish;
+	private ItemEntity itemEntity;
+	private final double moveSpeed;
+	private int delayCounter;
+		
+	public ItemGrabGoal(SlabfishEntity animal, double speed) {
+		this.slabfish = animal;
+		this.moveSpeed = speed;
+	}
+	
+	public boolean shouldExecute() {
+		if (!this.slabfish.getBackpack()) {
+			return false;
+		} else {
+			List<ItemEntity> list = this.slabfish.world.getEntitiesWithinAABB(ItemEntity.class, this.slabfish.getBoundingBox().grow(12.0D, 4.0D, 12.0D));
+			ItemEntity item = null;
+			double d0 = Double.MAX_VALUE;
+	
+			for(ItemEntity item1 : list) {
+				double d1 = this.slabfish.getDistanceSq(item1);
+				if (d1 < d0) {
+					d0 = d1;
+					item = item1;
+				}
+			}
+			   
+			if (item == null) {
+				return false;
+			} else {
+				this.itemEntity = item;
+				return true;
+			}
+		}
+	}
+	   
+	public boolean shouldContinueExecuting() {
+		if (!this.slabfish.getBackpack()) {
+			return false;
+		} else if (!this.itemEntity.isAlive()) {
    			return false;
    		} else {
-   			return true;
-   		}
-   	}
-
-   	public void startExecuting() {
-   		this.delayCounter = 0;
-   	}
-
-   public void resetTask() {
-      this.itemEntity = null;
-   }
-
-   public void tick() {
-	   BlockPos pos = new BlockPos(this.itemEntity);
-      if (--this.delayCounter <= 0) {
-         this.delayCounter = 10;
-         this.slabfish.getNavigator().tryMoveToXYZ(pos.getX(), pos.getY(), pos.getZ(), this.moveSpeed);
-      }
-   }
+			return true;
+		}
+	}
+	
+	public void startExecuting() {
+		this.delayCounter = 0;
+	}
+	
+	public void resetTask() {
+		this.itemEntity = null;
+	}
+	
+	public void tick() {
+		if (--this.delayCounter <= 0) {
+			this.delayCounter = 10;
+			Path path = this.slabfish.getNavigator().getPathToEntity(itemEntity, 0);
+			if(path != null) {
+			    this.slabfish.getNavigator().setPath(path, this.moveSpeed);
+			}
+		}
+	}
 }

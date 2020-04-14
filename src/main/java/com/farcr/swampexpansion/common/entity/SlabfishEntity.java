@@ -31,6 +31,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.EvokerEntity;
 import net.minecraft.entity.monster.IllusionerEntity;
 import net.minecraft.entity.monster.PillagerEntity;
+import net.minecraft.entity.monster.RavagerEntity;
 import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.entity.monster.VindicatorEntity;
 import net.minecraft.entity.passive.AnimalEntity;
@@ -59,6 +60,8 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -81,7 +84,12 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public static final EntitySize SIZE = EntitySize.fixed(0.6F, 0.2F);
 	public static final EntitySize SIZE_CHILD = EntitySize.fixed(0.3159F, 0.1125F);
 	
+	public static Item LIONFISH = ForgeRegistries.ITEMS.getValue(new ResourceLocation("upgrade_aquatic:lionfish"));
+	public static Item PIKE = ForgeRegistries.ITEMS.getValue(new ResourceLocation("upgrade_aquatic:pike"));
+	public static Item CAVEFISH = ForgeRegistries.ITEMS.getValue(new ResourceLocation("maby:cavefish"));
+	
 	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH);
+	private static final Ingredient HEALING_ITEMS = Ingredient.fromItems(Items.COD, Items.SALMON, Items.PUFFERFISH, LIONFISH, PIKE, CAVEFISH);
 	public Inventory slabfishBackpack;
 	public float wingRotation;
 	public float destPos;
@@ -100,6 +108,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
 		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EvokerEntity.class, 12.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, VindicatorEntity.class, 8.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, RavagerEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, VexEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, PillagerEntity.class, 15.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, IllusionerEntity.class, 12.0F, 1.0D, 1.5D));
@@ -207,15 +216,25 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			}
 			return true;
 		} else if (item == Items.SHEARS && this.getBackpack() == true) {
-			this.setBackpack(false);
 			this.setBackpackColor(DyeColor.BROWN);
             this.dropInventory();
+			this.setBackpack(false);
             this.slabfishBackpack.clear();
 			if (!this.world.isRemote) {
 				itemstack.damageItem(1, player, (tool) -> {
 					tool.sendBreakAnimation(hand);
 	            });
 			}
+			return true;
+		} else if(this.getHealth() < this.getMaxHealth() && HEALING_ITEMS.test(itemstack)) {
+			if (!player.abilities.isCreativeMode) {
+				itemstack.shrink(1);
+			}
+			world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1F, 1F, true);
+			if (item == Items.PUFFERFISH) {
+				world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 1F, 1F, true);
+			}
+			this.heal((float)item.getFood().getHealing());
 			return true;
 		} else if (this.getBackpack() == true) {
 			this.openGUI(player);
@@ -332,9 +351,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	private static void processSpawning(Biome biome) {
 		if(biome.getCategory() == Category.SWAMP) {
     		biome.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(SwampExEntities.SLABFISH.get(), 5, 2, 4));
-        } else if (biome.getCategory() == Category.OCEAN) {
-    		biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(SwampExEntities.SLABFISH.get(), 3, 2, 4));
-    	}
+        }
 	}
 
 	public boolean onLivingFall(float distance, float damageMultiplier) {
