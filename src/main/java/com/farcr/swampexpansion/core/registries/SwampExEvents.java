@@ -1,8 +1,10 @@
 package com.farcr.swampexpansion.core.registries;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -12,17 +14,28 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.PotionEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.HoeItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTables;
 import net.minecraft.world.storage.loot.TableLootEntry;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -38,6 +51,31 @@ public class SwampExEvents {
 			event.getTable().addPool(pool);
 		}
 	}
+	
+	
+	@SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public static void onThrowableImpact(final ProjectileImpactEvent.Throwable event) {
+
+        ThrowableEntity projectileEntity = event.getThrowable();
+
+        if (projectileEntity instanceof PotionEntity) {
+            PotionEntity potionEntity = ((PotionEntity) projectileEntity);
+            ItemStack itemstack = potionEntity.getItem();
+            Potion potion = PotionUtils.getPotionFromItem(itemstack);
+            List<EffectInstance> list = PotionUtils.getEffectsFromStack(itemstack);
+
+            if (potion == Potions.WATER && list.isEmpty()) {
+                AxisAlignedBB axisalignedbb = potionEntity.getBoundingBox().grow(2.0D, 1.0D, 2.0D);
+                List<SlabfishEntity> slabs = potionEntity.world.getEntitiesWithinAABB(SlabfishEntity.class, axisalignedbb);
+                if(slabs != null && slabs.size() > 0) {
+                    for (SlabfishEntity slabfish : slabs) {
+                        if (slabfish.isMuddy()) slabfish.setMuddy(false);
+                    }
+                }
+            }
+        }
+    }
 	
 	protected static final Map<Block, BlockState> HOE_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 

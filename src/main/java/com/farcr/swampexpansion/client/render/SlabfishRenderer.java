@@ -24,7 +24,7 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 	});
 
 	public SlabfishRenderer(EntityRendererManager renderManager) {
-		super(renderManager, new SlabfishModel<>(), 0.5F);
+		super(renderManager, new SlabfishModel<>(), 0.3F);
 		this.addLayer(new BackpackRenderLayer<>(this));
 		this.addLayer(new MudRenderLayer<>(this));
 	}

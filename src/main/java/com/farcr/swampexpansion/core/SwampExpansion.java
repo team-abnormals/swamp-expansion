@@ -1,7 +1,6 @@
 package com.farcr.swampexpansion.core;
 
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
-import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.common.item.SwampExSpawnEggItem;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExData;
@@ -51,9 +50,9 @@ public class SwampExpansion {
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
-    	SlabfishEntity.addSpawn();
         SwampExData.registerBlockData();
         SwampExFeatures.generateFeatures();
+    	SwampExEntities.addEntitySpawns();
     }
     
     private void setupClient(final FMLClientSetupEvent event) {

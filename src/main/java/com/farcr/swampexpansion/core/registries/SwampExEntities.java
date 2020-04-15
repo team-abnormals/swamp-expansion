@@ -14,6 +14,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.Category;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.RegistryObject;
@@ -29,8 +31,27 @@ public class SwampExEntities
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = new DeferredRegister<>(ForgeRegistries.ENTITIES, "swampexpansion");
 	
 	public static final RegistryObject<EntityType<WillowBoatEntity>> BOAT = ENTITY_TYPES.register("boat", () -> createEntity(WillowBoatEntity::new, null, EntityClassification.MISC, "boat", 1.375F, 0.5625F));
-	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = ENTITY_TYPES.register("slabfish", () -> createLivingEntity(SlabfishEntity::new, EntityClassification.CREATURE, "slabfish", 0.5F, 0.9F));
+	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = ENTITY_TYPES.register("slabfish", () -> createLivingEntity(SlabfishEntity::new, EntityClassification.WATER_CREATURE, "slabfish", 0.5F, 0.9F));
 
+    
+    @OnlyIn(Dist.CLIENT)
+    public static void registerRendering()
+    {
+        RenderingRegistry.registerEntityRenderingHandler((EntityType<? extends WillowBoatEntity>)BOAT.get(), WillowBoatRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler((EntityType<? extends SlabfishEntity>)SLABFISH.get(), SlabfishRenderer::new);
+
+    }
+	
+	public static void addEntitySpawns() {
+		ForgeRegistries.BIOMES.getValues().stream().forEach(SwampExEntities::processSpawning);
+	}
+	
+	private static void processSpawning(Biome biome) {
+		if(biome.getCategory() == Category.SWAMP) {
+    		biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(SwampExEntities.SLABFISH.get(), 4, 2, 4));
+        }
+	}
+	
     private static <T extends Entity> EntityType<T> createEntity(EntityType.IFactory<T> factory, BiFunction<FMLPlayMessages.SpawnEntity, World, T> clientFactory, EntityClassification entityClassification, String name, float width, float height) {
 		ResourceLocation location = new ResourceLocation("swampexpansion", name);
 		EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
@@ -54,14 +75,5 @@ public class SwampExEntities
 			.build(location.toString()
 		);
 		return entity;
-	}
-    
-    @OnlyIn(Dist.CLIENT)
-    public static void registerRendering()
-    {
-        RenderingRegistry.registerEntityRenderingHandler((EntityType<? extends WillowBoatEntity>)BOAT.get(), WillowBoatRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler((EntityType<? extends SlabfishEntity>)SLABFISH.get(), SlabfishRenderer::new);
-
-    }
-    
+	}    
 }

@@ -15,7 +15,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -62,6 +61,9 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -77,7 +79,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -225,7 +226,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			}
 		} else if (item == Items.CHEST && this.hasBackpack() == false) {
 			this.setBackpacked(true);
-			this.playChestEquipSound();
+			this.playBackpackSound();
 			if(!player.abilities.isCreativeMode) {
 				itemstack.shrink(1);
 			}
@@ -234,6 +235,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			this.setBackpackColor(DyeColor.BROWN);
             this.dropInventory();
 			this.setBackpacked(false);
+			this.playBackpackSound();
             this.slabfishBackpack.clear();
 			if (!this.world.isRemote) {
 				itemstack.damageItem(1, player, (tool) -> {
@@ -261,6 +263,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	public void openGUI(PlayerEntity playerEntity) {
+		this.playBackpackSound();
 		playerEntity.openContainer(new SimpleNamedContainerProvider((p_213701_1_, p_213701_2_, p_213701_3_) -> {
 			return new ChestContainer(ContainerType.GENERIC_9X3, p_213701_1_, playerEntity.inventory, this.slabfishBackpack, 3);
 		}, this.getDisplayName()));
@@ -312,6 +315,19 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		return ChestContainer.createGeneric9X3(id, player, this.slabfishBackpack);
 	}
 
+	public void tick() {
+		super.tick();
+		if (this.rand.nextFloat() < 0.1F && this.isMuddy()) {
+			for(int i = 0; i < this.rand.nextInt(2) + 1; ++i) {
+				this.doParticle(this.world, this.getPosX() - (double)0.3F, this.getPosX() + (double)0.3F, this.getPosZ() - (double)0.3F, this.getPosZ() + (double)0.3F, this.getPosYHeight(0.5D), new ItemParticleData(ParticleTypes.ITEM, new ItemStack(SwampExItems.MUD_BALL.get())));
+			}
+		}
+	}
+
+	private void doParticle(World world, double p_226397_2_, double p_226397_4_, double p_226397_6_, double p_226397_8_, double p_226397_10_, IParticleData p_226397_12_) {
+		world.addParticle(p_226397_12_, MathHelper.lerp(world.rand.nextDouble(), p_226397_2_, p_226397_4_), p_226397_10_, MathHelper.lerp(world.rand.nextDouble(), p_226397_6_, p_226397_8_), 0.0D, 0.0D, 0.0D);
+	}
+	   
 	protected void dropInventory() {
 		super.dropInventory();
 		if (this.hasBackpack()) {
@@ -361,16 +377,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 		this.wingRotation += this.wingRotDelta * 2.0F;
 		
-	}
-	
-	public static void addSpawn() {
-		ForgeRegistries.BIOMES.getValues().stream().forEach(SlabfishEntity::processSpawning);
-	}
-	
-	private static void processSpawning(Biome biome) {
-		if(biome.getCategory() == Category.SWAMP) {
-    		biome.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(SwampExEntities.SLABFISH.get(), 5, 2, 4));
-        }
 	}
 
 	public boolean onLivingFall(float distance, float damageMultiplier) {
@@ -497,8 +503,8 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	
-	protected void playChestEquipSound() {
-		this.playSound(SoundEvents.ENTITY_DONKEY_CHEST, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+	protected void playBackpackSound() {
+		this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 	}
 
 	public int getInventoryColumns() {
