@@ -1,0 +1,73 @@
+{
+	"block.swampexpansion.mud_bricks": "Ladrillos de barro",
+	"block.swampexpansion.mud_brick_slab": "Losa de ladrillos de barro",
+	"block.swampexpansion.mud_brick_stairs": "Escaleras de ladrillos de barro",
+	"block.swampexpansion.mud_brick_wall": "Pared de ladrillos de barro",
+	"block.swampexpansion.mud_brick_vertical_slab": "Losa vertical de ladrillos de barro",
+	
+	"block.swampexpansion.willow_planks": "Madera de sauce",
+	"block.swampexpansion.willow_slab": "Losa de sauce",
+	"block.swampexpansion.willow_stairs": "Escaleras de sauce",
+	"block.swampexpansion.willow_fence": "Valla de sauce",
+	"block.swampexpansion.willow_fence_gate": "Puerta de valla de sauce",
+	"block.swampexpansion.willow_pressure_plate": "Placa de presión de sauce",
+	"block.swampexpansion.willow_door": "Puerta de sauce",
+	"block.swampexpansion.willow_trapdoor": "Trampilla de sauce",
+	"block.swampexpansion.willow_button": "Botón de sauce",
+	"block.swampexpansion.willow_bookshelf": "Estante de libros de sauce",
+	"block.swampexpansion.willow_ladder": "Escalera de mano de sauce",
+	"block.swampexpansion.willow_log": "Tronco de sauce",
+	"block.swampexpansion.willow_wood": "Tronco de sauce",
+	"block.swampexpansion.stripped_willow_log": "Tronco de sauce sin corteza",
+	"block.swampexpansion.stripped_willow_wood": "Madera de sauce sin corteza",
+	"block.swampexpansion.willow_sapling": "Retoño de sauce",
+	"block.swampexpansion.willow_leaves": "Hojas de sauce",
+	"block.swampexpansion.hanging_willow_leaves": "Hojas de sauce colgantes",
+	"block.swampexpansion.vertical_willow_planks": "Madera vertical de sauce",
+	"block.swampexpansion.willow_vertical_slab": "Losa vertical de sauce",
+	"block.swampexpansion.willow_leaf_carpet": "Alfombra de hojas de sauce",
+	
+	"block.swampexpansion.cattail_sprouts": "Brotes de totora",
+	"block.swampexpansion.cattail": "Totora",
+	"block.swampexpansion.tall_cattail": "Totora alta",
+	"block.swampexpansion.potted_cattail": "Maceta con totora",
+	
+	"block.swampexpansion.cattail_thatch": "Paja de totora",
+	"block.swampexpansion.cattail_thatch_slab": "Losa de paja de totora",
+	"block.swampexpansion.cattail_thatch_stairs": "Escaleras de paja de totora",
+	"block.swampexpansion.cattail_thatch_vertical_slab": "Losa vertical de paja de totora",
+	"block.swampexpansion.cattail_seed_sack": "Saco de semillas de totora",
+	"item.swampexpansion.cattail_seeds": "Semillas de totora",
+	
+	"block.swampexpansion.rice_sack": "Saco de arroz",
+	"block.swampexpansion.rice": "Arroz",
+	"block.swampexpansion.tall_rice": "Arroz",
+	"item.swampexpansion.rice_ball": "Bola de arroz",
+	
+	"item.swampexpansion.slabfish_spawn_egg": "Generar pezlosa",
+	
+	"item.swampexpansion.cod_kelp_roll": "Rollo de algas de bacalao",
+	"item.swampexpansion.tropical_fish_kelp_roll": "Rollo de algas de pez tropical",
+	"item.swampexpansion.crab_kelp_roll": "Rollo de algas de cangrejo",
+	"item.swampexpansion.pike_kelp_roll": "Rollo de algas de lucio",
+	"item.swampexpansion.cavefish_kelp_roll": "Rollo de algas de pez de cueva",
+	
+	"item.swampexpansion.salmon_rice_cake": "Pastel de arroz con salmón",
+	"item.swampexpansion.pufferfish_rice_cake": "Pastel de arroz con pez globo",
+	"item.swampexpansion.lionfish_rice_cake": "Pastel de arroz con pez león",
+	
+	"item.swampexpansion.squid_ink_risotto": "Risotto de tinta de calamar",
+	
+	"item.swampexpansion.mud_ball": "Bola de barro",
+	"item.swampexpansion.mud_brick": "Ladrillo de barro",
+	"item.swampexpansion.mud_bucket": "Cubeta de barro",
+	"item.swampexpansion.willow_boat": "Bote de sauce",
+	
+	"entity.swampexpansion.slabfish": "Pezlosa",
+	"entity.swampexpansion.boat": "Bote",
+	
+	"biome.swampexpansion.marsh": "Marisma",
+	
+	"block.swampexpansion.mud": "Barro",
+	"fluid.swampexpansion.mud": "Barro"
+}
