@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.common.entity.goals.ItemGrabGoal;
+import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabfishBreedGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
@@ -86,7 +87,9 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	private static final DataParameter<Boolean> HAS_BACKPACK = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> BACKPACK_COLOR = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> IS_MUDDY = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Boolean> IS_SITTING = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 
+	protected SlabbySitGoal sitGoal;
 	public static final EntitySize SIZE = EntitySize.fixed(0.6F, 0.2F);
 	public static final EntitySize SIZE_CHILD = EntitySize.fixed(0.3159F, 0.1125F);
 	
@@ -110,21 +113,23 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 
 	protected void registerGoals() {
+		this.sitGoal = new SlabbySitGoal(this);
 		this.goalSelector.addGoal(0, new SwimGoal(this));
-		this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
-		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, EvokerEntity.class, 12.0F, 1.0D, 1.5D));
-		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, VindicatorEntity.class, 8.0F, 1.0D, 1.5D));
-		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, RavagerEntity.class, 8.0F, 1.0D, 1.5D));
-		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, VexEntity.class, 8.0F, 1.0D, 1.5D));
-		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, PillagerEntity.class, 15.0F, 1.0D, 1.5D));
-		this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, IllusionerEntity.class, 12.0F, 1.0D, 1.5D));
-		this.goalSelector.addGoal(2, new SlabfishBreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(3, new ItemGrabGoal(this, 1.1D));
-		this.goalSelector.addGoal(4, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(5, new FollowParentGoal(this, 1.1D));
-		this.goalSelector.addGoal(6, new RandomWalkingGoal(this, 1.0D));
-		this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 6.0F));
-		this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+		this.goalSelector.addGoal(1, this.sitGoal);
+		this.goalSelector.addGoal(2, new PanicGoal(this, 1.4D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, EvokerEntity.class, 12.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, VindicatorEntity.class, 8.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, RavagerEntity.class, 8.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, VexEntity.class, 8.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PillagerEntity.class, 15.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, IllusionerEntity.class, 12.0F, 1.0D, 1.5D));
+		this.goalSelector.addGoal(3, new SlabfishBreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new ItemGrabGoal(this, 1.1D));
+		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1.0D));
+		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 6.0F));
+		this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
@@ -156,6 +161,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.getDataManager().register(HAS_BACKPACK, false);
 		this.getDataManager().register(BACKPACK_COLOR, DyeColor.BROWN.getId());
 		this.getDataManager().register(IS_MUDDY, false);
+		this.getDataManager().register(IS_SITTING, false);
 	}
 	
 	public ItemStack getPickedResult(RayTraceResult target) {
@@ -254,8 +260,16 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 				this.heal((float)item.getFood().getHealing());
 				return true;
 			}
+		} else if (!this.isSitting() & this.hasBackpack() & player.func_226563_dT_()) {
+			this.setSitting(true);
+			return true;
+		} else if (this.isSitting() & player.func_226563_dT_()) {
+			this.setSitting(false);
+			return true;
 		} else if (this.hasBackpack() == true) {
 			this.openGUI(player);
+			player.stopActiveHand();
+			return true;
 		}
 		return super.processInteract(player, hand);
 	}
@@ -379,7 +393,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	@Override
 	public boolean canDespawn(double distanceToClosestPlayer) {
-		return !this.hasBackpack() && !this.hasCustomName();
+		return !this.hasBackpack() && !this.hasCustomName() &&!this.isSitting();
 	}
 	
 	protected SoundEvent getAmbientSound() {
@@ -425,6 +439,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		compound.putBoolean("HasBackpack", this.hasBackpack());
 		compound.putBoolean("IsMuddy", this.isMuddy());
 		compound.putByte("BackpackColor", (byte) this.getBackpackColor().getId());
+		compound.putBoolean("Sitting", this.isSitting());
 		if (this.hasBackpack()) {
 	         ListNBT listnbt = new ListNBT();
 
@@ -450,6 +465,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if(compound.contains("BackpackColor", 99)) {
 			this.setBackpackColor(DyeColor.byId(compound.getInt("BackpackColor")));
 		}
+		if (this.sitGoal != null) {
+			this.sitGoal.setSitting(compound.getBoolean("Sitting"));
+		}
+		this.setSitting(compound.getBoolean("Sitting"));
 		if (this.hasBackpack()) {
 			ListNBT listnbt = compound.getList("Items", 10);
 			this.initSlabfishBackpack();
@@ -462,6 +481,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	            }
 			}
 		}
+	}
+	
+	public SlabbySitGoal getAISit() {
+		return this.sitGoal;
 	}
 	
 	public SlabfishType getSlabfishType() {
@@ -486,6 +509,17 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	public void setMuddy(boolean isMuddy) {
 		this.dataManager.set(IS_MUDDY, isMuddy);
+	}
+	
+	public boolean isSitting() {
+		return this.dataManager.get(IS_SITTING);
+	}
+	
+	public void setSitting(boolean isSitting) {
+		this.dataManager.set(IS_SITTING, isSitting);
+		if (this.sitGoal != null) {
+			this.sitGoal.setSitting(isSitting);
+		}
 	}
 	
 	public DyeColor getBackpackColor() {

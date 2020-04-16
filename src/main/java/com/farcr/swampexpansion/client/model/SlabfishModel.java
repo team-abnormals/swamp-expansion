@@ -38,30 +38,35 @@ public class SlabfishModel<T extends SlabfishEntity, E> extends AgeableModel<T> 
         this.textureHeight = 32;
         this.leftArm = new ModelRenderer(this, 16, 14);
         this.leftArm.mirror = true;
-        this.leftArm.setRotationPoint(5.0F, 15.0F, 0.0F);
+        this.leftArm.setRotationPoint(5.0F, -4.0F, 0.0F);
         this.leftArm.addBox(0.0F, 0.0F, -1.5F, 1, 3, 3, 0.0F);
         this.setRotateAngle(leftArm, 0.0F, 0.0F, -0.4363323129985824F);
+        this.body = new ModelRenderer(this, 0, 0);
+        this.body.setRotationPoint(0.0F, 19.0F, 0.0F);
+        this.body.addBox(-5.0F, -10.0F, -2.0F, 10, 10, 4, 0.0F);
+        this.rightLeg = new ModelRenderer(this, 0, 14);
+        this.rightLeg.setRotationPoint(-2.5F, 0.0F, 1.0F);
+        this.rightLeg.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
         this.rightArm = new ModelRenderer(this, 16, 14);
-        this.rightArm.setRotationPoint(-5.0F, 15.0F, 0.0F);
+        this.rightArm.setRotationPoint(-5.0F, -4.0F, 0.0F);
         this.rightArm.addBox(-1.0F, 0.0F, -1.5F, 1, 3, 3, 0.0F);
         this.setRotateAngle(rightArm, 0.0F, 0.0F, 0.4363323129985824F);
         this.fin = new ModelRenderer(this, 24, 12);
-        this.fin.setRotationPoint(0.0F, 17.0F, 2.0F);
+        this.fin.setRotationPoint(0.0F, -4.0F, 2.0F);
         this.fin.addBox(0.0F, -1.0F, 0.0F, 0, 4, 4, 0.0F);
         this.setRotateAngle(fin, -0.2181661564992912F, 0.0F, 0.0F);
         this.backpack = new ModelRenderer(this, 8, 20);
         this.backpack.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.backpack.addBox(-4.0F, -8.0F, 2.0F, 8, 8, 4, 0.0F);
-        this.body = new ModelRenderer(this, 0, 0);
-        this.body.setRotationPoint(0.0F, 19.0F, 0.0F);
-        this.body.addBox(-5.0F, -10.0F, -2.0F, 10, 10, 4, 0.0F);
-        this.rightLeg = new ModelRenderer(this, 0, 14);
-        this.rightLeg.setRotationPoint(-2.5F, 19.0F, 1.0F);
-        this.rightLeg.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
         this.leftLeg = new ModelRenderer(this, 0, 14);
-        this.leftLeg.setRotationPoint(2.5F, 19.0F, 1.0F);
+        this.leftLeg.setRotationPoint(2.5F, 0.0F, 1.0F);
         this.leftLeg.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
+        this.body.addChild(this.leftArm);
+        this.body.addChild(this.rightLeg);
+        this.body.addChild(this.rightArm);
+        this.body.addChild(this.fin);
         this.body.addChild(this.backpack);
+        this.body.addChild(this.leftLeg);
         
         this.finSwimming = new ModelRenderer(this, 24, 12);
         this.finSwimming.setRotationPoint(0.0F, 0.0F, 2.0F);
@@ -102,11 +107,6 @@ public class SlabfishModel<T extends SlabfishEntity, E> extends AgeableModel<T> 
             this.bodySwimming.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         } else {
         	this.body.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        	this.fin.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        	this.rightArm.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        	this.rightLeg.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        	this.leftLeg.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        	this.leftArm.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         }
     }
 
@@ -123,8 +123,8 @@ public class SlabfishModel<T extends SlabfishEntity, E> extends AgeableModel<T> 
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     	this.entity = entityIn;
     	
-        this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.rightLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.leftLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
         this.rightArm.rotateAngleZ = ageInTicks;
         this.leftArm.rotateAngleZ = -ageInTicks;
         
