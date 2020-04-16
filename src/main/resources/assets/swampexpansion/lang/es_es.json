@@ -66,6 +66,8 @@
 	"entity.swampexpansion.slabfish": "Pezlosa",
 	"entity.swampexpansion.boat": "Barca",
 	
+	"biome.swampexpansion.marsh": "Marisma",
+	
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"
 }
