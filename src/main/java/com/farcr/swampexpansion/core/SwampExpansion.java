@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.core;
 
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
 import com.farcr.swampexpansion.common.item.SwampExSpawnEggItem;
+import com.farcr.swampexpansion.core.registries.SwampExBiomes;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExData;
 import com.farcr.swampexpansion.core.registries.SwampExEntities;
@@ -39,7 +40,8 @@ public class SwampExpansion {
         SwampExItems.ITEMS.register(modEventBus);
         SwampExEntities.ENTITY_TYPES.register(modEventBus);
         SwampExBlocks.PAINTINGS.register(modEventBus);
-        
+        SwampExBiomes.BIOMES.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(this);
         
         modEventBus.addListener(this::setupCommon);
@@ -51,6 +53,7 @@ public class SwampExpansion {
 
     private void setupCommon(final FMLCommonSetupEvent event) {
         SwampExData.registerBlockData();
+        SwampExBiomes.registerBiomesToDictionary();
         SwampExFeatures.generateFeatures();
     	SwampExEntities.addEntitySpawns();
     }

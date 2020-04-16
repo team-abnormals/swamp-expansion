@@ -25,7 +25,7 @@ public class SweaterRenderLayer<E extends SlabfishEntity, M extends EntityModel<
 	
 	@Override
 	public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, E slabfish, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {		
-		if(!slabfish.hasBackpack()) return;
+		if(!slabfish.hasSweater()) return;
 		
 		ResourceLocation texture = new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/sweaters/sweater_" + slabfish.getSweaterColor().getTranslationKey() + ".png");
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);

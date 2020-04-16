@@ -1,0 +1,24 @@
+package com.farcr.swampexpansion.core.registries;
+
+import com.farcr.swampexpansion.common.world.biome.MarshBiome;
+
+import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class SwampExBiomes {
+	public static final DeferredRegister<Biome> BIOMES = new DeferredRegister<>(ForgeRegistries.BIOMES, "swampexpansion");
+
+	public static RegistryObject<Biome> MARSH = BIOMES.register("marsh", () -> new MarshBiome());
+	
+	public static void registerBiomesToDictionary() {
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MARSH.get(), 7));
+        BiomeDictionary.addTypes(MARSH.get(), 
+        		BiomeDictionary.Type.RARE, 
+        		BiomeDictionary.Type.PLAINS,
+        		BiomeDictionary.Type.SWAMP);
+	}
+}

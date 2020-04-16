@@ -2,8 +2,11 @@ package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.world.biome.SwampExBiomeFeatures;
 import com.farcr.swampexpansion.common.world.gen.feature.CattailsFeature;
+import com.farcr.swampexpansion.common.world.gen.feature.RiceFeature;
 import com.farcr.swampexpansion.common.world.gen.feature.WillowTreeFeature;
+
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.TreeFeatureConfig;
@@ -16,12 +19,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SwampExFeatures {
 	
 	public static Feature<NoFeatureConfig> CATTAILS 		= new CattailsFeature(NoFeatureConfig::deserialize);
+	public static Feature<NoFeatureConfig> RICE 			= new RiceFeature(NoFeatureConfig::deserialize);
 	public static Feature<TreeFeatureConfig> WILLOW_TREE 	= new WillowTreeFeature(TreeFeatureConfig::func_227338_a_);
 
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         event.getRegistry().registerAll(
                 CATTAILS.setRegistryName("cattails"), 
+                RICE.setRegistryName("rice"), 
                 WILLOW_TREE.setRegistryName("willow_tree")
         );
     }
@@ -31,7 +36,7 @@ public class SwampExFeatures {
     }
 
 	public static void generate(Biome biome) {
-        if (biome.getCategory() == Biome.Category.SWAMP) {
+        if (biome == Biomes.SWAMP) {
             SwampExBiomeFeatures.overrideFeatures(biome);
             SwampExBiomeFeatures.addMushrooms(biome);
             SwampExBiomeFeatures.addWillowTrees(biome);

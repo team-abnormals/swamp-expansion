@@ -10,6 +10,7 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
+import com.farcr.swampexpansion.core.registries.SwampExBiomes;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExEntities;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
@@ -491,6 +492,8 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			return SlabfishType.DESERT;
 		} else if (biome.getCategory() == Biome.Category.TAIGA) {
 			return SlabfishType.TAIGA;
+		} else if (biome == SwampExBiomes.MARSH.get()) {
+			return SlabfishType.MARSH;
 		}
 		return SlabfishType.SWAMP;
 	}

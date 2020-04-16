@@ -64,6 +64,11 @@ public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable 
      }
 	
 	@Override
+	public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {
+		return new ItemStack(SwampExItems.RICE.get());
+	}
+	
+	@Override
 	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
 		builder.add(AGE, HALF, WATERLOGGED, FAKE_WATERLOGGED);
 	}

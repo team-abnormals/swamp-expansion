@@ -61,19 +61,20 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
 
     public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
     	Random rand = new Random();
-    	int type = rand.nextInt(3);
+    	int type = rand.nextInt(7);
     	
     	BlockState rice = SwampExBlocks.RICE.get().getDefaultState();
-    	BlockState tall_up = SwampExBlocks.TALL_RICE.get().getDefaultState().with(AGE, 6).with(DoubleCattailBlock.HALF, DoubleBlockHalf.UPPER);
-    	BlockState tall_down = SwampExBlocks.TALL_RICE.get().getDefaultState().with(AGE, 6).with(DoubleCattailBlock.HALF, DoubleBlockHalf.LOWER);
+    	BlockState tall_up = SwampExBlocks.TALL_RICE.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.UPPER);
+    	BlockState tall_down = SwampExBlocks.TALL_RICE.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.LOWER);
     	
     	boolean waterlogged = worldIn.hasWater(pos);
-    	if (type == 1) {
-    		worldIn.setBlockState(pos, rice.with(WATERLOGGED, waterlogged), flags);
+    	if (type != 0) {
+    		worldIn.setBlockState(pos, rice.with(WATERLOGGED, waterlogged).with(AGE, 3 + rand.nextInt(3)), flags);
     	} else {
-    		worldIn.setBlockState(pos, tall_down.with(WATERLOGGED, waterlogged), flags);
+    		int age = 6 + rand.nextInt(2);
+    		worldIn.setBlockState(pos, tall_down.with(WATERLOGGED, waterlogged).with(DoubleRiceBlock.AGE, age), flags);
 			waterlogged = worldIn.hasWater(pos.up());
-			worldIn.setBlockState(pos.up(), tall_up.with(WATERLOGGED, waterlogged), flags);
+			worldIn.setBlockState(pos.up(), tall_up.with(WATERLOGGED, waterlogged).with(DoubleRiceBlock.AGE, age), flags);
     	} 
     }
     

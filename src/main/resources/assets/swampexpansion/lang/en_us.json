@@ -66,6 +66,8 @@
 	"entity.swampexpansion.slabfish": "Slabfish",
 	"entity.swampexpansion.boat": "Boat",
 	
+	"biome.swampexpansion.marsh": "Marsh",
+	
 	"block.swampexpansion.mud": "Mud",
 	"fluid.swampexpansion.mud": "Mud"
 }
