@@ -8,6 +8,7 @@ import com.farcr.swampexpansion.client.model.SlabfishModel;
 import com.farcr.swampexpansion.client.render.layer.BackpackOverlayRenderLayer;
 import com.farcr.swampexpansion.client.render.layer.BackpackRenderLayer;
 import com.farcr.swampexpansion.client.render.layer.OverlayRenderLayer;
+import com.farcr.swampexpansion.client.render.layer.SweaterRenderLayer;
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.google.common.collect.Maps;
@@ -26,6 +27,7 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 
 	public SlabfishRenderer(EntityRendererManager renderManager) {
 		super(renderManager, new SlabfishModel<>(), 0.3F);
+		this.addLayer(new SweaterRenderLayer<>(this));
 		this.addLayer(new BackpackRenderLayer<>(this));
 		this.addLayer(new OverlayRenderLayer<>(this));
 		this.addLayer(new BackpackOverlayRenderLayer<>(this));
