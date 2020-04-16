@@ -35,7 +35,7 @@
 	"block.swampexpansion.cattail_thatch": "Paja de totora",
 	"block.swampexpansion.cattail_thatch_slab": "Baldosa de paja de totora",
 	"block.swampexpansion.cattail_thatch_stairs": "Escaleras de paja de totora",
-	"block.swampexpansion.cattail_thatch_vertical_slab": "Losa vertical de paja de totora",
+	"block.swampexpansion.cattail_thatch_vertical_slab": "Baldosa vertical de paja de totora",
 	"block.swampexpansion.cattail_seed_sack": "Saco de semillas de totora",
 	"item.swampexpansion.cattail_seeds": "Semillas de totora",
 	
@@ -65,6 +65,8 @@
 
 	"entity.swampexpansion.slabfish": "Pezlosa",
 	"entity.swampexpansion.boat": "Bote",
+	
+	"biome.swampexpansion.marsh": "Marisma",
 
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"
