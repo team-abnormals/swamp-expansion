@@ -1,5 +1,6 @@
 package com.farcr.swampexpansion.common.entity.goals;
 
+import java.util.EnumSet;
 import java.util.List;
 
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
@@ -8,15 +9,16 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.pathfinding.Path;
 
-public class ItemGrabGoal extends Goal {
+public class SlabbyGrabItemGoal extends Goal {
 	private final SlabfishEntity slabfish;
 	private ItemEntity itemEntity;
 	private final double moveSpeed;
 	private int delayCounter;
 		
-	public ItemGrabGoal(SlabfishEntity animal, double speed) {
+	public SlabbyGrabItemGoal(SlabfishEntity animal, double speed) {
 		this.slabfish = animal;
 		this.moveSpeed = speed;
+		this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE));
 	}
 	
 	public boolean shouldExecute() {

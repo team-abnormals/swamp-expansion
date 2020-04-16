@@ -18,7 +18,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 
-public class SlabfishBreedGoal extends Goal {
+public class SlabbyBreedGoal extends Goal {
    private static final EntityPredicate field_220689_d = (new EntityPredicate()).setDistance(8.0D).allowInvulnerable().allowFriendlyFire().setLineOfSiteRequired();
    protected final SlabfishEntity animal;
    private final Class<? extends SlabfishEntity> mateClass;
@@ -27,11 +27,11 @@ public class SlabfishBreedGoal extends Goal {
    private int spawnBabyDelay;
    private final double moveSpeed;
 
-   public SlabfishBreedGoal(SlabfishEntity animal, double speedIn) {
+   public SlabbyBreedGoal(SlabfishEntity animal, double speedIn) {
       this(animal, speedIn, animal.getClass());
    }
 
-   public SlabfishBreedGoal(SlabfishEntity p_i47306_1_, double p_i47306_2_, Class<? extends SlabfishEntity> p_i47306_4_) {
+   public SlabbyBreedGoal(SlabfishEntity p_i47306_1_, double p_i47306_2_, Class<? extends SlabfishEntity> p_i47306_4_) {
       this.animal = p_i47306_1_;
       this.world = p_i47306_1_.world;
       this.mateClass = p_i47306_4_;

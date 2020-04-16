@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "swampexpansion:cod_kelp_roll",
+    "swampexpansion:tropical_fish_kelp_roll",
+    "swampexpansion:crab_kelp_roll",
+    "swampexpansion:pike_kelp_roll",
+    "swampexpansion:cavefish_kelp_roll",
+    "swampexpansion:salmon_rice_cake",
+    "swampexpansion:pufferfish_rice_cake",
+    "swampexpansion:lionfish_rice_cake"
+  ]
+}

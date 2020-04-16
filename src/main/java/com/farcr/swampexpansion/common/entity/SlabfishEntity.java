@@ -4,13 +4,15 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.farcr.swampexpansion.common.entity.goals.ItemGrabGoal;
+import com.farcr.swampexpansion.common.entity.goals.SlabbyBreedGoal;
+import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
+import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
-import com.farcr.swampexpansion.common.entity.goals.SlabfishBreedGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExEntities;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
+import com.farcr.swampexpansion.core.registries.SwampExTags;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,7 +25,6 @@ import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.FollowParentGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.PanicGoal;
@@ -64,9 +65,11 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.PathNodeType;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -80,7 +83,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class SlabfishEntity extends AnimalEntity implements IInventoryChangedListener {
 	private static final DataParameter<Integer> SLABFISH_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
@@ -93,12 +95,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public static final EntitySize SIZE = EntitySize.fixed(0.6F, 0.2F);
 	public static final EntitySize SIZE_CHILD = EntitySize.fixed(0.3159F, 0.1125F);
 	
-	public static Item LIONFISH = ForgeRegistries.ITEMS.getValue(new ResourceLocation("upgrade_aquatic:lionfish"));
-	public static Item PIKE = ForgeRegistries.ITEMS.getValue(new ResourceLocation("upgrade_aquatic:pike"));
-	public static Item CAVEFISH = ForgeRegistries.ITEMS.getValue(new ResourceLocation("maby:cavefish"));
+	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
+	private static final Ingredient HEALING_ITEMS = Ingredient.fromTag(ItemTags.FISHES);
+	private static final Ingredient SPEEDING_ITEMS = Ingredient.fromTag(SwampExTags.SUSHI);
 	
-	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH);
-	private static final Ingredient HEALING_ITEMS = Ingredient.fromItems(Items.COD, Items.SALMON, Items.PUFFERFISH, LIONFISH, PIKE, CAVEFISH);
 	public Inventory slabfishBackpack;
 	public float wingRotation;
 	public float destPos;
@@ -123,17 +123,17 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, VexEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PillagerEntity.class, 15.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, IllusionerEntity.class, 12.0F, 1.0D, 1.5D));
-		this.goalSelector.addGoal(3, new SlabfishBreedGoal(this, 1.0D));
-		this.goalSelector.addGoal(4, new ItemGrabGoal(this, 1.1D));
+		this.goalSelector.addGoal(3, new SlabbyBreedGoal(this, 1.0D));
+		this.goalSelector.addGoal(4, new SlabbyGrabItemGoal(this, 1.1D));
 		this.goalSelector.addGoal(5, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(6, new FollowParentGoal(this, 1.1D));
+		this.goalSelector.addGoal(6, new SlabbyFollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(9, new LookRandomlyGoal(this));
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
-		return this.isChild() ? sizeIn.height * 0.85F : sizeIn.height * 0.92F;
+		return this.isSitting() ? sizeIn.height * 0.6F : sizeIn.height * 0.8F;
 	}
 	
 	public boolean canBreatheUnderwater() {
@@ -217,7 +217,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		ItemStack itemstack = player.getHeldItem(hand);
 		Item item = itemstack.getItem();
 		this.initSlabfishBackpack();
-		if (item instanceof SpawnEggItem || item instanceof NameTagItem || item == Items.TROPICAL_FISH || item instanceof EggItem || item instanceof MudBallItem) {
+		if (item instanceof SpawnEggItem || item instanceof NameTagItem || item == Items.TROPICAL_FISH || item == SwampExItems.TROPICAL_FISH_KELP_ROLL.get() || item instanceof EggItem || item instanceof MudBallItem) {
 	         return super.processInteract(player, hand);
 		} else if(item instanceof DyeItem && this.hasBackpack() == true) {
 			DyeColor dyecolor = ((DyeItem) item).getDyeColor();
@@ -253,13 +253,23 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 					itemstack.shrink(1);
 				}
 				world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.NEUTRAL, 1F, 1F, true);
-				if (item == Items.PUFFERFISH) {
-					world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 1F, 1F, true);
-				}
 				this.world.setEntityState(this, (byte)18);		
 				this.heal((float)item.getFood().getHealing());
 				return true;
 			}
+		} else if(SPEEDING_ITEMS.test(itemstack)) {
+			if (!player.abilities.isCreativeMode) {
+				itemstack.shrink(1);
+			}
+			world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 1F, 1F, true);
+			this.addPotionEffect(new EffectInstance(Effects.SPEED, 3600, 2, true, true));
+			for(int i = 0; i < 7; ++i) {
+	            double d0 = this.rand.nextGaussian() * 0.02D;
+	            double d1 = this.rand.nextGaussian() * 0.02D;
+	            double d2 = this.rand.nextGaussian() * 0.02D;
+	            this.world.addParticle(ParticleTypes.CLOUD, this.getPosXRandom(1.0D), this.getPosYRandom() + 0.5D, this.getPosZRandom(1.0D), d0, d1, d2);
+	         }
+			return true;
 		} else if (!this.isSitting() & this.hasBackpack() & player.func_226563_dT_()) {
 			this.setSitting(true);
 			return true;
@@ -365,6 +375,14 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 
 	public void livingTick() {
+		if (this.getMotion().getX() > 0 || this.getMotion().getY() > 0 || this.getMotion().getZ() > 0) {
+			if (this.isPotionActive(Effects.SPEED) && rand.nextInt(3) == 0 && !this.isInWater()) {
+				double d0 = this.rand.nextGaussian() * 0.02D;
+	            double d1 = this.rand.nextGaussian() * 0.02D;
+	            double d2 = this.rand.nextGaussian() * 0.02D;
+	            this.world.addParticle(ParticleTypes.CLOUD, this.getPosXRandom(0.5D), this.getPosY() + 0.2D, this.getPosZRandom(0.5D), d0, d1, d2);
+			}
+		}
 		super.livingTick();
 		this.recalculateSize();
 		this.setCanPickUpLoot(this.hasBackpack());
