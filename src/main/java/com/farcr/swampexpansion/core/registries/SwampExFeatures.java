@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.core.registries;
 
 import com.farcr.swampexpansion.common.world.biome.SwampExBiomeFeatures;
 import com.farcr.swampexpansion.common.world.gen.feature.CattailsFeature;
+import com.farcr.swampexpansion.common.world.gen.feature.DenseCattailsFeature;
 import com.farcr.swampexpansion.common.world.gen.feature.RiceFeature;
 import com.farcr.swampexpansion.common.world.gen.feature.WillowTreeFeature;
 
@@ -19,6 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SwampExFeatures {
 	
 	public static Feature<NoFeatureConfig> CATTAILS 		= new CattailsFeature(NoFeatureConfig::deserialize);
+	public static Feature<NoFeatureConfig> DENSE_CATTAILS 	= new DenseCattailsFeature(NoFeatureConfig::deserialize);
 	public static Feature<NoFeatureConfig> RICE 			= new RiceFeature(NoFeatureConfig::deserialize);
 	public static Feature<TreeFeatureConfig> WILLOW_TREE 	= new WillowTreeFeature(TreeFeatureConfig::func_227338_a_);
 
@@ -26,6 +28,7 @@ public class SwampExFeatures {
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         event.getRegistry().registerAll(
                 CATTAILS.setRegistryName("cattails"), 
+                DENSE_CATTAILS.setRegistryName("dense_cattails"), 
                 RICE.setRegistryName("rice"), 
                 WILLOW_TREE.setRegistryName("willow_tree")
         );

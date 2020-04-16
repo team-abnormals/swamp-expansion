@@ -18,7 +18,7 @@ import net.minecraft.world.gen.treedecorator.TreeDecoratorType;
 
 public class HangingWillowLeavesTreeDecorator extends TreeDecorator {
    public HangingWillowLeavesTreeDecorator() {
-      super(TreeDecoratorType.field_227426_b_);
+      super(TreeDecoratorType.LEAVE_VINE);
    }
 
    public <T> HangingWillowLeavesTreeDecorator(Dynamic<T> p_i225870_1_) {

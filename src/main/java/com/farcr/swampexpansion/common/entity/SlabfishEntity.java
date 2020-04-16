@@ -474,27 +474,24 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public SlabfishType getTypeForBiome(IWorld world) {
 		BlockPos pos = new BlockPos(this);
 		Biome biome = world.getBiome(pos);
-		if (((ServerWorld)this.world).findRaid(pos) != null) {
-			return SlabfishType.TOTEM;
-		} else if (pos.getY() <= 20) {
-			return SlabfishType.CAVE;
-		} else if (biome.getCategory() == Biome.Category.OCEAN) {
-			return SlabfishType.OCEAN;
-		} else if (biome.getCategory() == Biome.Category.JUNGLE) {
-			return SlabfishType.JUNGLE;
-		} else if (biome.getCategory() == Biome.Category.SAVANNA) {
-			return SlabfishType.SAVANNA;
-		} else if (biome.getCategory() == Biome.Category.MESA) {
-			return SlabfishType.MESA;
-		} else if (biome.getCategory() == Biome.Category.ICY) {
-			return SlabfishType.SNOWY;
-		} else if (biome.getCategory() == Biome.Category.DESERT) {
-			return SlabfishType.DESERT;
-		} else if (biome.getCategory() == Biome.Category.TAIGA) {
-			return SlabfishType.TAIGA;
-		} else if (biome == SwampExBiomes.MARSH.get()) {
-			return SlabfishType.MARSH;
-		}
+		
+		if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
+		
+		if (pos.getY() <= 20) return SlabfishType.CAVE;
+		
+		if (biome == SwampExBiomes.MARSH.get() || biome == SwampExBiomes.MUSHROOM_MARSH.get()) return SlabfishType.MARSH;
+//		if (biome == SwampExBiomes.MIRE.get()) return SlabfishType.MIRE;
+		
+		if (biome.getCategory() == Biome.Category.OCEAN) return SlabfishType.OCEAN;
+		if (biome.getCategory() == Biome.Category.JUNGLE) return SlabfishType.JUNGLE;
+		if (biome.getCategory() == Biome.Category.SAVANNA) return SlabfishType.SAVANNA;
+		if (biome.getCategory() == Biome.Category.MESA) return SlabfishType.MESA;
+		if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.SNOWY;
+		if (biome.getCategory() == Biome.Category.DESERT) return SlabfishType.DESERT;
+		if (biome.getCategory() == Biome.Category.TAIGA) return SlabfishType.TAIGA;
+		if (biome.getCategory() == Biome.Category.FOREST) return SlabfishType.FOREST;
+		if (biome.getCategory() == Biome.Category.PLAINS) return SlabfishType.PLAINS;
+
 		return SlabfishType.SWAMP;
 	}
 	

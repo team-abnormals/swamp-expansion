@@ -17,7 +17,9 @@ public enum SlabfishType implements IStringSerializable {
    MESA(8, "mesa"),
    SNOWY(9, "snowy"),
    TOTEM(10, "totem"),
-   TAIGA(11, "taiga");
+   TAIGA(11, "taiga"),
+   FOREST(12, "forest"),
+   PLAINS(13, "plains");
 
    private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((p_199795_0_) -> {
       return new SlabfishType[p_199795_0_];

@@ -1,7 +1,5 @@
 package com.farcr.swampexpansion.common.world.biome;
 
-import com.farcr.swampexpansion.core.registries.SwampExBiomes;
-
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
@@ -14,8 +12,8 @@ import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public final class MarshBiome extends Biome {
-	   public MarshBiome() {
+public final class MushroomMarshBiome extends Biome {
+	   public MushroomMarshBiome() {
 	      super((new Biome.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG).precipitation(Biome.RainType.RAIN).category(Biome.Category.SWAMP).depth(-0.115F).scale(0.0F).temperature(0.8F).downfall(0.9F).waterColor(6134398).waterFogColor(2569515).parent((String)null));
 	      this.addStructure(Feature.SWAMP_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 	      this.addStructure(Feature.MINESHAFT.withConfiguration(new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL)));
@@ -30,10 +28,12 @@ public final class MarshBiome extends Biome {
 	      SwampExBiomeFeatures.addDenseCattails(this);
 	      SwampExBiomeFeatures.addMarshVegetation(this);
 	      DefaultBiomeFeatures.addMushrooms(this);
+	      SwampExBiomeFeatures.addMarshMushrooms(this);
 	      DefaultBiomeFeatures.addExtraReedsAndPumpkins(this);
 	      DefaultBiomeFeatures.addTallGrass(this);
 	      DefaultBiomeFeatures.addVeryDenseGrass(this);
 	      SwampExBiomeFeatures.addRice(this);
+	      SwampExBiomeFeatures.addMarshMushrooms(this);
 	      DefaultBiomeFeatures.addFossils(this);
 	      DefaultBiomeFeatures.addFreezeTopLayer(this);
 	      this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.SHEEP, 12, 4, 4));
@@ -62,10 +62,4 @@ public final class MarshBiome extends Biome {
 	   public int getFoliageColor() {
 	      return 5468214;
 	   }
-	   
-	   @Override
-	   public Biome getHill(net.minecraft.world.gen.INoiseRandom rand) {
-		   int chance = rand.random(5);
-		   return chance == 0 ? SwampExBiomes.MUSHROOM_MARSH.get() : SwampExBiomes.MARSH.get();
-	   }
-}
+	}
