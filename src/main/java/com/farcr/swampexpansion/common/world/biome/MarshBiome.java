@@ -21,7 +21,6 @@ public final class MarshBiome extends Biome {
 	      this.addStructure(Feature.MINESHAFT.withConfiguration(new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL)));
 	      DefaultBiomeFeatures.addCarvers(this);
 	      DefaultBiomeFeatures.addStructures(this);
-	      DefaultBiomeFeatures.addLakes(this);
 	      DefaultBiomeFeatures.addMonsterRooms(this);
 	      DefaultBiomeFeatures.addStoneVariants(this);
 	      DefaultBiomeFeatures.addOres(this);
@@ -65,7 +64,7 @@ public final class MarshBiome extends Biome {
 	   
 	   @Override
 	   public Biome getHill(net.minecraft.world.gen.INoiseRandom rand) {
-		   int chance = rand.random(5);
+		   int chance = rand.random(4);
 		   return chance == 0 ? SwampExBiomes.MUSHROOM_MARSH.get() : SwampExBiomes.MARSH.get();
 	   }
 }

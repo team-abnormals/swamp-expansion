@@ -328,7 +328,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	            this.world.addParticle(ParticleTypes.CLOUD, this.getPosXRandom(1.0D), this.getPosYRandom() + 0.5D, this.getPosZRandom(1.0D), d0, d1, d2);
 	         }
 			return true;
-		} else if (!this.isSitting() && this.hasBackpack() && player.func_226563_dT_()) {
+		} else if (!this.isSitting() && this.hasBackpack() && player.func_226563_dT_() && !this.isInWater()) {
 			this.setSitting(true);
 			return true;
 		} else if (this.isSitting() && player.func_226563_dT_()) {
