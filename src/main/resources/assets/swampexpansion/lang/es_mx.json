@@ -65,6 +65,9 @@
 	
 	"entity.swampexpansion.slabfish": "Pezlosa",
 	"entity.swampexpansion.boat": "Bote",
+
+	"item.swampexpansion.music_disc_slabrave": "Disco",
+	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - slabrave",
 	
 	"biome.swampexpansion.marsh": "Marisma",
 	"biome.swampexpansion.mushroom_marsh": "Marisma fúngica",
