@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.common.entity;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -34,6 +35,7 @@ import net.minecraft.entity.ai.goal.PanicGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
+import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.EvokerEntity;
 import net.minecraft.entity.monster.IllusionerEntity;
@@ -113,6 +115,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	private static final Ingredient SPEEDING_ITEMS = Ingredient.fromTag(SwampExTags.SUSHI);
 	
 	public Inventory slabfishBackpack;
+	private UUID lightningUUID;
 	public float wingRotation;
 	public float destPos;
 	public float oFlapSpeed;
@@ -371,7 +374,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		
 		this.recalculateSize();
 		this.setCanPickUpLoot(this.hasBackpack());
-				
+		
 		this.oFlap = this.wingRotation;
 		this.oFlapSpeed = this.destPos;
 		this.destPos = (float)((double)this.destPos + (double)(this.onGround ? -1 : 4) * 0.3D);
@@ -493,6 +496,15 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if (biome.getCategory() == Biome.Category.PLAINS) return SlabfishType.PLAINS;
 
 		return SlabfishType.SWAMP;
+	}
+	
+	public void onStruckByLightning(LightningBoltEntity lightningBolt) {
+		UUID uuid = lightningBolt.getUniqueID();
+		if (!uuid.equals(this.lightningUUID)) {
+			this.setSlabfishType(SlabfishType.SKELETON);
+			this.lightningUUID = uuid;
+			this.playSound(SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, 2.0F, 1.0F);
+		}	
 	}
 	
 	public SlabfishType getSlabfishType() {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
 import com.farcr.swampexpansion.common.item.MudBallItem;
+import com.farcr.swampexpansion.common.item.SwampExMusicDiscItem;
 import com.farcr.swampexpansion.common.item.WillowBoatItem;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
 import com.google.common.collect.Lists;
@@ -14,6 +15,7 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
+import net.minecraft.item.Rarity;
 import net.minecraft.item.SoupItem;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
@@ -47,7 +49,8 @@ public class SwampExItems {
 	public static RegistryObject<Item> PUFFERFISH_RICE_CAKE = RegistryUtils.createItem("pufferfish_rice_cake", () -> new Item(new Item.Properties().food(SwampExFoods.PUFFERFISH_RICE_CAKE).group(ItemGroup.FOOD)));
 	public static RegistryObject<Item> LIONFISH_RICE_CAKE = RegistryUtils.createItem("lionfish_rice_cake", () -> new Item(new Item.Properties().food(SwampExFoods.LIONFISH_RICE_CAKE).group(ModList.get().isLoaded("upgrade_aquatic") ? ItemGroup.FOOD : null)));
 	
-	public static RegistryObject<Item> SQUID_INK_RISOTTO = RegistryUtils.createItem("squid_ink_risotto", () -> new SoupItem(new Item.Properties().food(SwampExFoods.SQUID_INK_RISOTTO).group(ItemGroup.FOOD)));
+	public static RegistryObject<Item> SQUID_INK_RISOTTO = RegistryUtils.createItem("squid_ink_risotto", () -> new SoupItem(new Item.Properties().maxStackSize(1).food(SwampExFoods.SQUID_INK_RISOTTO).group(ItemGroup.FOOD)));
 	
+	public static RegistryObject<Item> MUSIC_DISC_SLABRAVE = RegistryUtils.createItem("music_disc_slabrave", () -> new SwampExMusicDiscItem(12, SwampExSounds.SLABRAVE, new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE)));
 	public static final RegistryObject<Item> SLABFISH_SPAWN_EGG = RegistryUtils.createSpawnEggItem("slabfish", () -> SwampExEntities.SLABFISH.get(), 6263617, 13940616);
 }
