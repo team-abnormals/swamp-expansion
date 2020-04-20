@@ -64,13 +64,14 @@
 	"item.swampexpansion.willow_boat": "Willow Boat",
 	
 	"item.swampexpansion.music_disc_slabrave": "Music Disc",
-	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - slabrave",
+	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - Slabrave",
 	
 	"entity.swampexpansion.slabfish": "Slabfish",
 	"entity.swampexpansion.boat": "Boat",
 	
 	"biome.swampexpansion.marsh": "Marsh",
 	"biome.swampexpansion.mushroom_marsh": "Mushroom Marsh",
+	"biome.swampexpansion.mire": "Mire",
 	
 	"block.swampexpansion.mud": "Mud",
 	"fluid.swampexpansion.mud": "Mud"
