@@ -67,10 +67,11 @@
 	"entity.swampexpansion.boat": "Barca",
 
 	"item.swampexpansion.music_disc_slabrave": "Disco de música",
-	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - slabrave",
+	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - Slabrave",
 	
 	"biome.swampexpansion.marsh": "Marisma",
 	"biome.swampexpansion.mushroom_marsh": "Marisma de champiñones",
+	"biome.swampexpansion.mire": "Ciénaga",
 	
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"
