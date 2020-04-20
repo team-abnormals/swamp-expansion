@@ -1,0 +1,11 @@
+{
+  "music.record.slabrave": {
+    "category": "master",
+    "sounds": [
+      {
+        "name": "swampexpansion:record/slabrave",
+        "stream": true
+      }
+    ]
+  }
+}

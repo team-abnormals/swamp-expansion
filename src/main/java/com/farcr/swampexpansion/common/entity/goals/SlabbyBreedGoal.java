@@ -7,6 +7,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
+import com.farcr.swampexpansion.common.entity.SlabfishType;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.AgeableEntity;
@@ -17,6 +18,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biomes;
 
 public class SlabbyBreedGoal extends Goal {
    private static final EntityPredicate field_220689_d = (new EntityPredicate()).setDistance(8.0D).allowInvulnerable().allowFriendlyFire().setLineOfSiteRequired();
@@ -82,12 +84,15 @@ public class SlabbyBreedGoal extends Goal {
 
       return SlabfishEntity;
    }
-
+   
    protected void spawnBaby() {
 	  Random rand = new Random();
       AgeableEntity ageableentity = this.animal.createChild(this.targetMate);
       SlabfishEntity slabby = (SlabfishEntity)ageableentity;
       slabby.setSlabfishType(rand.nextBoolean() ? animal.getTypeForBiome(animal.world) : rand.nextBoolean() ? animal.getSlabfishType() : targetMate.getSlabfishType());
+      if (world.getBiome(animal.getPosition()) == Biomes.NETHER && (animal.getSlabfishType() == SlabfishType.SKELETON || animal.getSlabfishType() == SlabfishType.WITHER) && (targetMate.getSlabfishType() == SlabfishType.SKELETON || targetMate.getSlabfishType() == SlabfishType.WITHER)) {
+    	  slabby.setSlabfishType(SlabfishType.WITHER);
+      }
       final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(animal, targetMate, slabby);
       final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
       ageableentity = event.getChild();
