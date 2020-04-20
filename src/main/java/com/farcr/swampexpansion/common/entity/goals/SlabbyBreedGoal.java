@@ -2,7 +2,6 @@ package com.farcr.swampexpansion.common.entity.goals;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -18,7 +17,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.Biome;
 
 public class SlabbyBreedGoal extends Goal {
    private static final EntityPredicate field_220689_d = (new EntityPredicate()).setDistance(8.0D).allowInvulnerable().allowFriendlyFire().setLineOfSiteRequired();
@@ -86,11 +85,10 @@ public class SlabbyBreedGoal extends Goal {
    }
    
    protected void spawnBaby() {
-	  Random rand = new Random();
       AgeableEntity ageableentity = this.animal.createChild(this.targetMate);
       SlabfishEntity slabby = (SlabfishEntity)ageableentity;
-      slabby.setSlabfishType(rand.nextBoolean() ? animal.getTypeForBiome(animal.world) : rand.nextBoolean() ? animal.getSlabfishType() : targetMate.getSlabfishType());
-      if (world.getBiome(animal.getPosition()) == Biomes.NETHER && (animal.getSlabfishType() == SlabfishType.SKELETON || animal.getSlabfishType() == SlabfishType.WITHER) && (targetMate.getSlabfishType() == SlabfishType.SKELETON || targetMate.getSlabfishType() == SlabfishType.WITHER)) {
+      slabby.setSlabfishType(animal.getTypeForBreeding(animal.world, this.animal, this.targetMate));
+      if (world.getBiome(animal.getPosition()).getCategory() == Biome.Category.NETHER && (animal.getSlabfishType() == SlabfishType.SKELETON || animal.getSlabfishType() == SlabfishType.WITHER) && (targetMate.getSlabfishType() == SlabfishType.SKELETON || targetMate.getSlabfishType() == SlabfishType.WITHER)) {
     	  slabby.setSlabfishType(SlabfishType.WITHER);
       }
       final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(animal, targetMate, slabby);
