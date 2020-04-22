@@ -9,7 +9,6 @@ import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.common.entity.SlabfishType;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.item.ExperienceOrbEntity;
@@ -85,15 +84,14 @@ public class SlabbyBreedGoal extends Goal {
    }
    
    protected void spawnBaby() {
-      AgeableEntity ageableentity = this.animal.createChild(this.targetMate);
-      SlabfishEntity slabby = (SlabfishEntity)ageableentity;
-      slabby.setSlabfishType(animal.getTypeForBreeding(animal.world, this.animal, this.targetMate));
+	  SlabfishEntity slabby = this.animal.createChild(this.targetMate);
+      //slabby.setSlabfishType(animal.getTypeForBreeding(animal.world, this.animal, this.targetMate));
       if (world.getBiome(animal.getPosition()).getCategory() == Biome.Category.NETHER && (animal.getSlabfishType() == SlabfishType.SKELETON || animal.getSlabfishType() == SlabfishType.WITHER) && (targetMate.getSlabfishType() == SlabfishType.SKELETON || targetMate.getSlabfishType() == SlabfishType.WITHER)) {
     	  slabby.setSlabfishType(SlabfishType.WITHER);
       }
       final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(animal, targetMate, slabby);
       final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
-      ageableentity = event.getChild();
+      slabby = (SlabfishEntity) event.getChild();
       if (cancelled) {
          //Reset the "inLove" state for the animals
          this.animal.setGrowingAge(6000);
@@ -102,7 +100,7 @@ public class SlabbyBreedGoal extends Goal {
          this.targetMate.resetInLove();
          return;
       }
-      if (ageableentity != null) {
+      if (slabby != null) {
          ServerPlayerEntity serverplayerentity = this.animal.getLoveCause();
          if (serverplayerentity == null && this.targetMate.getLoveCause() != null) {
             serverplayerentity = this.targetMate.getLoveCause();
@@ -110,16 +108,16 @@ public class SlabbyBreedGoal extends Goal {
 
          if (serverplayerentity != null) {
             serverplayerentity.addStat(Stats.ANIMALS_BRED);
-            CriteriaTriggers.BRED_ANIMALS.trigger(serverplayerentity, this.animal, this.targetMate, ageableentity);
+            CriteriaTriggers.BRED_ANIMALS.trigger(serverplayerentity, this.animal, this.targetMate, slabby);
          }
 
          this.animal.setGrowingAge(6000);
          this.targetMate.setGrowingAge(6000);
          this.animal.resetInLove();
          this.targetMate.resetInLove();
-         ageableentity.setGrowingAge(-24000);
-         ageableentity.setLocationAndAngles(this.animal.getPosX(), this.animal.getPosY(), this.animal.getPosZ(), 0.0F, 0.0F);
-         this.world.addEntity(ageableentity);
+         slabby.setGrowingAge(-24000);
+         slabby.setLocationAndAngles(this.animal.getPosX(), this.animal.getPosY(), this.animal.getPosZ(), 0.0F, 0.0F);
+         this.world.addEntity(slabby);
          this.world.setEntityState(this.animal, (byte)18);
          if (this.world.getGameRules().getBoolean(GameRules.DO_MOB_LOOT)) {
             this.world.addEntity(new ExperienceOrbEntity(this.world, this.animal.getPosX(), this.animal.getPosY(), this.animal.getPosZ(), this.animal.getRNG().nextInt(7) + 1));

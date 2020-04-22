@@ -13,6 +13,7 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.core.registries.SwampExBiomes;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registries.SwampExCriteriaTriggers;
 import com.farcr.swampexpansion.core.registries.SwampExEntities;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
 import com.farcr.swampexpansion.core.registries.SwampExTags;
@@ -45,6 +46,7 @@ import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.entity.monster.VindicatorEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.Inventory;
@@ -122,6 +124,9 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public float oFlap;
 	public float wingRotDelta = 1.0F;
 	
+	public boolean incrementingTimer = false;
+	public int timerTicks = 0;
+	
 	public SlabfishEntity(EntityType<? extends SlabfishEntity> type, World worldIn) {
 		super(type, worldIn);
 		this.setPathPriority(PathNodeType.WATER, 0.0F);
@@ -157,7 +162,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	@Override
 	protected void registerData() {
 		super.registerData();
-		this.dataManager.register(SLABFISH_TYPE, 0);
+		this.getDataManager().register(SLABFISH_TYPE, 0);
 		this.getDataManager().register(IS_SITTING, false);
 
 		this.getDataManager().register(HAS_BACKPACK, false);
@@ -175,7 +180,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	@Override
 	public void writeAdditional(CompoundNBT compound) {
 		super.writeAdditional(compound);
-		compound.putByte("SlabfishType", (byte) this.getSlabfishType().getId());
+		compound.putInt("SlabfishType", this.getSlabfishType().getId());
 		compound.putBoolean("Sitting", this.isSitting());
 
 		compound.putBoolean("HasBackpack", this.hasBackpack());
@@ -280,6 +285,12 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			if(!player.abilities.isCreativeMode) {
 				itemstack.shrink(1);
 			}
+			if (player instanceof ServerPlayerEntity) {
+				ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) player;
+				if(!world.isRemote()) {
+					SwampExCriteriaTriggers.BACKPACK_SLABFISH.trigger(serverplayerentity); 
+				}
+			}
 			return true;
 		} else if (item == Items.SHEARS && this.hasSweater() == true) {
 			this.setSweatered(false);
@@ -305,6 +316,22 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 					tool.sendBreakAnimation(hand);
 	            });
 			}
+			return true;
+		} else if (item.isIn(ItemTags.MUSIC_DISCS)) {
+			if (!player.abilities.isCreativeMode) {
+				itemstack.shrink(1);
+			}
+			world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.NEUTRAL, 1F, 1F, true);
+			for(int i = 0; i < 7; ++i) {
+	            double d0 = this.rand.nextGaussian() * 0.02D;
+	            double d1 = this.rand.nextGaussian() * 0.02D;
+	            double d2 = this.rand.nextGaussian() * 0.02D;
+	            this.world.addParticle(ParticleTypes.NOTE, this.getPosXRandom(1.0D), this.getPosYRandom() + 0.5D, this.getPosZRandom(1.0D), d0, d1, d2);
+	         }
+			ItemEntity itementity = this.entityDropItem(SwampExItems.MUSIC_DISC_SLABRAVE.get(), 1);
+	        if (itementity != null) {
+	           itementity.setMotion(itementity.getMotion().add((double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F), (double)(this.rand.nextFloat() * 0.05F), (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F)));
+	        }
 			return true;
 		} else if(HEALING_ITEMS.test(itemstack)) {
 			if (this.getHealth() < this.getMaxHealth()) {
@@ -370,6 +397,18 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			}
 		}
 		
+		
+		List<PlayerEntity> playerList = world.getEntitiesWithinAABB(PlayerEntity.class, this.getBoundingBox().grow(5.0D, 5.0D, 5.0D));
+
+		for(PlayerEntity player : playerList) {
+			if (player instanceof ServerPlayerEntity) {
+				ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) player;
+				if(!world.isRemote()) {
+					if (this.getSlabfishType() == SlabfishType.SWAMP) SwampExCriteriaTriggers.SWAMP_SLABFISH.trigger(serverplayerentity); 
+					if (this.getSlabfishType() == SlabfishType.MARSH) SwampExCriteriaTriggers.MARSH_SLABFISH.trigger(serverplayerentity); 
+				}
+			}
+		}
 		this.recalculateSize();
 		this.setCanPickUpLoot(this.hasBackpack());
 		
