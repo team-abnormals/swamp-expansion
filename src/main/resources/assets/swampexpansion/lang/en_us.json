@@ -73,6 +73,15 @@
 	"biome.swampexpansion.mushroom_marsh": "Mushroom Marsh",
 	"biome.swampexpansion.mire": "Mire",
 	
+	"advancements.husbandry.breed_all_slabfish.title": "Funky Genetics",
+	"advancements.husbandry.breed_all_slabfish.description": "Breed all Slabfish variants!",
+	
+	"advancements.husbandry.backpack_slabfish.title": "First Day of School",
+	"advancements.husbandry.backpack_slabfish.description": "Give a Slabfish a backpack",
+	
+	"advancements.adventure.find_natural_slabfish.title": "They Come in Different Colors!",
+	"advancements.adventure.find_natural_slabfish.description": "Find all natural Slabfish variants",
+	
 	"block.swampexpansion.mud": "Mud",
 	"fluid.swampexpansion.mud": "Mud"
 }
