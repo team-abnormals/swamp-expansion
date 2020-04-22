@@ -72,6 +72,15 @@
 	"biome.swampexpansion.marsh": "Marisma",
 	"biome.swampexpansion.mushroom_marsh": "Marisma de champiñones",
 	"biome.swampexpansion.mire": "Ciénaga",
+
+	"advancements.husbandry.breed_all_slabfish.title": "Genes únicos",
+	"advancements.husbandry.breed_all_slabfish.description": "¡Haz que se reproduzcan todos los tipos de pezlosa!",
+
+	"advancements.husbandry.backpack_slabfish.title": "Primer día del cole",
+	"advancements.husbandry.backpack_slabfish.description": "Dale una mochila a un pezlosa.",
+
+	"advancements.adventure.find_natural_slabfish.title": "¡Vienen en distintos colores!",
+	"advancements.adventure.find_natural_slabfish.description": "Encuentra todos los tipos naturales de pezlosa.",
 	
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"

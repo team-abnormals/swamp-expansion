@@ -73,6 +73,15 @@
 	"biome.swampexpansion.mushroom_marsh": "Marisma fúngica",
 	"biome.swampexpansion.mire": "Ciénaga",
 
+	"advancements.husbandry.breed_all_slabfish.title": "Genes únicos",
+	"advancements.husbandry.breed_all_slabfish.description": "¡Hacé que se reproduzcan todos los tipos de pezlosa!",
+
+	"advancements.husbandry.backpack_slabfish.title": "Primer día del cole",
+	"advancements.husbandry.backpack_slabfish.description": "Dale una mochila a un pezlosa.",
+
+	"advancements.adventure.find_natural_slabfish.title": "¡Vienen en distintos colores!",
+	"advancements.adventure.find_natural_slabfish.description": "Encontrá todas los tipos naturales de pezlosa.",
+
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"
 }
