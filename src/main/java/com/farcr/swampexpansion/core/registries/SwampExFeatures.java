@@ -39,7 +39,7 @@ public class SwampExFeatures {
     }
 
 	public static void generate(Biome biome) {
-        if (biome == Biomes.SWAMP) {
+        if (biome == Biomes.SWAMP || biome == Biomes.SWAMP_HILLS) {
             SwampExBiomeFeatures.overrideFeatures(biome);
             SwampExBiomeFeatures.addMushrooms(biome);
             SwampExBiomeFeatures.addWillowTrees(biome);
