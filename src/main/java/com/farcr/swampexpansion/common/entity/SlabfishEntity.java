@@ -1,5 +1,6 @@
 package com.farcr.swampexpansion.common.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -78,6 +79,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -92,6 +94,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class SlabfishEntity extends AnimalEntity implements IInventoryChangedListener {
 	private static final DataParameter<Integer> SLABFISH_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
@@ -517,12 +520,34 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		BlockPos pos = new BlockPos(this);
 		Biome biome = world.getBiome(pos);
 		
-		if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
+		List<Biome> MARSH = new ArrayList<Biome>();
+		MARSH.add(SwampExBiomes.MARSH.get());
+		MARSH.add(SwampExBiomes.MUSHROOM_MARSH.get());
 		
+		List<Biome> ROSEWOOD = new ArrayList<Biome>();
+		ROSEWOOD.add(findBiome("atmospheric", "rosewood_forest"));
+		ROSEWOOD.add(findBiome("atmospheric", "rosewood_mountains"));
+		ROSEWOOD.add(findBiome("atmospheric", "rosewood_plateau"));
+		ROSEWOOD.add(findBiome("atmospheric", "rosewood_forest_plateau"));
+		
+		List<Biome> DUNES = new ArrayList<Biome>();
+		DUNES.add(findBiome("atmospheric", "dunes"));
+		DUNES.add(findBiome("atmospheric", "rocky_dunes"));
+		DUNES.add(findBiome("atmospheric", "petrified_dunes"));
+		DUNES.add(findBiome("atmospheric", "flourishing_dunes"));
+		
+		List<Biome> MAPLE = new ArrayList<Biome>();
+		MAPLE.add(findBiome("autumnity", "maple_forest"));
+		MAPLE.add(findBiome("autumnity", "maple_forest_hills"));
+		MAPLE.add(findBiome("autumnity", "pumpkin_fields"));
+		
+		if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
 		if (pos.getY() <= 20) return SlabfishType.CAVE;
 		
-		if (biome == SwampExBiomes.MARSH.get() || biome == SwampExBiomes.MUSHROOM_MARSH.get()) return SlabfishType.MARSH;
-//		if (biome == SwampExBiomes.MIRE.get()) return SlabfishType.MIRE;
+		if (MARSH.contains(biome)) return SlabfishType.MARSH;
+		if (MAPLE.contains(biome)) return SlabfishType.MAPLE;
+		if (ROSEWOOD.contains(biome)) return SlabfishType.ROSEWOOD;
+		if (DUNES.contains(biome)) return SlabfishType.DUNES;
 		
 		if (biome.getCategory() == Biome.Category.OCEAN) return SlabfishType.OCEAN;
 		if (biome.getCategory() == Biome.Category.RIVER) return SlabfishType.RIVER;
@@ -536,6 +561,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if (biome.getCategory() == Biome.Category.PLAINS) return SlabfishType.PLAINS;
 
 		return SlabfishType.SWAMP;
+	}
+	
+	public Biome findBiome(String modid, String name) {
+		return ForgeRegistries.BIOMES.getValue(new ResourceLocation(modid, name));
 	}
 	
 	public SlabfishType getTypeForBreeding(IWorld world, SlabfishEntity parent1, SlabfishEntity parent2) {

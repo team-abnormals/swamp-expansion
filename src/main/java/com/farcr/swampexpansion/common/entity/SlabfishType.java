@@ -22,7 +22,10 @@ public enum SlabfishType implements IStringSerializable {
 	PLAINS(13, "plains"),
 	SKELETON(14, "skeleton"),
 	WITHER(15, "wither"),
-	RIVER(16, "river");
+	RIVER(16, "river"),
+	MAPLE(17, "maple"),
+	ROSEWOOD(18, "rosewood"),
+	DUNES(19, "dunes");
 
    private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((p_199795_0_) -> {
       return new SlabfishType[p_199795_0_];
