@@ -1,0 +1,78 @@
+{
+	"block.swampexpansion.mud_bricks": "Mutatiili",
+	"block.swampexpansion.mud_brick_slab": "Mutatiililaatta",
+	"block.swampexpansion.mud_brick_stairs": "Mutatiiliportaat",
+	"block.swampexpansion.mud_brick_wall": "Mutatiilimuuri",
+	"block.swampexpansion.mud_brick_vertical_slab": "Pystysuora mutatiililaatta",
+	
+	"block.swampexpansion.willow_planks": "Pajulankut",
+	"block.swampexpansion.willow_slab": "Pajulaatta",
+	"block.swampexpansion.willow_stairs": "Pajuportaat",
+	"block.swampexpansion.willow_fence": "Pajuaita",
+	"block.swampexpansion.willow_fence_gate": "Pajuportti",
+	"block.swampexpansion.willow_pressure_plate": "Pajupainelaatta",
+	"block.swampexpansion.willow_door": "Pajuovi",
+	"block.swampexpansion.willow_trapdoor": "Pajuluukku",
+	"block.swampexpansion.willow_button": "Pajunappi",
+	"block.swampexpansion.willow_bookshelf": "Pajukirjahylly",
+	"block.swampexpansion.willow_ladder": "Pajutikas",
+	"block.swampexpansion.willow_log": "Pajuhalko",
+	"block.swampexpansion.willow_wood": "Pajupuu",
+	"block.swampexpansion.stripped_willow_log": "Kuorittu pajuhalko",
+	"block.swampexpansion.stripped_willow_wood": "Kuorittu paju",
+	"block.swampexpansion.willow_sapling": "Pajun taimi",
+	"block.swampexpansion.willow_leaves": "Pajunlehdet",
+	"block.swampexpansion.hanging_willow_leaves": "Roikkuvat pajunlehdet",
+	"block.swampexpansion.vertical_willow_planks": "Pystysuorat pajulankut",
+	"block.swampexpansion.willow_vertical_slab": "Pystysuora pajulaatta",
+	"block.swampexpansion.willow_leaf_carpet": "Pajunlehtimatto",
+	
+	"block.swampexpansion.cattail_sprouts": "Osmankäämin verso",
+	"block.swampexpansion.cattail": "Osmankäämi",
+	"block.swampexpansion.tall_cattail": "Pitkä osmankäämi",
+	"block.swampexpansion.potted_cattail": "Istutettu osmankäämi",
+	
+	"block.swampexpansion.cattail_thatch": "Osmankäämin olkikuutio",
+	"block.swampexpansion.cattail_thatch_slab": "Osmankäämin olkilaatta",
+	"block.swampexpansion.cattail_thatch_stairs": "Osmankäämin olkiportaat",
+	"block.swampexpansion.cattail_thatch_vertical_slab": "Pystysuora osmankäämin olkilaatta",
+	"block.swampexpansion.cattail_seed_sack": "Osmankäämin siemensäkki",
+	"item.swampexpansion.cattail_seeds": "Osmankäämin siemenet",
+	
+	"block.swampexpansion.rice_sack": "Riisisäkki",
+	"block.swampexpansion.rice": "Riisi",
+	"block.swampexpansion.tall_rice": "Pitkä riisi",
+	"item.swampexpansion.rice_ball": "Riisipallo",
+	
+	"item.swampexpansion.slabfish_spawn_egg": "Luo laattakala",
+	
+	"item.swampexpansion.cod_kelp_roll": "Ahvenlevärulla",
+	"item.swampexpansion.tropical_fish_kelp_roll": "Trooppinen kalalevärulla",
+	"item.swampexpansion.crab_kelp_roll": "Taskurapulevärulla",
+	"item.swampexpansion.pike_kelp_roll": "Haukilevärulla",
+	"item.swampexpansion.cavefish_kelp_roll": Luolakalalevärulla",
+	
+	"item.swampexpansion.salmon_rice_cake": "Lohilevärulla",
+	"item.swampexpansion.pufferfish_rice_cake": "Pallokalalevärulla",
+	"item.swampexpansion.lionfish_rice_cake": "Leijonakalalevärulla",
+	
+	"item.swampexpansion.squid_ink_risotto": "Musta risotto",
+	
+	"item.swampexpansion.mud_ball": "Mutapallo",
+	"item.swampexpansion.mud_brick": "Mutatiili",
+	"item.swampexpansion.mud_bucket": "Mutaämpäri",
+	"item.swampexpansion.willow_boat": "Pajuvene",
+	
+	"item.swampexpansion.music_disc_slabrave": "Musiikkilevy",
+	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - Slabrave",
+	
+	"entity.swampexpansion.slabfish": "Laattakala",
+	"entity.swampexpansion.boat": "Vene",
+	
+	"biome.swampexpansion.marsh": "Marski",
+	"biome.swampexpansion.mushroom_marsh": "Sienimarski",
+	"biome.swampexpansion.mire": "Letto",
+	
+	"block.swampexpansion.mud": "Muta",
+	"fluid.swampexpansion.mud": "Muta"
+}

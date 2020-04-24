@@ -23,6 +23,7 @@ import net.minecraft.util.math.MathHelper;
 public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<SlabfishEntity, SlabfishEntity>> {	
 	private static final Map<List<String>, String> NAMES = Util.make(Maps.newHashMap(), (skins) -> {
 		skins.put(Arrays.asList("cameron", "cam", "cringe"), "cameron");
+		skins.put(Arrays.asList("bagel", "shyguy", "shy guy"), "bagel");
 	});
 
 	public SlabfishRenderer(EntityRendererManager renderManager) {
