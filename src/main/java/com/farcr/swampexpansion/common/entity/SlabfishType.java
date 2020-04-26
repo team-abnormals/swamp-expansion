@@ -31,7 +31,8 @@ public enum SlabfishType implements IStringSerializable {
 	STRAY(22, "stray"),
 	NETHER(23, "nether"),
 	END(24, "end"),
-	POISE(25, "poise");
+	POISE(25, "poise"),
+	GHOST(26, "ghost");
 
 	private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((array) -> {
 		return new SlabfishType[array];

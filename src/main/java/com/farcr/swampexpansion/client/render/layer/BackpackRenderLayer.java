@@ -26,6 +26,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class BackpackRenderLayer<E extends SlabfishEntity, M extends EntityModel<E>> extends LayerRenderer<E, M> {
 	private static final Map<List<String>, String> NAMES = Util.make(Maps.newHashMap(), (skins) -> {
 		skins.put(Arrays.asList("gore", "gore.", "musicano"), "gore");
+		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), "snake");
 	});
 	
 	public BackpackRenderLayer(IEntityRenderer<E, M> entityRenderer) {

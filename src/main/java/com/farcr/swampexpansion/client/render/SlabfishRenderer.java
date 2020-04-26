@@ -10,10 +10,12 @@ import com.farcr.swampexpansion.client.render.layer.BackpackRenderLayer;
 import com.farcr.swampexpansion.client.render.layer.OverlayRenderLayer;
 import com.farcr.swampexpansion.client.render.layer.SweaterRenderLayer;
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
+import com.farcr.swampexpansion.common.entity.SlabfishType;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +27,7 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 		skins.put(Arrays.asList("cameron", "cam", "cringe"), "cameron");
 		skins.put(Arrays.asList("bagel", "shyguy", "shy guy", "bagielo"), "bagel");
 		skins.put(Arrays.asList("gore", "gore.", "musicano"), "gore");
-
+		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), "snake");
 	});
 
 	public SlabfishRenderer(EntityRendererManager renderManager) {
@@ -49,6 +51,15 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 			}
 		}
 		return new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/slabfish" + textureSuffix + ".png");
+	}
+	
+	@Override
+	protected RenderType func_230042_a_(SlabfishEntity slabfish, boolean p_230042_2_, boolean p_230042_3_) {
+		if (slabfish.getSlabfishType() == SlabfishType.GHOST) {
+			return RenderType.getEntityTranslucent(this.getEntityTexture(slabfish));
+		} else {
+			return super.func_230042_a_(slabfish, p_230042_2_, p_230042_3_);
+		}
 	}
 	
 	protected float handleRotationFloat(SlabfishEntity livingBase, float partialTicks) {
