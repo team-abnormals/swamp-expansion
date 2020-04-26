@@ -7,8 +7,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DuckweedThatchBlock extends Block{
-	public DuckweedThatchBlock(Properties properties) {
+public class ThatchBlock extends Block{
+	public ThatchBlock(Properties properties) {
 		super(properties);
 	}
 

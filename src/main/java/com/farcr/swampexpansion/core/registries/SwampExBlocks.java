@@ -3,7 +3,7 @@ package com.farcr.swampexpansion.core.registries;
 import com.farcr.swampexpansion.common.block.BookshelfBlock;
 import com.farcr.swampexpansion.common.block.CattailBlock;
 import com.farcr.swampexpansion.common.block.CattailSproutsBlock;
-import com.farcr.swampexpansion.common.block.CattailThatchBlock;
+import com.farcr.swampexpansion.common.block.ThatchBlock;
 import com.farcr.swampexpansion.common.block.DoubleCattailBlock;
 import com.farcr.swampexpansion.common.block.DoubleRiceBlock;
 import com.farcr.swampexpansion.common.block.DuckweedBlock;
@@ -88,7 +88,7 @@ public class SwampExBlocks {
 	public static final RegistryObject<Block> POTTED_CATTAIL		    = RegistryUtils.createBlockNoItem("potted_cattail",	() -> new FlowerPotBlock(SwampExBlocks.CATTAIL.get(), BlockProperties.FLOWER_POT));
 	public static final RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
-	public static final RegistryObject<Block> CATTAIL_THATCH          = RegistryUtils.createBlock("cattail_thatch", () -> new CattailThatchBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CATTAIL_THATCH          = RegistryUtils.createBlock("cattail_thatch", () -> new ThatchBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> CATTAIL_THATCH_SLAB     = RegistryUtils.createBlock("cattail_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> CATTAIL_THATCH_STAIRS   = RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK).notSolid()), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
@@ -98,7 +98,7 @@ public class SwampExBlocks {
 	public static final RegistryObject<Block> RICE_SACK	= RegistryUtils.createBlockCompat("quark", "rice_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> DUCKWEED 		= RegistryUtils.createDuckweed("duckweed", () -> new DuckweedBlock(BlockProperties.DUCKWEED), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> DUCKWEED_THATCH          = RegistryUtils.createBlock("duckweed_thatch", () -> new DuckweedThatchBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH          = RegistryUtils.createBlock("duckweed_thatch", () -> new ThatchBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DUCKWEED_THATCH_SLAB     = RegistryUtils.createBlock("duckweed_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DUCKWEED_THATCH_STAIRS   = RegistryUtils.createBlock("duckweed_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK).notSolid()), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> DUCKWEED_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","duckweed_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
