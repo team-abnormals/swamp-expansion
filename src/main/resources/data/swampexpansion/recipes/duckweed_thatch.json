@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "swampexpansion:duckweed"
+    }
+  },
+  "result": {
+    "item": "swampexpansion:duckweed_thatch",
+    "count": 1
+  }
+}

@@ -98,6 +98,10 @@ public class SwampExBlocks {
 	public static final RegistryObject<Block> RICE_SACK	= RegistryUtils.createBlockCompat("quark", "rice_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> DUCKWEED 		= RegistryUtils.createDuckweed("duckweed", () -> new DuckweedBlock(BlockProperties.DUCKWEED), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH          = RegistryUtils.createBlock("duckweed_thatch", () -> new DuckweedThatchBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH_SLAB     = RegistryUtils.createBlock("duckweed_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH_STAIRS   = RegistryUtils.createBlock("duckweed_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK).notSolid()), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","duckweed_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
 
 	public static final RegistryObject<PaintingType> SNAKE_BLOCK = PAINTINGS.register("snake_block", () -> new PaintingType(32, 32));
 	public static final RegistryObject<PaintingType> SOMETHING_IN_THE_WATER = PAINTINGS.register("something_in_the_water", () -> new PaintingType(48, 32));

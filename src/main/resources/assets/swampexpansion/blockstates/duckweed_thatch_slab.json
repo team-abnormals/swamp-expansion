@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "swampexpansion:block/duckweed_thatch_slab" },
+        "type=top": { "model": "swampexpansion:block/duckweed_thatch_slab_top" },
+        "type=double": { "model": "swampexpansion:block/duckweed_thatch" }
+    }
+}
