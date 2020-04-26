@@ -43,6 +43,12 @@
 	"block.swampexpansion.rice": "Riisi",
 	"block.swampexpansion.tall_rice": "Pitkä riisi",
 	"item.swampexpansion.rice_ball": "Riisipallo",
+
+	"block.swampexpansion.duckweed": "Sorsanlimaska",
+	"block.swampexpansion.duckweed_thatch": "Sorsanlimaskakuutio",
+	"block.swampexpansion.duckweed_thatch_slab": "Sorsanlimaskalaatta",
+	"block.swampexpansion.duckweed_thatch_stairs": "Sorsanlimaskaportaat",
+	"block.swampexpansion.duckweed_thatch_vertical_slab": "Pystysuora sorsanlimaskalaatta",
 	
 	"item.swampexpansion.slabfish_spawn_egg": "Luo laattakala",
 	
@@ -72,6 +78,15 @@
 	"biome.swampexpansion.marsh": "Marski",
 	"biome.swampexpansion.mushroom_marsh": "Sienimarski",
 	"biome.swampexpansion.mire": "Letto",
+	
+	"advancements.husbandry.breed_all_slabfish.title": "Epävakaata genetiikkaa",
+	"advancements.husbandry.breed_all_slabfish.description": "Parita kaikki laattakalarodut!",
+	
+	"advancements.husbandry.backpack_slabfish.title": "Ensimmäinen koulupäivä",
+	"advancements.husbandry.backpack_slabfish.description": "Anna laattakalalle reppu",
+	
+	"advancements.adventure.find_natural_slabfish.title": "Niitä on erivärisiä!",
+	"advancements.adventure.find_natural_slabfish.description": "Löydä kaikki luonnolliset laattakalarodut",
 	
 	"block.swampexpansion.mud": "Muta",
 	"fluid.swampexpansion.mud": "Muta"
