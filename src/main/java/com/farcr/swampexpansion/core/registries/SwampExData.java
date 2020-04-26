@@ -65,6 +65,11 @@ public class SwampExData {
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.CATTAIL_THATCH_STAIRS.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.CATTAIL_THATCH_VERTICAL_SLAB.get(),RenderType.getCutout());
 		
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.DUCKWEED_THATCH.get(),RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.DUCKWEED_THATCH_SLAB.get(),RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.DUCKWEED_THATCH_STAIRS.get(),RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.DUCKWEED_THATCH_VERTICAL_SLAB.get(),RenderType.getCutout());
+		
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.RICE.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.TALL_RICE.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.DUCKWEED.get(),RenderType.getCutout());
