@@ -257,6 +257,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			}
 		} else if (SWEATER_MAP.containsKey(item) && !(this.hasSweater() && this.getSweaterColor() == SWEATER_MAP.get(item)) && !player.func_226563_dT_()) {
 			IItemProvider previousSweater = Items.AIR;
+			this.playBackpackSound();
 			if(!player.abilities.isCreativeMode) {
 				itemstack.shrink(1);
 			}
@@ -478,12 +479,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
 		return this.isSitting() ? sizeIn.height * 0.6F : sizeIn.height * 0.8F;
-	}
-	
-	@Override
-	public boolean canDespawn(double distanceToClosestPlayer) {
-		super.canDespawn(distanceToClosestPlayer);
-		return !this.hasBackpack() && !this.hasCustomName() &&!this.isSitting() && !this.hasSweater();
 	}
 	
 	public boolean canBreatheUnderwater() {
@@ -766,6 +761,13 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 				
 			}
 		}
+		if (this.hasSweater()) {
+			ItemEntity itementity = this.entityDropItem(REVERSE_MAP.get(this.getSweaterColor()), 1);
+	        if (itementity != null) {
+	           itementity.setMotion(itementity.getMotion().add((double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F), (double)(this.rand.nextFloat() * 0.05F), (double)((this.rand.nextFloat() - this.rand.nextFloat()) * 0.1F)));
+	        }
+		}
+		
 	}
 	
 	protected void updateEquipmentIfNeeded(ItemEntity itemEntity) {
