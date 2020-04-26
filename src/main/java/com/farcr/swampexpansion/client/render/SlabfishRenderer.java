@@ -23,7 +23,9 @@ import net.minecraft.util.math.MathHelper;
 public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<SlabfishEntity, SlabfishEntity>> {	
 	private static final Map<List<String>, String> NAMES = Util.make(Maps.newHashMap(), (skins) -> {
 		skins.put(Arrays.asList("cameron", "cam", "cringe"), "cameron");
-		skins.put(Arrays.asList("bagel", "shyguy", "shy guy"), "bagel");
+		skins.put(Arrays.asList("bagel", "shyguy", "shy guy", "bagielo"), "bagel");
+		skins.put(Arrays.asList("gore", "gore.", "musicano"), "gore");
+
 	});
 
 	public SlabfishRenderer(EntityRendererManager renderManager) {
@@ -36,7 +38,7 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 
 	@Override
 	public ResourceLocation getEntityTexture(SlabfishEntity slabby) {
-		String textureSuffix = "_" + slabby.getSlabfishType().getTranslationKey();
+		String textureSuffix = "_" + slabby.getSlabfishType().getName();
 		
 		if(slabby.hasCustomName()) {
 			String name = slabby.getName().getString().toLowerCase().trim();

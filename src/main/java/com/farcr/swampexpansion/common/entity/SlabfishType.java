@@ -25,51 +25,46 @@ public enum SlabfishType implements IStringSerializable {
 	RIVER(16, "river"),
 	MAPLE(17, "maple"),
 	ROSEWOOD(18, "rosewood"),
-	DUNES(19, "dunes");
+	DUNES(19, "dunes"),
+	NIGHTMARE(20, "nightmare"),
+	ICY(21, "icy"),
+	STRAY(22, "stray"),
+	NETHER(23, "nether"),
+	END(24, "end"),
+	POISE(25, "poise");
 
-   private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((p_199795_0_) -> {
-      return new SlabfishType[p_199795_0_];
-   });
-   private final int id;
-   private final String translationKey;
+	private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((array) -> {
+		return new SlabfishType[array];
+	});
+	private final int id;
+	private final String name;
 
-   private SlabfishType(int idIn, String translationKeyIn) {
-      this.id = idIn;
-      this.translationKey = translationKeyIn;
-   }
+	private SlabfishType(int idIn, String name) {
+		this.id = idIn;
+		this.name = name;
+	}
 
-   public int getId() {
-      return this.id;
-   }
+	public int getId() {
+		return this.id;
+	}
 
-   public String getTranslationKey() {
-      return this.translationKey;
-   }
+	public static SlabfishType byId(int id) {
+		if (id < 0 || id >= VALUES.length) {
+			id = 0;
+		}
+		return VALUES[id];
+	}
 
-   public static SlabfishType byId(int id) {
-      if (id < 0 || id >= VALUES.length) {
-    	  id = 0;
-      }
+	public static SlabfishType byName(String key, SlabfishType type) {
+		for(SlabfishType slabfishtype : values()) {
+			if (slabfishtype.name.equals(key)) {
+				return slabfishtype;
+			}
+		}
+		return type;
+	}
 
-      return VALUES[id];
-   }
-
-   public static SlabfishType byTranslationKey(String key, SlabfishType type) {
-      for(SlabfishType slabfishtype : values()) {
-         if (slabfishtype.translationKey.equals(key)) {
-            return slabfishtype;
-         }
-      }
-
-      return type;
-   }
-
-   public String toString() {
-      return this.translationKey;
-   }
-
-   public String getName() {
-      return this.translationKey;
-   }
-
+	public String getName() {
+		return this.name;
+	}
 }

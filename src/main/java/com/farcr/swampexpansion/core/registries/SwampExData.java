@@ -67,7 +67,8 @@ public class SwampExData {
 		
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.RICE.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.TALL_RICE.get(),RenderType.getCutout());
-		
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.DUCKWEED.get(),RenderType.getCutout());
+
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.POTTED_CATTAIL.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.POTTED_WILLOW_SAPLING.get(),RenderType.getCutout());
 	}

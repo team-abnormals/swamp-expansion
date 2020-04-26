@@ -59,6 +59,7 @@ public class SlabfishModel<T extends SlabfishEntity, E> extends AgeableModel<T> 
         this.backpack.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.backpack.addBox(-4.0F, -8.0F, 2.0F, 8, 8, 4, 0.0F);
         this.leftLeg = new ModelRenderer(this, 0, 14);
+        this.leftLeg.mirror = true;
         this.leftLeg.setRotationPoint(2.5F, 0.0F, 1.0F);
         this.leftLeg.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
         this.body.addChild(this.leftArm);

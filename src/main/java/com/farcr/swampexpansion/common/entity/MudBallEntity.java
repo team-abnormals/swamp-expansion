@@ -59,7 +59,7 @@ public class MudBallEntity extends ProjectileItemEntity {
          entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), (float)0);
          if (entity instanceof SlabfishEntity) {
         	 SlabfishEntity slabby = (SlabfishEntity)entity;
-        	 if (!slabby.isMuddy()) slabby.setMuddy(true);
+        	 if(slabby.getSlabfishOverlay() != SlabfishOverlay.MUDDY) slabby.setSlabfishOverlay(SlabfishOverlay.MUDDY);
          }
       }
 

@@ -3,6 +3,7 @@ package com.farcr.swampexpansion.common.block.fluid;
 import java.util.function.Supplier;
 
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
+import com.farcr.swampexpansion.common.entity.SlabfishOverlay;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -44,7 +45,7 @@ public class MudFluidBlock extends FlowingFluidBlock {
     	
     	if (entityIn instanceof SlabfishEntity) {
     		SlabfishEntity slabby = (SlabfishEntity)entityIn;
-    		if (!slabby.isMuddy()) slabby.setMuddy(true);
+			if(slabby.getSlabfishOverlay() != SlabfishOverlay.MUDDY) slabby.setSlabfishOverlay(SlabfishOverlay.MUDDY);
     	}
     }
 

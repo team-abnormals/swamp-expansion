@@ -1,5 +1,6 @@
 package com.farcr.swampexpansion.core.util;
 
+import com.farcr.swampexpansion.common.item.DuckweedItem;
 import com.farcr.swampexpansion.common.item.SwampExSpawnEggItem;
 import com.farcr.swampexpansion.core.registries.SwampExBlocks;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
@@ -27,6 +28,12 @@ public class RegistryUtils {
 	public static <B extends Block> RegistryObject<B> createBlock(String name, Supplier<? extends B> supplier, ItemGroup itemGroup) {
         RegistryObject<B> block = SwampExBlocks.BLOCKS.register(name, supplier);
         SwampExItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().group(itemGroup)));
+        return block;
+    }
+	
+	public static <B extends Block> RegistryObject<B> createDuckweed(String name, Supplier<? extends B> supplier, ItemGroup itemGroup) {
+        RegistryObject<B> block = SwampExBlocks.BLOCKS.register(name, supplier);
+        SwampExItems.ITEMS.register(name, () -> new DuckweedItem(block.get(), new Item.Properties().group(itemGroup)));
         return block;
     }
 	

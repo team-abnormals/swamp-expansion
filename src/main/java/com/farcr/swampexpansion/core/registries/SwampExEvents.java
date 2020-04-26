@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
+import com.farcr.swampexpansion.common.entity.SlabfishOverlay;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -15,9 +16,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
+import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
@@ -28,6 +31,8 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTables;
@@ -70,10 +75,23 @@ public class SwampExEvents {
                 List<SlabfishEntity> slabs = potionEntity.world.getEntitiesWithinAABB(SlabfishEntity.class, axisalignedbb);
                 if(slabs != null && slabs.size() > 0) {
                     for (SlabfishEntity slabfish : slabs) {
-                        if (slabfish.isMuddy()) slabfish.setMuddy(false);
+                    	slabfish.setSlabfishOverlay(SlabfishOverlay.NONE);
                     }
                 }
             }
+        }
+        
+        if (projectileEntity instanceof SnowballEntity) {
+        	SnowballEntity snowball = (SnowballEntity)projectileEntity;
+        	if (snowball.getItem().getItem() == Items.SNOWBALL) {
+        		if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY ) {
+        			EntityRayTraceResult entity = (EntityRayTraceResult)event.getRayTraceResult();
+        			if (entity.getEntity() instanceof SlabfishEntity) {
+        				SlabfishEntity slabfish = (SlabfishEntity)entity.getEntity();
+                    	slabfish.setSlabfishOverlay(SlabfishOverlay.SNOWY);
+        			}
+        		}
+        	}
         }
     }
 	
