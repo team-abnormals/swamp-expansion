@@ -121,8 +121,8 @@ public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable 
 			worldIn.playSound((PlayerEntity) null, pos, SoundEvents.BLOCK_CROP_BREAK,
 					SoundCategory.BLOCKS, 1.0F, 0.8F + worldIn.rand.nextFloat() * 0.4F);
 			if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 				worldIn.setBlockState(pos.down(), SwampExBlocks.RICE.get().getDefaultState().with(WATERLOGGED, worldIn.getBlockState(pos.down()).get(WATERLOGGED)).with(RiceBlock.AGE, Integer.valueOf(0)), 2);
+				worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 			} else {
 				worldIn.setBlockState(pos.up(), Blocks.AIR.getDefaultState(), 2);
 				worldIn.setBlockState(pos, SwampExBlocks.RICE.get().getDefaultState().with(WATERLOGGED, state.get(WATERLOGGED)).with(RiceBlock.AGE, Integer.valueOf(0)), 2);

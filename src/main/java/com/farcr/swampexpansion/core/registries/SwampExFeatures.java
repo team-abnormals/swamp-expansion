@@ -45,6 +45,7 @@ public class SwampExFeatures {
             SwampExBiomeFeatures.addWillowTrees(biome);
             SwampExBiomeFeatures.addSwampOaks(biome);
             SwampExBiomeFeatures.addCattails(biome);
+            SwampExBiomeFeatures.addDuckweed(biome);
         }
 //        if (biome.getTempCategory() != Biome.TempCategory.COLD && (biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER)) {
 //        	SwampExBiomeFeatures.addCattails(biome);
