@@ -1,0 +1,1 @@
+{"type":"corail_woodcutter:woodcutting","ingredient":{"item":"swampexpansion:willow_planks"},"result":"swampexpansion:willow_button","count":1,"conditions":[{"type":"forge:mod_loaded","modid":"corail_woodcutter"}]}
