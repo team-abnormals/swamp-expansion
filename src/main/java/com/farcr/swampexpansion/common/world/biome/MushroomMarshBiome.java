@@ -28,7 +28,7 @@ public final class MushroomMarshBiome extends Biome {
 	      SwampExBiomeFeatures.addMarshVegetation(this);
 	      DefaultBiomeFeatures.addMushrooms(this);
 	      SwampExBiomeFeatures.addMarshMushrooms(this);
-	      SwampExBiomeFeatures.addDuckweed(this);
+	      SwampExBiomeFeatures.addDuckweed(this, 0.1F);
 	      DefaultBiomeFeatures.addExtraReedsAndPumpkins(this);
 	      DefaultBiomeFeatures.addTallGrass(this);
 	      DefaultBiomeFeatures.addVeryDenseGrass(this);

@@ -28,7 +28,7 @@ public final class MarshBiome extends Biome {
 	      SwampExBiomeFeatures.addMarshPools(this);
 	      SwampExBiomeFeatures.addDenseCattails(this);
 	      SwampExBiomeFeatures.addMarshVegetation(this);
-	      SwampExBiomeFeatures.addDuckweed(this);
+	      SwampExBiomeFeatures.addDuckweed(this, 0.1F);
 	      DefaultBiomeFeatures.addMushrooms(this);
 	      DefaultBiomeFeatures.addExtraReedsAndPumpkins(this);
 	      DefaultBiomeFeatures.addTallGrass(this);

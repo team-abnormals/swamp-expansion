@@ -131,16 +131,12 @@ public class SwampExEvents {
 		if (event.getEntity() instanceof SlabfishEntity) {
 			SlabfishEntity entity = (SlabfishEntity)event.getEntity();
 			if (entity.getEntityWorld().getDimension().getType() == DimensionType.THE_NETHER) {
-				if (!entity.getEntityWorld().isRemote && entity.getSlabfishType() != SlabfishType.GHOST) {
-					SlabfishEntity ghost = SwampExEntities.SLABFISH.get().create(entity.world);
-					ghost.setSlabfishType(SlabfishType.GHOST);
-					
+				if (!entity.getEntityWorld().isRemote && entity.getSlabfishRealType() != SlabfishType.GHOST) {
+					SlabfishEntity ghost = SwampExEntities.SLABFISH.get().create(entity.world);					
 					ghost.addPotionEffect(new EffectInstance(Effects.LEVITATION, 140, 0, false, false));
 					ghost.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 140, 0, false, false));
-					
 					entity.getEntityWorld().playSound(null, entity.getPosition(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.NEUTRAL, 1, 1);
 					ghost.setPosition(entity.getPosX(), entity.getPosY(), entity.getPosZ());
-					
 					ghost.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, entity.rotationPitch);
 					ghost.setNoAI(((MobEntity) entity).isAIDisabled());
 		    		ghost.setGrowingAge(entity.getGrowingAge());
@@ -148,6 +144,7 @@ public class SwampExEvents {
 		    			ghost.setCustomName(entity.getCustomName());
 		    			ghost.setCustomNameVisible(entity.isCustomNameVisible());
 		    		}
+		    		ghost.setSlabfishType(SlabfishType.GHOST);
 					ghost.setFireTimer(0);
 					entity.getEntityWorld().addEntity(ghost);
 				}

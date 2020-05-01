@@ -39,7 +39,7 @@ public class SwampExBiomeFeatures {
 	public static BlockState WILLOW_LOG = SwampExBlocks.WILLOW_LOG.get().getDefaultState();
 	public static BlockState WILLOW_LEAVES = SwampExBlocks.WILLOW_LEAVES.get().getDefaultState();
 	public static final BlockClusterFeatureConfig CORNFLOWER_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORNFLOWER.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
-	public static final BlockClusterFeatureConfig DUCKWEED_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(SwampExBlocks.DUCKWEED.get().getDefaultState()), new SimpleBlockPlacer())).tries(256).build();
+	public static final BlockClusterFeatureConfig DUCKWEED_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(SwampExBlocks.DUCKWEED.get().getDefaultState()), new SimpleBlockPlacer())).tries(1024).build();
 
 	
 	public static final TreeFeatureConfig WILLOW_TREE_CONFIG = (
@@ -93,8 +93,8 @@ public class SwampExBiomeFeatures {
         biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, SwampExFeatures.RICE.withConfiguration(new NoFeatureConfig()).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(2))));
 	}
 	
-	public static void addDuckweed(Biome biome) {
-		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(DUCKWEED_CONFIG).withPlacement(Placement.COUNT_HEIGHTMAP_DOUBLE.configure(new FrequencyConfig(1))));
+	public static void addDuckweed(Biome biome, float chance) {
+		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(DUCKWEED_CONFIG).withPlacement(Placement.COUNT_EXTRA_HEIGHTMAP.configure(new AtSurfaceWithExtraConfig(0, chance, 1))));
 	}
 	
 	public static void addWillowTrees(Biome biome) {

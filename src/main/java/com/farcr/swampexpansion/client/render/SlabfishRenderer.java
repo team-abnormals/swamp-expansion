@@ -1,9 +1,5 @@
 package com.farcr.swampexpansion.client.render;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import com.farcr.swampexpansion.client.model.SlabfishModel;
 import com.farcr.swampexpansion.client.render.layer.BackpackOverlayRenderLayer;
 import com.farcr.swampexpansion.client.render.layer.BackpackRenderLayer;
@@ -12,24 +8,15 @@ import com.farcr.swampexpansion.client.render.layer.SweaterRenderLayer;
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.common.entity.SlabfishType;
 import com.farcr.swampexpansion.core.SwampExpansion;
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<SlabfishEntity, SlabfishEntity>> {	
-	private static final Map<List<String>, String> NAMES = Util.make(Maps.newHashMap(), (skins) -> {
-		skins.put(Arrays.asList("cameron", "cam", "cringe"), "cameron");
-		skins.put(Arrays.asList("bagel", "shyguy", "shy guy", "bagielo"), "bagel");
-		skins.put(Arrays.asList("gore", "gore.", "musicano"), "gore");
-		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), "snake");
-	});
-
 	public SlabfishRenderer(EntityRendererManager renderManager) {
 		super(renderManager, new SlabfishModel<>(), 0.3F);
 		this.addLayer(new SweaterRenderLayer<>(this));
@@ -40,22 +27,12 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 
 	@Override
 	public ResourceLocation getEntityTexture(SlabfishEntity slabby) {
-		String textureSuffix = "_" + slabby.getSlabfishType().getName();
-		
-		if(slabby.hasCustomName()) {
-			String name = slabby.getName().getString().toLowerCase().trim();
-			for(Map.Entry<List<String>, String> entries : NAMES.entrySet()) {
-				if(entries.getKey().contains(name)) {
-					textureSuffix = "_" + entries.getValue();
-				}
-			}
-		}
-		return new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/slabfish" + textureSuffix + ".png");
+		return new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/slabfish_" + slabby.getSlabfishVisibleType().getName() + ".png");
 	}
 	
 	@Override
 	protected RenderType func_230042_a_(SlabfishEntity slabfish, boolean p_230042_2_, boolean p_230042_3_) {
-		if (slabfish.getSlabfishType() == SlabfishType.GHOST) {
+		if (slabfish.getSlabfishVisibleType() == SlabfishType.GHOST) {
 			return RenderType.getEntityTranslucent(this.getEntityTexture(slabfish));
 		} else {
 			return super.func_230042_a_(slabfish, p_230042_2_, p_230042_3_);
