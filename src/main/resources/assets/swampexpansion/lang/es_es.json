@@ -43,6 +43,12 @@
 	"block.swampexpansion.rice": "Arroz",
 	"block.swampexpansion.tall_rice": "Arroz",
 	"item.swampexpansion.rice_ball": "Bola de arroz",
+
+	"block.swampexpansion.duckweed": "Lentejas de agua",
+	"block.swampexpansion.duckweed_thatch": "Paja de lentejas de agua",
+	"block.swampexpansion.duckweed_thatch_slab": "Losa de paja de lentejas de agua",
+	"block.swampexpansion.duckweed_thatch_stairs": "Escaleras de paja de lentejas de agua",
+	"block.swampexpansion.duckweed_thatch_vertical_slab": "Losa vertical de paja de lentejas de agua",
 	
 	"item.swampexpansion.slabfish_spawn_egg": "Generar pezlosa",
 	
