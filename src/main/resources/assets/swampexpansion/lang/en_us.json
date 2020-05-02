@@ -26,6 +26,7 @@
 	"block.swampexpansion.vertical_willow_planks": "Vertical Willow Planks",
 	"block.swampexpansion.willow_vertical_slab": "Willow Vertical Slab",
 	"block.swampexpansion.willow_leaf_carpet": "Willow Leaf Carpet",
+	"block.swampexpansion.potted_willow_sapling": "Potted Willow Sapling",
 	
 	"block.swampexpansion.cattail_sprouts": "Cattail Sprouts",
 	"block.swampexpansion.cattail": "Cattail",
@@ -87,6 +88,15 @@
 	
 	"advancements.adventure.find_natural_slabfish.title": "They Come in Different Colors!",
 	"advancements.adventure.find_natural_slabfish.description": "Find all natural Slabfish variants",
+	
+	"subtitles.entity.slabfish.burp": "Slabfish burps",
+	"subtitles.entity.slabfish.death": "Slabfish dies",
+	"subtitles.entity.slabfish.step": "Slabfish steps",
+	"subtitles.entity.slabfish.hurt": "Slabfish hurts",
+	"subtitles.entity.slabfish.eat": "Slabfish eats",
+	"subtitles.entity.slabfish.transform": "Slabfish transforms",
+	"subtitles.entity.slabfish.backpack": "Backpack equips",
+	"subtitles.entity.slabfish.sweater": "Sweater equips",
 	
 	"block.swampexpansion.mud": "Mud",
 	"fluid.swampexpansion.mud": "Mud"

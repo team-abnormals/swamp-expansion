@@ -29,8 +29,14 @@ public class DuckweedBlock extends BushBlock {
 		return DUCKWEED_AABB;
 	}
 
-	protected boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
+	@Override
+	public boolean isValidGround(BlockState state, IBlockReader worldIn, BlockPos pos) {
 		IFluidState ifluidstate = worldIn.getFluidState(pos);
 		return ifluidstate.getFluid() == Fluids.WATER;
+	}
+	
+	@Override
+	public net.minecraftforge.common.PlantType getPlantType(IBlockReader world, BlockPos pos) {
+		return net.minecraftforge.common.PlantType.Water;
 	}
 }

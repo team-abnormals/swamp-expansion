@@ -8,6 +8,7 @@ import com.farcr.swampexpansion.core.registries.SwampExData;
 import com.farcr.swampexpansion.core.registries.SwampExEntities;
 import com.farcr.swampexpansion.core.registries.SwampExFeatures;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
+import com.farcr.swampexpansion.core.registries.SwampExSounds;
 
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.fluid.IFluidState;
@@ -41,7 +42,7 @@ public class SwampExpansion {
         SwampExEntities.ENTITY_TYPES.register(modEventBus);
         SwampExBlocks.PAINTINGS.register(modEventBus);
         SwampExBiomes.BIOMES.register(modEventBus);
-
+        SwampExSounds.SOUNDS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         
         modEventBus.addListener(this::setupCommon);

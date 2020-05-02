@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.common.entity.SlabfishOverlay;
+import com.farcr.swampexpansion.common.entity.SlabfishType;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
@@ -14,6 +15,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.entity.projectile.SnowballEntity;
@@ -22,6 +24,7 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
@@ -34,6 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTables;
 import net.minecraft.world.storage.loot.TableLootEntry;
@@ -41,6 +45,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -116,6 +121,32 @@ public class SwampExEvents {
 		            		});
 		            	}
 		            }
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void SlabfishDeath(LivingDeathEvent event) {
+		if (event.getEntity() instanceof SlabfishEntity) {
+			SlabfishEntity entity = (SlabfishEntity)event.getEntity();
+			if (entity.getEntityWorld().getDimension().getType() == DimensionType.THE_NETHER) {
+				if (!entity.getEntityWorld().isRemote && entity.getSlabfishType() != SlabfishType.GHOST) {
+					SlabfishEntity ghost = SwampExEntities.SLABFISH.get().create(entity.world);					
+					ghost.addPotionEffect(new EffectInstance(Effects.LEVITATION, 140, 0, false, false));
+					ghost.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 140, 0, false, false));
+					entity.getEntityWorld().playSound(null, entity.getPosition(), SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, SoundCategory.NEUTRAL, 1, 1);
+					ghost.setPosition(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+					ghost.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, entity.rotationPitch);
+					ghost.setNoAI(((MobEntity) entity).isAIDisabled());
+		    		ghost.setGrowingAge(entity.getGrowingAge());
+		    		if(entity.hasCustomName()) {
+		    			ghost.setCustomName(entity.getCustomName());
+		    			ghost.setCustomNameVisible(entity.isCustomNameVisible());
+		    		}
+		    		ghost.setSlabfishType(SlabfishType.GHOST);
+					ghost.setFireTimer(0);
+					entity.getEntityWorld().addEntity(ghost);
 				}
 			}
 		}
