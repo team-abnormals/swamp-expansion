@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public final class MushroomMarshBiome extends Biome {
 	   public MushroomMarshBiome() {
-	      super((new Biome.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG).precipitation(Biome.RainType.RAIN).category(Biome.Category.SWAMP).depth(-0.115F).scale(0.0F).temperature(0.8F).downfall(0.9F).waterColor(6134398).waterFogColor(2569515).parent((String)null));
+	      super((new Biome.Builder()).surfaceBuilder(SurfaceBuilder.DEFAULT, SurfaceBuilder.GRASS_DIRT_GRAVEL_CONFIG).precipitation(Biome.RainType.RAIN).category(Biome.Category.SWAMP).depth(-0.25F).scale(0.0F).temperature(0.8F).downfall(0.9F).waterColor(6134398).waterFogColor(2569515).parent((String)null));
 	      this.addStructure(Feature.SWAMP_HUT.withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 	      this.addStructure(Feature.MINESHAFT.withConfiguration(new MineshaftConfig(0.004D, MineshaftStructure.Type.NORMAL)));
 	      DefaultBiomeFeatures.addCarvers(this);
@@ -28,6 +28,7 @@ public final class MushroomMarshBiome extends Biome {
 	      SwampExBiomeFeatures.addMarshVegetation(this);
 	      DefaultBiomeFeatures.addMushrooms(this);
 	      SwampExBiomeFeatures.addMarshMushrooms(this);
+	      SwampExBiomeFeatures.addDuckweed(this, 0.1F);
 	      DefaultBiomeFeatures.addExtraReedsAndPumpkins(this);
 	      DefaultBiomeFeatures.addTallGrass(this);
 	      DefaultBiomeFeatures.addVeryDenseGrass(this);

@@ -1,12 +1,8 @@
 package com.farcr.swampexpansion.client.render.layer;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
+import com.farcr.swampexpansion.common.entity.SlabfishType;
 import com.farcr.swampexpansion.core.SwampExpansion;
-import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 
@@ -18,15 +14,11 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class BackpackRenderLayer<E extends SlabfishEntity, M extends EntityModel<E>> extends LayerRenderer<E, M> {
-	private static final Map<List<String>, String> NAMES = Util.make(Maps.newHashMap(), (skins) -> {
-		skins.put(Arrays.asList("gore", "gore.", "musicano"), "gore");
-	});
 	
 	public BackpackRenderLayer(IEntityRenderer<E, M> entityRenderer) {
 		super(entityRenderer);
@@ -39,13 +31,8 @@ public class BackpackRenderLayer<E extends SlabfishEntity, M extends EntityModel
 		
 		String textureSuffix = slabby.getBackpackColor().getTranslationKey();
 		
-		if(slabby.hasCustomName()) {
-			String name = slabby.getName().getString().toLowerCase().trim();
-			for(Map.Entry<List<String>, String> entries : NAMES.entrySet()) {
-				if(entries.getKey().contains(name)) {
-					textureSuffix = entries.getValue();
-				}
-			}
+		if(slabby.getSlabfishType() == SlabfishType.SNAKE || slabby.getSlabfishType() == SlabfishType.GORE) {
+			textureSuffix = slabby.getSlabfishType().getName();
 		}
 		
 		ResourceLocation texture = new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/backpacks/backpack_" + textureSuffix + ".png");

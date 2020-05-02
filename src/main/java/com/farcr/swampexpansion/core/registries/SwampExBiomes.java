@@ -13,8 +13,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SwampExBiomes {
 	public static final DeferredRegister<Biome> BIOMES = new DeferredRegister<>(ForgeRegistries.BIOMES, "swampexpansion");
 
-	public static RegistryObject<Biome> MARSH = BIOMES.register("marsh", () -> new MarshBiome());
-	public static RegistryObject<Biome> MUSHROOM_MARSH = BIOMES.register("mushroom_marsh", () -> new MushroomMarshBiome());
+	public static final RegistryObject<Biome> MARSH = BIOMES.register("marsh", () -> new MarshBiome());
+	public static final RegistryObject<Biome> MUSHROOM_MARSH = BIOMES.register("mushroom_marsh", () -> new MushroomMarshBiome());
 
 	public static void registerBiomesToDictionary() {
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MARSH.get(), 7));
