@@ -331,19 +331,19 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			this.dropItem(SwampExItems.MUSIC_DISC_SLABRAVE.get());
 			return true;
 		} else if(HEALING_ITEMS.test(itemstack)) {
+			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
 			if (itemstack.isFood()) {
+				world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
 				if (this.getHealth() < this.getMaxHealth()) {
-					if (!player.abilities.isCreativeMode) {
-						itemstack.shrink(1);
-					}
-					world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
-					this.world.setEntityState(this, (byte)18);		
 					this.heal((float)item.getFood().getHealing());
-					return true;
+					this.particleCloud(ParticleTypes.COMPOSTER);
 				}
+				return true;
 			} else {
 				this.playBurpSound();
-				this.particleCloud(ParticleTypes.ANGRY_VILLAGER);
+				this.attackEntityFrom(DamageSource.STARVE, 3.0F);
+				this.particleCloud(ParticleTypes.SMOKE);
+				return true;
 			}
 			
 		} else if(SPEEDING_ITEMS.test(itemstack)) {
@@ -622,7 +622,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		super.setCustomName(name);
 		if (name != null && this.getSlabfishType() != SlabfishType.GHOST) {
 			for(Map.Entry<List<String>, SlabfishType> entries : NAMES.entrySet()) {
-				if(entries.getKey().contains(name.getString().toLowerCase().trim()) && this.getSlabfishType() != entries.getValue()) {
+				if(entries.getKey().contains(name.getString().toLowerCase().trim())) {
+					if (this.getSlabfishType() == entries.getValue()) {
+						return;
+					}
 					if (!NAMES.containsValue(this.getSlabfishType())) {
 						this.setPreNameType(this.getSlabfishType());
 					}
@@ -632,13 +635,12 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 					return;
 				}
 			}
-			if (this.getPreNameType() != null && this.getSlabfishType() != this.getPreNameType()) {
+			if (this.getSlabfishType() != this.getPreNameType()) {
 				this.setSlabfishType(this.getPreNameType());
 				this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 				this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 			}
 		}
-		this.setSlabfishType(this.getSlabfishType());
 	}
 	
 	public void onStruckByLightning(LightningBoltEntity lightningBolt) {
