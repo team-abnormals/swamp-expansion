@@ -31,8 +31,8 @@ public class BackpackRenderLayer<E extends SlabfishEntity, M extends EntityModel
 		
 		String textureSuffix = slabby.getBackpackColor().getTranslationKey();
 		
-		if(slabby.getSlabfishVisibleType() == SlabfishType.SNAKE || slabby.getSlabfishVisibleType() == SlabfishType.GORE) {
-			textureSuffix = slabby.getSlabfishVisibleType().getName();
+		if(slabby.getSlabfishType() == SlabfishType.SNAKE || slabby.getSlabfishType() == SlabfishType.GORE) {
+			textureSuffix = slabby.getSlabfishType().getName();
 		}
 		
 		ResourceLocation texture = new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/backpacks/backpack_" + textureSuffix + ".png");

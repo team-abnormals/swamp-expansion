@@ -131,7 +131,7 @@ public class SwampExEvents {
 		if (event.getEntity() instanceof SlabfishEntity) {
 			SlabfishEntity entity = (SlabfishEntity)event.getEntity();
 			if (entity.getEntityWorld().getDimension().getType() == DimensionType.THE_NETHER) {
-				if (!entity.getEntityWorld().isRemote && entity.getSlabfishRealType() != SlabfishType.GHOST) {
+				if (!entity.getEntityWorld().isRemote && entity.getSlabfishType() != SlabfishType.GHOST) {
 					SlabfishEntity ghost = SwampExEntities.SLABFISH.get().create(entity.world);					
 					ghost.addPotionEffect(new EffectInstance(Effects.LEVITATION, 140, 0, false, false));
 					ghost.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 140, 0, false, false));

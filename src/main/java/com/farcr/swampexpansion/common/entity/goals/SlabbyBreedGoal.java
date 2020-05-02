@@ -90,6 +90,7 @@ public class SlabbyBreedGoal extends Goal {
       if (this.animal.getLoveCause().getStats().getValue(Stats.CUSTOM.get(Stats.TIME_SINCE_REST)) >= 72000 && animal.world.isNightTime()) {
     	  if (rand.nextInt(4) == 0) slabby.setSlabfishType(SlabfishType.NIGHTMARE);
       }
+      slabby.setPreNameType(slabby.getSlabfishType());
       final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(animal, targetMate, slabby);
       final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
       slabby = (SlabfishEntity) event.getChild();

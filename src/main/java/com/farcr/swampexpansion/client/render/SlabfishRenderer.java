@@ -27,12 +27,12 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 
 	@Override
 	public ResourceLocation getEntityTexture(SlabfishEntity slabby) {
-		return new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/slabfish_" + slabby.getSlabfishVisibleType().getName() + ".png");
+		return new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/slabfish_" + slabby.getSlabfishType().getName() + ".png");
 	}
 	
 	@Override
 	protected RenderType func_230042_a_(SlabfishEntity slabfish, boolean p_230042_2_, boolean p_230042_3_) {
-		if (slabfish.getSlabfishVisibleType() == SlabfishType.GHOST) {
+		if (slabfish.getSlabfishType() == SlabfishType.GHOST) {
 			return RenderType.getEntityTranslucent(this.getEntityTexture(slabfish));
 		} else {
 			return super.func_230042_a_(slabfish, p_230042_2_, p_230042_3_);
