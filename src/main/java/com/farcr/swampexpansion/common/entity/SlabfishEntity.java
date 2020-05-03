@@ -609,12 +609,9 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		BlockPos pos = new BlockPos(this);
 		Biome biome = world.getBiome(pos);
 		
-		if (world.getBiome(pos).getCategory() == Biome.Category.NETHER && (parent1.getSlabfishType() == SlabfishType.SKELETON || parent1.getSlabfishType() == SlabfishType.WITHER) && (parent2.getSlabfishType() == SlabfishType.SKELETON || parent2.getSlabfishType() == SlabfishType.WITHER)) {
-	    	  return SlabfishType.WITHER;
-		}
-		
-		if (world.getBiome(pos).getCategory() == Biome.Category.ICY && (parent1.getSlabfishType() == SlabfishType.SKELETON || parent1.getSlabfishType() == SlabfishType.STRAY) && (parent2.getSlabfishType() == SlabfishType.SKELETON || parent2.getSlabfishType() == SlabfishType.STRAY)) {
-	    	  return SlabfishType.STRAY;
+		if (parent1.getSlabfishType() == SlabfishType.SKELETON && parent2.getSlabfishType() == SlabfishType.SKELETON) {
+			if (world.getDimension().getType() == DimensionType.THE_NETHER) return SlabfishType.WITHER;
+			if (world.getBiome(pos).getCategory() == Biome.Category.ICY) return SlabfishType.STRAY;
 		}
 		
 		if (this.getTypeForConditions(world) == SlabfishType.SWAMP && biome.getCategory() != Biome.Category.SWAMP) {
