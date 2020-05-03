@@ -9,6 +9,7 @@ import com.farcr.swampexpansion.core.registries.SwampExEntities;
 import com.farcr.swampexpansion.core.registries.SwampExFeatures;
 import com.farcr.swampexpansion.core.registries.SwampExItems;
 import com.farcr.swampexpansion.core.registries.SwampExSounds;
+import com.farcr.swampexpansion.core.registries.SwampExTileEntities;
 
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.fluid.IFluidState;
@@ -40,6 +41,7 @@ public class SwampExpansion {
         SwampExBlocks.BLOCKS.register(modEventBus);
         SwampExItems.ITEMS.register(modEventBus);
         SwampExEntities.ENTITY_TYPES.register(modEventBus);
+        SwampExTileEntities.TILE_ENTITIES.register(modEventBus);
         SwampExBlocks.PAINTINGS.register(modEventBus);
         SwampExBiomes.BIOMES.register(modEventBus);
         SwampExSounds.SOUNDS.register(modEventBus);

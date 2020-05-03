@@ -117,8 +117,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	protected SlabbySitGoal sitGoal;
 	
-	public static final EntitySize SIZE = EntitySize.fixed(0.6F, 0.2F);
-	public static final EntitySize SIZE_CHILD = EntitySize.fixed(0.3159F, 0.1125F);
+	public static final EntitySize SIZE_SWIMMING = EntitySize.fixed(0.75F, 0.25F);
+	public static final EntitySize SIZE_SITTING = EntitySize.fixed(0.5F, 0.625F);
+	public static final EntitySize SIZE_SWIMMING_CHILD = EntitySize.fixed(0.375F, 0.125F);
+	public static final EntitySize SIZE_SITTING_CHILD = EntitySize.fixed(0.25F, 0.3125F);
 	
 	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
 	private static final Ingredient HEALING_ITEMS = Ingredient.fromTag(ItemTags.FISHES);
@@ -139,7 +141,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		skins.put(Arrays.asList("cameron", "cam", "cringe"), SlabfishType.CAMERON);
 		skins.put(Arrays.asList("bagel", "shyguy", "shy guy", "bagielo"), SlabfishType.BAGEL);
 		skins.put(Arrays.asList("gore", "gore.", "musicano"), SlabfishType.GORE);
-		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), SlabfishType.SNAKE);
+		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), SlabfishType.SNAKE_BLOCK);
 	});
 	
 	public SlabfishEntity(EntityType<? extends SlabfishEntity> type, World worldIn) {
@@ -497,7 +499,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	@Override
 	public EntitySize getSize(Pose pose) {
-		return this.isInWater() ? this.isChild() ? SIZE_CHILD : SIZE : super.getSize(pose);
+		return this.isInWater() ? this.isChild() ? SIZE_SWIMMING_CHILD : SIZE_SWIMMING : this.isSitting() ? this.isChild() ? SIZE_SITTING_CHILD : SIZE_SITTING : super.getSize(pose);
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
@@ -564,18 +566,34 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if (DUNES.contains(biome)) return SlabfishType.DUNES;
 		if (POISE.contains(biome)) return SlabfishType.POISE;
 		
-		if (biome == Biomes.ICE_SPIKES) return SlabfishType.ICY;
+		if (biome == Biomes.ICE_SPIKES) return SlabfishType.ICE_SPIKES;
+		if (biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS) return SlabfishType.DARK_FOREST;
+		if (biome == Biomes.FLOWER_FOREST)  return SlabfishType.FLOWER_FOREST;
+		if (biome == Biomes.END_HIGHLANDS) return SlabfishType.CHORUS;
 		
-		if (biome.getCategory() == Biome.Category.OCEAN) return SlabfishType.OCEAN;
+		if (biome.getCategory() == Biome.Category.OCEAN) {
+			if (pos.getY() <= 60 && world.getFluidState(pos).getLevel() == 8) return SlabfishType.DROWNED;
+			else if (biome == Biomes.FROZEN_OCEAN || biome == Biomes.DEEP_FROZEN_OCEAN) return SlabfishType.FROZEN_OCEAN;
+			else if (biome == Biomes.WARM_OCEAN || biome == Biomes.DEEP_WARM_OCEAN) return SlabfishType.WARM_OCEAN;
+			else return SlabfishType.OCEAN;
+		}
+		
+		if (biome.getCategory() == Biome.Category.JUNGLE) {
+			if (biome == Biomes.BAMBOO_JUNGLE || biome == Biomes.BAMBOO_JUNGLE_HILLS) return SlabfishType.BAMBOO;
+			else return SlabfishType.JUNGLE;
+		}
+		
+		if (biome.getCategory() == Biome.Category.MUSHROOM) return SlabfishType.MUSHROOM;
 		if (biome.getCategory() == Biome.Category.RIVER) return SlabfishType.RIVER;
-		if (biome.getCategory() == Biome.Category.JUNGLE) return SlabfishType.JUNGLE;
+		if (biome.getCategory() == Biome.Category.BEACH) return SlabfishType.BEACH;
 		if (biome.getCategory() == Biome.Category.SAVANNA) return SlabfishType.SAVANNA;
 		if (biome.getCategory() == Biome.Category.MESA) return SlabfishType.MESA;
-		if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.SNOWY;
+		if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.ICY;
 		if (biome.getCategory() == Biome.Category.DESERT) return SlabfishType.DESERT;
 		if (biome.getCategory() == Biome.Category.TAIGA) return SlabfishType.TAIGA;
 		if (biome.getCategory() == Biome.Category.FOREST) return SlabfishType.FOREST;
 		if (biome.getCategory() == Biome.Category.PLAINS) return SlabfishType.PLAINS;
+		if (biome.getCategory() == Biome.Category.EXTREME_HILLS || biome == Biomes.STONE_SHORE) return SlabfishType.MOUNTAIN;
 		
 		if (world.getDimension().getType() == DimensionType.THE_NETHER) return SlabfishType.NETHER;
 		if (world.getDimension().getType() == DimensionType.THE_END) return SlabfishType.END;
