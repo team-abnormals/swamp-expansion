@@ -142,6 +142,8 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		skins.put(Arrays.asList("bagel", "shyguy", "shy guy", "bagielo"), SlabfishType.BAGEL);
 		skins.put(Arrays.asList("gore", "gore.", "musicano"), SlabfishType.GORE);
 		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), SlabfishType.SNAKE_BLOCK);
+		skins.put(Arrays.asList("jackson", "jason", "json"), SlabfishType.JACKSON);
+		skins.put(Arrays.asList("jub", "slabrave", "mista jub"), SlabfishType.MISTA_JUB);
 	});
 	
 	public SlabfishEntity(EntityType<? extends SlabfishEntity> type, World worldIn) {
@@ -559,6 +561,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		
 		if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
 		if (pos.getY() <= 20) return SlabfishType.CAVE;
+		if (pos.getY() >= 200) return SlabfishType.SKY;
 		
 		if (MARSH.contains(biome)) return SlabfishType.MARSH;
 		if (MAPLE.contains(biome)) return SlabfishType.MAPLE;
@@ -572,7 +575,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if (biome == Biomes.END_HIGHLANDS) return SlabfishType.CHORUS;
 		
 		if (biome.getCategory() == Biome.Category.OCEAN) {
-			if (pos.getY() <= 60 && world.getFluidState(pos).getLevel() == 8) return SlabfishType.DROWNED;
+			if (pos.getY() <= 50 && world.getFluidState(pos).getLevel() == 8) return SlabfishType.DROWNED;
 			else if (biome == Biomes.FROZEN_OCEAN || biome == Biomes.DEEP_FROZEN_OCEAN) return SlabfishType.FROZEN_OCEAN;
 			else if (biome == Biomes.WARM_OCEAN || biome == Biomes.DEEP_WARM_OCEAN) return SlabfishType.WARM_OCEAN;
 			else return SlabfishType.OCEAN;
@@ -588,7 +591,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if (biome.getCategory() == Biome.Category.BEACH) return SlabfishType.BEACH;
 		if (biome.getCategory() == Biome.Category.SAVANNA) return SlabfishType.SAVANNA;
 		if (biome.getCategory() == Biome.Category.MESA) return SlabfishType.MESA;
-		if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.ICY;
+		if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.SNOWY;
 		if (biome.getCategory() == Biome.Category.DESERT) return SlabfishType.DESERT;
 		if (biome.getCategory() == Biome.Category.TAIGA) return SlabfishType.TAIGA;
 		if (biome.getCategory() == Biome.Category.FOREST) return SlabfishType.FOREST;
@@ -661,8 +664,13 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public void onStruckByLightning(LightningBoltEntity lightningBolt) {
 		UUID uuid = lightningBolt.getUniqueID();
 		if (!uuid.equals(this.lightningUUID) && this.getSlabfishType() != SlabfishType.GHOST) {
-			this.setSlabfishType(SlabfishType.SKELETON);
-			this.setPreNameType(SlabfishType.SKELETON);
+			if (this.getSlabfishType() == SlabfishType.MUSHROOM) {
+				this.setSlabfishType(SlabfishType.BROWN_MUSHROOM);
+				this.setPreNameType(SlabfishType.BROWN_MUSHROOM);
+			} else {
+				this.setSlabfishType(SlabfishType.SKELETON);
+				this.setPreNameType(SlabfishType.SKELETON);
+			}
 			this.lightningUUID = uuid;
 			this.playSound(SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, 2.0F, 1.0F);
 		}	

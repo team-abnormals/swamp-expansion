@@ -15,7 +15,7 @@ public enum SlabfishType implements IStringSerializable {
 	DESERT(6, "desert"),
 	SAVANNA(7, "savanna"),
 	MESA(8, "mesa"),
-	ICY(9, "icy"),
+	SNOWY(9, "snowy"),
 	TOTEM(10, "totem"),
 	TAIGA(11, "taiga"),
 	FOREST(12, "forest"),
@@ -46,7 +46,11 @@ public enum SlabfishType implements IStringSerializable {
 	CHORUS(37, "chorus"),
 	DARK_FOREST(38, "dark_forest"),
 	FLOWER_FOREST(39, "flower_forest"),
-	BEACH(40, "beach");
+	BEACH(40, "beach"),
+	SKY(41, "sky"),
+	BROWN_MUSHROOM(42, "brown_mushroom"),
+	JACKSON(43, "jackson"),
+	MISTA_JUB(44, "mista_jub");
 
 	private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((array) -> {
 		return new SlabfishType[array];
