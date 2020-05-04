@@ -34,10 +34,10 @@
 	"block.swampexpansion.tall_cattail": "Pitkä osmankäämi",
 	"block.swampexpansion.potted_cattail": "Istutettu osmankäämi",
 	
-	"block.swampexpansion.cattail_thatch": "Osmankäämin olkikuutio",
-	"block.swampexpansion.cattail_thatch_slab": "Osmankäämin olkilaatta",
-	"block.swampexpansion.cattail_thatch_stairs": "Osmankäämin olkiportaat",
-	"block.swampexpansion.cattail_thatch_vertical_slab": "Pystysuora osmankäämin olkilaatta",
+	"block.swampexpansion.cattail_thatch": "Osmankäämikuutio",
+	"block.swampexpansion.cattail_thatch_slab": "Osmankäämilaatta",
+	"block.swampexpansion.cattail_thatch_stairs": "Osmankäämiportaat",
+	"block.swampexpansion.cattail_thatch_vertical_slab": "Pystysuora osmankäämilaatta",
 	"block.swampexpansion.cattail_seed_sack": "Osmankäämin siemensäkki",
 	"item.swampexpansion.cattail_seeds": "Osmankäämin siemenet",
 	
