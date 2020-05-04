@@ -31,7 +31,7 @@ public class SwampExEntities
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = new DeferredRegister<>(ForgeRegistries.ENTITIES, "swampexpansion");
 	
 	public static final RegistryObject<EntityType<WillowBoatEntity>> BOAT = ENTITY_TYPES.register("boat", () -> createEntity(WillowBoatEntity::new, null, EntityClassification.MISC, "boat", 1.375F, 0.5625F));
-	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = ENTITY_TYPES.register("slabfish", () -> createLivingEntity(SlabfishEntity::new, EntityClassification.WATER_CREATURE, "slabfish", 0.5F, 0.9F));
+	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = ENTITY_TYPES.register("slabfish", () -> createLivingEntity(SlabfishEntity::new, EntityClassification.WATER_CREATURE, "slabfish", 0.5F, 0.9375F));
 
     
     @OnlyIn(Dist.CLIENT)

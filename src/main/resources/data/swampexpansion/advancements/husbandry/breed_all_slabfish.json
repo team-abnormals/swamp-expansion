@@ -25,7 +25,7 @@
     "desert": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:6}"}}},
     "savanna": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:7}"}}},
     "mesa": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:8}"}}},
-    "snowy": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:9}"}}},
+    "icy": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:9}"}}},
     "totem": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:10}"}}},
     "taiga": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:11}"}}},
     "forest": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:12}"}}},
@@ -34,10 +34,20 @@
     "wither": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:15}"}}},
     "river": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:16}"}}},
     "horror": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:20}"}}},
-    "icy": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:21}"}}},
+    "ice_spikes": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:21}"}}},
     "stray": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:22}"}}},
     "nether": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:23}"}}},
     "end": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:24}"}}},
-    "ghost": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:26}"}}}
+    "ghost": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:26}"}}},
+    "drowned": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:31}"}}},
+    "frozen_ocean": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:32}"}}},
+    "warm_ocean": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:33}"}}},
+    "mountain": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:34}"}}},
+    "mushroom": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:35}"}}},
+    "bamboo": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:36}"}}},
+    "chorus": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:37}"}}},
+    "dark_forest": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:38}"}}},
+    "flower_forest": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:39}"}}},
+    "beach": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:40}"}}}
   }
 }
