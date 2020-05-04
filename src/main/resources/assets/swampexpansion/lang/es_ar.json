@@ -4,6 +4,7 @@
 	"block.swampexpansion.mud_brick_stairs": "Escaleras de ladrillos de barro",
 	"block.swampexpansion.mud_brick_wall": "Pared de ladrillos de barro",
 	"block.swampexpansion.mud_brick_vertical_slab": "Baldosa vertical de ladrillos de barro",
+	"block.swampexpansion.mud_vase": "Jarrón de barro",
 	
 	"block.swampexpansion.willow_planks": "Madera de sauce",
 	"block.swampexpansion.willow_slab": "Baldosa de sauce",
@@ -26,6 +27,7 @@
 	"block.swampexpansion.vertical_willow_planks": "Madera vertical de sauce",
 	"block.swampexpansion.willow_vertical_slab": "Baldosa vertical de sauce",
 	"block.swampexpansion.willow_leaf_carpet": "Alfombra de hojas de sauce",
+	"block.swampexpansion.potted_willow_sapling": "Maceta con brote de sauce",
 	
 	"block.swampexpansion.cattail_sprouts": "Brotes de totora",
 	"block.swampexpansion.cattail": "Totora",
@@ -88,6 +90,15 @@
 	"advancements.adventure.find_natural_slabfish.title": "¡Vienen en distintos colores!",
 	"advancements.adventure.find_natural_slabfish.description": "Encontrá todas los tipos naturales de pezlosa.",
 
+	"subtitles.entity.slabfish.burp": "Pezlosa eructa",
+	"subtitles.entity.slabfish.death": "Pezlosa muere",
+	"subtitles.entity.slabfish.step": "Pasos de pezlosa",
+	"subtitles.entity.slabfish.hurt": "Pezlosa herido",
+	"subtitles.entity.slabfish.eat": "Pezlosa come",
+	"subtitles.entity.slabfish.transform": "Pezlosa se transforma",
+	"subtitles.entity.slabfish.backpack": "Mochila equipada",
+	"subtitles.entity.slabfish.sweater": "Suéter equipado",
+	
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro"
 }
