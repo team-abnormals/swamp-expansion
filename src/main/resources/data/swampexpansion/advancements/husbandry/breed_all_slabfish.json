@@ -48,6 +48,8 @@
     "chorus": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:37}"}}},
     "dark_forest": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:38}"}}},
     "flower_forest": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:39}"}}},
-    "beach": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:40}"}}}
+    "beach": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:40}"}}},
+    "sky": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:41}"}}},
+    "brown_mushroom": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:42}"}}}
   }
 }
