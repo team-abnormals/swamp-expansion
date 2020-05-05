@@ -155,9 +155,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	protected void registerAttributes() {
 		super.registerAttributes();
-		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16.0D);
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
 		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+		this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.0D);
 	}
 
 	protected void registerGoals() {
@@ -173,7 +174,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.goalSelector.addGoal(4, new SlabbyBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new SlabbyGrabItemGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, false));
+		this.goalSelector.addGoal(7, new SlabfishAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(8, new SlabbyFollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(9, new RandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 6.0F));
@@ -910,18 +911,13 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		public boolean shouldExecute() {
 			if (super.shouldExecute()) {
 		  		boolean flag = false;
-				List<String> musicano = Arrays.asList("gore", "gore.", "musicano");
-		  		List<String> snake = Arrays.asList("snake", "snakeblock", "snake block");
 		  		
-		  		SlabfishEntity slabby = (SlabfishEntity)this.goalOwner; 
-		  		SlabfishEntity target = (SlabfishEntity)this.nearestTarget;
+		  		SlabfishType slabby = ((SlabfishEntity)this.goalOwner).getSlabfishType(); 
+		  		SlabfishType target = ((SlabfishEntity)this.nearestTarget).getSlabfishType();
 		  		
-		  		if (target != null && slabby.hasCustomName() && target.hasCustomName()) {
-					String name 		= slabby.getName().getString().toLowerCase().trim();
-	  				String targetName 	= target.getName().getString().toLowerCase().trim();
-	  				
-		  			if (musicano.contains(name) && snake.contains(targetName)) flag = true;	  			
-		  			else if (snake.contains(name) && musicano.contains(targetName)) flag = true;
+		  		if (target != null) {
+		  			if (slabby == SlabfishType.GORE && target == SlabfishType.SNAKE_BLOCK) flag = true;	  			
+		  			else if (slabby == SlabfishType.SNAKE_BLOCK && target == SlabfishType.GORE) flag = true;
 		  		}
 		  		return flag;
 			}
@@ -931,6 +927,18 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		public void startExecuting() {
 			super.startExecuting();
 			this.goalOwner.setIdleTime(0);
+		}
+	}
+	
+	static class SlabfishAttackGoal extends MeleeAttackGoal {
+		
+		public SlabfishAttackGoal(SlabfishEntity slabfish, double speedIn, boolean useLongMemory) {
+			super(slabfish, speedIn, useLongMemory);
+		}
+		
+		@Override
+		protected double getAttackReachSqr(LivingEntity attackTarget) {
+			return super.getAttackReachSqr(attackTarget) * 0.55F;
 		}
 	}
 	
