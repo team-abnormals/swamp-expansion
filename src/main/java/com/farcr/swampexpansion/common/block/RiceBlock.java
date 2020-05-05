@@ -59,7 +59,8 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
         return false;
     }
 
-    public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
+    @SuppressWarnings("deprecation")
+	public void placeAt(IWorld worldIn, BlockPos pos, int flags) {
     	Random rand = new Random();
     	int type = rand.nextInt(7);
     	
@@ -68,7 +69,7 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
     	BlockState tall_down = SwampExBlocks.TALL_RICE.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.LOWER);
     	
     	boolean waterlogged = worldIn.hasWater(pos);
-    	if (type != 0) {
+    	if (type != 0 || !worldIn.getBlockState(pos.up()).isAir()) {
     		worldIn.setBlockState(pos, rice.with(WATERLOGGED, waterlogged).with(AGE, 3 + rand.nextInt(3)), flags);
     	} else {
     		int age = 6 + rand.nextInt(2);
@@ -90,10 +91,11 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
 		return this.getDefaultState().with(WATERLOGGED, flag);
 	}
     
-    public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
+    @SuppressWarnings("deprecation")
+	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
     	int newAge = state.get(AGE) + MathHelper.nextInt(worldIn.rand, 2, 5);
     	if (newAge > 7) newAge = 7 ;
-    	if (newAge <= 5) {
+    	if (newAge <= 5 || !worldIn.getBlockState(pos.up()).isAir()) {
     		worldIn.setBlockState(pos, state.with(AGE, newAge));
     	} else {
     		DoubleRiceBlock doubleplantblock = (DoubleRiceBlock)(SwampExBlocks.TALL_RICE.get());
@@ -104,8 +106,6 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
     	}
     	
      }
-    
-    
     
     @SuppressWarnings("deprecation")
     @Override
@@ -132,10 +132,9 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
 		return false;
 	}
 
-    @SuppressWarnings("deprecation")
 	@Override
     public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-    	return this.isValidGround(world.getBlockState(pos.down()), world, pos) && world.getBlockState(pos.up()).isAir();
+    	return this.isValidGround(world.getBlockState(pos.down()), world, pos);
     }
     
     @SuppressWarnings("deprecation")
