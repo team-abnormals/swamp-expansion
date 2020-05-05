@@ -174,7 +174,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.goalSelector.addGoal(4, new SlabbyBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new SlabbyGrabItemGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(7, new SlabfishAttackGoal(this, 1.0D, false));
+		this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(8, new SlabbyFollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(9, new RandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 6.0F));
@@ -641,6 +641,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public void setCustomName(@Nullable ITextComponent name) {
 		super.setCustomName(name);
 		if (name != null && this.getSlabfishType() != SlabfishType.GHOST) {
+			super.setCustomName(name);
 			for(Map.Entry<List<String>, SlabfishType> entries : NAMES.entrySet()) {
 				if(entries.getKey().contains(name.getString().toLowerCase().trim())) {
 					if (this.getSlabfishType() == entries.getValue()) {
@@ -649,9 +650,11 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 					if (!NAMES.containsValue(this.getSlabfishType())) {
 						this.setPreNameType(this.getSlabfishType());
 					}
+					if (this.getSlabfishType() != entries.getValue()) {
+						this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+						this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
+					}
 					this.setSlabfishType(entries.getValue());
-					this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-					this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 					return;
 				}
 			}
@@ -927,18 +930,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		public void startExecuting() {
 			super.startExecuting();
 			this.goalOwner.setIdleTime(0);
-		}
-	}
-	
-	static class SlabfishAttackGoal extends MeleeAttackGoal {
-		
-		public SlabfishAttackGoal(SlabfishEntity slabfish, double speedIn, boolean useLongMemory) {
-			super(slabfish, speedIn, useLongMemory);
-		}
-		
-		@Override
-		protected double getAttackReachSqr(LivingEntity attackTarget) {
-			return super.getAttackReachSqr(attackTarget) * 0.55F;
 		}
 	}
 	
