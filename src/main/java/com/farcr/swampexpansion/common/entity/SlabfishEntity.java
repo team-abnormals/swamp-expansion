@@ -424,7 +424,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 		this.wingRotDelta = (float)((double)this.wingRotDelta * 0.9D);
 		Vec3d vec3d = this.getMotion();
-		if (!this.onGround && vec3d.y < 0.0D && !this.inWater) {
+		if (!this.onGround && vec3d.y < 0.0D) {
 			this.setMotion(vec3d.mul(1.0D, 0.6D, 1.0D));
 		}
 
@@ -526,7 +526,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	protected float getWaterSlowDown() {
-		return 0.95F;
+		return 0.96F;
 	}
 	
 	// SLABFISH TYPE //

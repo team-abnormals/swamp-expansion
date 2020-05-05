@@ -124,13 +124,13 @@ public class SlabfishModel<T extends SlabfishEntity, E> extends AgeableModel<T> 
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     	this.entity = entityIn;
     	
-        this.rightLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leftLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.rightLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F) * 1.5F * limbSwingAmount;
+        this.leftLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.5F * limbSwingAmount;
         this.rightArm.rotateAngleZ = ageInTicks;
         this.leftArm.rotateAngleZ = -ageInTicks;
         
-        this.rightLegSwimming.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leftLegSwimming.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.rightLegSwimming.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.7F * limbSwingAmount;
+        this.leftLegSwimming.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.7F * limbSwingAmount;
         this.rightArmSwimming.rotateAngleZ = ageInTicks;
         this.leftArmSwimming.rotateAngleZ = -ageInTicks;
     }
