@@ -145,6 +145,8 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		skins.put(Arrays.asList("jackson", "jason", "json"), SlabfishType.JACKSON);
 		skins.put(Arrays.asList("jub", "slabrave", "mista jub"), SlabfishType.MISTA_JUB);
 		skins.put(Arrays.asList("smelly", "stinky", "smellysox", "thefaceofgaming"), SlabfishType.SMELLY);
+		skins.put(Arrays.asList("meme man", "slaughter"), SlabfishType.SLAUGHTER);
+
 	});
 	
 	public SlabfishEntity(EntityType<? extends SlabfishEntity> type, World worldIn) {
