@@ -21,4 +21,5 @@ public class BlockProperties {
     public static final Block.Properties CATTAIL = Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.0F).doesNotBlockMovement().tickRandomly().sound(SoundType.WET_GRASS);
     public static final Block.Properties RICE = Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.0F).doesNotBlockMovement().tickRandomly().sound(SoundType.CROP);
     public static final Block.Properties DUCKWEED = Block.Properties.create(Material.PLANTS).hardnessAndResistance(0.0F).doesNotBlockMovement().sound(SoundType.CROP);
+    public static final Block.Properties THATCH = Block.Properties.create(Material.ORGANIC, MaterialColor.GREEN).hardnessAndResistance(0.5F).sound(SoundType.PLANT).harvestTool(ToolType.AXE);
 }

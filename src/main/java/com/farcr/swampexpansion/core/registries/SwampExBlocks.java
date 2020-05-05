@@ -11,18 +11,20 @@ import com.farcr.swampexpansion.common.block.LadderBlock;
 import com.farcr.swampexpansion.common.block.LeafCarpetBlock;
 import com.farcr.swampexpansion.common.block.MudVaseBlock;
 import com.farcr.swampexpansion.common.block.RiceBlock;
-import com.farcr.swampexpansion.common.block.ThatchBlock;
 import com.farcr.swampexpansion.common.block.VerticalSlabBlock;
 import com.farcr.swampexpansion.common.block.WillowButtonBlock;
 import com.farcr.swampexpansion.common.block.WillowSaplingBlock;
 import com.farcr.swampexpansion.common.block.fluid.MudFluidBlock;
+import com.farcr.swampexpansion.common.block.thatch.ThatchBlock;
+import com.farcr.swampexpansion.common.block.thatch.ThatchSlabBlock;
+import com.farcr.swampexpansion.common.block.thatch.ThatchStairsBlock;
+import com.farcr.swampexpansion.common.block.thatch.ThatchVerticalSlabBlock;
 import com.farcr.swampexpansion.common.world.gen.feature.trees.WillowTree;
 import com.farcr.swampexpansion.core.util.BlockProperties;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.Properties;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.FenceBlock;
 import net.minecraft.block.FenceGateBlock;
@@ -39,7 +41,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.item.ItemGroup;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -90,20 +91,20 @@ public class SwampExBlocks {
 	public static final RegistryObject<Block> POTTED_CATTAIL		= RegistryUtils.createBlockNoItem("potted_cattail",	() -> new FlowerPotBlock(SwampExBlocks.CATTAIL.get(), BlockProperties.FLOWER_POT));
 	public static final RegistryObject<Block> CATTAIL_SEED_SACK		= RegistryUtils.createBlockCompat("quark", "cattail_seed_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
-	public static final RegistryObject<Block> CATTAIL_THATCH 				= RegistryUtils.createBlock("cattail_thatch", () -> new ThatchBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CATTAIL_THATCH_SLAB     		= RegistryUtils.createBlock("cattail_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CATTAIL_THATCH_STAIRS   		= RegistryUtils.createBlock("cattail_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK).notSolid()), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CATTAIL_THATCH 				= RegistryUtils.createBlock("cattail_thatch", () -> new ThatchBlock(BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CATTAIL_THATCH_SLAB     		= RegistryUtils.createBlock("cattail_thatch_slab", () -> new ThatchSlabBlock(BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CATTAIL_THATCH_STAIRS   		= RegistryUtils.createBlock("cattail_thatch_stairs", () -> new ThatchStairsBlock(CATTAIL_THATCH.get().getDefaultState(), BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> CATTAIL_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","cattail_thatch_vertical_slab", () -> new ThatchVerticalSlabBlock(BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
 	
 	public static final RegistryObject<Block> RICE 		= RegistryUtils.createBlockNoItem("rice", () -> new RiceBlock(BlockProperties.RICE));
 	public static final RegistryObject<Block> TALL_RICE = RegistryUtils.createBlockNoItem("tall_rice", () -> new DoubleRiceBlock(BlockProperties.RICE));
 	public static final RegistryObject<Block> RICE_SACK	= RegistryUtils.createBlockCompat("quark", "rice_sack", () -> new Block(Block.Properties.create(Material.WOOL, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(0.5F).sound(SoundType.CLOTH)), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> DUCKWEED 						= RegistryUtils.createDuckweed("duckweed", () -> new DuckweedBlock(BlockProperties.DUCKWEED), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> DUCKWEED_THATCH          		= RegistryUtils.createBlock("duckweed_thatch", () -> new ThatchBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> DUCKWEED_THATCH_SLAB     		= RegistryUtils.createBlock("duckweed_thatch_slab", () -> new SlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> DUCKWEED_THATCH_STAIRS   		= RegistryUtils.createBlock("duckweed_thatch_stairs", () -> new StairsBlock(CATTAIL_THATCH.get().getDefaultState(), Properties.from(Blocks.HAY_BLOCK).notSolid()), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> DUCKWEED_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","duckweed_thatch_vertical_slab", () -> new VerticalSlabBlock(Properties.from(Blocks.HAY_BLOCK).notSolid().harvestTool(ToolType.AXE)), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH          		= RegistryUtils.createBlock("duckweed_thatch", () -> new ThatchBlock(BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH_SLAB     		= RegistryUtils.createBlock("duckweed_thatch_slab", () -> new ThatchSlabBlock(BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH_STAIRS   		= RegistryUtils.createBlock("duckweed_thatch_stairs", () -> new ThatchStairsBlock(CATTAIL_THATCH.get().getDefaultState(), BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> DUCKWEED_THATCH_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark","duckweed_thatch_vertical_slab", () -> new ThatchVerticalSlabBlock(BlockProperties.THATCH), ItemGroup.BUILDING_BLOCKS);
 
 	public static final RegistryObject<PaintingType> SNAKE_BLOCK 			= PAINTINGS.register("snake_block", () -> new PaintingType(32, 32));
 	public static final RegistryObject<PaintingType> SOMETHING_IN_THE_WATER = PAINTINGS.register("something_in_the_water", () -> new PaintingType(48, 32));
