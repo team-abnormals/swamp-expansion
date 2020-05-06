@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.registry;
 
 import com.farcr.swampexpansion.common.world.biome.SwampExBiomeFeatures;
 import com.farcr.swampexpansion.common.world.gen.feature.CattailsFeature;
@@ -19,10 +19,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SwampExFeatures {
 	
-	public static Feature<NoFeatureConfig> CATTAILS 		= new CattailsFeature(NoFeatureConfig::deserialize);
-	public static Feature<NoFeatureConfig> DENSE_CATTAILS 	= new DenseCattailsFeature(NoFeatureConfig::deserialize);
-	public static Feature<NoFeatureConfig> RICE 			= new RiceFeature(NoFeatureConfig::deserialize);
-	public static Feature<TreeFeatureConfig> WILLOW_TREE 	= new WillowTreeFeature(TreeFeatureConfig::func_227338_a_);
+	public static final Feature<NoFeatureConfig> CATTAILS 		= new CattailsFeature(NoFeatureConfig::deserialize);
+	public static final Feature<NoFeatureConfig> DENSE_CATTAILS 	= new DenseCattailsFeature(NoFeatureConfig::deserialize);
+	public static final Feature<NoFeatureConfig> RICE 			= new RiceFeature(NoFeatureConfig::deserialize);
+	public static final Feature<TreeFeatureConfig> WILLOW_TREE 	= new WillowTreeFeature(TreeFeatureConfig::func_227338_a_);
 
     @SubscribeEvent
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {

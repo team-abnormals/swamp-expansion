@@ -1,5 +1,6 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.other;
 
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;

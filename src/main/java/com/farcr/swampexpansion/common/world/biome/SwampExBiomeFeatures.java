@@ -3,8 +3,8 @@ package com.farcr.swampexpansion.common.world.biome;
 import java.util.List;
 
 import com.farcr.swampexpansion.common.world.gen.treedecorator.HangingWillowLeavesTreeDecorator;
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExFeatures;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExFeatures;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.BlockState;

@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.registry;
 
 import java.util.function.BiFunction;
 

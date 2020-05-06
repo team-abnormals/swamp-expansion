@@ -3,7 +3,7 @@ package com.farcr.swampexpansion.common.block;
 import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.common.tile.MudVaseTileEntity;
-import com.farcr.swampexpansion.core.registries.SwampExTileEntities;
+import com.farcr.swampexpansion.core.registry.SwampExTileEntities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;

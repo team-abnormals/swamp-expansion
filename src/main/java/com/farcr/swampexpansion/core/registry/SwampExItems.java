@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.registry;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.common.item.SwampExMusicDiscItem;
 import com.farcr.swampexpansion.common.item.WillowBoatItem;
+import com.farcr.swampexpansion.core.other.SwampExFoods;
 import com.farcr.swampexpansion.core.util.RegistryUtils;
 import com.google.common.collect.Lists;
 

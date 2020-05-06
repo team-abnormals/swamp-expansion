@@ -1,7 +1,7 @@
 package com.farcr.swampexpansion.common.world.gen.feature;
 
 import com.farcr.swampexpansion.common.block.CattailBlock;
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;

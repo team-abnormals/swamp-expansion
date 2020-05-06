@@ -1,6 +1,7 @@
 package com.farcr.swampexpansion.common.block;
 
-import com.farcr.swampexpansion.core.util.BlockProperties;
+import com.farcr.swampexpansion.core.other.SwampExProperties;
+
 import net.minecraft.block.AbstractButtonBlock;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -9,7 +10,7 @@ import net.minecraft.world.IWorldReader;
 public class WillowButtonBlock extends AbstractButtonBlock {
 
     public WillowButtonBlock() {
-        super(true, BlockProperties.WILLOW_BUTTON);
+        super(true, SwampExProperties.WILLOW_BUTTON);
     }
 
     @Override

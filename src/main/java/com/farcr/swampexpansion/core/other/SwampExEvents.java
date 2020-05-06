@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.other;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,7 @@ import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.common.entity.SlabfishOverlay;
 import com.farcr.swampexpansion.common.entity.SlabfishType;
 import com.farcr.swampexpansion.core.SwampExpansion;
+import com.farcr.swampexpansion.core.registry.SwampExEntities;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
