@@ -145,6 +145,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		skins.put(Arrays.asList("jackson", "jason", "json"), SlabfishType.JACKSON);
 		skins.put(Arrays.asList("jub", "slabrave", "mista jub"), SlabfishType.MISTA_JUB);
 		skins.put(Arrays.asList("smelly", "stinky", "smellysox", "thefaceofgaming"), SlabfishType.SMELLY);
+		skins.put(Arrays.asList("squart", "squar", "squarticus"), SlabfishType.SQUART);
 	});
 	
 	public SlabfishEntity(EntityType<? extends SlabfishEntity> type, World worldIn) {
@@ -650,20 +651,19 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 					if (!NAMES.containsValue(this.getSlabfishType())) {
 						this.setPreNameType(this.getSlabfishType());
 					}
-					if (this.getSlabfishType() != entries.getValue()) {
-						this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-						this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
-					}
 					this.setSlabfishType(entries.getValue());
 					return;
 				}
 			}
 			if (this.getSlabfishType() != this.getPreNameType()) {
 				this.setSlabfishType(this.getPreNameType());
-				this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-				this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 			}
 		}
+	}
+	
+	public void playTransformSound() {
+		this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+		this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 	}
 	
 	public void onStruckByLightning(LightningBoltEntity lightningBolt) {

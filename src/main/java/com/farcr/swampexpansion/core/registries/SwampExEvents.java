@@ -15,6 +15,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
@@ -46,6 +47,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -121,6 +123,22 @@ public class SwampExEvents {
 		            		});
 		            	}
 		            }
+				}
+			}
+		}
+	}
+	
+	@SubscribeEvent
+	public static void onInteractWithEntity(PlayerInteractEvent.EntityInteract event){
+		ItemStack stack = event.getItemStack();
+		Entity target = event.getTarget();
+		if (target instanceof SlabfishEntity && stack.getItem() == Items.NAME_TAG) {
+			SlabfishEntity slabby = (SlabfishEntity)event.getTarget();
+			if (stack.hasDisplayName()) {
+				if (slabby.hasCustomName() && slabby.getCustomName() != stack.getDisplayName()) {
+					slabby.playTransformSound();
+				} else if (!slabby.hasCustomName()) {
+					slabby.playTransformSound();
 				}
 			}
 		}
