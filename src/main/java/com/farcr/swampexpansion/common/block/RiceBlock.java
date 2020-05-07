@@ -32,8 +32,9 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.IPlantable;
 
-public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
+public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable, IPlantable {
 	protected static final VoxelShape SHAPE_SHORT = Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D);
 	protected static final VoxelShape SHAPE_MEDIUM = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 8.0D, 14.0D);
 	protected static final VoxelShape SHAPE_TALL = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 13.0D, 14.0D);
@@ -163,5 +164,10 @@ public class RiceBlock extends BushBlock implements IWaterLoggable, IGrowable {
 	@Override
 	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
 		return true;
+	}
+	
+	@Override
+	public BlockState getPlant(IBlockReader world, BlockPos pos) {
+		return SwampExBlocks.RICE.get().getDefaultState();
 	}
 }

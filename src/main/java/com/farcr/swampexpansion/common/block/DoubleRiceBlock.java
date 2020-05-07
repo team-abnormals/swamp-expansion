@@ -44,8 +44,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.IPlantable;
 
-public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable {
+public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable, IPlantable {
 	public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty FAKE_WATERLOGGED = BooleanProperty.create("fake_waterlogged");
@@ -215,5 +216,9 @@ public class DoubleRiceBlock extends Block implements IGrowable, IWaterLoggable 
 	@OnlyIn(Dist.CLIENT)
 	public long getPositionRandom(BlockState state, BlockPos pos) {
 		return MathHelper.getCoordinateRandom(pos.getX(), pos.down(state.get(HALF) == DoubleBlockHalf.LOWER ? 0 : 1).getY(), pos.getZ());
+	}
+	@Override
+	public BlockState getPlant(IBlockReader world, BlockPos pos) {
+		return SwampExBlocks.TALL_RICE.get().getDefaultState();
 	}
 }

@@ -129,6 +129,31 @@ public class SwampExEvents {
 		}
 	}
 	
+//	@SubscribeEvent
+//	public static void bonemealLilypad(RightClickBlock event) {
+//		BlockPos blockPos = event.getPos();
+//		Random random = new Random();
+//		World world = event.getWorld();
+//		BlockState state = world.getBlockState(blockPos);
+//		if (state.getBlock() == Blocks.LILY_PAD && event.getItemStack().getItem() == Items.BONE_MEAL) {
+//            if (!event.getPlayer().abilities.isCreativeMode) event.getItemStack().shrink(1);
+//			event.getPlayer().swingArm(event.getHand());
+//            BoneMealItem.spawnBonemealParticles(world, blockPos, 2);
+//            
+//			label:
+//				for(int x = 0; x < 64; ++x) {
+//					BlockPos newBlockPos = blockPos;
+//					for(int y = 0; y < x / 16; ++y) {
+//						newBlockPos = newBlockPos.add(random.nextInt(3) - 1, 0, random.nextInt(3) - 1);
+//	                    if (state.isValidPosition(world, newBlockPos) && world.isAirBlock(newBlockPos)) {
+//	                        world.setBlockState(newBlockPos, state);
+//	                        break label;
+//	                    }
+//	                }
+//	            }
+//		}
+//	}
+	
 	@SubscribeEvent
 	public static void onInteractWithEntity(PlayerInteractEvent.EntityInteract event){
 		ItemStack stack = event.getItemStack();
