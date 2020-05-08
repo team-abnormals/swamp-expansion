@@ -13,13 +13,13 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
-import com.farcr.swampexpansion.core.registries.SwampExBiomes;
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExCriteriaTriggers;
-import com.farcr.swampexpansion.core.registries.SwampExEntities;
-import com.farcr.swampexpansion.core.registries.SwampExItems;
-import com.farcr.swampexpansion.core.registries.SwampExSounds;
-import com.farcr.swampexpansion.core.registries.SwampExTags;
+import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
+import com.farcr.swampexpansion.core.other.SwampExTags;
+import com.farcr.swampexpansion.core.registry.SwampExBiomes;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExEntities;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
+import com.farcr.swampexpansion.core.registry.SwampExSounds;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.BlockState;
@@ -145,6 +145,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		skins.put(Arrays.asList("jackson", "jason", "json"), SlabfishType.JACKSON);
 		skins.put(Arrays.asList("jub", "slabrave", "mista jub"), SlabfishType.MISTA_JUB);
 		skins.put(Arrays.asList("smelly", "stinky", "smellysox", "thefaceofgaming"), SlabfishType.SMELLY);
+		skins.put(Arrays.asList("squart", "squar", "squarticus"), SlabfishType.SQUART);
 	});
 	
 	public SlabfishEntity(EntityType<? extends SlabfishEntity> type, World worldIn) {
@@ -174,7 +175,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.goalSelector.addGoal(4, new SlabbyBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new SlabbyGrabItemGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(7, new SlabfishAttackGoal(this, 1.0D, false));
+		this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(8, new SlabbyFollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(9, new RandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 6.0F));
@@ -641,6 +642,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public void setCustomName(@Nullable ITextComponent name) {
 		super.setCustomName(name);
 		if (name != null && this.getSlabfishType() != SlabfishType.GHOST) {
+			super.setCustomName(name);
 			for(Map.Entry<List<String>, SlabfishType> entries : NAMES.entrySet()) {
 				if(entries.getKey().contains(name.getString().toLowerCase().trim())) {
 					if (this.getSlabfishType() == entries.getValue()) {
@@ -650,17 +652,18 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 						this.setPreNameType(this.getSlabfishType());
 					}
 					this.setSlabfishType(entries.getValue());
-					this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-					this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 					return;
 				}
 			}
 			if (this.getSlabfishType() != this.getPreNameType()) {
 				this.setSlabfishType(this.getPreNameType());
-				this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-				this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 			}
 		}
+	}
+	
+	public void playTransformSound() {
+		this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+		this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 	}
 	
 	public void onStruckByLightning(LightningBoltEntity lightningBolt) {
@@ -927,18 +930,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		public void startExecuting() {
 			super.startExecuting();
 			this.goalOwner.setIdleTime(0);
-		}
-	}
-	
-	static class SlabfishAttackGoal extends MeleeAttackGoal {
-		
-		public SlabfishAttackGoal(SlabfishEntity slabfish, double speedIn, boolean useLongMemory) {
-			super(slabfish, speedIn, useLongMemory);
-		}
-		
-		@Override
-		protected double getAttackReachSqr(LivingEntity attackTarget) {
-			return super.getAttackReachSqr(attackTarget) * 0.55F;
 		}
 	}
 	

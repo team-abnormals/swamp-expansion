@@ -1,5 +1,7 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.other;
 
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
 import com.farcr.swampexpansion.core.util.TradeUtils;
 
 import net.minecraftforge.event.village.WandererTradesEvent;

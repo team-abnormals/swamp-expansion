@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.other;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,7 @@ import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.common.entity.SlabfishOverlay;
 import com.farcr.swampexpansion.common.entity.SlabfishType;
 import com.farcr.swampexpansion.core.SwampExpansion;
+import com.farcr.swampexpansion.core.registry.SwampExEntities;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -15,6 +16,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
@@ -46,6 +48,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -121,6 +124,47 @@ public class SwampExEvents {
 		            		});
 		            	}
 		            }
+				}
+			}
+		}
+	}
+	
+//	@SubscribeEvent
+//	public static void bonemealLilypad(RightClickBlock event) {
+//		BlockPos blockPos = event.getPos();
+//		Random random = new Random();
+//		World world = event.getWorld();
+//		BlockState state = world.getBlockState(blockPos);
+//		if (state.getBlock() == Blocks.LILY_PAD && event.getItemStack().getItem() == Items.BONE_MEAL) {
+//            if (!event.getPlayer().abilities.isCreativeMode) event.getItemStack().shrink(1);
+//			event.getPlayer().swingArm(event.getHand());
+//            BoneMealItem.spawnBonemealParticles(world, blockPos, 2);
+//            
+//			label:
+//				for(int x = 0; x < 64; ++x) {
+//					BlockPos newBlockPos = blockPos;
+//					for(int y = 0; y < x / 16; ++y) {
+//						newBlockPos = newBlockPos.add(random.nextInt(3) - 1, 0, random.nextInt(3) - 1);
+//	                    if (state.isValidPosition(world, newBlockPos) && world.isAirBlock(newBlockPos)) {
+//	                        world.setBlockState(newBlockPos, state);
+//	                        break label;
+//	                    }
+//	                }
+//	            }
+//		}
+//	}
+	
+	@SubscribeEvent
+	public static void onInteractWithEntity(PlayerInteractEvent.EntityInteract event){
+		ItemStack stack = event.getItemStack();
+		Entity target = event.getTarget();
+		if (target instanceof SlabfishEntity && stack.getItem() == Items.NAME_TAG) {
+			SlabfishEntity slabby = (SlabfishEntity)event.getTarget();
+			if (stack.hasDisplayName()) {
+				if (slabby.hasCustomName() && slabby.getCustomName() != stack.getDisplayName()) {
+					slabby.playTransformSound();
+				} else if (!slabby.hasCustomName()) {
+					slabby.playTransformSound();
 				}
 			}
 		}

@@ -51,7 +51,8 @@ public enum SlabfishType implements IStringSerializable {
 	BROWN_MUSHROOM(42, "brown_mushroom"),
 	JACKSON(43, "jackson"),
 	MISTA_JUB(44, "mista_jub"),
-	SMELLY(45, "smelly");
+	SMELLY(45, "smelly"),
+	SQUART(46, "squart");
 
 	private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((array) -> {
 		return new SlabfishType[array];

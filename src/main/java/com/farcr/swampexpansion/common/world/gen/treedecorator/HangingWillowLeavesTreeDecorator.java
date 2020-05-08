@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.datafixers.Dynamic;
 import com.mojang.datafixers.types.DynamicOps;

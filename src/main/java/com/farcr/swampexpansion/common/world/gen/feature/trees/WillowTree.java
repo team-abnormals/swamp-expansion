@@ -5,7 +5,7 @@ import java.util.Random;
 import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.common.world.biome.SwampExBiomeFeatures;
-import com.farcr.swampexpansion.core.registries.SwampExFeatures;
+import com.farcr.swampexpansion.core.registry.SwampExFeatures;
 
 import net.minecraft.block.trees.Tree;
 import net.minecraft.world.gen.feature.ConfiguredFeature;

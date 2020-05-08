@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.other;
 
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.farcr.swampexpansion.core.util.EmptyTrigger;

@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.registry;
 
 import com.farcr.swampexpansion.common.world.biome.MarshBiome;
 import com.farcr.swampexpansion.common.world.biome.MushroomMarshBiome;

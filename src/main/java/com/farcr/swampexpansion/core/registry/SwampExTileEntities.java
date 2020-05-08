@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.registry;
 
 import com.farcr.swampexpansion.common.tile.MudVaseTileEntity;
 import com.farcr.swampexpansion.core.SwampExpansion;

@@ -2,7 +2,7 @@ package com.farcr.swampexpansion.common.tile;
 
 import javax.annotation.Nullable;
 
-import com.farcr.swampexpansion.core.registries.SwampExTileEntities;
+import com.farcr.swampexpansion.core.registry.SwampExTileEntities;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
