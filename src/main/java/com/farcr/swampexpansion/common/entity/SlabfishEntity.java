@@ -29,15 +29,12 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
@@ -175,13 +172,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.goalSelector.addGoal(4, new SlabbyBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new SlabbyGrabItemGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(8, new SlabbyFollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(9, new RandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(11, new LookRandomlyGoal(this));
-		
-		this.targetSelector.addGoal(1, new SlabfishEntity.SlabfishFuedGoal(this));
 	}
 	
 	@Override
@@ -904,34 +898,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	// MISC //
-	
-	static class SlabfishFuedGoal extends NearestAttackableTargetGoal<SlabfishEntity> {
-		
-		public SlabfishFuedGoal(SlabfishEntity slabby) {
-			super(slabby, SlabfishEntity.class, 0, true, true, LivingEntity::attackable);
-		}
-
-		public boolean shouldExecute() {
-			if (super.shouldExecute()) {
-		  		boolean flag = false;
-		  		
-		  		SlabfishType slabby = ((SlabfishEntity)this.goalOwner).getSlabfishType(); 
-		  		SlabfishType target = ((SlabfishEntity)this.nearestTarget).getSlabfishType();
-		  		
-		  		if (target != null) {
-		  			if (slabby == SlabfishType.GORE && target == SlabfishType.SNAKE_BLOCK) flag = true;	  			
-		  			else if (slabby == SlabfishType.SNAKE_BLOCK && target == SlabfishType.GORE) flag = true;
-		  		}
-		  		return flag;
-			}
-			return super.shouldExecute();
-		}
-		
-		public void startExecuting() {
-			super.startExecuting();
-			this.goalOwner.setIdleTime(0);
-		}
-	}
 	
 	@Override
     public IPacket<?> createSpawnPacket()
