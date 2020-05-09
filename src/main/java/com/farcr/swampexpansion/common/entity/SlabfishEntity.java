@@ -12,7 +12,6 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyBreedGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
-import com.farcr.swampexpansion.common.entity.goals.SlabbyWalkGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
 import com.farcr.swampexpansion.core.other.SwampExTags;
