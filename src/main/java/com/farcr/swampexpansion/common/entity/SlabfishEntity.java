@@ -97,6 +97,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -288,7 +289,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 				this.playSweaterSound();
 			}
 			return true;
-		} else if (item == Items.CHEST && this.hasBackpack() == false) {
+		} else if (item.isIn(Tags.Items.CHESTS_WOODEN) && this.hasBackpack() == false) {
 			this.setBackpacked(true);
 			this.playBackpackSound();
 			if(!player.abilities.isCreativeMode) {
