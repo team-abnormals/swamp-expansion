@@ -164,12 +164,14 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.sitGoal = new SlabbySitGoal(this);
 		this.goalSelector.addGoal(0, new SwimGoal(this));
 		this.goalSelector.addGoal(1, this.sitGoal);
+		
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, EvokerEntity.class, 12.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, VindicatorEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, RavagerEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, VexEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, PillagerEntity.class, 15.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, IllusionerEntity.class, 12.0F, 1.0D, 1.5D));
+		
 		this.goalSelector.addGoal(4, new SlabbyBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new SlabbyGrabItemGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
@@ -232,8 +234,11 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.setSlabfishOverlay(SlabfishOverlay.byId(compound.getInt("SlabfishOverlay")));
 		if (this.sitGoal != null) this.sitGoal.setSitting(compound.getBoolean("Sitting"));
 		this.setPreNameType(SlabfishType.byId(compound.getInt("PreNameType")));
-		this.setSitting(compound.getBoolean("Sitting"));
+		if (this.sitGoal != null) {
+			this.sitGoal.setSitting(compound.getBoolean("Sitting"));
+		}
 
+		this.setSitting(compound.getBoolean("Sitting"));
 		this.setBackpacked(compound.getBoolean("HasBackpack"));
 		if(compound.contains("BackpackColor", 99)) this.setBackpackColor(DyeColor.byId(compound.getInt("BackpackColor")));
 		
@@ -715,9 +720,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	public void setSitting(boolean isSitting) {
 		this.dataManager.set(IS_SITTING, isSitting);
-		if (this.sitGoal != null) {
-			this.sitGoal.setSitting(isSitting);
-		}
 	}
 	
 	public boolean hasBackpack() {
