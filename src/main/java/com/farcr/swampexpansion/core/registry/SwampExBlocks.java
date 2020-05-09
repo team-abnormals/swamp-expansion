@@ -58,7 +58,7 @@ public class SwampExBlocks {
 	public static final RegistryObject<Block> MUD_BRICK_SLAB 			= RegistryUtils.createBlock("mud_brick_slab", () -> new SlabBlock(SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> MUD_BRICK_WALL 			= RegistryUtils.createBlock("mud_brick_wall", () -> new WallBlock(SwampExProperties.MUD_BRICKS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> MUD_BRICK_VERTICAL_SLAB	= RegistryUtils.createBlockCompat("quark", "mud_brick_vertical_slab", () -> new VerticalSlabBlock(SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> MUD_VASE	 				= RegistryUtils.createBlock("mud_vase", () -> new MudVaseBlock(SwampExProperties.MUD_BRICKS), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> MUD_VASE	 				= RegistryUtils.createBlock("mud_vase", () -> new MudVaseBlock(SwampExProperties.FLOWER_POT), ItemGroup.DECORATIONS);
 
 	public static final RegistryObject<Block> WILLOW_LOG			= RegistryUtils.createBlock("willow_log", () -> new RotatedPillarBlock(SwampExProperties.LOG), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> WILLOW_WOOD 			= RegistryUtils.createBlock("willow_wood", () -> new RotatedPillarBlock(SwampExProperties.LOG), ItemGroup.BUILDING_BLOCKS);
