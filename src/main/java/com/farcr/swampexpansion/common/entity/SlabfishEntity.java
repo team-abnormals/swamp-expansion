@@ -331,22 +331,12 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			this.particleCloud(ParticleTypes.NOTE);
 			this.dropItem(SwampExItems.MUSIC_DISC_SLABRAVE.get());
 			return true;
-		} else if(HEALING_ITEMS.test(itemstack)) {
+		} else if(HEALING_ITEMS.test(itemstack) && itemstack.isFood() && this.getHealth() < this.getMaxHealth()) {
 			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
-			if (itemstack.isFood()) {
-				world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
-				if (this.getHealth() < this.getMaxHealth()) {
-					this.heal((float)item.getFood().getHealing());
-					this.particleCloud(ParticleTypes.COMPOSTER);
-				}
-				return true;
-			} else {
-				this.playBurpSound();
-				this.attackEntityFrom(DamageSource.STARVE, 3.0F);
-				this.particleCloud(ParticleTypes.SMOKE);
-				return true;
-			}
-			
+			world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
+			this.heal((float)item.getFood().getHealing());
+			this.particleCloud(ParticleTypes.COMPOSTER);
+			return true;
 		} else if(SPEEDING_ITEMS.test(itemstack)) {
 			if (!player.abilities.isCreativeMode) {
 				itemstack.shrink(1);
