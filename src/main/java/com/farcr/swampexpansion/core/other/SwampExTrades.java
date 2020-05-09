@@ -23,7 +23,7 @@ public class SwampExTrades {
 	@SubscribeEvent
 	public static void onVillagerTradesEvent(VillagerTradesEvent event) {
 		if(event.getType() == VillagerProfession.FARMER) {
-			event.getTrades().get(1).add(new TradeUtils.EmeraldsForItemsTrade(SwampExItems.RICE.get(), 18, 1, 6, 1));
+			event.getTrades().get(1).add(new TradeUtils.EmeraldsForItemsTrade(SwampExItems.RICE.get(), 23, 1, 6, 1));
 		}
     }
 }
