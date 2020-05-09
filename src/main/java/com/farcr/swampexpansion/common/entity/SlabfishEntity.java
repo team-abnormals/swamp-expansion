@@ -12,6 +12,7 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyBreedGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
+import com.farcr.swampexpansion.common.entity.goals.SlabbyWalkGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
 import com.farcr.swampexpansion.core.other.SwampExTags;
@@ -117,9 +118,9 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	protected SlabbySitGoal sitGoal;
 	
 	public static final EntitySize SIZE_SWIMMING = EntitySize.fixed(0.75F, 0.25F);
-	public static final EntitySize SIZE_SITTING = EntitySize.fixed(0.5F, 0.625F);
+	public static final EntitySize SIZE_SITTING = EntitySize.fixed(0.45F, 0.6F);
 	public static final EntitySize SIZE_SWIMMING_CHILD = EntitySize.fixed(0.375F, 0.125F);
-	public static final EntitySize SIZE_SITTING_CHILD = EntitySize.fixed(0.25F, 0.3125F);
+	public static final EntitySize SIZE_SITTING_CHILD = EntitySize.fixed(0.225F, 0.3F);
 	
 	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
 	private static final Ingredient HEALING_ITEMS = Ingredient.fromTag(ItemTags.FISHES);
@@ -190,7 +191,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 		this.getDataManager().register(HAS_BACKPACK, false);
 		this.getDataManager().register(BACKPACK_COLOR, DyeColor.BROWN.getId());
-		this.getDataManager().register(BACKPACK_USED, ItemStack.EMPTY);
+		this.getDataManager().register(BACKPACK_USED, new ItemStack(Items.CHEST));
 		
 		this.getDataManager().register(HAS_SWEATER, false);
 		this.getDataManager().register(SWEATER_COLOR, DyeColor.WHITE.getId());
@@ -228,6 +229,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	         }
 	         compound.put("Items", listnbt);
 		}
+	}
+
+	public boolean canBeLeashedTo(PlayerEntity player) {
+		return !this.getLeashed();
 	}
 	
 	@Override
