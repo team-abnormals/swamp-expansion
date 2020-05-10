@@ -4,6 +4,7 @@
 	"block.swampexpansion.mud_brick_stairs": "Mutatiiliportaat",
 	"block.swampexpansion.mud_brick_wall": "Mutatiilimuuri",
 	"block.swampexpansion.mud_brick_vertical_slab": "Pystysuora mutatiililaatta",
+	"block.swampexpansion.mud_vase": "Mutavaasi",
 	
 	"block.swampexpansion.willow_planks": "Pajulankut",
 	"block.swampexpansion.willow_slab": "Pajulaatta",
@@ -26,6 +27,7 @@
 	"block.swampexpansion.vertical_willow_planks": "Pystysuorat pajulankut",
 	"block.swampexpansion.willow_vertical_slab": "Pystysuora pajulaatta",
 	"block.swampexpansion.willow_leaf_carpet": "Pajunlehtimatto",
+	"block.swampexpansion.potted_willow_sapling": "Istutettu pajun taimi",
 	
 	"block.swampexpansion.cattail_sprouts": "Osmankäämin verso",
 	"block.swampexpansion.cattail": "Osmankäämi",
@@ -87,6 +89,15 @@
 	
 	"advancements.adventure.find_natural_slabfish.title": "Niitä on erivärisiä!",
 	"advancements.adventure.find_natural_slabfish.description": "Löydä kaikki luonnolliset laattakalarodut",
+	
+	"subtitles.entity.slabfish.burp": "Laattakala röyhtäisee",
+	"subtitles.entity.slabfish.death": "Laattakala kuolee",
+	"subtitles.entity.slabfish.step": "Laattakala astelee",
+	"subtitles.entity.slabfish.hurt": "Laattakala vahingoittuu",
+	"subtitles.entity.slabfish.eat": "Laattakala syö",
+	"subtitles.entity.slabfish.transform": "Laattakala muuntautuu",
+	"subtitles.entity.slabfish.backpack": "Laattakalalle puetaan reppu",
+	"subtitles.entity.slabfish.sweater": "Laattakalalle puetaan villapaita",
 	
 	"block.swampexpansion.mud": "Muta",
 	"fluid.swampexpansion.mud": "Muta"

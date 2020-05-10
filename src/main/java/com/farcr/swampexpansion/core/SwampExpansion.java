@@ -2,13 +2,14 @@ package com.farcr.swampexpansion.core;
 
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
 import com.farcr.swampexpansion.common.item.SwampExSpawnEggItem;
-import com.farcr.swampexpansion.core.registries.SwampExBiomes;
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExData;
-import com.farcr.swampexpansion.core.registries.SwampExEntities;
-import com.farcr.swampexpansion.core.registries.SwampExFeatures;
-import com.farcr.swampexpansion.core.registries.SwampExItems;
-import com.farcr.swampexpansion.core.registries.SwampExSounds;
+import com.farcr.swampexpansion.core.other.SwampExData;
+import com.farcr.swampexpansion.core.registry.SwampExBiomes;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExEntities;
+import com.farcr.swampexpansion.core.registry.SwampExFeatures;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
+import com.farcr.swampexpansion.core.registry.SwampExSounds;
+import com.farcr.swampexpansion.core.registry.SwampExTileEntities;
 
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.fluid.IFluidState;
@@ -40,6 +41,7 @@ public class SwampExpansion {
         SwampExBlocks.BLOCKS.register(modEventBus);
         SwampExItems.ITEMS.register(modEventBus);
         SwampExEntities.ENTITY_TYPES.register(modEventBus);
+        SwampExTileEntities.TILE_ENTITIES.register(modEventBus);
         SwampExBlocks.PAINTINGS.register(modEventBus);
         SwampExBiomes.BIOMES.register(modEventBus);
         SwampExSounds.SOUNDS.register(modEventBus);

@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExEntities;
-import com.farcr.swampexpansion.core.registries.SwampExItems;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExEntities;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

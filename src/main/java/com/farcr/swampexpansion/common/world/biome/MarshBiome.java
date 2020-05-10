@@ -1,6 +1,6 @@
 package com.farcr.swampexpansion.common.world.biome;
 
-import com.farcr.swampexpansion.core.registries.SwampExBiomes;
+import com.farcr.swampexpansion.core.registry.SwampExBiomes;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

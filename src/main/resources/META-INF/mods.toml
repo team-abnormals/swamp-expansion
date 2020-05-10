@@ -1,8 +1,8 @@
 modLoader="javafml"
 loaderVersion="[31,)"
 logoFile="logo.png"
-authors="Farcr, Musicano, Ilja, Bagel, and Pugz"
-credits="Dolores_McDoodle"
+authors="Farcr & Bagel"
+credits="Musicano, Ilja, & Pugz"
 
 [[mods]]
     modId="swampexpansion"

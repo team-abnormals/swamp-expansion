@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.registry;
 
 import java.util.function.BiFunction;
 
@@ -10,28 +10,34 @@ import com.farcr.swampexpansion.core.SwampExpansion;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = SwampExpansion.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class SwampExEntities
 {
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = new DeferredRegister<>(ForgeRegistries.ENTITIES, "swampexpansion");
 	
 	public static final RegistryObject<EntityType<WillowBoatEntity>> BOAT = ENTITY_TYPES.register("boat", () -> createEntity(WillowBoatEntity::new, null, EntityClassification.MISC, "boat", 1.375F, 0.5625F));
-	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = ENTITY_TYPES.register("slabfish", () -> createLivingEntity(SlabfishEntity::new, EntityClassification.WATER_CREATURE, "slabfish", 0.5F, 0.9F));
+	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = ENTITY_TYPES.register("slabfish", () -> createLivingEntity(SlabfishEntity::new, EntityClassification.CREATURE, "slabfish", 0.45F, 0.9F));
 
     
     @OnlyIn(Dist.CLIENT)
@@ -48,8 +54,13 @@ public class SwampExEntities
 	
 	private static void processSpawning(Biome biome) {
 		if(biome.getCategory() == Category.SWAMP) {
-    		biome.getSpawns(EntityClassification.WATER_CREATURE).add(new Biome.SpawnListEntry(SwampExEntities.SLABFISH.get(), 4, 2, 4));
+    		biome.getSpawns(EntityClassification.CREATURE).add(new Biome.SpawnListEntry(SwampExEntities.SLABFISH.get(), 50, 2, 4));
         }
+	}
+	
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
+		EntitySpawnPlacementRegistry.register(SwampExEntities.SLABFISH.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
 	}
 	
     private static <T extends Entity> EntityType<T> createEntity(EntityType.IFactory<T> factory, BiFunction<FMLPlayMessages.SpawnEntity, World, T> clientFactory, EntityClassification entityClassification, String name, float width, float height) {

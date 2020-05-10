@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.other;
 
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;

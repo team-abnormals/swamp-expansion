@@ -1,4 +1,4 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.registry;
 
 import com.farcr.swampexpansion.core.SwampExpansion;
 
@@ -34,6 +34,6 @@ public class SwampExSounds {
     }
 	
 	private static RegistryObject<SoundEvent> reuseSoundEvent(String name, SoundEvent event) {
-		return SOUNDS.register(name, () -> new SoundEvent(event.getRegistryName()));
+		return SOUNDS.register(name, () -> new SoundEvent(new ResourceLocation(SwampExpansion.MODID, name)));
 	}
 }

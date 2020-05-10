@@ -1,7 +1,7 @@
 package com.farcr.swampexpansion.common.item;
 
 import com.farcr.swampexpansion.common.entity.MudBallEntity;
-import com.farcr.swampexpansion.core.registries.SwampExItems;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

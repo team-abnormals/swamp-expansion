@@ -1,14 +1,15 @@
-package com.farcr.swampexpansion.common.block;
+package com.farcr.swampexpansion.common.block.thatch;
 
-import net.minecraft.block.Block;
+import com.farcr.swampexpansion.common.block.VerticalSlabBlock;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class ThatchBlock extends Block{
-	public ThatchBlock(Properties properties) {
+public class ThatchVerticalSlabBlock extends VerticalSlabBlock{
+	public ThatchVerticalSlabBlock(Properties properties) {
 		super(properties);
 	}
 

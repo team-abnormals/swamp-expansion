@@ -2,8 +2,8 @@ package com.farcr.swampexpansion.core.util;
 
 import com.farcr.swampexpansion.common.item.DuckweedItem;
 import com.farcr.swampexpansion.common.item.SwampExSpawnEggItem;
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExItems;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
 import com.google.common.base.Supplier;
 
 import net.minecraft.block.Block;

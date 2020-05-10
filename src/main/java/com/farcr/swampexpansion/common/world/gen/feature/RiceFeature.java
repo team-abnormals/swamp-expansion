@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.function.Function;
 
 import com.farcr.swampexpansion.common.block.RiceBlock;
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.mojang.datafixers.Dynamic;
 
 import net.minecraft.util.math.BlockPos;

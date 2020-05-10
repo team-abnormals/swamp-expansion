@@ -1,6 +1,6 @@
 package com.farcr.swampexpansion.common.item;
 
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;

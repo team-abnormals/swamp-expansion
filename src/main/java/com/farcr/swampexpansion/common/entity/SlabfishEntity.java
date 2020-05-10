@@ -13,13 +13,13 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
-import com.farcr.swampexpansion.core.registries.SwampExBiomes;
-import com.farcr.swampexpansion.core.registries.SwampExBlocks;
-import com.farcr.swampexpansion.core.registries.SwampExCriteriaTriggers;
-import com.farcr.swampexpansion.core.registries.SwampExEntities;
-import com.farcr.swampexpansion.core.registries.SwampExItems;
-import com.farcr.swampexpansion.core.registries.SwampExSounds;
-import com.farcr.swampexpansion.core.registries.SwampExTags;
+import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
+import com.farcr.swampexpansion.core.other.SwampExTags;
+import com.farcr.swampexpansion.core.registry.SwampExBiomes;
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExEntities;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
+import com.farcr.swampexpansion.core.registry.SwampExSounds;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.BlockState;
@@ -29,15 +29,12 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
@@ -100,6 +97,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -111,14 +109,17 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 	private static final DataParameter<Boolean> HAS_BACKPACK = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> BACKPACK_COLOR = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
-	
+	private static final DataParameter<ItemStack> BACKPACK_USED = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.ITEMSTACK);
+
 	private static final DataParameter<Boolean> HAS_SWEATER = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> SWEATER_COLOR = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 	
 	protected SlabbySitGoal sitGoal;
 	
-	public static final EntitySize SIZE = EntitySize.fixed(0.6F, 0.2F);
-	public static final EntitySize SIZE_CHILD = EntitySize.fixed(0.3159F, 0.1125F);
+	public static final EntitySize SIZE_SWIMMING = EntitySize.fixed(0.75F, 0.25F);
+	public static final EntitySize SIZE_SITTING = EntitySize.fixed(0.45F, 0.6F);
+	public static final EntitySize SIZE_SWIMMING_CHILD = EntitySize.fixed(0.375F, 0.125F);
+	public static final EntitySize SIZE_SITTING_CHILD = EntitySize.fixed(0.225F, 0.3F);
 	
 	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
 	private static final Ingredient HEALING_ITEMS = Ingredient.fromTag(ItemTags.FISHES);
@@ -139,7 +140,11 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		skins.put(Arrays.asList("cameron", "cam", "cringe"), SlabfishType.CAMERON);
 		skins.put(Arrays.asList("bagel", "shyguy", "shy guy", "bagielo"), SlabfishType.BAGEL);
 		skins.put(Arrays.asList("gore", "gore.", "musicano"), SlabfishType.GORE);
-		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), SlabfishType.SNAKE);
+		skins.put(Arrays.asList("snake", "snake block", "snakeblock"), SlabfishType.SNAKE_BLOCK);
+		skins.put(Arrays.asList("jackson", "jason", "json"), SlabfishType.JACKSON);
+		skins.put(Arrays.asList("jub", "slabrave", "mista jub"), SlabfishType.MISTA_JUB);
+		skins.put(Arrays.asList("smelly", "stinky", "smellysox", "thefaceofgaming"), SlabfishType.SMELLY);
+		skins.put(Arrays.asList("squart", "squar", "squarticus"), SlabfishType.SQUART);
 	});
 	
 	public SlabfishEntity(EntityType<? extends SlabfishEntity> type, World worldIn) {
@@ -150,31 +155,29 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	protected void registerAttributes() {
 		super.registerAttributes();
-		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(16.0D);
+		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0D);
 		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-		this.getAttributes().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 	}
 
 	protected void registerGoals() {
 		this.sitGoal = new SlabbySitGoal(this);
 		this.goalSelector.addGoal(0, new SwimGoal(this));
 		this.goalSelector.addGoal(1, this.sitGoal);
+		
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, EvokerEntity.class, 12.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, VindicatorEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, RavagerEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, VexEntity.class, 8.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, PillagerEntity.class, 15.0F, 1.0D, 1.5D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, IllusionerEntity.class, 12.0F, 1.0D, 1.5D));
+		
 		this.goalSelector.addGoal(4, new SlabbyBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new SlabbyGrabItemGoal(this, 1.1D));
 		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
-		this.goalSelector.addGoal(7, new MeleeAttackGoal(this, 1.0D, false));
 		this.goalSelector.addGoal(8, new SlabbyFollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(9, new RandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 6.0F));
 		this.goalSelector.addGoal(11, new LookRandomlyGoal(this));
-		
-		this.targetSelector.addGoal(1, new SlabfishEntity.SlabfishFuedGoal(this));
 	}
 	
 	@Override
@@ -185,9 +188,9 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.getDataManager().register(IS_SITTING, false);
 		this.getDataManager().register(PRE_NAME_TYPE, 0);
 
-
 		this.getDataManager().register(HAS_BACKPACK, false);
 		this.getDataManager().register(BACKPACK_COLOR, DyeColor.BROWN.getId());
+		this.getDataManager().register(BACKPACK_USED, new ItemStack(Items.CHEST));
 		
 		this.getDataManager().register(HAS_SWEATER, false);
 		this.getDataManager().register(SWEATER_COLOR, DyeColor.WHITE.getId());
@@ -203,6 +206,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 		compound.putBoolean("HasBackpack", this.hasBackpack());
 		compound.putByte("BackpackColor", (byte) this.getBackpackColor().getId());
+		CompoundNBT itemstackTag = new CompoundNBT();
+		this.getBackpackItem().write(itemstackTag);
+
+		compound.put("BackpackItem", itemstackTag);
 		
 		compound.putBoolean("HasSweater", this.hasSweater());
 		compound.putByte("SweaterColor", (byte) this.getSweaterColor().getId());
@@ -222,6 +229,10 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	         compound.put("Items", listnbt);
 		}
 	}
+
+	public boolean canBeLeashedTo(PlayerEntity player) {
+		return !this.getLeashed();
+	}
 	
 	@Override
 	public void readAdditional(CompoundNBT compound) {
@@ -230,10 +241,15 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		this.setSlabfishOverlay(SlabfishOverlay.byId(compound.getInt("SlabfishOverlay")));
 		if (this.sitGoal != null) this.sitGoal.setSitting(compound.getBoolean("Sitting"));
 		this.setPreNameType(SlabfishType.byId(compound.getInt("PreNameType")));
-		this.setSitting(compound.getBoolean("Sitting"));
+		if (this.sitGoal != null) {
+			this.sitGoal.setSitting(compound.getBoolean("Sitting"));
+		}
 
+		this.setSitting(compound.getBoolean("Sitting"));
 		this.setBackpacked(compound.getBoolean("HasBackpack"));
 		if(compound.contains("BackpackColor", 99)) this.setBackpackColor(DyeColor.byId(compound.getInt("BackpackColor")));
+		ItemStack backpackItem = ItemStack.read(compound.getCompound("BackpackItem"));
+		this.setBackpackItem(backpackItem);
 		
 		this.setSweatered(compound.getBoolean("HasSweater"));
 		if(compound.contains("SweaterColor", 99)) this.setSweaterColor(DyeColor.byId(compound.getInt("SweaterColor")));
@@ -260,7 +276,8 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		Item item = itemstack.getItem();
 		this.initSlabfishBackpack();
 		if (item instanceof SpawnEggItem || item instanceof NameTagItem || item == Items.TROPICAL_FISH || item == SwampExItems.TROPICAL_FISH_KELP_ROLL.get() || item instanceof EggItem || item instanceof MudBallItem) {
-	         return super.processInteract(player, hand);
+			return super.processInteract(player, hand);
+	         
 		} else if(item instanceof DyeItem && this.hasBackpack() == true) {
 			DyeColor dyecolor = ((DyeItem) item).getDyeColor();
 			if(dyecolor != this.getBackpackColor()) {
@@ -268,17 +285,14 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 				if(!player.abilities.isCreativeMode) {
 					itemstack.shrink(1);
 				}
-				return true;
 			}
+			return true;
+			
 		} else if (SWEATER_MAP.containsKey(item) && !(this.hasSweater() && this.getSweaterColor() == SWEATER_MAP.get(item)) && !player.func_226563_dT_()) {
 			IItemProvider previousSweater = Items.AIR;
 			this.playSweaterSound();
-			if(!player.abilities.isCreativeMode) {
-				itemstack.shrink(1);
-			}
-			if (this.hasSweater()) {
-				previousSweater = REVERSE_MAP.get(this.getSweaterColor());
-			}
+			if(!player.abilities.isCreativeMode) itemstack.shrink(1);
+			if (this.hasSweater()) previousSweater = REVERSE_MAP.get(this.getSweaterColor());
 			this.setSweaterColor(SWEATER_MAP.get(item));
 			if (!this.hasSweater()) {
 				this.setSweatered(true);
@@ -287,79 +301,63 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 				this.playSweaterSound();
 			}
 			return true;
-		} else if (item == Items.CHEST && this.hasBackpack() == false) {
+			
+		} else if (item.isIn(Tags.Items.CHESTS_WOODEN) && this.hasBackpack() == false) {
 			this.setBackpacked(true);
+			this.setBackpackItem(itemstack);
 			this.playBackpackSound();
-			if(!player.abilities.isCreativeMode) {
-				itemstack.shrink(1);
-			}
+			if(!player.abilities.isCreativeMode) itemstack.shrink(1);
 			if (player instanceof ServerPlayerEntity) {
 				ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) player;
-				if(!world.isRemote()) {
-					SwampExCriteriaTriggers.BACKPACK_SLABFISH.trigger(serverplayerentity); 
-				}
+				if(!world.isRemote()) SwampExCriteriaTriggers.BACKPACK_SLABFISH.trigger(serverplayerentity); 
 			}
 			return true;
+			
 		} else if (item == Items.SHEARS && this.hasSweater() == true && !player.func_226563_dT_()) {
 			this.setSweatered(false);
 			this.playSweaterSound();
 			this.dropItem(REVERSE_MAP.get(this.getSweaterColor()));
-			if (!this.world.isRemote) {
-				itemstack.damageItem(1, player, (tool) -> {
-					tool.sendBreakAnimation(hand);
-	            });
-			}
+			if (!this.world.isRemote) itemstack.damageItem(1, player, (tool) -> { tool.sendBreakAnimation(hand); });
 			return true;
+			
 		} else if (item == Items.SHEARS && this.hasBackpack() == true && player.func_226563_dT_()) {
 			this.setBackpackColor(DyeColor.BROWN);
             this.dropBackpack();
 			this.setBackpacked(false);
 			this.playBackpackSound();
             this.slabfishBackpack.clear();
-			if (!this.world.isRemote) {
-				itemstack.damageItem(1, player, (tool) -> {
-					tool.sendBreakAnimation(hand);
-	            });
-			}
+			if (!this.world.isRemote) itemstack.damageItem(1, player, (tool) -> { tool.sendBreakAnimation(hand); });
 			return true;
+			
 		} else if (item.isIn(ItemTags.MUSIC_DISCS)) {
-			if (!player.abilities.isCreativeMode) {
-				itemstack.shrink(1);
-			}
+			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
 			this.playBurpSound();
 			this.particleCloud(ParticleTypes.NOTE);
 			this.dropItem(SwampExItems.MUSIC_DISC_SLABRAVE.get());
 			return true;
-		} else if(HEALING_ITEMS.test(itemstack)) {
-			if (itemstack.isFood()) {
-				if (this.getHealth() < this.getMaxHealth()) {
-					if (!player.abilities.isCreativeMode) {
-						itemstack.shrink(1);
-					}
-					world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
-					this.world.setEntityState(this, (byte)18);		
-					this.heal((float)item.getFood().getHealing());
-					return true;
-				}
-			} else {
-				this.playBurpSound();
-				this.particleCloud(ParticleTypes.ANGRY_VILLAGER);
-			}
+			
+		} else if(HEALING_ITEMS.test(itemstack) && itemstack.isFood() && this.getHealth() < this.getMaxHealth()) {
+			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
+			world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
+			this.heal((float)item.getFood().getHealing());
+			this.particleCloud(ParticleTypes.COMPOSTER);
+			return true;
 			
 		} else if(SPEEDING_ITEMS.test(itemstack)) {
-			if (!player.abilities.isCreativeMode) {
-				itemstack.shrink(1);
-			}
+			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
 			this.playBurpSound();
 			this.addPotionEffect(new EffectInstance(Effects.SPEED, 3600, 2, true, true));
 			this.particleCloud(ParticleTypes.CLOUD);
 			return true;
+			
 		} else if (!this.isSitting() && this.hasBackpack() && player.func_226563_dT_() && !this.isInWater()) {
 			this.setSitting(true);
 			return true;
+			
 		} else if (this.isSitting() && player.func_226563_dT_()) {
 			this.setSitting(false);
 			return true;
+			
 		} else if (this.hasBackpack() == true) {
 			this.openGUI(player);
 			player.stopActiveHand();
@@ -420,7 +418,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 		this.wingRotDelta = (float)((double)this.wingRotDelta * 0.9D);
 		Vec3d vec3d = this.getMotion();
-		if (!this.onGround && vec3d.y < 0.0D && !this.inWater) {
+		if (!this.onGround && vec3d.y < 0.0D) {
 			this.setMotion(vec3d.mul(1.0D, 0.6D, 1.0D));
 		}
 
@@ -497,7 +495,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	@Override
 	public EntitySize getSize(Pose pose) {
-		return this.isInWater() ? this.isChild() ? SIZE_CHILD : SIZE : super.getSize(pose);
+		return this.isInWater() ? this.isChild() ? SIZE_SWIMMING_CHILD : SIZE_SWIMMING : this.isSitting() ? this.isChild() ? SIZE_SITTING_CHILD : SIZE_SITTING : super.getSize(pose);
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
@@ -522,7 +520,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	protected float getWaterSlowDown() {
-		return 0.95F;
+		return 0.96F;
 	}
 	
 	// SLABFISH TYPE //
@@ -557,6 +555,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		
 		if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
 		if (pos.getY() <= 20) return SlabfishType.CAVE;
+		if (pos.getY() >= 200) return SlabfishType.SKY;
 		
 		if (MARSH.contains(biome)) return SlabfishType.MARSH;
 		if (MAPLE.contains(biome)) return SlabfishType.MAPLE;
@@ -564,11 +563,26 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if (DUNES.contains(biome)) return SlabfishType.DUNES;
 		if (POISE.contains(biome)) return SlabfishType.POISE;
 		
-		if (biome == Biomes.ICE_SPIKES) return SlabfishType.ICY;
+		if (biome == Biomes.ICE_SPIKES) return SlabfishType.ICE_SPIKES;
+		if (biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS) return SlabfishType.DARK_FOREST;
+		if (biome == Biomes.FLOWER_FOREST)  return SlabfishType.FLOWER_FOREST;
+		if (biome == Biomes.END_HIGHLANDS) return SlabfishType.CHORUS;
 		
-		if (biome.getCategory() == Biome.Category.OCEAN) return SlabfishType.OCEAN;
+		if (biome.getCategory() == Biome.Category.OCEAN) {
+			if (pos.getY() <= 50 && world.getFluidState(pos).getLevel() == 8) return SlabfishType.DROWNED;
+			else if (biome == Biomes.FROZEN_OCEAN || biome == Biomes.DEEP_FROZEN_OCEAN) return SlabfishType.FROZEN_OCEAN;
+			else if (biome == Biomes.WARM_OCEAN || biome == Biomes.DEEP_WARM_OCEAN) return SlabfishType.WARM_OCEAN;
+			else return SlabfishType.OCEAN;
+		}
+		
+		if (biome.getCategory() == Biome.Category.JUNGLE) {
+			if (biome == Biomes.BAMBOO_JUNGLE || biome == Biomes.BAMBOO_JUNGLE_HILLS) return SlabfishType.BAMBOO;
+			else return SlabfishType.JUNGLE;
+		}
+		
+		if (biome.getCategory() == Biome.Category.MUSHROOM) return SlabfishType.MUSHROOM;
 		if (biome.getCategory() == Biome.Category.RIVER) return SlabfishType.RIVER;
-		if (biome.getCategory() == Biome.Category.JUNGLE) return SlabfishType.JUNGLE;
+		if (biome.getCategory() == Biome.Category.BEACH) return SlabfishType.BEACH;
 		if (biome.getCategory() == Biome.Category.SAVANNA) return SlabfishType.SAVANNA;
 		if (biome.getCategory() == Biome.Category.MESA) return SlabfishType.MESA;
 		if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.SNOWY;
@@ -576,6 +590,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		if (biome.getCategory() == Biome.Category.TAIGA) return SlabfishType.TAIGA;
 		if (biome.getCategory() == Biome.Category.FOREST) return SlabfishType.FOREST;
 		if (biome.getCategory() == Biome.Category.PLAINS) return SlabfishType.PLAINS;
+		if (biome.getCategory() == Biome.Category.EXTREME_HILLS || biome == Biomes.STONE_SHORE) return SlabfishType.MOUNTAIN;
 		
 		if (world.getDimension().getType() == DimensionType.THE_NETHER) return SlabfishType.NETHER;
 		if (world.getDimension().getType() == DimensionType.THE_END) return SlabfishType.END;
@@ -591,12 +606,9 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		BlockPos pos = new BlockPos(this);
 		Biome biome = world.getBiome(pos);
 		
-		if (world.getBiome(pos).getCategory() == Biome.Category.NETHER && (parent1.getSlabfishType() == SlabfishType.SKELETON || parent1.getSlabfishType() == SlabfishType.WITHER) && (parent2.getSlabfishType() == SlabfishType.SKELETON || parent2.getSlabfishType() == SlabfishType.WITHER)) {
-	    	  return SlabfishType.WITHER;
-		}
-		
-		if (world.getBiome(pos).getCategory() == Biome.Category.ICY && (parent1.getSlabfishType() == SlabfishType.SKELETON || parent1.getSlabfishType() == SlabfishType.STRAY) && (parent2.getSlabfishType() == SlabfishType.SKELETON || parent2.getSlabfishType() == SlabfishType.STRAY)) {
-	    	  return SlabfishType.STRAY;
+		if (parent1.getSlabfishType() == SlabfishType.SKELETON && parent2.getSlabfishType() == SlabfishType.SKELETON) {
+			if (world.getDimension().getType() == DimensionType.THE_NETHER) return SlabfishType.WITHER;
+			if (world.getBiome(pos).getCategory() == Biome.Category.ICY) return SlabfishType.STRAY;
 		}
 		
 		if (this.getTypeForConditions(world) == SlabfishType.SWAMP && biome.getCategory() != Biome.Category.SWAMP) {
@@ -621,31 +633,40 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	public void setCustomName(@Nullable ITextComponent name) {
 		super.setCustomName(name);
 		if (name != null && this.getSlabfishType() != SlabfishType.GHOST) {
+			super.setCustomName(name);
 			for(Map.Entry<List<String>, SlabfishType> entries : NAMES.entrySet()) {
-				if(entries.getKey().contains(name.getString().toLowerCase().trim()) && this.getSlabfishType() != entries.getValue()) {
+				if(entries.getKey().contains(name.getString().toLowerCase().trim())) {
+					if (this.getSlabfishType() == entries.getValue()) {
+						return;
+					}
 					if (!NAMES.containsValue(this.getSlabfishType())) {
 						this.setPreNameType(this.getSlabfishType());
 					}
 					this.setSlabfishType(entries.getValue());
-					this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-					this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 					return;
 				}
 			}
-			if (this.getPreNameType() != null && this.getSlabfishType() != this.getPreNameType()) {
+			if (this.getSlabfishType() != this.getPreNameType()) {
 				this.setSlabfishType(this.getPreNameType());
-				this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-				this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 			}
 		}
-		this.setSlabfishType(this.getSlabfishType());
+	}
+	
+	public void playTransformSound() {
+		this.playSound(SwampExSounds.ENTITY_SLABFISH_TRANSFORM.get(), 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+		this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 	}
 	
 	public void onStruckByLightning(LightningBoltEntity lightningBolt) {
 		UUID uuid = lightningBolt.getUniqueID();
 		if (!uuid.equals(this.lightningUUID) && this.getSlabfishType() != SlabfishType.GHOST) {
-			this.setSlabfishType(SlabfishType.SKELETON);
-			this.setPreNameType(SlabfishType.SKELETON);
+			if (this.getSlabfishType() == SlabfishType.MUSHROOM) {
+				this.setSlabfishType(SlabfishType.BROWN_MUSHROOM);
+				this.setPreNameType(SlabfishType.BROWN_MUSHROOM);
+			} else {
+				this.setSlabfishType(SlabfishType.SKELETON);
+				this.setPreNameType(SlabfishType.SKELETON);
+			}
 			this.lightningUUID = uuid;
 			this.playSound(SoundEvents.ENTITY_LIGHTNING_BOLT_THUNDER, 2.0F, 1.0F);
 		}	
@@ -700,9 +721,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	public void setSitting(boolean isSitting) {
 		this.dataManager.set(IS_SITTING, isSitting);
-		if (this.sitGoal != null) {
-			this.sitGoal.setSitting(isSitting);
-		}
 	}
 	
 	public boolean hasBackpack() {
@@ -719,6 +737,14 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	public void setBackpackColor(DyeColor color) {
 		this.dataManager.set(BACKPACK_COLOR, color.getId());
+	}
+	
+	public ItemStack getBackpackItem() {
+		return this.dataManager.get(BACKPACK_USED);
+	}
+	
+	public void setBackpackItem(ItemStack itemStack) {
+		this.dataManager.set(BACKPACK_USED, itemStack);
 	}
 	
 	public boolean hasSweater() {
@@ -802,7 +828,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	protected void dropInventory() {
 		super.dropInventory();
 		if (this.hasBackpack()) {
-			this.dropItem(Items.CHEST);
+			this.dropItem(this.getBackpackItem().getItem());
 			if (this.slabfishBackpack != null) {
 				for(int i = 0; i < this.slabfishBackpack.getSizeInventory(); ++i) {
 					ItemStack itemstack = this.slabfishBackpack.getStackInSlot(i);
@@ -822,7 +848,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	protected void dropBackpack() {
 		super.dropInventory();
 		if (this.hasBackpack()) {
-			this.dropItem(Items.CHEST);
+			this.dropItem(this.getBackpackItem().getItem());
 			if (this.slabfishBackpack != null) {
 				for(int i = 0; i < this.slabfishBackpack.getSizeInventory(); ++i) {
 					ItemStack itemstack = this.slabfishBackpack.getStackInSlot(i);
@@ -874,39 +900,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	// MISC //
-	
-	static class SlabfishFuedGoal extends NearestAttackableTargetGoal<SlabfishEntity> {
-		
-		public SlabfishFuedGoal(SlabfishEntity slabby) {
-			super(slabby, SlabfishEntity.class, 0, true, true, LivingEntity::attackable);
-		}
-
-		public boolean shouldExecute() {
-			if (super.shouldExecute()) {
-		  		boolean flag = false;
-				List<String> musicano = Arrays.asList("gore", "gore.", "musicano");
-		  		List<String> snake = Arrays.asList("snake", "snakeblock", "snake block");
-		  		
-		  		SlabfishEntity slabby = (SlabfishEntity)this.goalOwner; 
-		  		SlabfishEntity target = (SlabfishEntity)this.nearestTarget;
-		  		
-		  		if (target != null && slabby.hasCustomName() && target.hasCustomName()) {
-					String name 		= slabby.getName().getString().toLowerCase().trim();
-	  				String targetName 	= target.getName().getString().toLowerCase().trim();
-	  				
-		  			if (musicano.contains(name) && snake.contains(targetName)) flag = true;	  			
-		  			else if (snake.contains(name) && musicano.contains(targetName)) flag = true;
-		  		}
-		  		return flag;
-			}
-			return super.shouldExecute();
-		}
-		
-		public void startExecuting() {
-			super.startExecuting();
-			this.goalOwner.setIdleTime(0);
-		}
-	}
 	
 	@Override
     public IPacket<?> createSpawnPacket()

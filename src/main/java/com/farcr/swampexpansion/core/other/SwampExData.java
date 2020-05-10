@@ -1,5 +1,7 @@
-package com.farcr.swampexpansion.core.registries;
+package com.farcr.swampexpansion.core.other;
 
+import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.farcr.swampexpansion.core.registry.SwampExItems;
 import com.google.common.collect.Maps;
 
 import net.minecraft.block.Block;
@@ -18,16 +20,30 @@ import net.minecraft.world.biome.BiomeColors;
 
 public class SwampExData {
 	public static void registerBlockData() {
-		//compostable blocks
 		registerCompostable(SwampExBlocks.WILLOW_LEAVES.get(),0.3F);
 		registerCompostable(SwampExBlocks.WILLOW_SAPLING.get(),0.3F);
 		registerCompostable(SwampExBlocks.WILLOW_LEAF_CARPET.get(),0.3F);
+		
+		registerCompostable(SwampExBlocks.DUCKWEED.get(),0.65F);
+		registerCompostable(SwampExBlocks.CATTAIL.get(),0.30F);
+		registerCompostable(SwampExBlocks.TALL_CATTAIL.get(),0.65F);
+		
+		registerCompostable(SwampExItems.RICE.get(),0.30F);
+		registerCompostable(SwampExItems.CATTAIL_SEEDS.get(),0.30F);
+		
+		registerCompostable(SwampExBlocks.CATTAIL_THATCH.get(),0.65F);
+		registerCompostable(SwampExBlocks.CATTAIL_THATCH_SLAB.get(),0.65F);
+		registerCompostable(SwampExBlocks.CATTAIL_THATCH_STAIRS.get(),0.65F);
+		registerCompostable(SwampExBlocks.CATTAIL_THATCH_VERTICAL_SLAB.get(),0.65F);
+		
+		registerCompostable(SwampExBlocks.DUCKWEED_THATCH.get(),0.85F);
+		registerCompostable(SwampExBlocks.DUCKWEED_THATCH_SLAB.get(),0.85F);
+		registerCompostable(SwampExBlocks.DUCKWEED_THATCH_STAIRS.get(),0.85F);
+		registerCompostable(SwampExBlocks.DUCKWEED_THATCH_VERTICAL_SLAB.get(),0.85F);
 
-		//strippable blocks
 		registerStrippable(SwampExBlocks.WILLOW_LOG.get(), SwampExBlocks.STRIPPED_WILLOW_LOG.get());
 		registerStrippable(SwampExBlocks.WILLOW_WOOD.get(), SwampExBlocks.STRIPPED_WILLOW_WOOD.get());
 
-		//flammable blocks
 		registerFlammable(SwampExBlocks.WILLOW_LEAVES.get(), 30, 60);
 		registerFlammable(SwampExBlocks.WILLOW_LOG.get(), 5, 5);
 		registerFlammable(SwampExBlocks.WILLOW_WOOD.get(), 5, 5);
