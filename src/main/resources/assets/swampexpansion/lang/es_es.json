@@ -53,6 +53,7 @@
 	"block.swampexpansion.duckweed_thatch_vertical_slab": "Losa vertical de paja de lentejas de agua",
 	
 	"item.swampexpansion.slabfish_spawn_egg": "Generar pezlosa",
+	"item.swampexpansion.axolotl_spawn_egg": "Generar ajolote",
 	
 	"item.swampexpansion.cod_kelp_roll": "Rollo de algas de bacalao",
 	"item.swampexpansion.tropical_fish_kelp_roll": "Rollo de algas de pez tropical",
@@ -65,21 +66,27 @@
 	"item.swampexpansion.lionfish_rice_cake": "Pastel de arroz con pez león",
 	
 	"item.swampexpansion.squid_ink_risotto": "Risotto de tinta de calamar",
+
+	"item.swampexpansion.axolotl_bucket": "Cubo con ajolote",
 	
 	"item.swampexpansion.mud_ball": "Bola de barro",
 	"item.swampexpansion.mud_brick": "Ladrillo de barro",
 	"item.swampexpansion.mud_bucket": "Cubo de barro",
 	"item.swampexpansion.willow_boat": "Barca de sauce",
-	
-	"entity.swampexpansion.slabfish": "Pezlosa",
-	"entity.swampexpansion.boat": "Barca",
 
 	"item.swampexpansion.music_disc_slabrave": "Disco de música",
 	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - Slabrave",
+
+	"entity.swampexpansion.slabfish": "Pezlosa",
+	"entity.swampexpansion.axolotl": "Ajolote",
+	"entity.swampexpansion.boat": "Barca",
 	
 	"biome.swampexpansion.marsh": "Marisma",
 	"biome.swampexpansion.mushroom_marsh": "Marisma de champiñones",
 	"biome.swampexpansion.mire": "Ciénaga",
+
+	"advancements.husbandry.equip_axolotl.title": "¡Perdidos en el mar, pero juntos!",
+	"advancements.husbandry.equip_axolotl.description": "¡Deja que se te enganche un ajolote y te cure!",
 
 	"advancements.husbandry.breed_all_slabfish.title": "Genes únicos",
 	"advancements.husbandry.breed_all_slabfish.description": "¡Haz que se reproduzcan todos los tipos de pezlosa!",
