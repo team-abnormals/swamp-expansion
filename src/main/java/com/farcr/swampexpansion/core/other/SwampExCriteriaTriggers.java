@@ -1,7 +1,7 @@
 package com.farcr.swampexpansion.core.other;
 
 import com.farcr.swampexpansion.core.SwampExpansion;
-import com.farcr.swampexpansion.core.util.EmptyTrigger;
+import com.teamabnormals.abnormals_core.common.advancement.EmptyTrigger;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.util.ResourceLocation;

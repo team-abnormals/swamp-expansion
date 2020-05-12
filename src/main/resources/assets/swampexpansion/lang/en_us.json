@@ -28,6 +28,7 @@
 	"block.swampexpansion.willow_vertical_slab": "Willow Vertical Slab",
 	"block.swampexpansion.willow_leaf_carpet": "Willow Leaf Carpet",
 	"block.swampexpansion.potted_willow_sapling": "Potted Willow Sapling",
+	"block.swampexpansion.willow_sign": "Willow Sign",
 	
 	"block.swampexpansion.cattail_sprouts": "Cattail Sprouts",
 	"block.swampexpansion.cattail": "Cattail",
@@ -67,7 +68,7 @@
 	
 	"item.swampexpansion.squid_ink_risotto": "Squid Ink Risotto",
 	
-	"item.swampexpansion.axolotl_bucket": "Bucket Of Axolotl",
+	"item.swampexpansion.axolotl_bucket": "Bucket of Axolotl",
 	
 	"item.swampexpansion.mud_ball": "Mud Ball",
 	"item.swampexpansion.mud_brick": "Mud Brick",

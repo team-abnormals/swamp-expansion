@@ -1,9 +1,10 @@
 {
-	"block.swampexpansion.mud_bricks": "Грязевые кирпичи",
-	"block.swampexpansion.mud_brick_slab": "Плита из грязевых кирпичей",
-	"block.swampexpansion.mud_brick_stairs": "Ступеньки из грязевых кирпичей",
-	"block.swampexpansion.mud_brick_wall": "Ограда из грязевых кирпичей",
-	"block.swampexpansion.mud_brick_vertical_slab": "Вертикальная плита из грязевых кирпичей",
+	"block.swampexpansion.mud_bricks": "Глинянные кирпичи",
+	"block.swampexpansion.mud_brick_slab": "Плита из глинянных кирпичей",
+	"block.swampexpansion.mud_brick_stairs": "Ступеньки из глинянных кирпичей",
+	"block.swampexpansion.mud_brick_wall": "Ограда из глинянных кирпичей",
+	"block.swampexpansion.mud_brick_vertical_slab": "Вертикальная плита из глинянных кирпичей",
+	"block.swampexpansion.mud_vase": "Глиняная ваза",
 
 	"block.swampexpansion.willow_planks": "Ивовые доски",
 	"block.swampexpansion.willow_slab": "Ивовая плита",
@@ -26,31 +27,85 @@
 	"block.swampexpansion.vertical_willow_planks": "Вертикальные ивовые доски",
 	"block.swampexpansion.willow_vertical_slab": "Вертикальная плита из ивовых досок",
 	"block.swampexpansion.willow_leaf_carpet": "Ковер из листьев ивы",
+	"block.swampexpansion.potted_willow_sapling": "Саженец ивы в горшке",
 
 	"block.swampexpansion.cattail_sprouts": "Ростки рогоза",
 	"block.swampexpansion.cattail": "Рогоз",
 	"block.swampexpansion.tall_cattail": "Высокий рогоз",
 	"block.swampexpansion.potted_cattail": "Рогоз в горшке",
 
-	"block.swampexpansion.cattail_thatch": "Солома из рогоза",
-	"block.swampexpansion.cattail_thatch_slab": "Cattail Thatch Slab",
-	"block.swampexpansion.cattail_thatch_stairs": "Cattail Thatch Stairs",
-	"block.swampexpansion.cattail_thatch_vertical_slab": "Cattail Thatch Vertical Slab",
+	"block.swampexpansion.cattail_thatch": "Солома рогоза",
+	"block.swampexpansion.cattail_thatch_slab": "Плита из соломы рогоза",
+	"block.swampexpansion.cattail_thatch_stairs": "Ступеньки из соломы рогоза",
+	"block.swampexpansion.cattail_thatch_vertical_slab": "Вертикальная плита из соломы рогоза",
 	"block.swampexpansion.cattail_seed_sack": "Мешок семян рогоза",
-
-	"block.swampexpansion.bitter_berry_bush": "Куст горьких ягод",
-	"block.swampexpansion.bitter_berry_bush_pips": "Косточки горьких ягод",
-	"block.swampexpansion.bitter_berry_sack": "Мешок горьких ягод",
-
 	"item.swampexpansion.cattail_seeds": "Семена рогоза",
-	"item.swampexpansion.mud_ball": "Ком грязи",
-	"item.swampexpansion.mud_brick": "Грязевой кирпич",
-	"item.swampexpansion.mud_bucket": "Ведро грязи",
-	"item.swampexpansion.bitter_berries": "Горькие ягоды",
-	"item.swampexpansion.bitter_berry_pips": "Косточки горьких ягод",
-	"item.swampexpansion.bitter_berry_juice": "Сок из горьких ягод",
-	"item.swampexpansion.willow_boat": "Ивовая лодка",
 
-	"block.swampexpansion.mud": "Грязь",
-	"fluid.swampexpansion.mud": "Грязь"
+	"block.swampexpansion.rice_sack": "Мешок риса",
+	"block.swampexpansion.rice": "Рис",
+	"block.swampexpansion.tall_rice": "Рис",
+	"item.swampexpansion.rice_ball": "Рисовый шарик",
+	
+	"block.swampexpansion.duckweed": "Ряска",
+	"block.swampexpansion.duckweed_thatch": "Тростник ряски",
+	"block.swampexpansion.duckweed_thatch_slab": "Плита из тростника ряски",
+	"block.swampexpansion.duckweed_thatch_stairs": "Ступеньки из тростника ряски",
+	"block.swampexpansion.duckweed_thatch_vertical_slab": "Вертикальная плита из тростника ряски",
+	
+	"item.swampexpansion.slabfish_spawn_egg": "Яйцо призыва Плитняка",
+	"item.swampexpansion.axolotl_spawn_egg": "Яйцо призыва Аксолотля",
+	
+	"item.swampexpansion.cod_kelp_roll": "Ролл из водорослей трески",
+	"item.swampexpansion.tropical_fish_kelp_roll": "Ролл из водорослей тропических рыб",
+	"item.swampexpansion.crab_kelp_roll": "Ролл из крабовых водорослей",
+	"item.swampexpansion.pike_kelp_roll": "Ролл из щучих водорослей",
+	"item.swampexpansion.cavefish_kelp_roll": "Ролл из водорослей пещерных рыб",
+	
+	"item.swampexpansion.salmon_rice_cake": "Рисовый пирог с лососем",
+	"item.swampexpansion.pufferfish_rice_cake": "Рисовый пирог с фугой",
+	"item.swampexpansion.lionfish_rice_cake": "Рисовый пирог с крылаткой",
+	
+	"item.swampexpansion.squid_ink_risotto": "Ризотто с чернилами кальмара",
+	
+	"item.swampexpansion.axolotl_bucket": "Аксолотль в ведре",
+	
+	"item.swampexpansion.mud_ball": "Глинянной шар",
+	"item.swampexpansion.mud_brick": "Глинянные кирпичи",
+	"item.swampexpansion.mud_bucket": "Глинянное ведро",
+	"item.swampexpansion.willow_boat": "Ивовая лодка",
+	
+	"item.swampexpansion.music_disc_slabrave": "Музыкальный диск",
+	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - Slabrave",
+	
+	"entity.swampexpansion.slabfish": "Плитняк",
+	"entity.swampexpansion.axolotl": "Аксолотль",
+	"entity.swampexpansion.boat": "Лодка",
+	
+	"biome.swampexpansion.marsh": "Болото",
+	"biome.swampexpansion.mushroom_marsh": "Грибное болото",
+	"biome.swampexpansion.mire": "Трясина",
+	
+	"advancements.husbandry.equip_axolotl.title": "Затерянный в море, но не одинокий!",
+	"advancements.husbandry.equip_axolotl.description": "Пусть Аксолотль вцепится в тебя и исцелит!",
+	
+	"advancements.husbandry.breed_all_slabfish.title": "Фанк-Генетика",
+	"advancements.husbandry.breed_all_slabfish.description": "Разведите все варианты Плитняков!",
+	
+	"advancements.husbandry.backpack_slabfish.title": "Первый день в школе",
+	"advancements.husbandry.backpack_slabfish.description": "Дайте рюкзак Плитняку",
+	
+	"advancements.adventure.find_natural_slabfish.title": "Они бывают разных цветов!",
+	"advancements.adventure.find_natural_slabfish.description": "Найти все варианты натуральных Плитняков",
+	
+	"subtitles.entity.slabfish.burp": "Плитняк отрыгивает",
+	"subtitles.entity.slabfish.death": "Плитняк умирает",
+	"subtitles.entity.slabfish.step": "Плитняк идёт",
+	"subtitles.entity.slabfish.hurt": "Плитняку больно",
+	"subtitles.entity.slabfish.eat": "Плитняк ест",
+	"subtitles.entity.slabfish.transform": "Плитняк преображается",
+	"subtitles.entity.slabfish.backpack": "Рюкзак надет",
+	"subtitles.entity.slabfish.sweater": "Свитер надет",
+	
+	"block.swampexpansion.mud": "Глина",
+	"fluid.swampexpansion.mud": "Глина"
 }

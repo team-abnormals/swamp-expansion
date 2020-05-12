@@ -1,21 +1,14 @@
 package com.farcr.swampexpansion.core.registry;
 
-import java.util.function.BiFunction;
-
 import com.farcr.swampexpansion.client.render.SlabfishRenderer;
-import com.farcr.swampexpansion.client.render.WillowBoatRenderer;
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
-import com.farcr.swampexpansion.common.entity.WillowBoatEntity;
 import com.farcr.swampexpansion.core.SwampExpansion;
+import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.gen.Heightmap;
@@ -27,25 +20,21 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @EventBusSubscriber(modid = SwampExpansion.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class SwampExEntities
 {
-	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = new DeferredRegister<>(ForgeRegistries.ENTITIES, "swampexpansion");
+	public static final RegistryHelper HELPER = SwampExpansion.REGISTRY_HELPER;
 	
-	public static final RegistryObject<EntityType<WillowBoatEntity>> BOAT = ENTITY_TYPES.register("boat", () -> createEntity(WillowBoatEntity::new, null, EntityClassification.MISC, "boat", 1.375F, 0.5625F));
-	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = ENTITY_TYPES.register("slabfish", () -> createLivingEntity(SlabfishEntity::new, EntityClassification.CREATURE, "slabfish", 0.5F, 0.9375F));
-
+	public static final RegistryObject<EntityType<SlabfishEntity>> SLABFISH = HELPER.createLivingEntity("slabfish", SlabfishEntity::new, EntityClassification.CREATURE, 0.45F, 0.9F);
+//	public static final RegistryObject<EntityType<AxolotlEntity>> AXOLOTL = HELPER.createLivingEntity("axolotl", AxolotlEntity::new, EntityClassification.CREATURE, 0.6F, 0.5F));
     
     @OnlyIn(Dist.CLIENT)
     public static void registerRendering()
     {
-        RenderingRegistry.registerEntityRenderingHandler((EntityType<? extends WillowBoatEntity>)BOAT.get(), WillowBoatRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler((EntityType<? extends SlabfishEntity>)SLABFISH.get(), SlabfishRenderer::new);
-
+        //RenderingRegistry.registerEntityRenderingHandler((EntityType<? extends AxolotlEntity>)AXOLOTL.get(), AxolotlRenderer::new);
     }
 	
 	public static void addEntitySpawns() {
@@ -62,29 +51,4 @@ public class SwampExEntities
 	public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
 		EntitySpawnPlacementRegistry.register(SwampExEntities.SLABFISH.get(), EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, AnimalEntity::canAnimalSpawn);
 	}
-	
-    private static <T extends Entity> EntityType<T> createEntity(EntityType.IFactory<T> factory, BiFunction<FMLPlayMessages.SpawnEntity, World, T> clientFactory, EntityClassification entityClassification, String name, float width, float height) {
-		ResourceLocation location = new ResourceLocation("swampexpansion", name);
-		EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
-			.size(width, height)
-			.setTrackingRange(64)
-			.setShouldReceiveVelocityUpdates(true)
-			.setUpdateInterval(3)
-			.setCustomClientFactory(clientFactory)
-			.build(location.toString()
-		);
-		return entity;
-	}
-    
-    private static <T extends LivingEntity> EntityType<T> createLivingEntity(EntityType.IFactory<T> factory, EntityClassification entityClassification, String name, float width, float height){
-		ResourceLocation location = new ResourceLocation(SwampExpansion.MODID, name);
-		EntityType<T> entity = EntityType.Builder.create(factory, entityClassification)
-			.size(width, height)
-			.setTrackingRange(64)
-			.setShouldReceiveVelocityUpdates(true)
-			.setUpdateInterval(3)
-			.build(location.toString()
-		);
-		return entity;
-	}    
 }

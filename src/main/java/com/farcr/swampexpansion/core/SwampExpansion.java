@@ -1,19 +1,15 @@
 package com.farcr.swampexpansion.core;
 
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
-import com.farcr.swampexpansion.common.item.SwampExSpawnEggItem;
 import com.farcr.swampexpansion.core.other.SwampExData;
 import com.farcr.swampexpansion.core.registry.SwampExBiomes;
 import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.farcr.swampexpansion.core.registry.SwampExEntities;
 import com.farcr.swampexpansion.core.registry.SwampExFeatures;
-import com.farcr.swampexpansion.core.registry.SwampExItems;
-import com.farcr.swampexpansion.core.registry.SwampExSounds;
-import com.farcr.swampexpansion.core.registry.SwampExTileEntities;
+import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ColorHandlerEvent;
@@ -23,9 +19,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -34,17 +28,19 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod.EventBusSubscriber(modid = "swampexpansion")
 public class SwampExpansion {
 	public static final String MODID = "swampexpansion";
+	public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MODID);
 
     public SwampExpansion() {
     	IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	
-        SwampExBlocks.BLOCKS.register(modEventBus);
-        SwampExItems.ITEMS.register(modEventBus);
-        SwampExEntities.ENTITY_TYPES.register(modEventBus);
-        SwampExTileEntities.TILE_ENTITIES.register(modEventBus);
+    	REGISTRY_HELPER.getDeferredBlockRegister().register(modEventBus);
+    	REGISTRY_HELPER.getDeferredItemRegister().register(modEventBus);
+    	REGISTRY_HELPER.getDeferredEntityRegister().register(modEventBus);
+    	REGISTRY_HELPER.getDeferredTileEntityRegister().register(modEventBus);
+    	REGISTRY_HELPER.getDeferredSoundRegister().register(modEventBus);
+
         SwampExBlocks.PAINTINGS.register(modEventBus);
         SwampExBiomes.BIOMES.register(modEventBus);
-        SwampExSounds.SOUNDS.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         
         modEventBus.addListener(this::setupCommon);
@@ -70,17 +66,7 @@ public class SwampExpansion {
     
     @OnlyIn(Dist.CLIENT)
 	private void registerItemColors(ColorHandlerEvent.Item event) {
-		for(RegistryObject<Item> items : SwampExItems.SPAWN_EGGS) {
-			//RegistryObject#isPresent causes a null pointer when it's false :crying: thanks forge
-			if(ObfuscationReflectionHelper.getPrivateValue(RegistryObject.class, items, "value") != null) {
-				Item item = items.get();
-				if(item instanceof SwampExSpawnEggItem) {
-					event.getItemColors().register((itemColor, itemsIn) -> {
-						return ((SwampExSpawnEggItem) item).getColor(itemsIn);
-					}, item);
-				}
-			}
-		}
+    	REGISTRY_HELPER.processSpawnEggColors(event);
 	}
     
     @SubscribeEvent

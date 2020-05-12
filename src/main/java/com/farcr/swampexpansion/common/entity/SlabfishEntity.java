@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.common.entity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,7 +12,6 @@ import javax.annotation.Nullable;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyBreedGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
-import com.farcr.swampexpansion.common.entity.goals.SlabbySitGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
 import com.farcr.swampexpansion.core.other.SwampExTags;
@@ -26,6 +26,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -36,6 +37,7 @@ import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.effect.LightningBoltEntity;
@@ -46,9 +48,10 @@ import net.minecraft.entity.monster.PillagerEntity;
 import net.minecraft.entity.monster.RavagerEntity;
 import net.minecraft.entity.monster.VexEntity;
 import net.minecraft.entity.monster.VindicatorEntity;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.IInventoryChangedListener;
 import net.minecraft.inventory.Inventory;
@@ -101,10 +104,9 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class SlabfishEntity extends AnimalEntity implements IInventoryChangedListener {
+public class SlabfishEntity extends TameableEntity implements IInventoryChangedListener {
 	private static final DataParameter<Integer> SLABFISH_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> SLABFISH_OVERLAY = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> IS_SITTING = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> PRE_NAME_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 
 	private static final DataParameter<Boolean> HAS_BACKPACK = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
@@ -113,17 +115,16 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 
 	private static final DataParameter<Boolean> HAS_SWEATER = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> SWEATER_COLOR = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
-	
-	protected SlabbySitGoal sitGoal;
-	
+		
 	public static final EntitySize SIZE_SWIMMING = EntitySize.fixed(0.75F, 0.25F);
-	public static final EntitySize SIZE_SITTING = EntitySize.fixed(0.5F, 0.625F);
+	public static final EntitySize SIZE_SITTING = EntitySize.fixed(0.45F, 0.6F);
 	public static final EntitySize SIZE_SWIMMING_CHILD = EntitySize.fixed(0.375F, 0.125F);
-	public static final EntitySize SIZE_SITTING_CHILD = EntitySize.fixed(0.25F, 0.3125F);
+	public static final EntitySize SIZE_SITTING_CHILD = EntitySize.fixed(0.225F, 0.3F);
 	
-	private static final Ingredient TEMPTATION_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
+	private static final Ingredient BREEDING_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
 	private static final Ingredient HEALING_ITEMS = Ingredient.fromTag(ItemTags.FISHES);
 	private static final Ingredient SPEEDING_ITEMS = Ingredient.fromTag(SwampExTags.SUSHI);
+	private static final Collection<Ingredient> TEMPT = new ArrayList<Ingredient>();
 	
 	public Inventory slabfishBackpack;
 	private UUID lightningUUID;
@@ -160,7 +161,11 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 
 	protected void registerGoals() {
-		this.sitGoal = new SlabbySitGoal(this);
+		TEMPT.add(BREEDING_ITEMS);
+		TEMPT.add(HEALING_ITEMS);
+		TEMPT.add(SPEEDING_ITEMS);
+		
+		this.sitGoal = new SitGoal(this);
 		this.goalSelector.addGoal(0, new SwimGoal(this));
 		this.goalSelector.addGoal(1, this.sitGoal);
 		
@@ -173,7 +178,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		
 		this.goalSelector.addGoal(4, new SlabbyBreedGoal(this, 1.0D));
 		this.goalSelector.addGoal(5, new SlabbyGrabItemGoal(this, 1.1D));
-		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, TEMPTATION_ITEMS));
+		this.goalSelector.addGoal(6, new TemptGoal(this, 1.0D, false, Ingredient.merge(TEMPT)));
 		this.goalSelector.addGoal(8, new SlabbyFollowParentGoal(this, 1.1D));
 		this.goalSelector.addGoal(9, new RandomWalkingGoal(this, 1.0D));
 		this.goalSelector.addGoal(10, new LookAtGoal(this, PlayerEntity.class, 6.0F));
@@ -185,12 +190,11 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		super.registerData();
 		this.getDataManager().register(SLABFISH_TYPE, 0);
 		this.getDataManager().register(SLABFISH_OVERLAY, 0);
-		this.getDataManager().register(IS_SITTING, false);
 		this.getDataManager().register(PRE_NAME_TYPE, 0);
 
 		this.getDataManager().register(HAS_BACKPACK, false);
 		this.getDataManager().register(BACKPACK_COLOR, DyeColor.BROWN.getId());
-		this.getDataManager().register(BACKPACK_USED, ItemStack.EMPTY);
+		this.getDataManager().register(BACKPACK_USED, new ItemStack(Items.CHEST));
 		
 		this.getDataManager().register(HAS_SWEATER, false);
 		this.getDataManager().register(SWEATER_COLOR, DyeColor.WHITE.getId());
@@ -201,7 +205,6 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		super.writeAdditional(compound);
 		compound.putInt("SlabfishType", this.getSlabfishType().getId());
 		compound.putInt("SlabfishOverlay", this.getSlabfishOverlay().getId());
-		compound.putBoolean("Sitting", this.isSitting());
 		compound.putInt("PreNameType", this.getPreNameType().getId());
 
 		compound.putBoolean("HasBackpack", this.hasBackpack());
@@ -229,19 +232,18 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	         compound.put("Items", listnbt);
 		}
 	}
+
+	public boolean canBeLeashedTo(PlayerEntity player) {
+		return !this.getLeashed();
+	}
 	
 	@Override
 	public void readAdditional(CompoundNBT compound) {
 		super.readAdditional(compound);
 		this.setSlabfishType(SlabfishType.byId(compound.getInt("SlabfishType")));
 		this.setSlabfishOverlay(SlabfishOverlay.byId(compound.getInt("SlabfishOverlay")));
-		if (this.sitGoal != null) this.sitGoal.setSitting(compound.getBoolean("Sitting"));
 		this.setPreNameType(SlabfishType.byId(compound.getInt("PreNameType")));
-		if (this.sitGoal != null) {
-			this.sitGoal.setSitting(compound.getBoolean("Sitting"));
-		}
 
-		this.setSitting(compound.getBoolean("Sitting"));
 		this.setBackpacked(compound.getBoolean("HasBackpack"));
 		if(compound.contains("BackpackColor", 99)) this.setBackpackColor(DyeColor.byId(compound.getInt("BackpackColor")));
 		ItemStack backpackItem = ItemStack.read(compound.getCompound("BackpackItem"));
@@ -347,11 +349,13 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 			return true;
 			
 		} else if (!this.isSitting() && this.hasBackpack() && player.func_226563_dT_() && !this.isInWater()) {
-			this.setSitting(true);
+			this.setTamedBy(player); 
+			if (!world.isRemote()) this.sitGoal.setSitting(true);
 			return true;
 			
-		} else if (this.isSitting() && player.func_226563_dT_()) {
-			this.setSitting(false);
+		} else if (this.isSitting() && player.func_226563_dT_()  && this.getOwner() == player) {
+			if (!world.isRemote()) this.sitGoal.setSitting(false);
+			this.setTamed(false); 
 			return true;
 			
 		} else if (this.hasBackpack() == true) {
@@ -426,6 +430,23 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 		return this.getMotion().getX() > 0 || this.getMotion().getY() > 0 || this.getMotion().getZ() > 0;
 	}
 	
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (this.isInvulnerableTo(source)) {
+			return false;
+		} else {
+			Entity entity = source.getTrueSource();
+			if (this.sitGoal != null) {
+				this.sitGoal.setSitting(false);
+			}
+
+			if (entity != null && !(entity instanceof PlayerEntity) && !(entity instanceof AbstractArrowEntity)) {
+				amount = (amount + 1.0F) / 2.0F;
+			}
+
+			return super.attackEntityFrom(source, amount);
+		}
+	}
+	
 	// DETAILS //
 
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
@@ -486,7 +507,7 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	}
 	
 	public boolean isBreedingItem(ItemStack stack) {
-		return TEMPTATION_ITEMS.test(stack);
+		return BREEDING_ITEMS.test(stack);
 	}
 	
 	@Override
@@ -707,16 +728,8 @@ public class SlabfishEntity extends AnimalEntity implements IInventoryChangedLis
 	
 	// DATA //
 	
-	public SlabbySitGoal getAISit() {
+	public SitGoal getAISit() {
 		return this.sitGoal;
-	}
-	
-	public boolean isSitting() {
-		return this.dataManager.get(IS_SITTING);
-	}
-	
-	public void setSitting(boolean isSitting) {
-		this.dataManager.set(IS_SITTING, isSitting);
 	}
 	
 	public boolean hasBackpack() {
