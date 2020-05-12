@@ -2,62 +2,53 @@ package com.farcr.swampexpansion.core.other;
 
 import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.farcr.swampexpansion.core.registry.SwampExItems;
-import com.google.common.collect.Maps;
+import com.teamabnormals.abnormals_core.core.utils.DataUtils;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.FireBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.item.AxeItem;
-import net.minecraft.util.IItemProvider;
 import net.minecraft.world.FoliageColors;
 import net.minecraft.world.biome.BiomeColors;
 
 public class SwampExData {
 	public static void registerBlockData() {
-		registerCompostable(SwampExBlocks.WILLOW_LEAVES.get(),0.3F);
-		registerCompostable(SwampExBlocks.WILLOW_SAPLING.get(),0.3F);
-		registerCompostable(SwampExBlocks.WILLOW_LEAF_CARPET.get(),0.3F);
+		DataUtils.registerCompostable(0.30F,SwampExBlocks.WILLOW_LEAVES.get());
+		DataUtils.registerCompostable(0.30F,SwampExBlocks.WILLOW_SAPLING.get());
+		DataUtils.registerCompostable(0.30F,SwampExBlocks.WILLOW_LEAF_CARPET.get());
 		
-		registerCompostable(SwampExBlocks.DUCKWEED.get(),0.65F);
-		registerCompostable(SwampExBlocks.CATTAIL.get(),0.30F);
-		registerCompostable(SwampExBlocks.TALL_CATTAIL.get(),0.65F);
+		DataUtils.registerCompostable(0.65F,SwampExBlocks.DUCKWEED.get());
+		DataUtils.registerCompostable(0.30F,SwampExBlocks.CATTAIL.get());
+		DataUtils.registerCompostable(0.65F,SwampExBlocks.TALL_CATTAIL.get());
 		
-		registerCompostable(SwampExItems.RICE.get(),0.30F);
-		registerCompostable(SwampExItems.CATTAIL_SEEDS.get(),0.30F);
+		DataUtils.registerCompostable(0.30F,SwampExItems.RICE.get());
+		DataUtils.registerCompostable(0.30F,SwampExItems.CATTAIL_SEEDS.get());
 		
-		registerCompostable(SwampExBlocks.CATTAIL_THATCH.get(),0.65F);
-		registerCompostable(SwampExBlocks.CATTAIL_THATCH_SLAB.get(),0.65F);
-		registerCompostable(SwampExBlocks.CATTAIL_THATCH_STAIRS.get(),0.65F);
-		registerCompostable(SwampExBlocks.CATTAIL_THATCH_VERTICAL_SLAB.get(),0.65F);
+		DataUtils.registerCompostable(0.65F,SwampExBlocks.CATTAIL_THATCH.get());
+		DataUtils.registerCompostable(0.65F,SwampExBlocks.CATTAIL_THATCH_SLAB.get());
+		DataUtils.registerCompostable(0.65F,SwampExBlocks.CATTAIL_THATCH_STAIRS.get());
+		DataUtils.registerCompostable(0.65F,SwampExBlocks.CATTAIL_THATCH_VERTICAL_SLAB.get());
 		
-		registerCompostable(SwampExBlocks.DUCKWEED_THATCH.get(),0.85F);
-		registerCompostable(SwampExBlocks.DUCKWEED_THATCH_SLAB.get(),0.85F);
-		registerCompostable(SwampExBlocks.DUCKWEED_THATCH_STAIRS.get(),0.85F);
-		registerCompostable(SwampExBlocks.DUCKWEED_THATCH_VERTICAL_SLAB.get(),0.85F);
-
-		registerStrippable(SwampExBlocks.WILLOW_LOG.get(), SwampExBlocks.STRIPPED_WILLOW_LOG.get());
-		registerStrippable(SwampExBlocks.WILLOW_WOOD.get(), SwampExBlocks.STRIPPED_WILLOW_WOOD.get());
-
-		registerFlammable(SwampExBlocks.WILLOW_LEAVES.get(), 30, 60);
-		registerFlammable(SwampExBlocks.WILLOW_LOG.get(), 5, 5);
-		registerFlammable(SwampExBlocks.WILLOW_WOOD.get(), 5, 5);
-		registerFlammable(SwampExBlocks.STRIPPED_WILLOW_LOG.get(), 5, 5);
-		registerFlammable(SwampExBlocks.STRIPPED_WILLOW_WOOD.get(), 5, 5);
-		registerFlammable(SwampExBlocks.WILLOW_PLANKS.get(), 5, 20);
-		registerFlammable(SwampExBlocks.WILLOW_SLAB.get(), 5, 20);
-		registerFlammable(SwampExBlocks.WILLOW_STAIRS.get(), 5, 20);
-		registerFlammable(SwampExBlocks.WILLOW_FENCE.get(), 5, 20);
-		registerFlammable(SwampExBlocks.WILLOW_FENCE_GATE.get(), 5, 20);
-		registerFlammable(SwampExBlocks.VERTICAL_WILLOW_PLANKS.get(), 5, 20);
-		registerFlammable(SwampExBlocks.WILLOW_LEAF_CARPET.get(), 30, 60);
-		registerFlammable(SwampExBlocks.WILLOW_VERTICAL_SLAB.get(), 5, 20);
-		registerFlammable(SwampExBlocks.WILLOW_BOOKSHELF.get(), 5, 20);
+		DataUtils.registerCompostable(0.85F,SwampExBlocks.DUCKWEED_THATCH.get());
+		DataUtils.registerCompostable(0.85F,SwampExBlocks.DUCKWEED_THATCH_SLAB.get());
+		DataUtils.registerCompostable(0.85F,SwampExBlocks.DUCKWEED_THATCH_STAIRS.get());
+		DataUtils.registerCompostable(0.85F,SwampExBlocks.DUCKWEED_THATCH_VERTICAL_SLAB.get());
+		
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_LEAVES.get(), 30, 60);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_LOG.get(), 5, 5);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_WOOD.get(), 5, 5);
+		DataUtils.registerFlammable(SwampExBlocks.STRIPPED_WILLOW_LOG.get(), 5, 5);
+		DataUtils.registerFlammable(SwampExBlocks.STRIPPED_WILLOW_WOOD.get(), 5, 5);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_PLANKS.get(), 5, 20);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_SLAB.get(), 5, 20);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_STAIRS.get(), 5, 20);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_FENCE.get(), 5, 20);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_FENCE_GATE.get(), 5, 20);
+		DataUtils.registerFlammable(SwampExBlocks.VERTICAL_WILLOW_PLANKS.get(), 5, 20);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_LEAF_CARPET.get(), 30, 60);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_VERTICAL_SLAB.get(), 5, 20);
+		DataUtils.registerFlammable(SwampExBlocks.WILLOW_BOOKSHELF.get(), 5, 20);
 		
 	}
 	
@@ -106,18 +97,4 @@ public class SwampExData {
         blockColors.register((x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), SwampExBlocks.HANGING_WILLOW_LEAVES.get());
         itemColors.register((color, items) -> FoliageColors.get(0.5D, 1.0D), SwampExBlocks.HANGING_WILLOW_LEAVES.get());
     }
-
-	public static void registerFlammable(Block block, int encouragement, int flammability) {
-		FireBlock fire = (FireBlock) Blocks.FIRE;
-		fire.setFireInfo(block, encouragement, flammability);
-	}
-
-	public static void registerCompostable(IItemProvider item, float chance) {
-		ComposterBlock.CHANCES.put(item.asItem(), chance);
-	}
-
-	public static void registerStrippable(Block log, Block stripped) {
-		AxeItem.BLOCK_STRIPPING_MAP = Maps.newHashMap(AxeItem.BLOCK_STRIPPING_MAP);
-		AxeItem.BLOCK_STRIPPING_MAP.put(log, stripped);
-	}
 }

@@ -20,8 +20,8 @@ credits="Musicano, Ilja, & Pugz"
     side="BOTH"
 
 [[dependencies.swampexpansion]]
-    modId="minecraft"
+    modId="abnormals_core"
     mandatory=true
-    versionRange="[1.15.2]"
-    ordering="NONE"
+    versionRange="[1.0.0,)"
+    ordering="AFTER"
     side="BOTH"
