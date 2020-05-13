@@ -52,7 +52,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -94,9 +93,7 @@ public class SwampExBlocks {
 	public static final RegistryObject<Block> WILLOW_LEAF_CARPET 	= HELPER.createCompatBlock("quark", "willow_leaf_carpet", () -> new LeafCarpetBlock(SwampExProperties.LEAVES.notSolid()), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> WILLOW_LADDER 		= HELPER.createCompatBlock("quark", "willow_ladder", () -> new WillowLadderBlock(SwampExProperties.LADDER), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> WILLOW_BOOKSHELF 		= HELPER.createCompatBlock("quark", "willow_bookshelf", () -> new BookshelfBlock(SwampExProperties.BOOKSHELF), ItemGroup.DECORATIONS);
-	
-	private static final ResourceLocation SIGN_TEXTURE = new ResourceLocation(SwampExpansion.MODID, "textures/entity/signs/willow.png");
-	public static final Pair<RegistryObject<AbnormalsStandingSignBlock>, RegistryObject<AbnormalsWallSignBlock>> SIGNS = HELPER.createSignBlock("willow", MaterialColor.GREEN, SIGN_TEXTURE);
+	public static final Pair<RegistryObject<AbnormalsStandingSignBlock>, RegistryObject<AbnormalsWallSignBlock>> SIGNS = HELPER.createSignBlock("willow", MaterialColor.GREEN);
 
 	public static final RegistryObject<Block> CATTAIL_SPROUTS 		= HELPER.createBlockNoItem("cattail_sprouts", () -> new CattailSproutsBlock(SwampExProperties.CATTAIL));
 	public static final RegistryObject<Block> CATTAIL 				= HELPER.createBlock("cattail", () -> new CattailBlock(SwampExProperties.CATTAIL), ItemGroup.DECORATIONS);

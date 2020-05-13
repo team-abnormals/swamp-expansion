@@ -62,5 +62,5 @@ minecraft {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.15.2-31.1.74'
-    compile fg.deobf("curse.maven:abnormals-core:2954634")
+    compile fg.deobf("curse.maven:abnormals-core:2955363")
 }
