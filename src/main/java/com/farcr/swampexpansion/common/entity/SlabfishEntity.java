@@ -280,9 +280,28 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		ItemStack itemstack = player.getHeldItem(hand);
 		Item item = itemstack.getItem();
 		this.initSlabfishBackpack();
-		if (item instanceof SpawnEggItem || item instanceof NameTagItem || item == Items.TROPICAL_FISH || item == SwampExItems.TROPICAL_FISH_KELP_ROLL.get() || item instanceof EggItem || item instanceof MudBallItem) {
+		if (item instanceof SpawnEggItem || item == Items.TROPICAL_FISH || item == SwampExItems.TROPICAL_FISH_KELP_ROLL.get() || item instanceof EggItem || item instanceof MudBallItem) {
 			return super.processInteract(player, hand);
 	         
+		} if (item instanceof NameTagItem) {
+			ITextComponent name = item.getName();
+			if (name != null && this.getSlabfishType() != SlabfishType.GHOST) {
+				for(Map.Entry<List<String>, SlabfishType> entries : NAMES.entrySet()) {
+					if(entries.getKey().contains(name.getString().toLowerCase().trim())) {
+						if (!NAMES.containsValue(this.getSlabfishType())) {
+							this.setPreNameType(this.getSlabfishType());
+						}
+						this.setSlabfishType(entries.getValue());
+						break;
+					}
+				}
+				if (this.getSlabfishType() != this.getPreNameType()) {
+					this.setSlabfishType(this.getPreNameType());
+				}
+
+			}
+			
+			return super.processInteract(player, hand);
 		} else if(item instanceof DyeItem && this.hasBackpack() == true) {
 			DyeColor dyecolor = ((DyeItem) item).getDyeColor();
 			if(dyecolor != this.getBackpackColor()) {
