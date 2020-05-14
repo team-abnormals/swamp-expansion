@@ -10,7 +10,7 @@
       "item": "swampexpansion:willow_planks"
     },
     "X": {
-      "item": "minecraft:stick"
+      "tag": "forge:rods/wooden"
     }
   },
   "result": {
