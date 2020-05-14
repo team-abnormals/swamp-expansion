@@ -13,6 +13,7 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyBreedGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
+import com.farcr.swampexpansion.core.other.SwampExConfig;
 import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
 import com.farcr.swampexpansion.core.other.SwampExTags;
 import com.farcr.swampexpansion.core.registry.SwampExBiomes;
@@ -21,7 +22,9 @@ import com.farcr.swampexpansion.core.registry.SwampExEntities;
 import com.farcr.swampexpansion.core.registry.SwampExItems;
 import com.farcr.swampexpansion.core.registry.SwampExSounds;
 import com.google.common.collect.Maps;
+import com.teamabnormals.abnormals_core.core.library.api.IBucketableEntity;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -104,10 +107,11 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class SlabfishEntity extends TameableEntity implements IInventoryChangedListener {
+public class SlabfishEntity extends TameableEntity implements IInventoryChangedListener, IBucketableEntity {
 	private static final DataParameter<Integer> SLABFISH_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> SLABFISH_OVERLAY = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> PRE_NAME_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
+	private static final DataParameter<Boolean> FROM_BUCKET = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 
 	private static final DataParameter<Boolean> HAS_BACKPACK = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Integer> BACKPACK_COLOR = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
@@ -191,7 +195,8 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		this.getDataManager().register(SLABFISH_TYPE, 0);
 		this.getDataManager().register(SLABFISH_OVERLAY, 0);
 		this.getDataManager().register(PRE_NAME_TYPE, 0);
-
+		this.dataManager.register(FROM_BUCKET, false);
+		
 		this.getDataManager().register(HAS_BACKPACK, false);
 		this.getDataManager().register(BACKPACK_COLOR, DyeColor.BROWN.getId());
 		this.getDataManager().register(BACKPACK_USED, new ItemStack(Items.CHEST));
@@ -206,7 +211,8 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		compound.putInt("SlabfishType", this.getSlabfishType().getId());
 		compound.putInt("SlabfishOverlay", this.getSlabfishOverlay().getId());
 		compound.putInt("PreNameType", this.getPreNameType().getId());
-
+		compound.putBoolean("FromBucket", this.isFromBucket());
+		
 		compound.putBoolean("HasBackpack", this.hasBackpack());
 		compound.putByte("BackpackColor", (byte) this.getBackpackColor().getId());
 		CompoundNBT itemstackTag = new CompoundNBT();
@@ -243,7 +249,8 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		this.setSlabfishType(SlabfishType.byId(compound.getInt("SlabfishType")));
 		this.setSlabfishOverlay(SlabfishOverlay.byId(compound.getInt("SlabfishOverlay")));
 		this.setPreNameType(SlabfishType.byId(compound.getInt("PreNameType")));
-
+		this.setFromBucket(compound.getBoolean("FromBucket"));
+		
 		this.setBackpacked(compound.getBoolean("HasBackpack"));
 		if(compound.contains("BackpackColor", 99)) this.setBackpackColor(DyeColor.byId(compound.getInt("BackpackColor")));
 		ItemStack backpackItem = ItemStack.read(compound.getCompound("BackpackItem"));
@@ -327,7 +334,27 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			if (!this.world.isRemote) itemstack.damageItem(1, player, (tool) -> { tool.sendBreakAnimation(hand); });
 			return true;
 			
-		} else if (item.isIn(ItemTags.MUSIC_DISCS)) {
+		} else if (item == Items.WATER_BUCKET && this.isAlive() && SwampExConfig.ValuesHolder.canBucketSlabfish()) {
+			if (this.hasBackpack() && !SwampExConfig.ValuesHolder.canBucketBackpackedSlabfish()) {
+				return false;
+			}
+            this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
+            itemstack.shrink(1);
+            ItemStack itemstack1 = this.getBucket();
+            this.setBucketData(itemstack1);
+            if (!this.world.isRemote) {
+                CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayerEntity) player, itemstack1);
+            }
+
+            if (itemstack.isEmpty()) {
+                player.setHeldItem(hand, itemstack1);
+            } else if (!player.inventory.addItemStackToInventory(itemstack1)) {
+                player.dropItem(itemstack1, false);
+            }
+
+            this.remove();
+            return true;
+        } else if (item.isIn(ItemTags.MUSIC_DISCS)) {
 			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
 			this.playBurpSound();
 			this.particleCloud(ParticleTypes.NOTE);
@@ -710,9 +737,42 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
 		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 		SlabfishType type = this.getTypeForConditions(worldIn);
+		
+		if(dataTag != null && dataTag.contains("SlabfishType", 3)) {
+			this.setSlabfishType(SlabfishType.byId(dataTag.getInt("SlabfishType")));
+			if(dataTag.contains("PreNameType")) this.setPreNameType(SlabfishType.byId(dataTag.getInt("PreNameType")));
+
+			if(dataTag.contains("HasBackpack")) this.setBackpacked(dataTag.getBoolean("HasBackpack"));
+			if(dataTag.contains("BackpackColor")) this.setBackpackColor(DyeColor.byId(dataTag.getInt("BackpackColor")));
+
+			if(dataTag.contains("HasSweater")) this.setSweatered(dataTag.getBoolean("HasSweater"));
+			if(dataTag.contains("SweaterColor")) this.setSweaterColor(DyeColor.byId(dataTag.getInt("SweaterColor")));
+
+			if(dataTag.contains("BackpackItem")) {
+				ItemStack backpackItem = ItemStack.read(dataTag.getCompound("BackpackItem"));
+				this.setBackpackItem(backpackItem);
+			}
+
+			if (this.hasBackpack() && dataTag.contains("Items")) {
+				ListNBT listnbt = dataTag.getList("Items", 10);
+				this.initSlabfishBackpack();
+
+				for(int i = 0; i < listnbt.size(); ++i) {
+					CompoundNBT compoundnbt = listnbt.getCompound(i);
+					int j = compoundnbt.getByte("Slot") & 255;
+		            if (j < this.slabfishBackpack.getSizeInventory()) {
+		            	this.slabfishBackpack.setInventorySlotContents(j, ItemStack.read(compoundnbt));
+		            }
+				}
+			}
+			
+			return spawnDataIn;
+		}
+		
 		if (spawnDataIn instanceof SlabfishEntity.SlabfishData) {
 			type = ((SlabfishEntity.SlabfishData)spawnDataIn).typeData;
 		}
+		
 		this.setSlabfishType(type);
 		this.setPreNameType(type);
 		return spawnDataIn;
@@ -723,6 +783,57 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 
 		public SlabfishData(SlabfishType type) {
 			this.typeData = type;
+		}
+	}
+	
+	// BUCKETING //
+	
+	@Override
+	public boolean preventDespawn() {
+		return this.isFromBucket();
+	}
+	   
+	public boolean isFromBucket() {
+		return this.dataManager.get(FROM_BUCKET);
+	}
+
+	public void setFromBucket(boolean value) {
+		this.dataManager.set(FROM_BUCKET, value);
+	}
+	   
+	protected void setBucketData(ItemStack bucket) {
+		if(this.hasCustomName()) {
+			bucket.setDisplayName(this.getCustomName());
+		}
+		
+		CompoundNBT compound = bucket.getOrCreateTag();
+		CompoundNBT itemstackTag = new CompoundNBT();
+
+		compound.putInt("SlabfishType", this.getSlabfishType().getId());
+		compound.putInt("PreNameType", this.getPreNameType().getId());
+		
+		compound.putBoolean("HasBackpack", this.hasBackpack());
+		compound.putByte("BackpackColor", (byte) this.getBackpackColor().getId());
+		
+		this.getBackpackItem().write(itemstackTag);
+		compound.put("BackpackItem", itemstackTag);
+		
+		compound.putBoolean("HasSweater", this.hasSweater());
+		compound.putByte("SweaterColor", (byte) this.getSweaterColor().getId());
+
+		if (this.hasBackpack()) {
+	         ListNBT listnbt = new ListNBT();
+
+	         for(int i = 0; i < this.slabfishBackpack.getSizeInventory(); ++i) {
+	        	 ItemStack itemstack = this.slabfishBackpack.getStackInSlot(i);
+	        	 if (!itemstack.isEmpty()) {
+	        		 CompoundNBT compoundnbt = new CompoundNBT();
+	        		 compoundnbt.putByte("Slot", (byte)i);
+	        		 itemstack.write(compoundnbt);
+	        		 listnbt.add(compoundnbt);
+	        	 }
+	         }
+	         compound.put("Items", listnbt);
 		}
 	}
 	
@@ -954,4 +1065,9 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		reverseMap.put(DyeColor.RED, Items.RED_WOOL);
 		reverseMap.put(DyeColor.BLACK, Items.BLACK_WOOL);
 	});
+
+	@Override
+	public ItemStack getBucket() {
+		return new ItemStack(SwampExItems.SLABFISH_BUCKET.get());
+	}
 }

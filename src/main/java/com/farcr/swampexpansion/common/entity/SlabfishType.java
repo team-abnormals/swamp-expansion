@@ -3,70 +3,77 @@ package com.farcr.swampexpansion.common.entity;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import net.minecraft.item.Rarity;
 import net.minecraft.util.IStringSerializable;
 
 public enum SlabfishType implements IStringSerializable {
-	SWAMP(0, "swamp"),
-	OCEAN(1, "ocean"),
-	MARSH(2, "marsh"),
-	MIRE(3, "mire"),
-	CAVE(4, "cave"),
-	JUNGLE(5, "jungle"),
-	DESERT(6, "desert"),
-	SAVANNA(7, "savanna"),
-	MESA(8, "mesa"),
-	SNOWY(9, "snowy"),
-	TOTEM(10, "totem"),
-	TAIGA(11, "taiga"),
-	FOREST(12, "forest"),
-	PLAINS(13, "plains"),
-	SKELETON(14, "skeleton"),
-	WITHER(15, "wither"),
-	RIVER(16, "river"),
-	MAPLE(17, "maple"),
-	ROSEWOOD(18, "rosewood"),
-	DUNES(19, "dunes"),
-	NIGHTMARE(20, "nightmare"),
-	ICE_SPIKES(21, "ice_spikes"),
-	STRAY(22, "stray"),
-	NETHER(23, "nether"),
-	END(24, "end"),
-	POISE(25, "poise"),
-	GHOST(26, "ghost"),
-	BAGEL(27, "bagel"),
-	CAMERON(28, "cameron"),
-	GORE(29, "gore"),
-	SNAKE_BLOCK(30, "snake_block"),
-	DROWNED(31, "drowned"),
-	FROZEN_OCEAN(32, "frozen_ocean"),
-	WARM_OCEAN(33, "warm_ocean"),
-	MOUNTAIN(34, "mountain"),
-	MUSHROOM(35, "mushroom"),
-	BAMBOO(36, "bamboo"),
-	CHORUS(37, "chorus"),
-	DARK_FOREST(38, "dark_forest"),
-	FLOWER_FOREST(39, "flower_forest"),
-	BEACH(40, "beach"),
-	SKY(41, "sky"),
-	BROWN_MUSHROOM(42, "brown_mushroom"),
-	JACKSON(43, "jackson"),
-	MISTA_JUB(44, "mista_jub"),
-	SMELLY(45, "smelly"),
-	SQUART(46, "squart");
+	SWAMP(0, "swamp", Rarity.COMMON),
+	OCEAN(1, "ocean", Rarity.COMMON),
+	MARSH(2, "marsh", Rarity.COMMON),
+	MIRE(3, "mire", Rarity.UNCOMMON),
+	CAVE(4, "cave", Rarity.RARE),
+	JUNGLE(5, "jungle", Rarity.UNCOMMON),
+	DESERT(6, "desert", Rarity.COMMON),
+	SAVANNA(7, "savanna", Rarity.COMMON),
+	MESA(8, "mesa", Rarity.RARE),
+	SNOWY(9, "snowy", Rarity.COMMON),
+	TOTEM(10, "totem", Rarity.EPIC),
+	TAIGA(11, "taiga", Rarity.COMMON),
+	FOREST(12, "forest", Rarity.COMMON),
+	PLAINS(13, "plains", Rarity.COMMON),
+	SKELETON(14, "skeleton", Rarity.RARE),
+	WITHER(15, "wither", Rarity.EPIC),
+	RIVER(16, "river", Rarity.COMMON),
+	MAPLE(17, "maple", Rarity.COMMON),
+	ROSEWOOD(18, "rosewood", Rarity.UNCOMMON),
+	DUNES(19, "dunes", Rarity.UNCOMMON),
+	NIGHTMARE(20, "nightmare", Rarity.UNCOMMON),
+	ICE_SPIKES(21, "ice_spikes", Rarity.RARE),
+	STRAY(22, "stray", Rarity.EPIC),
+	NETHER(23, "nether", Rarity.UNCOMMON),
+	END(24, "end", Rarity.RARE),
+	POISE(25, "poise", Rarity.EPIC),
+	GHOST(26, "ghost", Rarity.RARE),
+	BAGEL(27, "bagel", Rarity.UNCOMMON),
+	CAMERON(28, "cameron", Rarity.UNCOMMON),
+	GORE(29, "gore", Rarity.UNCOMMON),
+	SNAKE_BLOCK(30, "snake_block", Rarity.UNCOMMON),
+	DROWNED(31, "drowned", Rarity.RARE),
+	FROZEN_OCEAN(32, "frozen_ocean", Rarity.UNCOMMON),
+	WARM_OCEAN(33, "warm_ocean", Rarity.UNCOMMON),
+	MOUNTAIN(34, "mountain", Rarity.COMMON),
+	MUSHROOM(35, "mushroom", Rarity.RARE),
+	BAMBOO(36, "bamboo", Rarity.RARE),
+	CHORUS(37, "chorus", Rarity.EPIC),
+	DARK_FOREST(38, "dark_forest", Rarity.UNCOMMON),
+	FLOWER_FOREST(39, "flower_forest", Rarity.UNCOMMON),
+	BEACH(40, "beach", Rarity.COMMON),
+	SKY(41, "sky", Rarity.EPIC),
+	BROWN_MUSHROOM(42, "brown_mushroom", Rarity.EPIC),
+	JACKSON(43, "jackson", Rarity.UNCOMMON),
+	MISTA_JUB(44, "mista_jub", Rarity.UNCOMMON),
+	SMELLY(45, "smelly", Rarity.UNCOMMON),
+	SQUART(46, "squart", Rarity.UNCOMMON);
 
 	private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((array) -> {
 		return new SlabfishType[array];
 	});
 	private final int id;
 	private final String name;
+	private final Rarity rarity;
 
-	private SlabfishType(int idIn, String name) {
+	private SlabfishType(int idIn, String name, Rarity rarity) {
 		this.id = idIn;
 		this.name = name;
+		this.rarity = rarity;
 	}
 
 	public int getId() {
 		return this.id;
+	}
+	
+	public Rarity getRarity() {
+		return this.rarity;
 	}
 
 	public static SlabfishType byId(int id) {
@@ -87,5 +94,9 @@ public enum SlabfishType implements IStringSerializable {
 
 	public String getName() {
 		return this.name;
+	}
+	
+	public String getTranslationKey() {
+		return "entity.swampexpansion.slabfish." + this.name;
 	}
 }

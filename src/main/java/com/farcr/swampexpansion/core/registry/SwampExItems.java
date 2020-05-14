@@ -2,11 +2,13 @@ package com.farcr.swampexpansion.core.registry;
 
 import com.farcr.swampexpansion.common.item.DuckweedItem;
 import com.farcr.swampexpansion.common.item.MudBallItem;
+import com.farcr.swampexpansion.common.item.SlabfishBucketItem;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.farcr.swampexpansion.core.other.SwampExFoods;
 import com.teamabnormals.abnormals_core.common.items.AbnormalsMusicDiscItem;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 
+import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockNamedItem;
 import net.minecraft.item.BucketItem;
@@ -46,6 +48,7 @@ public class SwampExItems {
 	
 	public static final RegistryObject<Item> MUSIC_DISC_SLABRAVE 	= HELPER.createItem("music_disc_slabrave", () -> new AbnormalsMusicDiscItem(12, SwampExSounds.SLABRAVE, new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE)));
 //	public static final RegistryObject<Item> AXOLOTL_BUCKET = HELPER.createItem("axolotl_bucket", () -> new AxolotlBucketItem(() -> SwampExEntities.AXOLOTL.get(), () -> Fluids.WATER, new Item.Properties().group(ItemGroup.MISC).maxStackSize(1)));
+	public static final RegistryObject<Item> SLABFISH_BUCKET = HELPER.createItem("slabfish_bucket", () -> new SlabfishBucketItem(() -> SwampExEntities.SLABFISH.get(), () -> Fluids.WATER, new Item.Properties().group(ItemGroup.MISC).maxStackSize(1)));
 
 	public static final RegistryObject<Item> SLABFISH_SPAWN_EGG = HELPER.createSpawnEggItem("slabfish", () -> SwampExEntities.SLABFISH.get(), 6263617, 13940616);
 //	public static final RegistryObject<Item> AXOLOTL_SPAWN_EGG = HELPER.createSpawnEggItem("axolotl", () -> SwampExEntities.AXOLOTL.get(), 6263617, 13940616);

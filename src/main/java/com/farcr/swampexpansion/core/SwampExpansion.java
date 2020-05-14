@@ -1,6 +1,7 @@
 package com.farcr.swampexpansion.core;
 
 import com.farcr.swampexpansion.common.block.fluid.MudFluid;
+import com.farcr.swampexpansion.core.other.SwampExConfig;
 import com.farcr.swampexpansion.core.other.SwampExData;
 import com.farcr.swampexpansion.core.registry.SwampExBiomes;
 import com.farcr.swampexpansion.core.registry.SwampExBlocks;
@@ -19,7 +20,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -43,11 +46,20 @@ public class SwampExpansion {
         SwampExBiomes.BIOMES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         
+        modEventBus.addListener((ModConfig.ModConfigEvent event) -> {
+			final ModConfig config = event.getConfig();
+			if(config.getSpec() == SwampExConfig.COMMON_SPEC) {
+				SwampExConfig.ValuesHolder.updateCommonValuesFromConfig(config);
+			}
+		});
+        
         modEventBus.addListener(this::setupCommon);
     	DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
         	modEventBus.addListener(this::setupClient);
         	modEventBus.addListener(this::registerItemColors);
         });
+    	
+    	ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, SwampExConfig.COMMON_SPEC);
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
