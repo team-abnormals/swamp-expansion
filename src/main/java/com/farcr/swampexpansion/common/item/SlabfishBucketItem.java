@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.common.entity.SlabfishEntity;
 import com.farcr.swampexpansion.common.entity.SlabfishType;
-import com.farcr.swampexpansion.core.other.SwampExConfig;
 import com.teamabnormals.abnormals_core.core.utils.ItemStackUtils;
 
 import net.minecraft.client.util.ITooltipFlag;
@@ -79,7 +78,7 @@ public class SlabfishBucketItem extends BucketItem {
 		if (compoundnbt != null) {
 			if (compoundnbt.contains("SlabfishType", 3)) {
 				int i = compoundnbt.getInt("SlabfishType");
-				TextFormatting[] btextformatting = SwampExConfig.ValuesHolder.canDisplaySlabfishRarity() ? new TextFormatting[] {TextFormatting.ITALIC, SlabfishType.byId(i).getRarity().color} : new TextFormatting[] {TextFormatting.ITALIC, TextFormatting.GRAY};
+				TextFormatting[] btextformatting = new TextFormatting[] {TextFormatting.ITALIC, SlabfishType.byId(i).getRarity().color};
 				tooltip.add((new TranslationTextComponent(SlabfishType.byId(i).getTranslationKey()).applyTextStyles(btextformatting)));
 			}
 			if (compoundnbt.contains("Age") && compoundnbt.getInt("Age") < 0) {

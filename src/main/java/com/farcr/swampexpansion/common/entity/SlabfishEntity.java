@@ -13,7 +13,6 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyBreedGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
-import com.farcr.swampexpansion.core.other.SwampExConfig;
 import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
 import com.farcr.swampexpansion.core.other.SwampExTags;
 import com.farcr.swampexpansion.core.registry.SwampExBiomes;
@@ -335,14 +334,12 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			return true;
 			
 		} else if (item == Items.WATER_BUCKET && this.isAlive()) {
-			if (this.getGrowingAge() >= 0 && !SwampExConfig.ValuesHolder.canBucketSlabfish()) {
+			if (this.getGrowingAge() < 0) {
 				return false;
 			}
-			if (this.getGrowingAge() < 0 && !SwampExConfig.ValuesHolder.canBucketBabySlabfish()) {
-				return false;
-			}
-			if (this.hasBackpack() && !SwampExConfig.ValuesHolder.canBucketBackpackedSlabfish()) {
-				return false;
+			if (this.hasBackpack()) {
+				this.dropItems();
+				this.slabfishBackpack.clear();
 			}
             this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
             itemstack.shrink(1);
@@ -973,7 +970,21 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		if (this.hasSweater()) {
 			this.dropItem(REVERSE_MAP.get(this.getSweaterColor()));
 		}
-		
+	}
+	
+	protected void dropItems() {
+		super.dropInventory();
+		if (this.hasBackpack()) {
+			if (this.slabfishBackpack != null) {
+				for(int i = 0; i < this.slabfishBackpack.getSizeInventory(); ++i) {
+					ItemStack itemstack = this.slabfishBackpack.getStackInSlot(i);
+		            if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+		            	this.entityDropItem(itemstack);
+		            }
+				}
+				
+			}
+		}
 	}
 	
 	protected void dropBackpack() {
