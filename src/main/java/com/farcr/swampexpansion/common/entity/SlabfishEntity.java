@@ -292,7 +292,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			}
 			return true;
 			
-		} else if (SWEATER_MAP.containsKey(item) && !(this.hasSweater() && this.getSweaterColor() == SWEATER_MAP.get(item)) && !player.func_226563_dT_()) {
+		} else if (SWEATER_MAP.containsKey(item) && !(this.hasSweater() && this.getSweaterColor() == SWEATER_MAP.get(item)) && !player.isSecondaryUseActive()) {
 			IItemProvider previousSweater = Items.AIR;
 			this.playSweaterSound();
 			if(!player.abilities.isCreativeMode) itemstack.shrink(1);
@@ -317,14 +317,14 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			}
 			return true;
 			
-		} else if (item == Items.SHEARS && this.hasSweater() == true && !player.func_226563_dT_()) {
+		} else if (item == Items.SHEARS && this.hasSweater() == true && !player.isSecondaryUseActive()) {
 			this.setSweatered(false);
 			this.playSweaterSound();
 			this.dropItem(REVERSE_MAP.get(this.getSweaterColor()));
 			if (!this.world.isRemote) itemstack.damageItem(1, player, (tool) -> { tool.sendBreakAnimation(hand); });
 			return true;
 			
-		} else if (item == Items.SHEARS && this.hasBackpack() == true && player.func_226563_dT_()) {
+		} else if (item == Items.SHEARS && this.hasBackpack() == true && player.isSecondaryUseActive()) {
 			this.setBackpackColor(DyeColor.BROWN);
             this.dropBackpack();
 			this.setBackpacked(false);
@@ -378,12 +378,12 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			this.particleCloud(ParticleTypes.CLOUD);
 			return true;
 			
-		} else if (!this.isSitting() && this.hasBackpack() && player.func_226563_dT_() && !this.isInWater()) {
+		} else if (!this.isSitting() && this.hasBackpack() && player.isSecondaryUseActive() && !this.isInWater()) {
 			this.setTamedBy(player); 
 			if (!world.isRemote()) this.sitGoal.setSitting(true);
 			return true;
 			
-		} else if (this.isSitting() && player.func_226563_dT_()  && this.getOwner() == player) {
+		} else if (this.isSitting() && player.isSecondaryUseActive()  && this.getOwner() == player) {
 			if (!world.isRemote()) this.sitGoal.setSitting(false);
 			this.setTamed(false); 
 			return true;

@@ -23,7 +23,7 @@ archivesBaseName = 'Swamp-Expansion-1.15.2'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20200505-1.15.1'
+    mappings channel: 'snapshot', version: '20200515-1.15.1'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -61,6 +61,6 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.15.2-31.1.74'
+    minecraft 'net.minecraftforge:forge:1.15.2-31.2.0'
     compile fg.deobf("curse.maven:abnormals-core:2955363")
 }
