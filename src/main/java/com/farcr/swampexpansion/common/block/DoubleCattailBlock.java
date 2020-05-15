@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.core.other.SwampExTags;
 import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.teamabnormals.abnormals_core.core.utils.ItemStackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
@@ -26,9 +28,11 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -125,6 +129,39 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 			return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
 		}
 	}
+	
+	@Override
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		if(ItemStackUtils.isInGroup(this.asItem(), group)) {
+			int targetIndex = ItemStackUtils.findIndexOfItem(Items.LARGE_FERN, items);
+			if(targetIndex != -1) {
+				items.add(targetIndex + 1, new ItemStack(this));
+			} else {
+				super.fillItemGroup(group, items);
+			}
+		}
+	}
+	
+	public void harvestBlock(World worldIn, PlayerEntity player, BlockPos pos, BlockState state, @Nullable TileEntity te, ItemStack stack) {
+	      super.harvestBlock(worldIn, player, pos, Blocks.AIR.getDefaultState(), te, stack);
+	   }
+
+	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+		DoubleBlockHalf doubleblockhalf = state.get(HALF);
+		BlockPos blockpos = doubleblockhalf == DoubleBlockHalf.LOWER ? pos.up() : pos.down();
+		BlockState blockstate = worldIn.getBlockState(blockpos);
+		if (blockstate.getBlock() == this && blockstate.get(HALF) != doubleblockhalf) {
+			worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 35);
+			worldIn.playEvent(player, 2001, blockpos, Block.getStateId(blockstate));
+			if (!worldIn.isRemote && !player.isCreative()) {
+				spawnDrops(state, worldIn, pos, (TileEntity)null, player, player.getHeldItemMainhand());
+				spawnDrops(blockstate, worldIn, blockpos, (TileEntity)null, player, player.getHeldItemMainhand());
+			}
+		}
+
+		super.onBlockHarvested(worldIn, pos, state, player);
+	}
+	
 	@Override
 	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) {
 		int i = state.get(AGE);

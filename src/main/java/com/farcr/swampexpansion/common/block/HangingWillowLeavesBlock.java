@@ -4,9 +4,13 @@ import net.minecraft.block.*;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -18,6 +22,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+
+import com.teamabnormals.abnormals_core.core.utils.ItemStackUtils;
+
 import java.util.Random;
 @SuppressWarnings("deprecation")
 public class HangingWillowLeavesBlock extends Block implements net.minecraftforge.common.IShearable {
@@ -82,16 +89,17 @@ public class HangingWillowLeavesBlock extends Block implements net.minecraftforg
         return block.isIn(BlockTags.LEAVES) || block.isIn(BlockTags.LOGS);
     }
 
-    /*
     @Override
-    public boolean removedByPlayer(BlockState state, World world, BlockPos pos, PlayerEntity player, boolean willHarvest, IFluidState fluid) {
-        if (world.getBlockState(pos.down()) == getDefaultState().with(HALF, DoubleBlockHalf.LOWER)) {
-            world.removeBlock(pos.down(), false);
-        }
-        world.removeBlock(pos, false);
-        return false;
-    }
-    */
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		if(ItemStackUtils.isInGroup(this.asItem(), group)) {
+			int targetIndex = ItemStackUtils.findIndexOfItem(Items.VINE, items);
+			if(targetIndex != -1) {
+				items.add(targetIndex + 1, new ItemStack(this));
+			} else {
+				super.fillItemGroup(group, items);
+			}
+		}
+	}
 
     @Override
     @Nullable

@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.core.other.SwampExTags;
 import com.farcr.swampexpansion.core.registry.SwampExBlocks;
+import com.teamabnormals.abnormals_core.core.utils.ItemStackUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -16,12 +17,16 @@ import net.minecraft.block.IWaterLoggable;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -72,6 +77,18 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
 			worldIn.setBlockState(pos.up(), tall_up.with(WATERLOGGED, waterlogged), flags);
     	} 
     }
+    
+    @Override
+	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+		if(ItemStackUtils.isInGroup(this.asItem(), group)) {
+			int targetIndex = ItemStackUtils.findIndexOfItem(Items.SEA_PICKLE, items);
+			if(targetIndex != -1) {
+				items.add(targetIndex + 1, new ItemStack(this));
+			} else {
+				super.fillItemGroup(group, items);
+			}
+		}
+	}
     
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         Vec3d vec3d = state.getOffset(worldIn, pos);

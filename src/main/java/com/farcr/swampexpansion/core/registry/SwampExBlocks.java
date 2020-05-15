@@ -8,12 +8,12 @@ import com.farcr.swampexpansion.common.block.DuckweedBlock;
 import com.farcr.swampexpansion.common.block.HangingWillowLeavesBlock;
 import com.farcr.swampexpansion.common.block.MudVaseBlock;
 import com.farcr.swampexpansion.common.block.RiceBlock;
-import com.farcr.swampexpansion.common.block.WillowLadderBlock;
 import com.farcr.swampexpansion.common.block.fluid.MudFluidBlock;
 import com.farcr.swampexpansion.common.world.gen.feature.trees.WillowTree;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.farcr.swampexpansion.core.other.SwampExProperties;
 import com.mojang.datafixers.util.Pair;
+import com.teamabnormals.abnormals_core.common.blocks.AbnormalsLadderBlock;
 import com.teamabnormals.abnormals_core.common.blocks.BookshelfBlock;
 import com.teamabnormals.abnormals_core.common.blocks.LeafCarpetBlock;
 import com.teamabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
@@ -91,7 +91,7 @@ public class SwampExBlocks {
 	public static final RegistryObject<Block> WILLOW_LEAVES 		= HELPER.createBlock("willow_leaves", () -> new AbnormalsLeavesBlock(SwampExProperties.LEAVES), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> HANGING_WILLOW_LEAVES = HELPER.createBlock("hanging_willow_leaves", () -> new HangingWillowLeavesBlock(SwampExProperties.LEAVES), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> WILLOW_LEAF_CARPET 	= HELPER.createCompatBlock("quark", "willow_leaf_carpet", () -> new LeafCarpetBlock(SwampExProperties.LEAVES.notSolid()), ItemGroup.DECORATIONS);
-	public static final RegistryObject<Block> WILLOW_LADDER 		= HELPER.createCompatBlock("quark", "willow_ladder", () -> new WillowLadderBlock(SwampExProperties.LADDER), ItemGroup.DECORATIONS);
+	public static final RegistryObject<Block> WILLOW_LADDER 		= HELPER.createCompatBlock("quark", "willow_ladder", () -> new AbnormalsLadderBlock(SwampExProperties.LADDER), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> WILLOW_BOOKSHELF 		= HELPER.createCompatBlock("quark", "willow_bookshelf", () -> new BookshelfBlock(SwampExProperties.BOOKSHELF), ItemGroup.DECORATIONS);
 	public static final Pair<RegistryObject<AbnormalsStandingSignBlock>, RegistryObject<AbnormalsWallSignBlock>> SIGNS = HELPER.createSignBlock("willow", MaterialColor.GREEN);
 
