@@ -379,11 +379,12 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			return true;
 			
 		} else if (!this.isSitting() && this.hasBackpack() && player.isSecondaryUseActive() && !this.isInWater()) {
-			this.setTamedBy(player); 
+			this.setTamed(true);
+			this.setOwnerId(player.getUniqueID());
 			if (!world.isRemote()) this.sitGoal.setSitting(true);
 			return true;
 			
-		} else if (this.isSitting() && player.isSecondaryUseActive()  && this.getOwner() == player) {
+		} else if (this.isSitting() && player.isSecondaryUseActive()) {
 			if (!world.isRemote()) this.sitGoal.setSitting(false);
 			this.setTamed(false); 
 			return true;
@@ -408,6 +409,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	public void livingTick() {
 		super.livingTick();
 
+		if (!this.isSitting()) this.setTamed(false); 
 		if (this.isMoving()) {
 			if (this.isPotionActive(Effects.SPEED) && rand.nextInt(3) == 0 && !this.isInWater()) {
 				double d0 = this.rand.nextGaussian() * 0.02D;
