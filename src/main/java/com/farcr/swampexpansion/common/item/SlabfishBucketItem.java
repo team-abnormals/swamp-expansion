@@ -82,6 +82,10 @@ public class SlabfishBucketItem extends BucketItem {
 				TextFormatting[] btextformatting = SwampExConfig.ValuesHolder.canDisplaySlabfishRarity() ? new TextFormatting[] {TextFormatting.ITALIC, SlabfishType.byId(i).getRarity().color} : new TextFormatting[] {TextFormatting.ITALIC, TextFormatting.GRAY};
 				tooltip.add((new TranslationTextComponent(SlabfishType.byId(i).getTranslationKey()).applyTextStyles(btextformatting)));
 			}
+			if (compoundnbt.contains("Age") && compoundnbt.getInt("Age") < 0) {
+				TextFormatting[] atextformatting = new TextFormatting[] {TextFormatting.ITALIC, TextFormatting.GRAY};
+				tooltip.add((new TranslationTextComponent("entity.swampexpansion.slabfish.baby").applyTextStyles(atextformatting)));
+			}
 			if (compoundnbt.contains("HasBackpack") && compoundnbt.getBoolean("HasBackpack") && compoundnbt.contains("BackpackColor", 99)) {
 				int i = compoundnbt.getInt("BackpackColor");
 				TextFormatting[] atextformatting = new TextFormatting[] {TextFormatting.ITALIC, TextFormatting.GRAY};

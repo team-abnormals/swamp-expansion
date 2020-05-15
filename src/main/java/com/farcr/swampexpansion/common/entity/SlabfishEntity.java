@@ -353,7 +353,13 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			if (!this.world.isRemote) itemstack.damageItem(1, player, (tool) -> { tool.sendBreakAnimation(hand); });
 			return true;
 			
-		} else if (item == Items.WATER_BUCKET && this.isAlive() && SwampExConfig.ValuesHolder.canBucketSlabfish()) {
+		} else if (item == Items.WATER_BUCKET && this.isAlive()) {
+			if (this.getGrowingAge() >= 0 && !SwampExConfig.ValuesHolder.canBucketSlabfish()) {
+				return false;
+			}
+			if (this.getGrowingAge() < 0 && !SwampExConfig.ValuesHolder.canBucketBabySlabfish()) {
+				return false;
+			}
 			if (this.hasBackpack() && !SwampExConfig.ValuesHolder.canBucketBackpackedSlabfish()) {
 				return false;
 			}
@@ -758,9 +764,11 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		SlabfishType type = this.getTypeForConditions(worldIn);
 		
 		if(dataTag != null && dataTag.contains("SlabfishType", 3)) {
+			this.setHealth(dataTag.getFloat("Health"));
+			if (dataTag.contains("Age")) this.setGrowingAge(dataTag.getInt("Age"));
 			this.setSlabfishType(SlabfishType.byId(dataTag.getInt("SlabfishType")));
 			if(dataTag.contains("PreNameType")) this.setPreNameType(SlabfishType.byId(dataTag.getInt("PreNameType")));
-
+			
 			if(dataTag.contains("HasBackpack")) this.setBackpacked(dataTag.getBoolean("HasBackpack"));
 			if(dataTag.contains("BackpackColor")) this.setBackpackColor(DyeColor.byId(dataTag.getInt("BackpackColor")));
 
@@ -828,6 +836,9 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		CompoundNBT compound = bucket.getOrCreateTag();
 		CompoundNBT itemstackTag = new CompoundNBT();
 
+		compound.putInt("Age", this.getGrowingAge());
+		compound.putFloat("Health", this.getHealth());
+		
 		compound.putInt("SlabfishType", this.getSlabfishType().getId());
 		compound.putInt("PreNameType", this.getPreNameType().getId());
 		
