@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum SlabfishOverlay implements IStringSerializable, net.minecraftforge.common.IExtensibleEnum {
+public enum SlabfishOverlay implements IStringSerializable {
 	NONE(0, "none"),
 	MUDDY(1, "mud"),
 	SNOWY(2, "snow");

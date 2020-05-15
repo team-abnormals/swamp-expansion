@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum SlabfishType implements IStringSerializable, net.minecraftforge.common.IExtensibleEnum {
+public enum SlabfishType implements IStringSerializable {
 	SWAMP(0, "swamp", SlabfishRarity.COMMON),
 	OCEAN(1, "ocean", SlabfishRarity.COMMON),
 	MARSH(2, "marsh", SlabfishRarity.COMMON),

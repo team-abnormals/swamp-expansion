@@ -814,35 +814,19 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		CompoundNBT compound = bucket.getOrCreateTag();
 		CompoundNBT itemstackTag = new CompoundNBT();
 
-		compound.putInt("Age", this.getGrowingAge());
 		compound.putFloat("Health", this.getHealth());
 		
 		compound.putInt("SlabfishType", this.getSlabfishType().getId());
 		compound.putInt("PreNameType", this.getPreNameType().getId());
 		
 		compound.putBoolean("HasBackpack", this.hasBackpack());
-		compound.putByte("BackpackColor", (byte) this.getBackpackColor().getId());
+		if (this.hasBackpack()) compound.putByte("BackpackColor", (byte) this.getBackpackColor().getId());
 		
 		this.getBackpackItem().write(itemstackTag);
-		compound.put("BackpackItem", itemstackTag);
+		if (this.hasBackpack()) compound.put("BackpackItem", itemstackTag);
 		
 		compound.putBoolean("HasSweater", this.hasSweater());
-		compound.putByte("SweaterColor", (byte) this.getSweaterColor().getId());
-
-		if (this.hasBackpack()) {
-	         ListNBT listnbt = new ListNBT();
-
-	         for(int i = 0; i < this.slabfishBackpack.getSizeInventory(); ++i) {
-	        	 ItemStack itemstack = this.slabfishBackpack.getStackInSlot(i);
-	        	 if (!itemstack.isEmpty()) {
-	        		 CompoundNBT compoundnbt = new CompoundNBT();
-	        		 compoundnbt.putByte("Slot", (byte)i);
-	        		 itemstack.write(compoundnbt);
-	        		 listnbt.add(compoundnbt);
-	        	 }
-	         }
-	         compound.put("Items", listnbt);
-		}
+		if (this.hasSweater()) compound.putByte("SweaterColor", (byte) this.getSweaterColor().getId());
 	}
 	
 	// DATA //
