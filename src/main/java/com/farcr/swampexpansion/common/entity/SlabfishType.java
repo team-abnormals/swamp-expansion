@@ -3,66 +3,65 @@ package com.farcr.swampexpansion.common.entity;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import net.minecraft.item.Rarity;
 import net.minecraft.util.IStringSerializable;
 
-public enum SlabfishType implements IStringSerializable {
-	SWAMP(0, "swamp", Rarity.COMMON),
-	OCEAN(1, "ocean", Rarity.COMMON),
-	MARSH(2, "marsh", Rarity.COMMON),
-	MIRE(3, "mire", Rarity.UNCOMMON),
-	CAVE(4, "cave", Rarity.RARE),
-	JUNGLE(5, "jungle", Rarity.UNCOMMON),
-	DESERT(6, "desert", Rarity.COMMON),
-	SAVANNA(7, "savanna", Rarity.COMMON),
-	MESA(8, "mesa", Rarity.RARE),
-	SNOWY(9, "snowy", Rarity.COMMON),
-	TOTEM(10, "totem", Rarity.EPIC),
-	TAIGA(11, "taiga", Rarity.COMMON),
-	FOREST(12, "forest", Rarity.COMMON),
-	PLAINS(13, "plains", Rarity.COMMON),
-	SKELETON(14, "skeleton", Rarity.RARE),
-	WITHER(15, "wither", Rarity.EPIC),
-	RIVER(16, "river", Rarity.COMMON),
-	MAPLE(17, "maple", Rarity.COMMON),
-	ROSEWOOD(18, "rosewood", Rarity.UNCOMMON),
-	DUNES(19, "dunes", Rarity.UNCOMMON),
-	NIGHTMARE(20, "nightmare", Rarity.UNCOMMON),
-	ICE_SPIKES(21, "ice_spikes", Rarity.RARE),
-	STRAY(22, "stray", Rarity.EPIC),
-	NETHER(23, "nether", Rarity.UNCOMMON),
-	END(24, "end", Rarity.RARE),
-	POISE(25, "poise", Rarity.EPIC),
-	GHOST(26, "ghost", Rarity.RARE),
-	BAGEL(27, "bagel", Rarity.UNCOMMON),
-	CAMERON(28, "cameron", Rarity.UNCOMMON),
-	GORE(29, "gore", Rarity.UNCOMMON),
-	SNAKE_BLOCK(30, "snake_block", Rarity.UNCOMMON),
-	DROWNED(31, "drowned", Rarity.RARE),
-	FROZEN_OCEAN(32, "frozen_ocean", Rarity.UNCOMMON),
-	WARM_OCEAN(33, "warm_ocean", Rarity.UNCOMMON),
-	MOUNTAIN(34, "mountain", Rarity.COMMON),
-	MUSHROOM(35, "mushroom", Rarity.RARE),
-	BAMBOO(36, "bamboo", Rarity.RARE),
-	CHORUS(37, "chorus", Rarity.EPIC),
-	DARK_FOREST(38, "dark_forest", Rarity.UNCOMMON),
-	FLOWER_FOREST(39, "flower_forest", Rarity.UNCOMMON),
-	BEACH(40, "beach", Rarity.COMMON),
-	SKY(41, "sky", Rarity.EPIC),
-	BROWN_MUSHROOM(42, "brown_mushroom", Rarity.EPIC),
-	JACKSON(43, "jackson", Rarity.UNCOMMON),
-	MISTA_JUB(44, "mista_jub", Rarity.UNCOMMON),
-	SMELLY(45, "smelly", Rarity.UNCOMMON),
-	SQUART(46, "squart", Rarity.UNCOMMON);
+public enum SlabfishType implements IStringSerializable, net.minecraftforge.common.IExtensibleEnum {
+	SWAMP(0, "swamp", SlabfishRarity.COMMON),
+	OCEAN(1, "ocean", SlabfishRarity.COMMON),
+	MARSH(2, "marsh", SlabfishRarity.COMMON),
+	MIRE(3, "mire", SlabfishRarity.UNCOMMON),
+	CAVE(4, "cave", SlabfishRarity.RARE),
+	JUNGLE(5, "jungle", SlabfishRarity.UNCOMMON),
+	DESERT(6, "desert", SlabfishRarity.COMMON),
+	SAVANNA(7, "savanna", SlabfishRarity.COMMON),
+	MESA(8, "mesa", SlabfishRarity.RARE),
+	SNOWY(9, "snowy", SlabfishRarity.COMMON),
+	TOTEM(10, "totem", SlabfishRarity.EPIC),
+	TAIGA(11, "taiga", SlabfishRarity.COMMON),
+	FOREST(12, "forest", SlabfishRarity.COMMON),
+	PLAINS(13, "plains", SlabfishRarity.COMMON),
+	SKELETON(14, "skeleton", SlabfishRarity.RARE),
+	WITHER(15, "wither", SlabfishRarity.EPIC),
+	RIVER(16, "river", SlabfishRarity.COMMON),
+	MAPLE(17, "maple", SlabfishRarity.COMMON),
+	ROSEWOOD(18, "rosewood", SlabfishRarity.RARE),
+	DUNES(19, "dunes", SlabfishRarity.RARE),
+	NIGHTMARE(20, "nightmare", SlabfishRarity.RARE),
+	ICE_SPIKES(21, "ice_spikes", SlabfishRarity.EPIC),
+	STRAY(22, "stray", SlabfishRarity.EPIC),
+	NETHER(23, "nether", SlabfishRarity.UNCOMMON),
+	END(24, "end", SlabfishRarity.RARE),
+	POISE(25, "poise", SlabfishRarity.EPIC),
+	GHOST(26, "ghost", SlabfishRarity.RARE),
+	BAGEL(27, "bagel", SlabfishRarity.UNCOMMON),
+	CAMERON(28, "cameron", SlabfishRarity.UNCOMMON),
+	GORE(29, "gore", SlabfishRarity.UNCOMMON),
+	SNAKE_BLOCK(30, "snake_block", SlabfishRarity.UNCOMMON),
+	DROWNED(31, "drowned", SlabfishRarity.RARE),
+	FROZEN_OCEAN(32, "frozen_ocean", SlabfishRarity.UNCOMMON),
+	WARM_OCEAN(33, "warm_ocean", SlabfishRarity.UNCOMMON),
+	MOUNTAIN(34, "mountain", SlabfishRarity.COMMON),
+	MUSHROOM(35, "mushroom", SlabfishRarity.RARE),
+	BAMBOO(36, "bamboo", SlabfishRarity.RARE),
+	CHORUS(37, "chorus", SlabfishRarity.EPIC),
+	DARK_FOREST(38, "dark_forest", SlabfishRarity.UNCOMMON),
+	FLOWER_FOREST(39, "flower_forest", SlabfishRarity.UNCOMMON),
+	BEACH(40, "beach", SlabfishRarity.COMMON),
+	SKY(41, "sky", SlabfishRarity.EPIC),
+	BROWN_MUSHROOM(42, "brown_mushroom", SlabfishRarity.EPIC),
+	JACKSON(43, "jackson", SlabfishRarity.UNCOMMON),
+	MISTA_JUB(44, "mista_jub", SlabfishRarity.UNCOMMON),
+	SMELLY(45, "smelly", SlabfishRarity.UNCOMMON),
+	SQUART(46, "squart", SlabfishRarity.UNCOMMON);
 
 	private static final SlabfishType[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishType::getId)).toArray((array) -> {
 		return new SlabfishType[array];
 	});
 	private final int id;
 	private final String name;
-	private final Rarity rarity;
+	private final SlabfishRarity rarity;
 
-	private SlabfishType(int idIn, String name, Rarity rarity) {
+	private SlabfishType(int idIn, String name, SlabfishRarity rarity) {
 		this.id = idIn;
 		this.name = name;
 		this.rarity = rarity;
@@ -72,7 +71,7 @@ public enum SlabfishType implements IStringSerializable {
 		return this.id;
 	}
 	
-	public Rarity getRarity() {
+	public SlabfishRarity getRarity() {
 		return this.rarity;
 	}
 
