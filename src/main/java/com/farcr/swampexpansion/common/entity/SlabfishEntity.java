@@ -817,6 +817,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		CompoundNBT itemstackTag = new CompoundNBT();
 
 		compound.putFloat("Health", this.getHealth());
+		compound.putInt("Age", this.getGrowingAge());
 		
 		compound.putInt("SlabfishType", this.getSlabfishType().getId());
 		compound.putInt("PreNameType", this.getPreNameType().getId());
