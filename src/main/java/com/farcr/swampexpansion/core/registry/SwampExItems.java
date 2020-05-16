@@ -5,6 +5,7 @@ import com.farcr.swampexpansion.common.item.MudBallItem;
 import com.farcr.swampexpansion.common.item.SlabfishBucketItem;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.farcr.swampexpansion.core.other.SwampExFoods;
+import com.teamabnormals.abnormals_core.common.items.AbnormalsMusicDiscItem;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 
 import net.minecraft.fluid.Fluids;
@@ -14,7 +15,6 @@ import net.minecraft.item.BucketItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Items;
-import net.minecraft.item.MusicDiscItem;
 import net.minecraft.item.Rarity;
 import net.minecraft.item.SoupItem;
 import net.minecraftforge.fml.RegistryObject;
@@ -46,7 +46,7 @@ public class SwampExItems {
 	public static final RegistryObject<Item> PUFFERFISH_RICE_CAKE 		= HELPER.createItem("pufferfish_rice_cake", () -> new Item(new Item.Properties().food(SwampExFoods.PUFFERFISH_RICE_CAKE).group(ItemGroup.FOOD)));
 	public static final RegistryObject<Item> LIONFISH_RICE_CAKE 		= HELPER.createCompatItem("upgrade_aquatic", "lionfish_rice_cake", new Item.Properties().food(SwampExFoods.LIONFISH_RICE_CAKE), ItemGroup.FOOD);
 	
-	public static final RegistryObject<Item> MUSIC_DISC_SLABRAVE 	= HELPER.createItem("music_disc_slabrave", () -> new MusicDiscItem(12, () -> SwampExSounds.SLABRAVE.get(), new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE)));
+	public static final RegistryObject<Item> MUSIC_DISC_SLABRAVE 	= HELPER.createItem("music_disc_slabrave", () -> new AbnormalsMusicDiscItem(12, SwampExSounds.SLABRAVE, new Item.Properties().maxStackSize(1).group(ItemGroup.MISC).rarity(Rarity.RARE)));
 //	public static final RegistryObject<Item> AXOLOTL_BUCKET = HELPER.createItem("axolotl_bucket", () -> new AxolotlBucketItem(() -> SwampExEntities.AXOLOTL.get(), () -> Fluids.WATER, new Item.Properties().group(ItemGroup.MISC).maxStackSize(1)));
 	public static final RegistryObject<Item> SLABFISH_BUCKET = HELPER.createItem("slabfish_bucket", () -> new SlabfishBucketItem(() -> SwampExEntities.SLABFISH.get(), () -> Fluids.WATER, new Item.Properties().group(ItemGroup.MISC).maxStackSize(1)));
 

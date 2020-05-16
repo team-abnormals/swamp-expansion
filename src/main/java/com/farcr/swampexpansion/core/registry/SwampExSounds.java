@@ -3,7 +3,10 @@ package com.farcr.swampexpansion.core.registry;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
@@ -21,5 +24,10 @@ public class SwampExSounds {
 	public static final RegistryObject<SoundEvent> ENTITY_SLABFISH_BACKPACK	= HELPER.createSoundEvent("entity.slabfish.backpack");
 	public static final RegistryObject<SoundEvent> ENTITY_SLABFISH_SWEATER	= HELPER.createSoundEvent("entity.slabfish.sweater");
 	
-	public static final RegistryObject<SoundEvent> SLABRAVE	= HELPER.createSoundEvent("music.record.slabrave");
+	public static final SoundEvent SLABRAVE = new SoundEvent(new ResourceLocation(SwampExpansion.MODID, "music.record.slabrave")).setRegistryName("music.record.slabrave");
+	
+	@SubscribeEvent
+    public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
+		event.getRegistry().register(SLABRAVE);
+    }
 }
