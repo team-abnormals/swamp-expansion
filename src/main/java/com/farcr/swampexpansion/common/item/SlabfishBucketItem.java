@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -40,6 +41,13 @@ public class SlabfishBucketItem extends BucketItem {
 	public SlabfishBucketItem(Supplier<EntityType<? extends SlabfishEntity>> entityType, Supplier<? extends Fluid> supplier, Item.Properties builder) {
 		super(supplier, builder);
 		this.entityType = entityType;
+		this.addPropertyOverride(new ResourceLocation("variant"), (stack, world, entity) -> {
+			CompoundNBT compoundnbt = stack.getTag();
+			if (compoundnbt != null && compoundnbt.contains("SlabfishType", 3)) {
+				return compoundnbt.getInt("SlabfishType");
+			}
+			return 0;
+		});
 	}
 
 	public void onLiquidPlaced(World worldIn, ItemStack p_203792_2_, BlockPos pos) {
