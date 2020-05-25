@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "half=upper":  { "model": "swampexpansion:block/giant_tall_grass_top" },
+        "half=lower":  { "model": "swampexpansion:block/giant_tall_grass_bottom" }
+    }
+}
+
+
+
+
+
+
+
