@@ -915,7 +915,13 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	
 	public void initSlabfishBackpack() {
 		Inventory inventory = this.slabfishBackpack;
-		this.slabfishBackpack = new Inventory(this.getInventorySize());
+		this.slabfishBackpack = new Inventory(this.getInventorySize()) {
+			@Override
+			public boolean isUsableByPlayer(PlayerEntity player)
+			{
+				return SlabfishEntity.this.isAlive() && player.getDistanceSq(SlabfishEntity.this) <= 64.0D;
+			}
+		};
 		if (inventory != null) {
 			inventory.removeListener(this);
 			int i = Math.min(inventory.getSizeInventory(), this.slabfishBackpack.getSizeInventory());
