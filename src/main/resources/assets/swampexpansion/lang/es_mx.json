@@ -35,12 +35,14 @@
 	"block.swampexpansion.tall_cattail": "Totora alta",
 	"block.swampexpansion.potted_cattail": "Maceta con totora",
 	
-	"block.swampexpansion.cattail_thatch": "Paja de totora",
-	"block.swampexpansion.cattail_thatch_slab": "Losa de paja de totora",
-	"block.swampexpansion.cattail_thatch_stairs": "Escaleras de paja de totora",
-	"block.swampexpansion.cattail_thatch_vertical_slab": "Losa vertical de paja de totora",
+	"block.swampexpansion.cattail_thatch": "Paja de totoras",
+	"block.swampexpansion.cattail_thatch_slab": "Losa de paja de totoras",
+	"block.swampexpansion.cattail_thatch_stairs": "Escaleras de paja de totoras",
+	"block.swampexpansion.cattail_thatch_vertical_slab": "Losa vertical de paja de totoras",
 	"block.swampexpansion.cattail_seed_sack": "Saco de semillas de totora",
 	"item.swampexpansion.cattail_seeds": "Semillas de totora",
+
+	"block.swampexpansion.giant_tall_grass": "Pasto alto gigante",
 	
 	"block.swampexpansion.rice_sack": "Saco de arroz",
 	"block.swampexpansion.rice": "Arroz",
@@ -195,7 +197,7 @@
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro",
 
-	"swampexpansion.config.allow_slabfish_bucketing": "Permitir pezlosas en cubetas",
-	"swampexpansion.config.can_bucket_slabfish_wearing_backpacks": "Pezlosas en cubetas pueden llevar mochilas",
+	"swampexpansion.config.allow_slabfish_bucketing": "Permitir llenado de cubetas con pezlosas",
+	"swampexpansion.config.can_bucket_slabfish_wearing_backpacks": "Pezlosas con mochilas pueden ser guardados en cubetas",
 	"swampexpansion.config.display_slabfish_rarity": "Mostrar rareza de pezlosa"
 }
