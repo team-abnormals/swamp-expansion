@@ -21,10 +21,12 @@ public class SwampExBiomes {
         
         BiomeDictionary.addTypes(MARSH.get(), 
         		BiomeDictionary.Type.PLAINS,
+        		BiomeDictionary.Type.WET,
         		BiomeDictionary.Type.SWAMP);
         
-        BiomeDictionary.addTypes(MARSH.get(), 
+        BiomeDictionary.addTypes(MUSHROOM_MARSH.get(), 
         		BiomeDictionary.Type.RARE,
+        		BiomeDictionary.Type.WET,
         		BiomeDictionary.Type.PLAINS,
         		BiomeDictionary.Type.SWAMP);
 	}
