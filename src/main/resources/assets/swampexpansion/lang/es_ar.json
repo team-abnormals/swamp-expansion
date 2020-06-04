@@ -18,9 +18,9 @@
 	"block.swampexpansion.willow_bookshelf": "Biblioteca de sauce",
 	"block.swampexpansion.willow_ladder": "Escalera de sauce",
 	"block.swampexpansion.willow_log": "Tronco de sauce",
-	"block.swampexpansion.willow_wood": "Tronco de sauce",
-	"block.swampexpansion.stripped_willow_log": "Tronco de sauce procesado",
-	"block.swampexpansion.stripped_willow_wood": "Madera de sauce sin corteza",
+	"block.swampexpansion.willow_wood": "Leño de sauce",
+	"block.swampexpansion.stripped_willow_log": "Tronco de sauce sin corteza",
+	"block.swampexpansion.stripped_willow_wood": "Leño de sauce sin corteza",
 	"block.swampexpansion.willow_sapling": "Brote de sauce",
 	"block.swampexpansion.willow_leaves": "Hojas de sauce",
 	"block.swampexpansion.hanging_willow_leaves": "Hojas de sauce colgantes",
@@ -35,10 +35,10 @@
 	"block.swampexpansion.tall_cattail": "Totora alta",
 	"block.swampexpansion.potted_cattail": "Maceta con totora",
 	
-	"block.swampexpansion.cattail_thatch": "Paja de totoras",
-	"block.swampexpansion.cattail_thatch_slab": "Baldosa de paja de totoras",
-	"block.swampexpansion.cattail_thatch_stairs": "Escaleras de paja de totoras",
-	"block.swampexpansion.cattail_thatch_vertical_slab": "Baldosa vertical de paja de totoras",
+	"block.swampexpansion.cattail_thatch": "Cubierta de totoras",
+	"block.swampexpansion.cattail_thatch_slab": "Baldosa de totoras",
+	"block.swampexpansion.cattail_thatch_stairs": "Escaleras de totoras",
+	"block.swampexpansion.cattail_thatch_vertical_slab": "Baldosa vertical de totoras",
 	"block.swampexpansion.cattail_seed_sack": "Saco de semillas de totora",
 	"item.swampexpansion.cattail_seeds": "Semillas de totora",
 
@@ -50,10 +50,10 @@
 	"item.swampexpansion.rice_ball": "Bola de arroz",
 
 	"block.swampexpansion.duckweed": "Lentejas de agua",
-	"block.swampexpansion.duckweed_thatch": "Paja de lentejas de agua",
-	"block.swampexpansion.duckweed_thatch_slab": "Baldosa de paja de lentejas de agua",
-	"block.swampexpansion.duckweed_thatch_stairs": "Escaleras de paja de lentejas de agua",
-	"block.swampexpansion.duckweed_thatch_vertical_slab": "Baldosa vertical de paja de lentejas de agua",
+	"block.swampexpansion.duckweed_thatch": "Cubierta de lentejas de agua",
+	"block.swampexpansion.duckweed_thatch_slab": "Baldosa de lentejas de agua",
+	"block.swampexpansion.duckweed_thatch_stairs": "Escaleras de lentejas de agua",
+	"block.swampexpansion.duckweed_thatch_vertical_slab": "Baldosa vertical de lentejas de agua",
 	
 	"item.swampexpansion.slabfish_spawn_egg": "Generar pezlosa",
 	"item.swampexpansion.axolotl_spawn_egg": "Generar ajolote",
@@ -90,7 +90,7 @@
 	"biome.swampexpansion.mire": "Ciénaga",
 
 	"advancements.husbandry.equip_axolotl.title": "¡Perdidos en el mar, pero juntos!",
-	"advancements.husbandry.equip_axolotl.description": "¡Dejá que se te enganche un ajolote y te cure!",
+	"advancements.husbandry.equip_axolotl.description": "¡Dejá que un ajolote se te enganche y te cure!",
 
 	"advancements.husbandry.breed_all_slabfish.title": "Genes únicos",
 	"advancements.husbandry.breed_all_slabfish.description": "¡Hacé que se reproduzcan todos los tipos de pezlosa!",
@@ -197,7 +197,7 @@
 	"block.swampexpansion.mud": "Barro",
 	"fluid.swampexpansion.mud": "Barro",
 
-	"swampexpansion.config.allow_slabfish_bucketing": "Permitir llenado de baldes con pezlosas",
-	"swampexpansion.config.can_bucket_slabfish_wearing_backpacks": "Pezlosas con mochilas pueden ser guardados en baldes",
+	"swampexpansion.config.allow_slabfish_bucketing": "Permitir el guardado de pezlosas en baldes",
+	"swampexpansion.config.can_bucket_slabfish_wearing_backpacks": "Se puede guardar pezlosas en baldes cuando llevan mochilas",
 	"swampexpansion.config.display_slabfish_rarity": "Mostrar rareza de pezlosa"
 }
