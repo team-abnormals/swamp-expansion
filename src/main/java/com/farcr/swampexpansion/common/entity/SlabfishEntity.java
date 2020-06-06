@@ -105,8 +105,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -417,7 +415,6 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		}
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	public boolean isPartying() {
 		return this.isPartying;
 	}
@@ -441,11 +438,11 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			this.isPartying = false;
 			this.jukeboxPosition = null;
 		} 
-
-		if (this.isPartying() && !this.isSwimming()) {
-			if (this.isNoEndimationPlaying()) {
-				this.setPlayingEndimation(DANCE);
-			}
+		
+		if (!this.isInWater() && this.isPartying && this.isNoEndimationPlaying()) {
+//			System.out.println(this.isNoEndimationPlaying());
+//			if(this.world.getGameTime() % 10 == 0) this.particleCloud(ParticleTypes.NOTE);
+//			if(this.world.isRemote) this.setPlayingEndimation(DANCE);
 		}
 				
 		if (!this.isSitting()) this.setTamed(false);

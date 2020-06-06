@@ -22,7 +22,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
@@ -49,7 +48,7 @@ import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
+import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -106,27 +105,27 @@ public class SwampExEvents {
 	protected static final Map<Block, BlockState> HOE_LOOKUP = Maps.newHashMap(ImmutableMap.of(Blocks.GRASS_BLOCK, Blocks.FARMLAND.getDefaultState(), Blocks.GRASS_PATH, Blocks.FARMLAND.getDefaultState(), Blocks.DIRT, Blocks.FARMLAND.getDefaultState(), Blocks.COARSE_DIRT, Blocks.DIRT.getDefaultState()));
 
 	@SubscribeEvent
-	public static void underwaterHoe(RightClickBlock event) {
-		if (event.getItemStack().getItem() instanceof HoeItem) {
-			World world = event.getWorld();
-			BlockPos blockpos = event.getPos();
-			if (event.getFace() != Direction.DOWN) {
+	public static void underwaterHoe(UseHoeEvent event) {
+		ItemStack hoe = event.getContext().getItem();
+		
+		//if (event.getResult() == Result.ALLOW) {
+			World world = event.getContext().getWorld();
+			BlockPos blockpos = event.getContext().getPos();
+			if (event.getContext().getFace() != Direction.DOWN) {
 				BlockState blockstate = HOE_LOOKUP.get(world.getBlockState(blockpos).getBlock());
 				if (blockstate != null) {
 					PlayerEntity playerentity = event.getPlayer();
 		            world.playSound(playerentity, blockpos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
-		            playerentity.swingArm(event.getHand());
+		            playerentity.swingArm(event.getContext().getHand());
 		            if (!world.isRemote) {
 		            	world.setBlockState(blockpos, blockstate, 11);
 		            	if (playerentity != null) {
-		            		event.getItemStack().damageItem(1, playerentity, (p_220043_1_) -> {
-		            			p_220043_1_.sendBreakAnimation(event.getHand());
-		            		});
+		            		hoe.damageItem(1, playerentity, (anim) -> { anim.sendBreakAnimation(event.getContext().getHand()); });
 		            	}
 		            }
 				}
 			}
-		}
+		//}
 	}
 	
 //	@SubscribeEvent

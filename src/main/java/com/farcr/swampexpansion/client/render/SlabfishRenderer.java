@@ -10,6 +10,7 @@ import com.farcr.swampexpansion.common.entity.SlabfishType;
 import com.farcr.swampexpansion.core.SwampExpansion;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -50,5 +51,9 @@ public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<
 	    matrixStack.scale(1.0F, 1.0F, 1.0F);
 	    if(slabfish.isChild()) matrixStack.scale(0.5F, 0.5F, 0.5F);
 	    if(slabfish.isSitting()) matrixStack.translate(0F, 0.3125F, 0F);
+	    if(slabfish.isInWater()) {
+	    	matrixStack.translate(0F, -0.2F, 0.5F);
+	    	matrixStack.rotate(new Quaternion(90F, 0, 0, true));
+	    }
 	}
 }
