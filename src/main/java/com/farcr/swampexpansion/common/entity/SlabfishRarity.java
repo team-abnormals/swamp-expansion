@@ -2,7 +2,7 @@ package com.farcr.swampexpansion.common.entity;
 
 import net.minecraft.util.text.TextFormatting;
 
-public enum SlabfishRarity implements net.minecraftforge.common.IExtensibleEnum {
+public enum SlabfishRarity {
 	COMMON(TextFormatting.GRAY),
 	UNCOMMON(TextFormatting.GREEN),
 	RARE(TextFormatting.AQUA),
@@ -13,9 +13,5 @@ public enum SlabfishRarity implements net.minecraftforge.common.IExtensibleEnum 
 
 	private SlabfishRarity(TextFormatting color) {
 		this.color = color;
-	}
-
-	public static SlabfishRarity create(String name, TextFormatting p_i48837_3_) {
-		throw new IllegalStateException("Enum not extended");
 	}
 }

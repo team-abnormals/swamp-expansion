@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
-public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<SlabfishEntity, SlabfishEntity>> {	
+public class SlabfishRenderer extends MobRenderer<SlabfishEntity, SlabfishModel<SlabfishEntity>> {	
 	public SlabfishRenderer(EntityRendererManager renderManager) {
 		super(renderManager, new SlabfishModel<>(), 0.3F);
 		this.addLayer(new SweaterRenderLayer<>(this));

@@ -13,6 +13,7 @@ import com.farcr.swampexpansion.common.entity.goals.SlabbyBreedGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyFollowParentGoal;
 import com.farcr.swampexpansion.common.entity.goals.SlabbyGrabItemGoal;
 import com.farcr.swampexpansion.common.item.MudBallItem;
+import com.farcr.swampexpansion.core.SwampExpansion;
 import com.farcr.swampexpansion.core.other.SwampExCriteriaTriggers;
 import com.farcr.swampexpansion.core.other.SwampExTags;
 import com.farcr.swampexpansion.core.registry.SwampExBiomes;
@@ -22,6 +23,8 @@ import com.farcr.swampexpansion.core.registry.SwampExItems;
 import com.farcr.swampexpansion.core.registry.SwampExSounds;
 import com.google.common.collect.Maps;
 import com.teamabnormals.abnormals_core.core.library.api.IBucketableEntity;
+import com.teamabnormals.abnormals_core.core.library.endimator.Endimation;
+import com.teamabnormals.abnormals_core.core.library.endimator.entity.IEndimatedEntity;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.BlockState;
@@ -102,11 +105,13 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class SlabfishEntity extends TameableEntity implements IInventoryChangedListener, IBucketableEntity {
+public class SlabfishEntity extends TameableEntity implements IInventoryChangedListener, IBucketableEntity, IEndimatedEntity {
 	private static final DataParameter<Integer> SLABFISH_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> SLABFISH_OVERLAY = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> PRE_NAME_TYPE = EntityDataManager.createKey(SlabfishEntity.class, DataSerializers.VARINT);
@@ -129,6 +134,9 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	private static final Ingredient SPEEDING_ITEMS = Ingredient.fromTag(SwampExTags.SUSHI);
 	private static final Collection<Ingredient> TEMPT = new ArrayList<Ingredient>();
 	
+	private Endimation playingEndimation  = BLANK_ANIMATION;
+	public static final Endimation DANCE = new Endimation(SwampExpansion.REGISTRY_HELPER.prefix("slabfish_dancing"), 40);
+	
 	public Inventory slabfishBackpack;
 	private UUID lightningUUID;
 	public float wingRotation;
@@ -136,9 +144,11 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	public float oFlapSpeed;
 	public float oFlap;
 	public float wingRotDelta = 1.0F;
+	private int animationTick;
+	public boolean isPartying = false;
+	BlockPos jukeboxPosition;
 	
-	public boolean incrementingTimer = false;
-	public int timerTicks = 0;
+
 	
 	private static final Map<List<String>, SlabfishType> NAMES = Util.make(Maps.newHashMap(), (skins) -> {
 		skins.put(Arrays.asList("cameron", "cam", "cringe"), SlabfishType.CAMERON);
@@ -277,6 +287,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	@Override
 	public boolean processInteract(PlayerEntity player, Hand hand) {
 		ItemStack itemstack = player.getHeldItem(hand);
+
 		Item item = itemstack.getItem();
 		this.initSlabfishBackpack();
 		if (item instanceof SpawnEggItem || item instanceof NameTagItem || item == Items.TROPICAL_FISH || item == SwampExItems.TROPICAL_FISH_KELP_ROLL.get() || item instanceof EggItem || item instanceof MudBallItem) {
@@ -406,10 +417,39 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		}
 	}
 	
+	@OnlyIn(Dist.CLIENT)
+	public boolean isPartying() {
+		return this.isPartying;
+	}
+	
+	@Override
+	public void setPartying(BlockPos pos, boolean isPartying) {
+	   this.jukeboxPosition = pos;
+	   this.isPartying = isPartying;
+	}
+	
+	@Override
+	public void tick() {
+		super.tick();
+		this.endimateTick();
+	}
+	
 	public void livingTick() {
 		super.livingTick();
+		
+		if (this.jukeboxPosition == null || !this.jukeboxPosition.withinDistance(this.getPositionVec(), 3.46D) || this.world.getBlockState(jukeboxPosition).getBlock() != Blocks.JUKEBOX) {
+			this.isPartying = false;
+			this.jukeboxPosition = null;
+		} 
 
-		if (!this.isSitting()) this.setTamed(false); 
+		if (this.isPartying() && !this.isSwimming()) {
+			if (this.isNoEndimationPlaying()) {
+				this.setPlayingEndimation(DANCE);
+			}
+		}
+				
+		if (!this.isSitting()) this.setTamed(false);
+		
 		if (this.isMoving()) {
 			if (this.isPotionActive(Effects.SPEED) && rand.nextInt(3) == 0 && !this.isInWater()) {
 				double d0 = this.rand.nextGaussian() * 0.02D;
@@ -1084,5 +1124,30 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	@Override
 	public ItemStack getBucket() {
 		return new ItemStack(SwampExItems.SLABFISH_BUCKET.get());
+	}
+
+	@Override
+	public int getAnimationTick() {
+		return animationTick;
+	}
+
+	@Override
+	public Endimation[] getEndimations() {
+		return new Endimation[] { DANCE };
+	}
+
+	@Override
+	public Endimation getPlayingEndimation() {
+		return this.playingEndimation;
+	}
+
+	@Override
+	public void setAnimationTick(int animationTick) {
+		this.animationTick = animationTick;
+	}
+
+	@Override
+	public void setPlayingEndimation(Endimation playingEndimation) {
+		this.playingEndimation = playingEndimation;
 	}
 }
