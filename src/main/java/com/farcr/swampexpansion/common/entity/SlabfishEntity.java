@@ -131,6 +131,12 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	private static final Ingredient BREEDING_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
 	private static final Ingredient HEALING_ITEMS = Ingredient.fromTag(ItemTags.FISHES);
 	private static final Ingredient SPEEDING_ITEMS = Ingredient.fromTag(SwampExTags.SUSHI);
+	private static final Ingredient COMPAT_ITEMS = Ingredient.fromItems(
+			ForgeRegistries.ITEMS.getValue(new ResourceLocation("atmospheric", "passionfruit")),
+			ForgeRegistries.ITEMS.getValue(new ResourceLocation("atmospheric", "shimmering_passionfruit")),
+			ForgeRegistries.ITEMS.getValue(new ResourceLocation("endergetic", "bolloom_fruit"))
+		);
+	
 	private static final Collection<Ingredient> TEMPT = new ArrayList<Ingredient>();
 	
 	private Endimation playingEndimation  = BLANK_ANIMATION;
@@ -386,6 +392,11 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			this.particleCloud(ParticleTypes.CLOUD);
 			return true;
 			
+		} else if(COMPAT_ITEMS.test(itemstack)) {
+			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
+			itemstack.onItemUseFinish(this.world, this);
+			world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
+			return true;
 		} else if (!this.isSitting() && this.hasBackpack() && player.isSecondaryUseActive() && !this.isInWater()) {
 			this.setTamed(true);
 			this.setOwnerId(player.getUniqueID());
