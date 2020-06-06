@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "swampexpansion:block/cattail" }
+        "waterlogged=false": { "model": "swampexpansion:block/cattail" },
+        "waterlogged=true": { "model": "swampexpansion:block/cattail_animated" }
     }
 }
