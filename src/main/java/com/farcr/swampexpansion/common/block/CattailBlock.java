@@ -23,7 +23,6 @@ import net.minecraft.item.Items;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
@@ -63,8 +62,6 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     	
     	BlockState seeds = SwampExBlocks.CATTAIL_SPROUTS.get().getDefaultState();
     	BlockState cattail = SwampExBlocks.CATTAIL.get().getDefaultState();
-    	BlockState tall_up = SwampExBlocks.TALL_CATTAIL.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.UPPER);
-    	BlockState tall_down = SwampExBlocks.TALL_CATTAIL.get().getDefaultState().with(DoubleCattailBlock.HALF, DoubleBlockHalf.LOWER);
     	
     	boolean waterlogged = worldIn.hasWater(pos);
     	if (type == 0) {
@@ -72,9 +69,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     	} else if (type == 1) {
     		worldIn.setBlockState(pos, cattail.with(WATERLOGGED, waterlogged), flags);
     	} else {
-    		worldIn.setBlockState(pos, tall_down.with(WATERLOGGED, waterlogged), flags);
-			waterlogged = worldIn.hasWater(pos.up());
-			worldIn.setBlockState(pos.up(), tall_up.with(WATERLOGGED, waterlogged), flags);
+    		DoubleCattailBlock.placeAt(worldIn, pos, flags);
     	} 
     }
     
@@ -110,7 +105,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
     	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
     	IFluidState ifluidstateUp = worldIn.getFluidState(pos.up());
         if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && (worldIn.isAirBlock(pos.up()) || (Boolean.valueOf(ifluidstateUp.isTagged(FluidTags.WATER) && ifluidstateUp.getLevel() == 8)))) {
-           doubleplantblock.placeAt(worldIn, pos, 2);
+        	DoubleCattailBlock.placeAt(worldIn, pos, 2);
         }
      }
     
@@ -122,7 +117,7 @@ public class CattailBlock extends BushBlock implements IWaterLoggable, IGrowable
         if (worldIn.getLightSubtracted(pos.up(), 0) >= 9 && net.minecraftforge.common.ForgeHooks.onCropsGrowPre(worldIn, pos, state, random.nextInt(chance) == 0)) {
         	DoubleCattailBlock doubleplantblock = (DoubleCattailBlock)(SwampExBlocks.TALL_CATTAIL.get());
             if (doubleplantblock.getDefaultState().isValidPosition(worldIn, pos) && worldIn.isAirBlock(pos.up()) && worldIn.getBlockState(pos.down()).getBlock() == Blocks.FARMLAND) {
-            	doubleplantblock.placeAt(worldIn, pos, 2);
+            	DoubleCattailBlock.placeAt(worldIn, pos, 2);
                 net.minecraftforge.common.ForgeHooks.onCropsGrowPost(worldIn, pos, state);
             }
         }

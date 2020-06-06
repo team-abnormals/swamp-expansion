@@ -9,6 +9,7 @@ import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = SwampExpansion.MODID)
@@ -27,6 +28,22 @@ public class SwampExTrades {
 	public static void onVillagerTradesEvent(VillagerTradesEvent event) {
 		if(event.getType() == VillagerProfession.FARMER) {
 			event.getTrades().get(1).add(new TradeUtils.EmeraldsForItemsTrade(SwampExItems.RICE.get(), 23, 1, 6, 1));
+		}
+		
+		if(event.getType() == VillagerProfession.FISHERMAN) {
+			event.getTrades().get(3).add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.COD_KELP_ROLL.get(), 5, 2, 6, 15));
+			event.getTrades().get(3).add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.SALMON_RICE_CAKE.get(), 5, 2, 6, 15));
+			event.getTrades().get(4).add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.PUFFERFISH_RICE_CAKE.get(), 3, 4, 5, 30));
+			event.getTrades().get(5).add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.TROPICAL_FISH_KELP_ROLL.get(), 3, 4, 5, 30));
+			
+			if(ModList.get().isLoaded("upgrade_aquatic")) {
+				event.getTrades().get(4).add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.PIKE_KELP_ROLL.get(), 4, 1, 3, 25));
+				event.getTrades().get(5).add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.LIONFISH_RICE_CAKE.get(), 3, 4, 5, 30));	
+			}
+			
+			if(ModList.get().isLoaded("quark")) {
+				event.getTrades().get(4).add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.CRAB_KELP_ROLL.get(), 4, 1, 3, 25));
+			}
 		}
     }
 }
