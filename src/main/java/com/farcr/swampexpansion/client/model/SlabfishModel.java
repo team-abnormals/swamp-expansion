@@ -36,9 +36,7 @@ public class SlabfishModel<E extends SlabfishEntity> extends EndimatorEntityMode
         this.body = new EndimatorModelRenderer(this, 0, 0);
         this.body.setRotationPoint(0.0F, 19.0F, 0.0F);
         this.body.addBox(-5.0F, -10.0F, -2.0F, 10, 10, 4, 0.0F);
-        this.rightLeg = new EndimatorModelRenderer (this, 0, 14);
-        this.rightLeg.setRotationPoint(-2.5F, 0.0F, 1.0F);
-        this.rightLeg.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
+        
         this.rightArm = new EndimatorModelRenderer (this, 16, 14);
         this.rightArm.setRotationPoint(-5.0F, -4.0F, 0.0F);
         this.rightArm.addBox(-1.0F, 0.0F, -1.5F, 1, 3, 3, 0.0F);
@@ -50,16 +48,19 @@ public class SlabfishModel<E extends SlabfishEntity> extends EndimatorEntityMode
         this.backpack = new EndimatorModelRenderer (this, 8, 20);
         this.backpack.setRotationPoint(0.0F, 0.0F, 0.0F);
         this.backpack.addBox(-4.0F, -8.0F, 2.0F, 8, 8, 4, 0.0F);
+        
         this.leftLeg = new EndimatorModelRenderer (this, 0, 14);
         this.leftLeg.mirror = true;
-        this.leftLeg.setRotationPoint(2.5F, 0.0F, 1.0F);
+        this.leftLeg.setRotationPoint(2.5F, 19.0F, 1.0F);
         this.leftLeg.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
+        this.rightLeg = new EndimatorModelRenderer (this, 0, 14);
+        this.rightLeg.setRotationPoint(-2.5F, 19.0F, 1.0F);
+        this.rightLeg.addBox(-1.5F, 0.0F, -3.0F, 3, 5, 3, 0.0F);
+        
         this.body.addChild(this.leftArm);
-        this.body.addChild(this.rightLeg);
         this.body.addChild(this.rightArm);
         this.body.addChild(this.fin);
         this.body.addChild(this.backpack);
-        this.body.addChild(this.leftLeg);
         
         this.body.setName("body");
         
@@ -69,7 +70,10 @@ public class SlabfishModel<E extends SlabfishEntity> extends EndimatorEntityMode
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
     	super.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    	
     	this.body.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    	this.leftLeg.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    	this.rightLeg.render(matrixStack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
     /**
@@ -87,10 +91,18 @@ public class SlabfishModel<E extends SlabfishEntity> extends EndimatorEntityMode
     	this.entity = entityIn;
     	
     	if(!entityIn.isInWater()) {
+    		if (entityIn.isPartying()) {
+    			float f = MathHelper.cos((float)entityIn.ticksExisted);
+    			float f1 = MathHelper.sin((float)entityIn.ticksExisted);
+    			this.body.rotationPointZ = f;
+    			this.body.rotationPointY = 19.75F - f1;
+    		}
+    		
+    		this.rightArm.rotateAngleZ = ageInTicks;
+            this.leftArm.rotateAngleZ = -ageInTicks;
     		this.rightLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F) * 1.5F * limbSwingAmount;
             this.leftLeg.rotateAngleX = entityIn.isSitting() ? -1.57F :  MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.5F * limbSwingAmount;
-            this.rightArm.rotateAngleZ = ageInTicks;
-            this.leftArm.rotateAngleZ = -ageInTicks;
+    		
     	} else {
     		this.rightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.7F * limbSwingAmount;
             this.leftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.7F * limbSwingAmount;
@@ -102,9 +114,5 @@ public class SlabfishModel<E extends SlabfishEntity> extends EndimatorEntityMode
     @Override
     public void animateModel(E exampleEntity) {
     	super.animateModel(exampleEntity);
-    	
-    	if(this.tryToPlayEndimation(SlabfishEntity.DANCE)) {
-    		SlabfishEntity.DANCE.processInstructions(this);
-    	}
     }
 }

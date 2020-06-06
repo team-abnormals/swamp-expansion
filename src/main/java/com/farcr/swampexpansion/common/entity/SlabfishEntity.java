@@ -146,8 +146,6 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	public boolean isPartying = false;
 	BlockPos jukeboxPosition;
 	
-
-	
 	private static final Map<List<String>, SlabfishType> NAMES = Util.make(Maps.newHashMap(), (skins) -> {
 		skins.put(Arrays.asList("cameron", "cam", "cringe"), SlabfishType.CAMERON);
 		skins.put(Arrays.asList("bagel", "shyguy", "shy guy", "bagielo"), SlabfishType.BAGEL);
@@ -425,12 +423,6 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	   this.isPartying = isPartying;
 	}
 	
-	@Override
-	public void tick() {
-		super.tick();
-		this.endimateTick();
-	}
-	
 	public void livingTick() {
 		super.livingTick();
 		
@@ -438,12 +430,6 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			this.isPartying = false;
 			this.jukeboxPosition = null;
 		} 
-		
-		if (!this.isInWater() && this.isPartying && this.isNoEndimationPlaying()) {
-//			System.out.println(this.isNoEndimationPlaying());
-//			if(this.world.getGameTime() % 10 == 0) this.particleCloud(ParticleTypes.NOTE);
-//			if(this.world.isRemote) this.setPlayingEndimation(DANCE);
-		}
 				
 		if (!this.isSitting()) this.setTamed(false);
 		
@@ -1122,7 +1108,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	public ItemStack getBucket() {
 		return new ItemStack(SwampExItems.SLABFISH_BUCKET.get());
 	}
-
+	
 	@Override
 	public int getAnimationTick() {
 		return animationTick;
