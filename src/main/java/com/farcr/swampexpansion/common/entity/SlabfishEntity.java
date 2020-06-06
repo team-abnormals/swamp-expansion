@@ -106,6 +106,7 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -200,7 +201,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		this.getDataManager().register(SLABFISH_TYPE, 0);
 		this.getDataManager().register(SLABFISH_OVERLAY, 0);
 		this.getDataManager().register(PRE_NAME_TYPE, 0);
-		this.dataManager.register(FROM_BUCKET, false);
+		this.getDataManager().register(FROM_BUCKET, false);
 		
 		this.getDataManager().register(HAS_BACKPACK, false);
 		this.getDataManager().register(BACKPACK_COLOR, DyeColor.BROWN.getId());
@@ -613,8 +614,11 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		
 		List<Biome> DUNES = new ArrayList<Biome>();
 		DUNES.add(findBiome("atmospheric", "dunes"));
-		DUNES.add(findBiome("atmospheric", "rocky_dunes"));
+		DUNES.add(findBiome("atmospheric", "dunes_hills"));
 		DUNES.add(findBiome("atmospheric", "petrified_dunes"));
+
+		DUNES.add(findBiome("atmospheric", "rocky_dunes"));
+		DUNES.add(findBiome("atmospheric", "rocky_dunes_hills"));
 		DUNES.add(findBiome("atmospheric", "flourishing_dunes"));
 		
 		List<Biome> MAPLE = new ArrayList<Biome>();
@@ -626,7 +630,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		POISE.add(findBiome("endergetic", "poise_forest"));
 		
 		if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
-		if (pos.getY() <= 20) return SlabfishType.CAVE;
+		if (pos.getY() <= 20 && world.getLight(pos) == 0) return SlabfishType.CAVE;
 		if (pos.getY() >= 200) return SlabfishType.SKY;
 		
 		if (MARSH.contains(biome)) return SlabfishType.MARSH;
@@ -668,6 +672,41 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		if (world.getDimension().getType() == DimensionType.THE_END) return SlabfishType.END;
 
 		return SlabfishType.SWAMP;
+	}
+	
+	public SlabfishType getRandomType() {
+		boolean flag = false;
+		SlabfishType type = SlabfishType.SWAMP;
+		float chance = rand.nextFloat();
+		SlabfishRarity rarity = SlabfishRarity.COMMON;
+		
+		if (chance > 0.45) {
+			if (chance > 0.75) {
+				if (chance > 0.90) {
+					if (chance > 0.98) {
+						rarity = SlabfishRarity.LEGENDARY;
+					} else { rarity = SlabfishRarity.EPIC; }
+				} else { rarity = SlabfishRarity.RARE; }
+			} else { rarity = SlabfishRarity.UNCOMMON; }
+		} else { rarity = SlabfishRarity.COMMON; }
+		
+		while (flag == false) {
+			type = SlabfishType.getRandomFromRarity(rarity, rand);
+			if ((type == SlabfishType.DUNES || type == SlabfishType.ROSEWOOD) && !ModList.get().isLoaded("atmospheric")) {
+				flag = false;
+			} else if (type == SlabfishType.POISE && !ModList.get().isLoaded("endergetic")) {
+				flag = false;
+			} else if (type == SlabfishType.MAPLE && !ModList.get().isLoaded("autumnity")) {
+				flag = false;
+			} else if (type == SlabfishType.BAGEL || type == SlabfishType.CAMERON || type == SlabfishType.GORE || type == SlabfishType.SNAKE_BLOCK 
+					|| type == SlabfishType.SMELLY || type == SlabfishType.SQUART || type == SlabfishType.MISTA_JUB || type == SlabfishType.JACKSON) {
+				flag = false;
+			} else {
+				flag = true;
+			}
+		}
+
+		return type;
 	}
 	
 	public Biome findBiome(String modid, String name) {
@@ -735,6 +774,9 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			if (this.getSlabfishType() == SlabfishType.MUSHROOM) {
 				this.setSlabfishType(SlabfishType.BROWN_MUSHROOM);
 				this.setPreNameType(SlabfishType.BROWN_MUSHROOM);
+			} else if (this.getSlabfishType() == SlabfishType.BROWN_MUSHROOM) {
+				this.setSlabfishType(SlabfishType.MUSHROOM);
+				this.setPreNameType(SlabfishType.MUSHROOM);
 			} else {
 				this.setSlabfishType(SlabfishType.SKELETON);
 				this.setPreNameType(SlabfishType.SKELETON);
@@ -764,13 +806,17 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	@Override
 	public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, ILivingEntityData spawnDataIn, CompoundNBT dataTag) {
 		spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-		SlabfishType type = this.getTypeForConditions(worldIn);
+		SlabfishType type = reason == SpawnReason.BUCKET ? this.getRandomType() : this.getTypeForConditions(worldIn);
 		
 		if(dataTag != null && dataTag.contains("SlabfishType", 3)) {
-			this.setHealth(dataTag.getFloat("Health"));
+			if (dataTag.contains("Health")) this.setHealth(dataTag.getFloat("Health"));
 			if (dataTag.contains("Age")) this.setGrowingAge(dataTag.getInt("Age"));
 			this.setSlabfishType(SlabfishType.byId(dataTag.getInt("SlabfishType")));
-			if(dataTag.contains("PreNameType")) this.setPreNameType(SlabfishType.byId(dataTag.getInt("PreNameType")));
+			if(dataTag.contains("PreNameType")) {
+				this.setPreNameType(SlabfishType.byId(dataTag.getInt("PreNameType")));
+			} else {
+				this.setPreNameType(SlabfishType.byId(dataTag.getInt("SlabfishType")));
+			}
 			
 			if(dataTag.contains("HasBackpack")) this.setBackpacked(dataTag.getBoolean("HasBackpack"));
 			if(dataTag.contains("BackpackColor")) this.setBackpackColor(DyeColor.byId(dataTag.getInt("BackpackColor")));
@@ -801,6 +847,8 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		
 		if (spawnDataIn instanceof SlabfishEntity.SlabfishData) {
 			type = ((SlabfishEntity.SlabfishData)spawnDataIn).typeData;
+		} else if (!this.isFromBucket()) {
+			spawnDataIn = new SlabfishEntity.SlabfishData(type);
 		}
 		
 		this.setSlabfishType(type);
@@ -808,7 +856,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		return spawnDataIn;
 	}
 	
-	public static class SlabfishData implements ILivingEntityData {
+	public static class SlabfishData extends AgeableData implements ILivingEntityData {
 		public final SlabfishType typeData;
 
 		public SlabfishData(SlabfishType type) {

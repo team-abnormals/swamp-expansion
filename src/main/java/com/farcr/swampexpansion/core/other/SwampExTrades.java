@@ -19,6 +19,8 @@ public class SwampExTrades {
 		event.getGenericTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.CATTAIL_SEEDS.get(), 1, 1, 6, 1));
 		event.getGenericTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExBlocks.WILLOW_SAPLING.get(), 5, 1, 8, 1));
 		event.getGenericTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.RICE.get(), 1, 1, 12, 1));
+		event.getGenericTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.DUCKWEED.get(), 1, 2, 6, 1));
+		event.getRareTrades().add(new TradeUtils.ItemsForEmeraldsTrade(SwampExItems.SLABFISH_BUCKET.get(), 5, 1, 4, 1));
 	}
 	
 	@SubscribeEvent

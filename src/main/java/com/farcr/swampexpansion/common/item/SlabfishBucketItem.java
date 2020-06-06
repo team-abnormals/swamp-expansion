@@ -60,8 +60,8 @@ public class SlabfishBucketItem extends BucketItem {
 		worldIn.playSound(player, pos, SoundEvents.ITEM_BUCKET_EMPTY_FISH, SoundCategory.NEUTRAL, 1.0F, 1.0F);
 	}
 
-	private void placeEntity(World worldIn, ItemStack p_205357_2_, BlockPos pos) {
-		Entity entity = this.entityType.get().spawn(worldIn, p_205357_2_, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
+	private void placeEntity(World worldIn, ItemStack stack, BlockPos pos) {
+		Entity entity = this.entityType.get().spawn(worldIn, stack, (PlayerEntity)null, pos, SpawnReason.BUCKET, true, false);
 		if (entity != null) {
 			((SlabfishEntity)entity).setFromBucket(true);
 		}
