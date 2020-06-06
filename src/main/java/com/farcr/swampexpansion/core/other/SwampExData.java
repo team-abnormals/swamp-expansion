@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.world.FoliageColors;
+import net.minecraft.world.GrassColors;
 import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.fml.RegistryObject;
 
@@ -70,6 +71,8 @@ public class SwampExData {
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_LEAF_CARPET.get(),RenderType.getCutoutMipped());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.WILLOW_SAPLING.get(),RenderType.getCutout());
 		
+		RenderTypeLookup.setRenderLayer(SwampExBlocks.GIANT_TALL_GRASS.get(),RenderType.getCutout());
+
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.CATTAIL_SPROUTS.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.CATTAIL.get(),RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(SwampExBlocks.TALL_CATTAIL.get(),RenderType.getCutout());
@@ -97,11 +100,14 @@ public class SwampExData {
         registerBlockColor(blockColors, (x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.WILLOW_LEAVES));
         registerBlockColor(blockColors, (x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.WILLOW_LEAF_CARPET));
         registerBlockColor(blockColors, (x, world, pos, u) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.HANGING_WILLOW_LEAVES));
+        registerBlockColor(blockColors, (x, world, pos, u) -> world != null && pos != null ? BiomeColors.getGrassColor(world, pos) : GrassColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.GIANT_TALL_GRASS));
 
         ItemColors itemColors = Minecraft.getInstance().getItemColors();
         registerBlockItemColor(itemColors, (color, items) -> FoliageColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.WILLOW_LEAVES));
 		registerBlockItemColor(itemColors, (color, items) -> FoliageColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.WILLOW_LEAF_CARPET));
 		registerBlockItemColor(itemColors, (color, items) -> FoliageColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.HANGING_WILLOW_LEAVES));
+		registerBlockItemColor(itemColors, (color, items) -> GrassColors.get(0.5D, 1.0D), Arrays.asList(SwampExBlocks.GIANT_TALL_GRASS));
+
     }
 	
 	private static void registerBlockColor(BlockColors blockColors, IBlockColor color, List<RegistryObject<Block>> blocksIn) {
