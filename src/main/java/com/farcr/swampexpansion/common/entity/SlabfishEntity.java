@@ -680,7 +680,6 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		DUNES.add(findBiome("atmospheric", "dunes"));
 		DUNES.add(findBiome("atmospheric", "dunes_hills"));
 		DUNES.add(findBiome("atmospheric", "petrified_dunes"));
-
 		DUNES.add(findBiome("atmospheric", "rocky_dunes"));
 		DUNES.add(findBiome("atmospheric", "rocky_dunes_hills"));
 		DUNES.add(findBiome("atmospheric", "flourishing_dunes"));
@@ -693,47 +692,54 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		List<Biome> POISE = new ArrayList<Biome>();
 		POISE.add(findBiome("endergetic", "poise_forest"));
 		
-		if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
-		if (pos.getY() <= 20 && world.getLight(pos) == 0) return SlabfishType.CAVE;
-		if (pos.getY() >= 200) return SlabfishType.SKY;
-		
-		if (MARSH.contains(biome)) return SlabfishType.MARSH;
-		if (MAPLE.contains(biome)) return SlabfishType.MAPLE;
-		if (ROSEWOOD.contains(biome)) return SlabfishType.ROSEWOOD;
-		if (DUNES.contains(biome)) return SlabfishType.DUNES;
-		if (POISE.contains(biome)) return SlabfishType.POISE;
-		
-		if (biome == Biomes.ICE_SPIKES) return SlabfishType.ICE_SPIKES;
-		if (biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS) return SlabfishType.DARK_FOREST;
-		if (biome == Biomes.FLOWER_FOREST)  return SlabfishType.FLOWER_FOREST;
-		if (biome == Biomes.END_HIGHLANDS) return SlabfishType.CHORUS;
-		
-		if (biome.getCategory() == Biome.Category.OCEAN) {
-			if (pos.getY() <= 50 && world.getFluidState(pos).getLevel() == 8) return SlabfishType.DROWNED;
-			else if (biome == Biomes.FROZEN_OCEAN || biome == Biomes.DEEP_FROZEN_OCEAN) return SlabfishType.FROZEN_OCEAN;
-			else if (biome == Biomes.WARM_OCEAN || biome == Biomes.DEEP_WARM_OCEAN) return SlabfishType.WARM_OCEAN;
-			else return SlabfishType.OCEAN;
+		if (world.getDimension().getType() == DimensionType.OVERWORLD) {
+			if (((ServerWorld)this.world).findRaid(pos) != null) return SlabfishType.TOTEM;
+			if (pos.getY() <= 20 && world.getLight(pos) == 0) return SlabfishType.CAVE;
+			if (pos.getY() >= 200) return SlabfishType.SKY;
+			
+			if (MARSH.contains(biome)) return SlabfishType.MARSH;
+			if (MAPLE.contains(biome)) return SlabfishType.MAPLE;
+			if (ROSEWOOD.contains(biome)) return SlabfishType.ROSEWOOD;
+			if (DUNES.contains(biome)) return SlabfishType.DUNES;
+			
+			if (biome == Biomes.ICE_SPIKES) return SlabfishType.ICE_SPIKES;
+			if (biome == Biomes.DARK_FOREST || biome == Biomes.DARK_FOREST_HILLS) return SlabfishType.DARK_FOREST;
+			if (biome == Biomes.FLOWER_FOREST)  return SlabfishType.FLOWER_FOREST;
+			
+			if (biome.getCategory() == Biome.Category.OCEAN) {
+				if (pos.getY() <= 50 && world.getFluidState(pos).getLevel() == 8) return SlabfishType.DROWNED;
+				else if (biome == Biomes.FROZEN_OCEAN || biome == Biomes.DEEP_FROZEN_OCEAN) return SlabfishType.FROZEN_OCEAN;
+				else if (biome == Biomes.WARM_OCEAN || biome == Biomes.DEEP_WARM_OCEAN) return SlabfishType.WARM_OCEAN;
+				else return SlabfishType.OCEAN;
+			}
+			
+			if (biome.getCategory() == Biome.Category.JUNGLE) {
+				if (biome == Biomes.BAMBOO_JUNGLE || biome == Biomes.BAMBOO_JUNGLE_HILLS) return SlabfishType.BAMBOO;
+				else return SlabfishType.JUNGLE;
+			}
+			
+			if (biome.getCategory() == Biome.Category.MUSHROOM) return SlabfishType.MUSHROOM;
+			if (biome.getCategory() == Biome.Category.RIVER) return SlabfishType.RIVER;
+			if (biome.getCategory() == Biome.Category.BEACH) return SlabfishType.BEACH;
+			if (biome.getCategory() == Biome.Category.SAVANNA) return SlabfishType.SAVANNA;
+			if (biome.getCategory() == Biome.Category.MESA) return SlabfishType.MESA;
+			if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.SNOWY;
+			if (biome.getCategory() == Biome.Category.DESERT) return SlabfishType.DESERT;
+			if (biome.getCategory() == Biome.Category.TAIGA) return SlabfishType.TAIGA;
+			if (biome.getCategory() == Biome.Category.FOREST) return SlabfishType.FOREST;
+			if (biome.getCategory() == Biome.Category.PLAINS) return SlabfishType.PLAINS;
+			if (biome.getCategory() == Biome.Category.EXTREME_HILLS || biome == Biomes.STONE_SHORE) return SlabfishType.MOUNTAIN;
 		}
 		
-		if (biome.getCategory() == Biome.Category.JUNGLE) {
-			if (biome == Biomes.BAMBOO_JUNGLE || biome == Biomes.BAMBOO_JUNGLE_HILLS) return SlabfishType.BAMBOO;
-			else return SlabfishType.JUNGLE;
+		if (world.getDimension().getType() == DimensionType.THE_NETHER) {
+			return SlabfishType.NETHER;
 		}
 		
-		if (biome.getCategory() == Biome.Category.MUSHROOM) return SlabfishType.MUSHROOM;
-		if (biome.getCategory() == Biome.Category.RIVER) return SlabfishType.RIVER;
-		if (biome.getCategory() == Biome.Category.BEACH) return SlabfishType.BEACH;
-		if (biome.getCategory() == Biome.Category.SAVANNA) return SlabfishType.SAVANNA;
-		if (biome.getCategory() == Biome.Category.MESA) return SlabfishType.MESA;
-		if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.SNOWY;
-		if (biome.getCategory() == Biome.Category.DESERT) return SlabfishType.DESERT;
-		if (biome.getCategory() == Biome.Category.TAIGA) return SlabfishType.TAIGA;
-		if (biome.getCategory() == Biome.Category.FOREST) return SlabfishType.FOREST;
-		if (biome.getCategory() == Biome.Category.PLAINS) return SlabfishType.PLAINS;
-		if (biome.getCategory() == Biome.Category.EXTREME_HILLS || biome == Biomes.STONE_SHORE) return SlabfishType.MOUNTAIN;
-		
-		if (world.getDimension().getType() == DimensionType.THE_NETHER) return SlabfishType.NETHER;
-		if (world.getDimension().getType() == DimensionType.THE_END) return SlabfishType.END;
+		if (world.getDimension().getType() == DimensionType.THE_END) {
+			if (POISE.contains(biome)) return SlabfishType.POISE;
+			else if (biome == Biomes.END_HIGHLANDS) return SlabfishType.CHORUS;
+			else return SlabfishType.END;
+		}
 
 		return SlabfishType.SWAMP;
 	}
