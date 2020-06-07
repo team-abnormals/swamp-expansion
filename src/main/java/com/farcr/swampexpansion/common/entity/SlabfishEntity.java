@@ -1178,8 +1178,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	// MISC //
 	
 	@Override
-    public IPacket<?> createSpawnPacket()
-    {
+    public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 	
