@@ -35,6 +35,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
@@ -46,6 +47,7 @@ import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.TemptGoal;
 import net.minecraft.entity.effect.LightningBoltEntity;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.EvokerEntity;
 import net.minecraft.entity.monster.IllusionerEntity;
@@ -131,10 +133,11 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	private static final Ingredient BREEDING_ITEMS = Ingredient.fromItems(Items.TROPICAL_FISH, SwampExItems.TROPICAL_FISH_KELP_ROLL.get());
 	private static final Ingredient HEALING_ITEMS = Ingredient.fromTag(ItemTags.FISHES);
 	private static final Ingredient SPEEDING_ITEMS = Ingredient.fromTag(SwampExTags.SUSHI);
-	private static final Ingredient COMPAT_ITEMS = Ingredient.fromItems(
+	private static final Ingredient FOOD_ITEMS = Ingredient.fromItems(
 			ForgeRegistries.ITEMS.getValue(new ResourceLocation("atmospheric", "passionfruit")),
 			ForgeRegistries.ITEMS.getValue(new ResourceLocation("atmospheric", "shimmering_passionfruit")),
-			ForgeRegistries.ITEMS.getValue(new ResourceLocation("endergetic", "bolloom_fruit"))
+			ForgeRegistries.ITEMS.getValue(new ResourceLocation("endergetic", "bolloom_fruit")),
+					Items.CHORUS_FRUIT
 		);
 	
 	private static final Collection<Ingredient> TEMPT = new ArrayList<Ingredient>();
@@ -295,7 +298,6 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		this.initSlabfishBackpack();
 		if (item instanceof SpawnEggItem || item instanceof NameTagItem || item == Items.TROPICAL_FISH || item == SwampExItems.TROPICAL_FISH_KELP_ROLL.get() || item instanceof EggItem || item instanceof MudBallItem) {
 			return super.processInteract(player, hand);
-	         
 		} if(item instanceof DyeItem && this.hasBackpack() == true) {
 			DyeColor dyecolor = ((DyeItem) item).getDyeColor();
 			if(dyecolor != this.getBackpackColor()) {
@@ -304,6 +306,12 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 					itemstack.shrink(1);
 				}
 			}
+			return true;
+			
+		} else if (item == Items.ENDER_PEARL) {
+			if(!player.abilities.isCreativeMode) itemstack.shrink(1);
+			this.startRiding(player);
+			this.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 			return true;
 			
 		} else if (SWEATER_MAP.containsKey(item) && !(this.hasSweater() && this.getSweaterColor() == SWEATER_MAP.get(item)) && !player.isSecondaryUseActive()) {
@@ -352,7 +360,9 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 				return false;
 			}
 			if (this.hasBackpack()) {
-				this.dropItems();
+				this.setBackpackColor(DyeColor.BROWN);
+	            this.dropBackpack();
+				this.setBackpacked(false);
 				this.slabfishBackpack.clear();
 			}
             this.playSound(SoundEvents.ITEM_BUCKET_FILL_FISH, 1.0F, 1.0F);
@@ -392,7 +402,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			this.particleCloud(ParticleTypes.CLOUD);
 			return true;
 			
-		} else if(COMPAT_ITEMS.test(itemstack)) {
+		} else if(FOOD_ITEMS.test(itemstack)) {
 			if (!player.abilities.isCreativeMode) itemstack.shrink(1);
 			itemstack.onItemUseFinish(this.world, this);
 			world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SwampExSounds.ENTITY_SLABFISH_EAT.get(), SoundCategory.NEUTRAL, 1F, 1F, true);
@@ -429,6 +439,37 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		return this.isPartying;
 	}
 	
+	
+	@SuppressWarnings("deprecation")
+	public void onDeath(DamageSource cause) {
+		if (net.minecraftforge.common.ForgeHooks.onLivingDeath(this, cause)) return;
+		if (!this.removed && !this.dead) {
+			Entity entity = cause.getTrueSource();
+			LivingEntity livingentity = this.getAttackingEntity();
+			if (this.scoreValue >= 0 && livingentity != null) {
+				livingentity.awardKillScore(this, this.scoreValue, cause);
+			}
+			
+			if (entity != null) {
+				entity.onKillEntity(this);
+			}
+			
+			if (this.isSleeping()) {
+				this.wakeUp();
+			}
+
+			this.dead = true;
+			this.getCombatTracker().reset();
+			if (!this.world.isRemote) {
+				this.spawnDrops(cause);
+	            this.createWitherRose(livingentity);
+			}
+
+			this.world.setEntityState(this, (byte)3);
+			this.setPose(Pose.DYING);
+		}
+	}
+	
 	@Override
 	public void setPartying(BlockPos pos, boolean isPartying) {
 	   this.jukeboxPosition = pos;
@@ -444,6 +485,8 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		} 
 				
 		if (!this.isSitting()) this.setTamed(false);
+		
+		if(this.isInWater() && this.getRidingEntity() != null) this.stopRiding();
 		
 		if (this.isMoving()) {
 			if (this.isPotionActive(Effects.SPEED) && rand.nextInt(3) == 0 && !this.isInWater()) {
@@ -472,6 +515,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 				}
 			}
 		}
+		
 		this.recalculateSize();
 		this.setCanPickUpLoot(this.hasBackpack());
 		
@@ -497,10 +541,19 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 		return this.getMotion().getX() > 0 || this.getMotion().getY() > 0 || this.getMotion().getZ() > 0;
 	}
 	
+	public double getYOffset() {
+		if (this.getRidingEntity() != null) {
+			if (this.getRidingEntity() instanceof BoatEntity) return 0.3D;
+			else return 0.52F;
+		}
+		return super.getYOffset();
+	}
+	
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (this.isInvulnerableTo(source)) {
 			return false;
 		} else {
+			if (this.getRidingEntity() != null) this.stopRiding();
 			Entity entity = source.getTrueSource();
 			if (this.sitGoal != null) {
 				this.sitGoal.setSitting(false);
@@ -579,7 +632,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 	
 	@Override
 	public EntitySize getSize(Pose pose) {
-		return this.isInWater() ? this.isChild() ? SIZE_SWIMMING_CHILD : SIZE_SWIMMING : this.isSitting() ? this.isChild() ? SIZE_SITTING_CHILD : SIZE_SITTING : super.getSize(pose);
+		return this.isInWater() ? this.isChild() ? SIZE_SWIMMING_CHILD : SIZE_SWIMMING : (this.isSitting() || this.getRidingEntity() != null) ? this.isChild() ? SIZE_SITTING_CHILD : SIZE_SITTING : super.getSize(pose);
 	}
 
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn) {
