@@ -21,7 +21,6 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.BarrelTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
@@ -119,8 +118,8 @@ public class MudVaseBlock extends ContainerBlock implements IWaterLoggable {
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		if (stack.hasDisplayName()) {
 			TileEntity tileentity = worldIn.getTileEntity(pos);
-			if (tileentity instanceof BarrelTileEntity) {
-				((BarrelTileEntity)tileentity).setCustomName(stack.getDisplayName());
+			if (tileentity instanceof MudVaseTileEntity) {
+				((MudVaseTileEntity)tileentity).setCustomName(stack.getDisplayName());
 			}
 		}
 	}

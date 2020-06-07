@@ -107,8 +107,7 @@ public class DoubleCattailBlock extends Block implements IGrowable, IWaterLoggab
 	
 	@Override
 	@SuppressWarnings("deprecation")
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
-			BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 		int i = state.get(AGE);
 		boolean flag = i == 1;
 		if (!flag && player.getHeldItem(handIn).getItem() == Items.BONE_MEAL) {
