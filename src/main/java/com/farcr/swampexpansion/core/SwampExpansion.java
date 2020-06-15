@@ -48,6 +48,7 @@ public class SwampExpansion {
 
     private void setupCommon(final FMLCommonSetupEvent event) {
     	DeferredWorkQueue.runLater(() -> {
+    		REGISTRY_HELPER.processSpawnEggDispenseBehaviors();
     		SwampExData.registerCompostables();
     		SwampExData.registerFlammables();
     		SwampExBiomes.registerBiomesToDictionary();

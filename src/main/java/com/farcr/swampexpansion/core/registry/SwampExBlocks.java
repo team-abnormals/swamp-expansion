@@ -14,6 +14,7 @@ import com.farcr.swampexpansion.core.SwampExpansion;
 import com.farcr.swampexpansion.core.other.SwampExProperties;
 import com.mojang.datafixers.util.Pair;
 import com.teamabnormals.abnormals_core.common.blocks.AbnormalsLadderBlock;
+import com.teamabnormals.abnormals_core.common.blocks.AbnormalsStairsBlock;
 import com.teamabnormals.abnormals_core.common.blocks.BookshelfBlock;
 import com.teamabnormals.abnormals_core.common.blocks.LeafCarpetBlock;
 import com.teamabnormals.abnormals_core.common.blocks.VerticalSlabBlock;
@@ -48,7 +49,6 @@ import net.minecraft.block.FlowerPotBlock;
 import net.minecraft.block.PressurePlateBlock;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -67,7 +67,7 @@ public class SwampExBlocks {
 	public static final DeferredRegister<PaintingType> PAINTINGS = new DeferredRegister<>(ForgeRegistries.PAINTING_TYPES, "swampexpansion");
 
 	public static final RegistryObject<Block> MUD_BRICKS 				= HELPER.createBlock("mud_bricks", () -> new Block(SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
-	public static final RegistryObject<Block> MUD_BRICK_STAIRS 			= HELPER.createBlock("mud_brick_stairs", () -> new StairsBlock(MUD_BRICKS.get().getDefaultState(), SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
+	public static final RegistryObject<Block> MUD_BRICK_STAIRS 			= HELPER.createBlock("mud_brick_stairs", () -> new AbnormalsStairsBlock(MUD_BRICKS.get().getDefaultState(), SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> MUD_BRICK_SLAB 			= HELPER.createBlock("mud_brick_slab", () -> new SlabBlock(SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> MUD_BRICK_WALL 			= HELPER.createBlock("mud_brick_wall", () -> new WallBlock(SwampExProperties.MUD_BRICKS), ItemGroup.DECORATIONS);
 	public static final RegistryObject<Block> MUD_BRICK_VERTICAL_SLAB	= HELPER.createCompatBlock("quark", "mud_brick_vertical_slab", () -> new VerticalSlabBlock(SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
@@ -120,7 +120,6 @@ public class SwampExBlocks {
 
 	public static final RegistryObject<PaintingType> SNAKE_BLOCK 			= PAINTINGS.register("snake_block", () -> new PaintingType(32, 32));
 	public static final RegistryObject<PaintingType> SOMETHING_IN_THE_WATER = PAINTINGS.register("something_in_the_water", () -> new PaintingType(48, 32));
-	//public static final RegistryObject<PaintingType> SLABFISH 			= PAINTINGS.register("slabfish", () -> new PaintingType(80, 80));
 
 	public static final RegistryObject<Block> GIANT_TALL_GRASS = HELPER.createBlock("giant_tall_grass", () -> new DoublePlantBlock(Block.Properties.from(Blocks.TALL_GRASS)), ItemGroup.DECORATIONS);
 	
