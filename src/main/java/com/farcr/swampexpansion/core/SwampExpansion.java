@@ -48,6 +48,7 @@ public class SwampExpansion {
 
     private void setupCommon(final FMLCommonSetupEvent event) {
     	DeferredWorkQueue.runLater(() -> {
+    		REGISTRY_HELPER.processSpawnEggDispenseBehaviors();
     		SwampExData.registerCompostables();
     		SwampExData.registerFlammables();
     		SwampExBiomes.registerBiomesToDictionary();
@@ -57,9 +58,11 @@ public class SwampExpansion {
     }
     
     private void setupClient(final FMLClientSetupEvent event) {
-    	SwampExData.setRenderLayers();
     	SwampExEntities.registerRendering();
-        SwampExData.registerBlockColors();
+    	DeferredWorkQueue.runLater(() -> {
+    		SwampExData.setRenderLayers();
+            SwampExData.registerBlockColors();
+    	});
     }
     
     @OnlyIn(Dist.CLIENT)
