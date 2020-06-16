@@ -51,6 +51,7 @@ public class SwampExpansion {
     		REGISTRY_HELPER.processSpawnEggDispenseBehaviors();
     		SwampExData.registerCompostables();
     		SwampExData.registerFlammables();
+    		SwampExBiomes.addBiomeTypes();
     		SwampExBiomes.registerBiomesToDictionary();
     		SwampExFeatures.generateFeatures();
     		SwampExEntities.addEntitySpawns();

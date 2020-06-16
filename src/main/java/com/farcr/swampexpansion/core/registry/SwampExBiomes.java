@@ -17,17 +17,11 @@ public class SwampExBiomes {
 	public static final RegistryObject<Biome> MUSHROOM_MARSH = BIOMES.register("mushroom_marsh", () -> new MushroomMarshBiome());
 
 	public static void registerBiomesToDictionary() {
-        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MARSH.get(), 7));
-        
-        BiomeDictionary.addTypes(MARSH.get(), 
-        		BiomeDictionary.Type.PLAINS,
-        		BiomeDictionary.Type.WET,
-        		BiomeDictionary.Type.SWAMP);
-        
-        BiomeDictionary.addTypes(MUSHROOM_MARSH.get(), 
-        		BiomeDictionary.Type.RARE,
-        		BiomeDictionary.Type.WET,
-        		BiomeDictionary.Type.PLAINS,
-        		BiomeDictionary.Type.SWAMP);
+        BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(MARSH.get(), 6));
+	}
+	
+	public static void addBiomeTypes() {
+        BiomeDictionary.addTypes(MARSH.get(), BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.WET, BiomeDictionary.Type.SWAMP);
+        BiomeDictionary.addTypes(MUSHROOM_MARSH.get(), BiomeDictionary.Type.OVERWORLD, BiomeDictionary.Type.RARE, BiomeDictionary.Type.WET, BiomeDictionary.Type.PLAINS, BiomeDictionary.Type.SWAMP);
 	}
 }
