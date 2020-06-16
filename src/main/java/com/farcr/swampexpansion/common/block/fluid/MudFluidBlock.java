@@ -29,14 +29,17 @@ public class MudFluidBlock extends FlowingFluidBlock {
     public int tickRate(IWorldReader p_149738_1_) { return 35; }
 
     @Override
-    public boolean reactWithNeighbors(World worldIn, BlockPos pos, BlockState p_204515_3_)
+    public boolean reactWithNeighbors(World worldIn, BlockPos pos, BlockState state)
     {
         for(Direction direction : Direction.values()) {
             if (direction != Direction.DOWN && worldIn.getFluidState(pos.offset(direction)).isTagged(FluidTags.LAVA)) {
+                worldIn.setBlockState(pos, net.minecraftforge.event.ForgeEventFactory.fireFluidPlaceBlockEvent(worldIn, pos, pos, Blocks.COARSE_DIRT.getDefaultState()));
+            }
+            if (direction != Direction.DOWN && worldIn.getFluidState(pos.offset(direction)).isTagged(FluidTags.WATER)) {
                 worldIn.setBlockState(pos, net.minecraftforge.event.ForgeEventFactory.fireFluidPlaceBlockEvent(worldIn, pos, pos, Blocks.DIRT.getDefaultState()));
             }
         }
-        return super.reactWithNeighbors(worldIn, pos, p_204515_3_);
+        return super.reactWithNeighbors(worldIn, pos, state);
     }
     
     @Override
