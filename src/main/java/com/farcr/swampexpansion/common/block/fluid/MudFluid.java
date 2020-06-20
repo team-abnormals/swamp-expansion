@@ -113,9 +113,6 @@ public abstract class MudFluid extends FlowingFluid {
     }
 
     public static class Source extends MudFluid {
-        public Source() {
-            this.setRegistryName(new ResourceLocation(SwampExpansion.MODID, "mud"));
-        }
 
         public int getLevel(IFluidState state) {
             return 8;
@@ -127,9 +124,6 @@ public abstract class MudFluid extends FlowingFluid {
     }
 
     public static class Flowing extends MudFluid {
-        public Flowing() {
-            this.setRegistryName(new ResourceLocation(SwampExpansion.MODID, "flowing_mud"));
-        }
 
         protected void fillStateContainer(net.minecraft.state.StateContainer.Builder<Fluid, IFluidState> builder) {
             super.fillStateContainer(builder);

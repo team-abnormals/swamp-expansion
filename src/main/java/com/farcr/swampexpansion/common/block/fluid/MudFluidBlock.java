@@ -11,6 +11,7 @@ import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.PigEntity;
 import net.minecraft.fluid.FlowingFluid;
+import net.minecraft.fluid.WaterFluid;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +36,7 @@ public class MudFluidBlock extends FlowingFluidBlock {
             if (direction != Direction.DOWN && worldIn.getFluidState(pos.offset(direction)).isTagged(FluidTags.LAVA)) {
                 worldIn.setBlockState(pos, net.minecraftforge.event.ForgeEventFactory.fireFluidPlaceBlockEvent(worldIn, pos, pos, Blocks.COARSE_DIRT.getDefaultState()));
             }
-            if (direction != Direction.DOWN && worldIn.getFluidState(pos.offset(direction)).isTagged(FluidTags.WATER)) {
+            if (direction != Direction.DOWN && worldIn.getFluidState(pos.offset(direction)).getFluid() instanceof WaterFluid) {
                 worldIn.setBlockState(pos, net.minecraftforge.event.ForgeEventFactory.fireFluidPlaceBlockEvent(worldIn, pos, pos, Blocks.DIRT.getDefaultState()));
             }
         }
