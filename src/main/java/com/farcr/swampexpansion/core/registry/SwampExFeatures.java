@@ -47,6 +47,8 @@ public class SwampExFeatures {
 			SwampExBiomeFeatures.addCattails(biome);
 			SwampExBiomeFeatures.addDuckweed(biome, 0.15F);
 		}
+		if (biome.getTempCategory() != Biome.TempCategory.COLD && (biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER)) {
+			SwampExBiomeFeatures.addCattails(biome);
+		}
 	}
-
 }
