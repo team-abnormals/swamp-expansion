@@ -16,7 +16,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = 'v1.7.1'
+version = 'v1.7.2'
 group = 'com.farcr.swampexpansion'
 archivesBaseName = 'Swamp-Expansion-1.15.2'
 
