@@ -20,8 +20,7 @@ import net.minecraft.item.SoupItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
-@SuppressWarnings("deprecation")
-@Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = SwampExpansion.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SwampExItems {
 	public static final RegistryHelper HELPER = SwampExpansion.REGISTRY_HELPER;
 	

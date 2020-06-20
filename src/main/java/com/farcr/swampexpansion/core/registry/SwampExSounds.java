@@ -10,7 +10,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = SwampExpansion.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SwampExSounds {
 	
 	public static final RegistryHelper HELPER = SwampExpansion.REGISTRY_HELPER;

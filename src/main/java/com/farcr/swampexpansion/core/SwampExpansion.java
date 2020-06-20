@@ -5,6 +5,7 @@ import com.farcr.swampexpansion.core.registry.SwampExBiomes;
 import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.farcr.swampexpansion.core.registry.SwampExEntities;
 import com.farcr.swampexpansion.core.registry.SwampExFeatures;
+import com.farcr.swampexpansion.core.registry.SwampExFluids;
 import com.teamabnormals.abnormals_core.core.utils.RegistryHelper;
 
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,6 +37,7 @@ public class SwampExpansion {
     	REGISTRY_HELPER.getDeferredSoundRegister().register(modEventBus);
 
         SwampExBlocks.PAINTINGS.register(modEventBus);
+        SwampExFluids.FLUIDS.register(modEventBus);
         SwampExBiomes.BIOMES.register(modEventBus);
         MinecraftForge.EVENT_BUS.register(this);
         

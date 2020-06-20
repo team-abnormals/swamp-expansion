@@ -2,6 +2,7 @@ package com.farcr.swampexpansion.common.block.fluid;
 
 import java.util.Random;
 
+import com.farcr.swampexpansion.core.SwampExpansion;
 import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.farcr.swampexpansion.core.registry.SwampExFluids;
 import com.farcr.swampexpansion.core.registry.SwampExItems;
@@ -38,12 +39,12 @@ public abstract class MudFluid extends FlowingFluid {
 
     @Override
     public Fluid getFlowingFluid() {
-        return SwampExFluids.FLOWING_MUD;
+        return SwampExFluids.FLOWING_MUD.get();
     }
 
     @Override
     public Fluid getStillFluid() {
-        return SwampExFluids.MUD;
+        return SwampExFluids.MUD.get();
     }
 
     public Item getFilledBucket() {
@@ -85,7 +86,7 @@ public abstract class MudFluid extends FlowingFluid {
     }
 
     public boolean isEquivalentTo(Fluid fluidIn) {
-        return fluidIn == SwampExFluids.MUD || fluidIn == SwampExFluids.FLOWING_MUD;
+        return fluidIn == SwampExFluids.MUD.get() || fluidIn == SwampExFluids.FLOWING_MUD.get();
     }
 
     public int getLevelDecreasePerBlock(IWorldReader reader) {
@@ -106,14 +107,14 @@ public abstract class MudFluid extends FlowingFluid {
     
     @Override
     protected FluidAttributes createAttributes() {
-        Builder builder = FluidAttributes.builder(new ResourceLocation("swampexpansion", "block/mud_still"), new ResourceLocation("swampexpansion", "block/mud_flow"));
-        builder.luminosity(15).density(500).viscosity(1000).translationKey("fluid.swampexpansion.mud").overlay(new ResourceLocation("swampexpansion", "block/mud_overlay"));
+        Builder builder = FluidAttributes.builder(new ResourceLocation(SwampExpansion.MODID, "block/mud_still"), new ResourceLocation(SwampExpansion.MODID, "block/mud_flow"));
+        builder.luminosity(15).density(500).viscosity(1000).translationKey("fluid.swampexpansion.mud").overlay(new ResourceLocation(SwampExpansion.MODID, "block/mud_overlay"));
         return builder.build(this);
     }
 
     public static class Source extends MudFluid {
         public Source() {
-            this.setRegistryName(new ResourceLocation("swampexpansion", "mud"));
+            this.setRegistryName(new ResourceLocation(SwampExpansion.MODID, "mud"));
         }
 
         public int getLevel(IFluidState state) {
@@ -127,7 +128,7 @@ public abstract class MudFluid extends FlowingFluid {
 
     public static class Flowing extends MudFluid {
         public Flowing() {
-            this.setRegistryName(new ResourceLocation("swampexpansion", "flowing_mud"));
+            this.setRegistryName(new ResourceLocation(SwampExpansion.MODID, "flowing_mud"));
         }
 
         protected void fillStateContainer(net.minecraft.state.StateContainer.Builder<Fluid, IFluidState> builder) {

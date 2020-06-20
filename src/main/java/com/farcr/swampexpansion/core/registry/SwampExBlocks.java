@@ -60,11 +60,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @SuppressWarnings("deprecation")
-@Mod.EventBusSubscriber(modid = "swampexpansion", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = SwampExpansion.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class SwampExBlocks {
     
 	public static final RegistryHelper HELPER = SwampExpansion.REGISTRY_HELPER;
-	public static final DeferredRegister<PaintingType> PAINTINGS = new DeferredRegister<>(ForgeRegistries.PAINTING_TYPES, "swampexpansion");
+	public static final DeferredRegister<PaintingType> PAINTINGS = new DeferredRegister<>(ForgeRegistries.PAINTING_TYPES, SwampExpansion.MODID);
 
 	public static final RegistryObject<Block> MUD_BRICKS 				= HELPER.createBlock("mud_bricks", () -> new Block(SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
 	public static final RegistryObject<Block> MUD_BRICK_STAIRS 			= HELPER.createBlock("mud_brick_stairs", () -> new AbnormalsStairsBlock(MUD_BRICKS.get().getDefaultState(), SwampExProperties.MUD_BRICKS), ItemGroup.BUILDING_BLOCKS);
@@ -123,5 +123,5 @@ public class SwampExBlocks {
 
 	public static final RegistryObject<Block> GIANT_TALL_GRASS = HELPER.createBlock("giant_tall_grass", () -> new DoublePlantBlock(Block.Properties.from(Blocks.TALL_GRASS)), ItemGroup.DECORATIONS);
 	
-	public static final RegistryObject<Block> MUD = HELPER.createBlockNoItem("mud", () -> new MudFluidBlock(() -> {return SwampExFluids.FLOWING_MUD;}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
+	public static final RegistryObject<Block> MUD = HELPER.createBlockNoItem("mud", () -> new MudFluidBlock(() -> {return SwampExFluids.FLOWING_MUD.get();}, Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops()));
 }
