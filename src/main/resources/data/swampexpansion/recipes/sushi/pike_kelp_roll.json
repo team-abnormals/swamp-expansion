@@ -18,13 +18,8 @@
     },
     "conditions": [
     {
-      "type": "forge:and",
-      "values": [
-        {
-          "type": "forge:mod_loaded",
-          "modid": "upgrade_aquatic"
-        }
-      ]
+      "type": "forge:mod_loaded",
+      "modid": "upgrade_aquatic"
     }
   ]
 }
