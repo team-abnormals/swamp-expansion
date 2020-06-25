@@ -7,12 +7,12 @@ import com.farcr.swampexpansion.core.registry.SwampExBlocks;
 import com.farcr.swampexpansion.core.registry.SwampExFeatures;
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
+import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.BlockClusterFeatureConfig;
@@ -37,16 +37,15 @@ import net.minecraft.world.gen.treedecorator.LeaveVineTreeDecorator;
 import net.minecraftforge.fml.ModList;
 
 public class SwampExBiomeFeatures {
-	public static BlockState WILLOW_LOG = SwampExBlocks.WILLOW_LOG.get().getDefaultState();
-	public static BlockState WILLOW_LEAVES = SwampExBlocks.WILLOW_LEAVES.get().getDefaultState();
 	public static final BlockClusterFeatureConfig CORNFLOWER_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.CORNFLOWER.getDefaultState()), new SimpleBlockPlacer())).tries(64).build();
 	public static final BlockClusterFeatureConfig DUCKWEED_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(SwampExBlocks.DUCKWEED.get().getDefaultState()), new SimpleBlockPlacer())).tries(1024).build();
+	public static final BlockClusterFeatureConfig GIANT_TALL_GRASS_CONFIG = (new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(SwampExBlocks.GIANT_TALL_GRASS.get().getDefaultState()), new DoublePlantBlockPlacer())).tries(256).func_227317_b_().build();
 
 	
 	public static final TreeFeatureConfig WILLOW_TREE_CONFIG = (
 			new TreeFeatureConfig.Builder(
-					new SimpleBlockStateProvider(WILLOW_LOG), 
-					new SimpleBlockStateProvider(WILLOW_LEAVES), 
+					new SimpleBlockStateProvider(SwampExBlocks.WILLOW_LOG.get().getDefaultState()), 
+					new SimpleBlockStateProvider(SwampExBlocks.WILLOW_LEAVES.get().getDefaultState()), 
 					new BlobFoliagePlacer(3, 0)))
 			.baseHeight(5)
 			.heightRandA(3)
@@ -76,6 +75,10 @@ public class SwampExBiomeFeatures {
 		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(DefaultBiomeFeatures.RED_MUSHROOM_CONFIG).withPlacement(Placement.COUNT_CHANCE_HEIGHTMAP_DOUBLE.configure(new HeightWithChanceConfig(8, 0.125F)))); 
 		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(DefaultBiomeFeatures.TALL_GRASS_CONFIG).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(130))));
 		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.SEAGRASS.withConfiguration(new SeaGrassConfig(128, 0.6D)).withPlacement(Placement.TOP_SOLID_HEIGHTMAP.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+	}
+	
+	public static void addGiantTallGrass(Biome biome, int chance) {
+		biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, Feature.RANDOM_PATCH.withConfiguration(GIANT_TALL_GRASS_CONFIG).withPlacement(Placement.COUNT_HEIGHTMAP_32.configure(new FrequencyConfig(chance))));
 	}
 	
 	public static void addMarshPools(Biome biome) {

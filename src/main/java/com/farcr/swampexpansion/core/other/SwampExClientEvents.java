@@ -36,6 +36,5 @@ public class SwampExClientEvents {
             event.setDensity(1.0F);
             event.setCanceled(true);
         }
-
     }
 }

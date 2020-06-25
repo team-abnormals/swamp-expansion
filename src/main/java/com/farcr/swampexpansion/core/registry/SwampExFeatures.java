@@ -47,8 +47,21 @@ public class SwampExFeatures {
 			SwampExBiomeFeatures.addCattails(biome);
 			SwampExBiomeFeatures.addDuckweed(biome, 0.15F);
 		}
+		
 		if (biome.getTempCategory() != Biome.TempCategory.COLD && (biome.getCategory() == Biome.Category.SWAMP || biome.getCategory() == Biome.Category.RIVER)) {
 			SwampExBiomeFeatures.addCattails(biome);
+		}
+		
+		if (biome.getCategory() == Biome.Category.SAVANNA || biome.getRegistryName().toString().contains("rosewood")) {
+			SwampExBiomeFeatures.addGiantTallGrass(biome, 3);
+		}
+		
+		if (biome.getCategory() == Biome.Category.JUNGLE) {
+			SwampExBiomeFeatures.addGiantTallGrass(biome, 5);
+		}
+		
+		if (biome.getCategory() == Biome.Category.PLAINS) {
+			SwampExBiomeFeatures.addGiantTallGrass(biome, 1);
 		}
 	}
 }

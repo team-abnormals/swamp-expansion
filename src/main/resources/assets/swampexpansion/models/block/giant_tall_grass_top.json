@@ -1,14 +1,15 @@
 {
-	"credit": "Made by Farcr",
+	"credit": "Made with Blockbench",
 	"parent": "block/tinted_cross",
 	"textures": {
-		"texture": "swampexpansion:block/giant_tall_grass_top",
-		"particle": "swampexpansion:block/giant_tall_grass_top"
+		"particle": "swampexpansion:block/giant_tall_grass_top",
+		"texture": "swampexpansion:block/giant_tall_grass_top"
 	},
 	"elements": [
 		{
 			"from": [-8, 0, 8],
 			"to": [24, 32, 8],
+			"shade": false,
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 24, 8]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0},
@@ -22,6 +23,7 @@
 		{
 			"from": [8, 0, -8],
 			"to": [8, 32, 24],
+			"shade": false,
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0},
 				"east": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0},
@@ -34,6 +36,7 @@
 		{
 			"from": [8, 0, -8],
 			"to": [8, 32, 24],
+			"shade": false,
 			"rotation": {"angle": 45, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0},
@@ -47,6 +50,7 @@
 		{
 			"from": [8, 0, -8],
 			"to": [8, 32, 24],
+			"shade": false,
 			"rotation": {"angle": -45, "axis": "y", "origin": [8, 8, 8]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#texture", "tintindex": 0},
