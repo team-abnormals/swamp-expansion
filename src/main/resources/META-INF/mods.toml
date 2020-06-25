@@ -15,7 +15,7 @@ credits="Musicano, Ilja, & Pugz"
 [[dependencies.swampexpansion]]
     modId="forge"
     mandatory=true
-    versionRange="[31.1.49,)"
+    versionRange="[31.1.46,)"
     ordering="NONE"
     side="BOTH"
 

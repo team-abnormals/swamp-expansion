@@ -308,10 +308,11 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			}
 			return true;
 			
-		} else if (item == Items.ENDER_PEARL) {
+		} else if (item == Items.RABBIT_FOOT  && !player.isBeingRidden()) {
 			if(!player.abilities.isCreativeMode) itemstack.shrink(1);
 			this.startRiding(player);
 			this.playSound(SoundEvents.ITEM_CHORUS_FRUIT_TELEPORT, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
+			this.particleCloud(ParticleTypes.CAMPFIRE_COSY_SMOKE);
 			return true;
 			
 		} else if (SWEATER_MAP.containsKey(item) && !(this.hasSweater() && this.getSweaterColor() == SWEATER_MAP.get(item)) && !player.isSecondaryUseActive()) {
