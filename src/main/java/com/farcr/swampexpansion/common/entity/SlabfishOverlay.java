@@ -8,7 +8,8 @@ import net.minecraft.util.IStringSerializable;
 public enum SlabfishOverlay implements IStringSerializable {
 	NONE(0, "none"),
 	MUDDY(1, "mud"),
-	SNOWY(2, "snow");
+	SNOWY(2, "snow"),
+	EGG(3, "egg");
 
 	private static final SlabfishOverlay[] VALUES = Arrays.stream(values()).sorted(Comparator.comparingInt(SlabfishOverlay::getId)).toArray((array) -> {
 		return new SlabfishOverlay[array];

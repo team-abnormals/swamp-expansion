@@ -26,7 +26,7 @@ public class BackpackOverlayRenderLayer<E extends SlabfishEntity, M extends Enti
 	
 	@Override
 	public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, E slabfish, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {		
-		if(slabfish.getSlabfishOverlay() == SlabfishOverlay.NONE || !slabfish.hasBackpack()) return;
+		if(slabfish.getSlabfishOverlay() == SlabfishOverlay.NONE || slabfish.getSlabfishOverlay() == SlabfishOverlay.EGG || !slabfish.hasBackpack()) return;
 		
 		ResourceLocation texture = new ResourceLocation(SwampExpansion.MODID, "textures/entity/slabfish/overlays/" + slabfish.getSlabfishOverlay().getName() + "_overlay_backpack.png");
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);

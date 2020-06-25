@@ -20,7 +20,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PotionEntity;
-import net.minecraft.entity.projectile.SnowballEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -88,16 +88,15 @@ public class SwampExEvents {
             }
         }
         
-        if (projectileEntity instanceof SnowballEntity) {
-        	SnowballEntity snowball = (SnowballEntity)projectileEntity;
-        	if (snowball.getItem().getItem() == Items.SNOWBALL) {
-        		if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY ) {
-        			EntityRayTraceResult entity = (EntityRayTraceResult)event.getRayTraceResult();
-        			if (entity.getEntity() instanceof SlabfishEntity) {
-        				SlabfishEntity slabfish = (SlabfishEntity)entity.getEntity();
-                    	slabfish.setSlabfishOverlay(SlabfishOverlay.SNOWY);
-        			}
-        		}
+        if (projectileEntity instanceof ProjectileItemEntity) {
+        	ProjectileItemEntity snowball = (ProjectileItemEntity)projectileEntity;
+        	if (event.getRayTraceResult().getType() == RayTraceResult.Type.ENTITY) {
+    			EntityRayTraceResult entity = (EntityRayTraceResult)event.getRayTraceResult();
+    			if (entity.getEntity() instanceof SlabfishEntity) {
+    				SlabfishEntity slabfish = (SlabfishEntity)entity.getEntity();
+    				if (snowball.getItem().getItem() == Items.SNOWBALL) slabfish.setSlabfishOverlay(SlabfishOverlay.SNOWY);
+        			if (snowball.getItem().getItem() == Items.EGG) slabfish.setSlabfishOverlay(SlabfishOverlay.EGG);
+    			}
         	}
         }
     }

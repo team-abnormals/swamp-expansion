@@ -431,14 +431,13 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			if(this.getSlabfishOverlay() != SlabfishOverlay.MUDDY) this.setSlabfishOverlay(SlabfishOverlay.MUDDY);
 		}
 		if (state.getBlock() == Blocks.WATER) {
-			if(this.getSlabfishOverlay() == SlabfishOverlay.MUDDY) this.setSlabfishOverlay(SlabfishOverlay.NONE);
+			if(this.getSlabfishOverlay() != SlabfishOverlay.NONE) this.setSlabfishOverlay(SlabfishOverlay.NONE);
 		}
 	}
 	
 	public boolean isPartying() {
 		return this.isPartying;
 	}
-	
 	
 	@SuppressWarnings("deprecation")
 	public void onDeath(DamageSource cause) {
