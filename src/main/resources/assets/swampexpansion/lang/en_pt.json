@@ -55,7 +55,7 @@
 	"block.swampexpansion.duckweed_thatch_stairs": "Roof o' Davy Jones's Beard Stairs",
 	"block.swampexpansion.duckweed_thatch_vertical_slab": "Roof o' Davy Jones's Beard Standin' Slab",
 	
-	"item.swampexpansion.slabfish_spawn_egg": "Funny lookin' fella Cackle Fruit",
+	"item.swampexpansion.slabfish_spawn_egg": "Funny lookin' feller Cackle Fruit",
 	"item.swampexpansion.axolotl_spawn_egg": "Sea Dog Cackle Fruit",
 	
 	"item.swampexpansion.cod_kelp_roll": "Cod n' Sea Lettuce",
@@ -81,7 +81,7 @@
 	"item.swampexpansion.music_disc_slabrave": "Shanty",
 	"item.swampexpansion.music_disc_slabrave.desc": "Mista Jub - Slabrave",
 	
-	"entity.swampexpansion.slabfish": "Funny lookin' fella",
+	"entity.swampexpansion.slabfish": "Funny lookin' feller",
 	"entity.swampexpansion.axolotl": "Sea Dog",
 	"entity.swampexpansion.boat": "Vessel",
 	
@@ -93,22 +93,22 @@
 	"advancements.husbandry.equip_axolotl.description": "Have yerr sea dog grab you to feel bettar",
 	
 	"advancements.husbandry.breed_all_slabfish.title": "Fishy Shenanigans",
-	"advancements.husbandry.breed_all_slabfish.description": "Captcharrr every one of tha funny lookin' fellas",
+	"advancements.husbandry.breed_all_slabfish.description": "Captcharrr every one of tha funny lookin' fellers",
 	
 	"advancements.husbandry.backpack_slabfish.title": "First Day of School",
 	"advancements.husbandry.backpack_slabfish.description": "Give a Slabfish a backpack",
 	
 	"advancements.adventure.find_natural_slabfish.title": "They be lookin' fishy...",
-	"advancements.adventure.find_natural_slabfish.description": ""Splore the seven seas 'til you find all the funny lookin' fellas",
+	"advancements.adventure.find_natural_slabfish.description": ""Splore the seven seas 'til you find all the funny lookin' fellers",
 	
-	"subtitles.entity.slabfish.burp": "Funny lookin' fella had a satisfyin' meal",
-	"subtitles.entity.slabfish.death": "Funny lookin' fella walked the plank",
-	"subtitles.entity.slabfish.step": "Funny lookin' fella walkin'",
-	"subtitles.entity.slabfish.hurt": "Funny lookin' fella hurts",
-	"subtitles.entity.slabfish.eat": "Funny lookin' fella enjoyin' a meal",
-	"subtitles.entity.slabfish.transform": "Funny lookin' fella's witchcraft",
-	"subtitles.entity.slabfish.backpack": "Funny lookin' fella is ready ta sail",
-	"subtitles.entity.slabfish.sweater": "Funny lookin' fella is ready for the tropical storm",
+	"subtitles.entity.slabfish.burp": "Funny lookin' feller had a satisfyin' meal",
+	"subtitles.entity.slabfish.death": "Funny lookin' feller walked the plank",
+	"subtitles.entity.slabfish.step": "Funny lookin' feller walkin'",
+	"subtitles.entity.slabfish.hurt": "Funny lookin' feller hurts",
+	"subtitles.entity.slabfish.eat": "Funny lookin' feller enjoyin' a meal",
+	"subtitles.entity.slabfish.transform": "Funny lookin' feller's witchcraft",
+	"subtitles.entity.slabfish.backpack": "Funny lookin' feller is ready ta sail",
+	"subtitles.entity.slabfish.sweater": "Funny lookin' feller is ready for the tropical storm",
 	
 	"entity.swampexpansion.slabfish.baby": "Youngling",
 	
@@ -140,9 +140,9 @@
 	"entity.swampexpansion.slabfish.poise": "Blubberin' Fella",
 	"entity.swampexpansion.slabfish.ghost": "Specter o' Hell",
 	"entity.swampexpansion.slabfish.bagel": "I think this be tharr leader...",
-	"entity.swampexpansion.slabfish.cameron": "Abnormal lookin' fella",
-	"entity.swampexpansion.slabfish.gore": "An unfortunate fella",
-	"entity.swampexpansion.slabfish.snake_block": "Somethin' be wrong with this fella...",
+	"entity.swampexpansion.slabfish.cameron": "Abnormal lookin' feller",
+	"entity.swampexpansion.slabfish.gore": "An unfortunate feller",
+	"entity.swampexpansion.slabfish.snake_block": "Somethin' be wrong with this feller...",
 	"entity.swampexpansion.slabfish.drowned": "Sunken Fella",
 	"entity.swampexpansion.slabfish.frozen_ocean": "Fella o' tha Icey Ocean",
 	"entity.swampexpansion.slabfish.warm_ocean": "Fella o' tha Warmy Ocean",
@@ -155,7 +155,7 @@
 	"entity.swampexpansion.slabfish.beach": "Fella o' tha Sandy Landin'",
 	"entity.swampexpansion.slabfish.sky": "Fella from above",
 	"entity.swampexpansion.slabfish.brown_mushroom": "Tarnishd Shroom Fella",
-	"entity.swampexpansion.slabfish.jackson": "Funniest lookin' fella",
+	"entity.swampexpansion.slabfish.jackson": "Funniest lookin' feller",
 	"entity.swampexpansion.slabfish.mista_jub": "Bard's Best Matey",
 	"entity.swampexpansion.slabfish.smelly": "I smell... A smelly smell...",
 	"entity.swampexpansion.slabfish.squart": "Fella o' the sweet berries",
@@ -197,7 +197,7 @@
 	"block.swampexpansion.mud": "Swine Bath",
 	"fluid.swampexpansion.mud": "Swine Bath",
 	
-	"swampexpansion.config.allow_slabfish_bucketing": "Let yarrr fellas be put in a pail",
-	"swampexpansion.config.can_bucket_slabfish_wearing_backpacks": "Put ye coffer carryin' fellas in a pail",
-	"swampexpansion.config.display_slabfish_rarity": "Show yarr fella's exoticness"
+	"swampexpansion.config.allow_slabfish_bucketing": "Let yarrr fellers be put in a pail",
+	"swampexpansion.config.can_bucket_slabfish_wearing_backpacks": "Put ye coffer carryin' fellers in a pail",
+	"swampexpansion.config.display_slabfish_rarity": "Show yarr feller's exoticness"
 }
