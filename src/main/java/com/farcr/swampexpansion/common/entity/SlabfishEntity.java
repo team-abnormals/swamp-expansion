@@ -722,7 +722,7 @@ public class SlabfishEntity extends TameableEntity implements IInventoryChangedL
 			if (biome.getCategory() == Biome.Category.RIVER) return SlabfishType.RIVER;
 			if (biome.getCategory() == Biome.Category.BEACH) return SlabfishType.BEACH;
 			if (biome.getCategory() == Biome.Category.SAVANNA) return SlabfishType.SAVANNA;
-			if (biome.getCategory() == Biome.Category.MESA) return SlabfishType.MESA;
+			if (biome.getCategory() == Biome.Category.BADLANDS) return SlabfishType.BADLANDS;
 			if (biome.getCategory() == Biome.Category.ICY) return SlabfishType.SNOWY;
 			if (biome.getCategory() == Biome.Category.DESERT) return SlabfishType.DESERT;
 			if (biome.getCategory() == Biome.Category.TAIGA) return SlabfishType.TAIGA;

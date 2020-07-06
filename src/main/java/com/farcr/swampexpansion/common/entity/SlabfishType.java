@@ -16,7 +16,7 @@ public enum SlabfishType implements IStringSerializable {
 	JUNGLE(5, "jungle", SlabfishRarity.RARE),
 	DESERT(6, "desert", SlabfishRarity.UNCOMMON),
 	SAVANNA(7, "savanna", SlabfishRarity.UNCOMMON),
-	MESA(8, "mesa", SlabfishRarity.EPIC),
+	BADLANDS(8, "badlands", SlabfishRarity.EPIC),
 	SNOWY(9, "snowy", SlabfishRarity.UNCOMMON),
 	TOTEM(10, "totem", SlabfishRarity.LEGENDARY),
 	TAIGA(11, "taiga", SlabfishRarity.UNCOMMON),

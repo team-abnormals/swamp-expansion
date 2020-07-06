@@ -24,7 +24,7 @@
     "jungle": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:5}"}}},
     "desert": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:6}"}}},
     "savanna": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:7}"}}},
-    "mesa": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:8}"}}},
+    "badlands": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:8}"}}},
     "icy": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:9}"}}},
     "totem": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:10}"}}},
     "taiga": {"trigger": "minecraft:bred_animals", "conditions": {"child": {"type": "swampexpansion:slabfish", "nbt": "{SlabfishType:11}"}}},

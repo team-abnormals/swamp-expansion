@@ -12,7 +12,7 @@
         { "predicate": { "variant": 5  }, "model": "swampexpansion:item/slabfish_bucket/jungle" },
         { "predicate": { "variant": 6  }, "model": "swampexpansion:item/slabfish_bucket/desert" },
         { "predicate": { "variant": 7  }, "model": "swampexpansion:item/slabfish_bucket/savanna" },
-        { "predicate": { "variant": 8  }, "model": "swampexpansion:item/slabfish_bucket/mesa" },
+        { "predicate": { "variant": 8  }, "model": "swampexpansion:item/slabfish_bucket/badlands" },
         { "predicate": { "variant": 9  }, "model": "swampexpansion:item/slabfish_bucket/snowy" },
         { "predicate": { "variant": 10 }, "model": "swampexpansion:item/slabfish_bucket/totem" },
         { "predicate": { "variant": 11 }, "model": "swampexpansion:item/slabfish_bucket/taiga" },
