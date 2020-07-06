@@ -41,6 +41,7 @@ public class SwampExData {
 	
 	public static void registerFlammables() {
 		DataUtils.registerFlammable(SwampExBlocks.WILLOW_LEAVES.get(), 30, 60);
+		DataUtils.registerFlammable(SwampExBlocks.HANGING_WILLOW_LEAVES.get(), 30, 60);
 		DataUtils.registerFlammable(SwampExBlocks.WILLOW_LOG.get(), 5, 5);
 		DataUtils.registerFlammable(SwampExBlocks.WILLOW_WOOD.get(), 5, 5);
 		DataUtils.registerFlammable(SwampExBlocks.STRIPPED_WILLOW_LOG.get(), 5, 5);
@@ -54,7 +55,7 @@ public class SwampExData {
 		DataUtils.registerFlammable(SwampExBlocks.WILLOW_LEAF_CARPET.get(), 30, 60);
 		DataUtils.registerFlammable(SwampExBlocks.WILLOW_VERTICAL_SLAB.get(), 5, 20);
 		DataUtils.registerFlammable(SwampExBlocks.WILLOW_BOOKSHELF.get(), 5, 20);
-		
+		DataUtils.registerFlammable(SwampExBlocks.GIANT_TALL_GRASS.get(), 60, 100);
 	}
 	
 	public static void setRenderLayers() {
